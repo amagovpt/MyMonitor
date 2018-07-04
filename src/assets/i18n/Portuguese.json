@@ -1,0 +1,41 @@
+{
+  "LOGIN": {
+    "title": "Iniciar sessão",
+    "password_label": "Palavra-chave",
+    "email_error": "Introduza um email válido. <strong>Ex.: nome@serviço.com</strong>",
+    "submit": "Iniciar sessão",
+    "logout": "Sair",
+    "messages": {
+      "password_match": "A palavra-chave está incorreta",
+      "no_user": "O utilizador não existe",
+      "system_error": "Erro no sistema. Por favor tente mais tarde"
+    }
+  },
+  "FOOTER": {
+    "language": "Língua",
+    "link": "Unidade ACESSO",
+    "rights": "Todos os Direitos Reservados."
+  },
+  "LANGUAGES": {
+    "Portuguese": "Português",
+    "English": "English"
+  },
+  "MISC": {
+    "skip_to_main": "Saltar para o conteúdo principal",
+    "loading": "A carregar...",
+    "required_field": "Este campo é <strong>obrigatório</strong>",
+    "message_close": "Fechar",
+    "unexpected_error": "Ocorreu um erro inesperado. Por favor tente aceder mais tarde.",
+    "error_contact": "Se o problema persistir, contacte-nos...",
+    "go_to_top": "Ir para o topo",
+    "_404": {
+      "title": "Erro 404",
+      "description": "A página que tentou aceder não existe.",
+      "homepage": "Voltar para a página inicial"
+    },
+    "messages": {
+      "data_error": "Ocorreu um erro ao obter os dados",
+      "data_table_error": "Ocorreu um erro ao tentar carregar a tabela de dados"
+    }
+  }
+}

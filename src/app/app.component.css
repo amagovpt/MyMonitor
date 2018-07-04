@@ -1,0 +1,75 @@
+.skip-to-main {
+  visibility: hidden;
+  position: absolute;
+  z-index: -100;
+}
+
+mat-sidenav-container {
+  height: 100%;
+}
+
+mat-sidenav {
+  width: 60%;
+}
+
+mat-sidenav div {
+  height: 98%;
+}
+
+mat-nav-list, mat-list {
+  width: 100%;
+}
+
+@media screen and (min-width: 600px) {
+  mat-sidenav {
+    width: 40%;
+  }
+}
+
+.main {
+  margin-bottom: -115px;
+  min-height: 100vh;
+}
+
+.main:after {
+  content: "";
+  display: block;
+  height: 115px;
+}
+
+@media screen and (min-width: 960px) {
+  .footer {
+    height: 90px;
+  }
+}
+
+@media screen and (max-width: 959px) {
+  .main {
+    margin-bottom: -50px;
+  }
+
+  .main:after {
+    height: 50px;
+  }
+}
+
+.go_to_top {
+  display: block;
+  position: fixed;
+  bottom: 50px;
+  right: 50px;
+  z-index: 100;
+}
+
+.go_to_top_mini {
+  display: block;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 100;
+}
+
+.go_to_top:focus,
+.go_to_top_mini:focus {
+  outline: 0;
+}

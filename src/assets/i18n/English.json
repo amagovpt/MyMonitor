@@ -1,0 +1,41 @@
+{
+  "LOGIN": {
+    "title": "Login",
+    "password_label": "Password",
+    "email_error": "The e-mail is not valid. <strong>E.g. name@service.com</strong>",
+    "submit": "Login",
+    "logout": "Logout",
+    "messages": {
+      "password_match": "The password is incorrect",
+      "no_user": "The user doesn't exist",
+      "system_error": "There was a system error. Please try later"
+    }
+  },
+  "FOOTER": {
+    "language": "Language",
+    "link": "ACCESS Unit",
+    "rights": "All rights reserved."
+  },
+  "LANGUAGES": {
+    "Portuguese": "Português",
+    "English": "English"
+  },
+  "MISC": {
+    "skip_to_main": "Skip to main content",
+    "loading": "Loading...",
+    "required_field": "This field is <strong>required</strong>",
+    "message_close": "Close",
+    "unexpected_error": "An unexpected error has ocurred. Please try again later.",
+    "error_contact": "If the problem persists, please contact us...",
+    "go_to_top": "Go to top",
+    "_404": {
+      "title": "Error 404",
+      "description": "The page you tried to access doesn't exist.",
+      "homepage": "Go back to homepage"
+    },
+    "messages": {
+      "data_error": "An error has ocurred while trying to retrieve user data",
+      "data_table_error": "An error has ocurred when trying to load the data table"
+    }
+  }
+}
