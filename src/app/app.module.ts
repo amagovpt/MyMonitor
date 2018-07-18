@@ -11,11 +11,16 @@ import { MaterialModule } from './material/material.module';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+import { NgxGaugeModule } from 'ngx-gauge';
+import { HighlightModule } from 'ngx-highlightjs';
 
 import { CookieService } from 'ngx-cookie-service';
 
 import { UserAuthGuard } from './guards/user-auth.guard';
 import { NoAuthGuard } from './guards/no-auth.guard';
+
+import { ToFixedPipe } from './pipes/to-fixed.pipe';
+import { HtmlPipe } from './pipes/html.pipe';
 
 import { AppComponent } from './app.component';
 import { ErrorComponent } from './global/error/error.component';
@@ -55,7 +60,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     NotFound404Component,
     LoginComponent,
     WebsitesComponent,
-    UserComponent
+    UserComponent,
+    ToFixedPipe,
+    HtmlPipe
   ],
   imports: [
     RouterModule.forRoot(
@@ -78,7 +85,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     MaterialModule,
     PerfectScrollbarModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxGaugeModule,
+    HighlightModule.forRoot()
   ],
   providers: [
     CookieService,

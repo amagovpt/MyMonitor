@@ -27,14 +27,18 @@ mat-nav-list, mat-list {
 }
 
 .main {
-  margin-bottom: -115px;
+  margin-bottom: -109px;
   min-height: 100vh;
 }
 
 .main:after {
   content: "";
   display: block;
-  height: 115px;
+  height: 110px;
+}
+
+.footer {
+  background-color: rgb(179, 230, 255);
 }
 
 @media screen and (min-width: 960px) {
