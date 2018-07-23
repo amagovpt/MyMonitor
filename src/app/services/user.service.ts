@@ -18,7 +18,7 @@ import { MmError } from '../models/error';
 export class UserService {
 
   constructor(
-    private router: Router, 
+    private router: Router,
     private cookieService: CookieService,
     private message: MessageService,
     private dialog: MatDialog
@@ -32,19 +32,20 @@ export class UserService {
         if (!res.response || res.status === 404) {
           throw new MmError(404, 'Service not found', 'SERIOUS');
         }
-        
-        let response = new Response(res.response);
+
+        const response = new Response(res.response);
 
         if (response.hasError()) {
           throw new MmError(response.success, response.message);
         }
 
+        const cookie = response.result;
         const host = this.getEnv();
         const tomorrow = new Date();
-
         tomorrow.setDate(tomorrow.getDate() + 1);
 
-        this.cookieService.set('MM-SSID', btoa(JSON.stringify(response.result)), tomorrow, '/', host, false);
+        sessionStorage.setItem('MM-email', email);
+        this.cookieService.set('MM-SSID', btoa(cookie), tomorrow, '/', host, false);
         this.router.navigateByUrl('/user');
         return true;
       }),
@@ -65,7 +66,7 @@ export class UserService {
         console.log(err);
         return of(false);
       })
-    );    
+    );
   }
 
   isUserLoggedIn(): boolean {
@@ -74,6 +75,10 @@ export class UserService {
 
   getUserData(): {} {
     return JSON.parse(atob(this.cookieService.get('MM-SSID')));
+  }
+
+  getEmail(): string {
+    return sessionStorage.getItem('MM-email');
   }
 
   logout(location: string = '/'): void {

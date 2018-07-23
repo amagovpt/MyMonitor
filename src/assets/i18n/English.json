@@ -11,6 +11,18 @@
       "system_error": "There was a system error. Please try later"
     }
   },
+  "SIDEBAR": {
+    "menu": "Menu",
+    "websites": "Websites"
+  },
+  "HEADER": {
+    "NAV": {
+      "location": "You are in",
+      "access": "Access",
+      "home": "My Monitor",
+      "code": "Code"
+    }
+  },
   "RESULTS": {
     "title": "Web accessibility practices report (W3C WCAG 2.0)",
     "actions": {

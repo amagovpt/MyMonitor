@@ -34,7 +34,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   constructor(
     public el: ElementRef,
     public user: UserService,
-    private translate: TranslateService
+    public translate: TranslateService
   ) {
     this.translate.addLangs(_.values(this.langs));
     this.translate.setDefaultLang('Portuguese');

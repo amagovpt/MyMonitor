@@ -3,8 +3,9 @@
   
   <span><em lang="en">Copyright</em> © 2018 <a routerLink="http://www.acessibilidades.pt">{{ "FOOTER.link" | translate}}</a> {{ "FOOTER.rights" | translate}}</span>
   
-  <mat-form-field class="language-select" fxHide.lt-md [color]="'white'">
-    <mat-select placeholder="{{ 'FOOTER.language' | translate }}" [(value)]="selectedLang" (selectionChange)="changeLanguage()">
+  <mat-form-field fxHide.lt-md [color]="'white'">
+    <label for="language">{{ "FOOTER.language" | translate }}</label>
+    <mat-select id="language" [(value)]="selectedLang" (selectionChange)="changeLanguage()">
       <mat-option *ngFor="let lang of translate.getLangs()" [value]="lang">
         {{ "LANGUAGES."+lang | translate }}
       </mat-option>

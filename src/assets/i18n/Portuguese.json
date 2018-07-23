@@ -11,6 +11,18 @@
       "system_error": "Erro no sistema. Por favor tente mais tarde"
     }
   },
+  "SIDEBAR": {
+    "menu": "Menu",
+    "websites": "Websites"
+  },
+  "HEADER": {
+    "NAV": {
+      "location": "Você está em",
+      "access": "Acesso",
+      "home": "My Monitor",
+      "code": "Código"
+    }
+  },
   "RESULTS": {
     "title": "Relatório de práticas de acessibilidade Web (WCAG 2.0 do W3C)",
     "actions": {

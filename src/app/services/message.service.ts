@@ -9,7 +9,7 @@ import { MatSnackBar } from '@angular/material';
 export class MessageService {
 
   constructor(
-    private translate: TranslateService, 
+    private translate: TranslateService,
     private snackBar: MatSnackBar,
     private router: Router
   ) { }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'mm-not-found-404',
+  selector: 'app-not-found-404',
   templateUrl: './not-found-404.component.html',
   styleUrls: ['./not-found-404.component.css']
 })

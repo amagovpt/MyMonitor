@@ -1,17 +1,18 @@
 <header class="drop_content">
   <mat-toolbar color="primary">
     <mat-toolbar-row fxHide.lt-md>
-      <span fxFlex>My Monitor</span>
+      <span fxFlex>My Monitor <span *ngIf="user.getEmail()">- {{ user.getEmail() }}</span></span>
       <button mat-button *ngIf="user.isUserLoggedIn()" (click)="user.logout()">
         {{ "LOGIN.logout" | translate }}
       </button>
     </mat-toolbar-row>
     <mat-toolbar-row fxHide.gt-sm>
-      <button class="menu-button" mat-icon-button (click)="toggleSidenav()" *ngIf="user.isUserLoggedIn()">
+      <button class="menu-button" mat-icon-button (click)="toggleSidenav()">
         <mat-icon aria-label="Open sidebar menu">menu</mat-icon>
       </button>
       <span class="title" fxFlex>My Monitor</span>
     </mat-toolbar-row>
   </mat-toolbar>
+  <app-navbar *ngIf="user.isUserLoggedIn()" fxHide.lt-md></app-navbar>
 </header>
 <br>

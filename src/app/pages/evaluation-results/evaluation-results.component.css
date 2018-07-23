@@ -1,0 +1,81 @@
+mat-card {
+  width: 100%;
+}
+
+.header {
+  text-align: center;
+}
+
+@media only screen and (max-width:960px){
+  .score {
+    height: 200px;
+  }
+}
+
+.text-center {
+  text-align: center;
+}
+
+.vertical-middle {
+  vertical-align: middle;
+}
+
+#score {
+  font-weight: bold;
+  font-size: 4rem;
+}
+
+th {
+  text-align: center;
+}
+
+td {
+  text-align: left;
+}
+
+.tr-err {
+  background-color: #f99;
+}
+
+.tr-ok {
+  background-color: #9c9;
+}
+
+.tr-war {
+  background-color: #ff9;
+}
+
+::ng-deep mark {
+  background-color: yellow;
+}
+
+.tools:focus {
+  outline: 0;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.grade {
+  background-color: #425C6B;
+  color: white;
+  font-weight: bold;
+  border-radius: 50%;
+  width: 26px;
+  height: 26px;
+}
+
+::ng-deep mark {
+  background-color: yellow;
+}
+
+::ng-deep table th, table td.center { text-align:center; }
+::ng-deep table th { padding:0px 0.5em; }
+::ng-deep table th.mini { width:3em; }
+::ng-deep table td { text-align:right; }
+::ng-deep table td.left, table th.left { text-align:left; }
+::ng-deep .scoreok td { background-color:#cfc; }
+::ng-deep .scorewar td { background-color:#ffc; }
+::ng-deep .scorerror td { background-color:#fcc; }
+::ng-deep .scorereg td { background-color:#ffe; }

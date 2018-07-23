@@ -14,7 +14,8 @@
           <mat-card-content fxLayout="column">
               <br>
               <mat-form-field>
-                <input matInput placeholder="E-Mail" type="mail" formControlName="email" #emailEle required>
+                <label for="login_email">E-Mail</label>
+                <input id="login_email" matInput type="mail" formControlName="email" #emailEle required>
                 <mat-error *ngIf="loginForm.controls.email.hasError('email') && !loginForm.controls.email.hasError('required')" [innerHTML]="'LOGIN.email_error' | translate">
                 </mat-error>
                 <mat-error *ngIf="loginForm.controls.email.hasError('required')" [innerHTML]="'MISC.required_field' | translate">
@@ -22,7 +23,8 @@
               </mat-form-field>
               <br>
               <mat-form-field>
-                <input matInput placeholder="{{ 'LOGIN.password_label' | translate }}" [type]="hide ? 'password' : 'text'" formControlName="password" required>
+                <label for="login_password">{{ "LOGIN.password_label" | translate }}</label>
+                <input id="login_password" matInput [type]="hide ? 'password' : 'text'" formControlName="password" required>
                 <mat-icon matSuffix (click)="hide = !hide">{{hide ? "visibility" : "visibility_off"}}</mat-icon>
                 <mat-error *ngIf="loginForm.controls.password.hasError('required')" [innerHTML]="'MISC.required_field' | translate">
                 </mat-error>

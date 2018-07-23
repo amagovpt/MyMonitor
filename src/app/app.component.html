@@ -2,11 +2,11 @@
 <mat-sidenav-container>
   <mat-sidenav #sidenav>
     <div fxLayout="column" fxLayoutAlign="space-between start">
-      <mat-nav-list>
+      <mat-nav-list *ngIf="user.isUserLoggedIn()">
         <h3 mat-subheader>Menu</h3>
-        <mat-list-item routerLink="/" (click)="sidenav.close()">
+        <mat-list-item routerLink="/user" (click)="sidenav.close()">
           <mat-icon mat-list-icon>home</mat-icon>
-          <h4 mat-line>My Monitor</h4>
+          <h4 mat-line>{{ "SIDEBAR.websites" | translate }}</h4>
         </mat-list-item>
 
         <mat-list-item (click)="user.logout();sidenav.close()">
@@ -18,7 +18,8 @@
       <mat-list fxLayout="row" fxLayoutAlign="center center">
         <mat-list-item>
           <mat-form-field>
-            <mat-select placeholder="{{ 'FOOTER.language' | translate }}" [(value)]="selectedLang" (selectionChange)="changeLanguage()">
+            <label for="sidenav-language">{{ 'FOOTER.language' | translate }}</label>
+            <mat-select id="sidenav-language" [(value)]="selectedLang" (selectionChange)="changeLanguage()">
               <mat-option *ngFor="let lang of translate.getLangs()" [value]="lang">
                 {{ "LANGUAGES."+lang | translate }}
               </mat-option>
@@ -33,12 +34,12 @@
     
     <perfect-scrollbar #scrollRef>
       <div class="main">
-        <mm-header [sidenav]="sidenav"></mm-header>
+        <app-header [sidenav]="sidenav"></app-header>
         <router-outlet></router-outlet>
       </div>
       <br>
       <div class="footer">
-        <mm-footer></mm-footer>
+        <app-footer></app-footer>
       </div>
     </perfect-scrollbar>
     

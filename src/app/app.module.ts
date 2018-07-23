@@ -31,6 +31,10 @@ import { NotFound404Component } from './pages/not-found-404/not-found-404.compon
 import { LoginComponent } from './pages/login/login.component';
 import { WebsitesComponent } from './pages/websites/websites.component';
 import { UserComponent } from './pages/user/user.component';
+import { NavbarComponent } from './layout/header/navbar/navbar.component';
+import { EvaluationResultsComponent } from './pages/evaluation-results/evaluation-results.component';
+import { ElementResultComponent } from './pages/element-result/element-result.component';
+import { WebpageCodeComponent } from './pages/webpage-code/webpage-code.component';
 
 const appRoutes: Routes = [
   { path: '', component: LoginComponent, canActivate: [NoAuthGuard] },
@@ -62,7 +66,11 @@ export function HttpLoaderFactory(http: HttpClient) {
     WebsitesComponent,
     UserComponent,
     ToFixedPipe,
-    HtmlPipe
+    HtmlPipe,
+    NavbarComponent,
+    EvaluationResultsComponent,
+    ElementResultComponent,
+    WebpageCodeComponent
   ],
   imports: [
     RouterModule.forRoot(
