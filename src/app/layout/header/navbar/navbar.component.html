@@ -4,4 +4,18 @@
 
   <mat-icon>arrow_forward</mat-icon>
   <a routerLink="/user" routerLinkActive="active">{{ "HEADER.NAV.home" | translate }}</a>
+
+  <mat-icon *ngIf="website">arrow_forward</mat-icon>
+  <a *ngIf="website" [routerLink]="['/user', website]" routerLinkActive="active">{{ website }}</a>
+
+  <mat-icon *ngIf="page">arrow_forward</mat-icon>
+  <a *ngIf="page" [routerLink]="['/user', website, page]" routerLinkActive="active">{{ page }}</a>
+
+  <mat-icon *ngIf="code">arrow_forward</mat-icon>
+  <a *ngIf="code" [routerLink]="['/user', website, page, 'code']" routerLinkActive="active">
+    {{ "HEADER.NAV.code" | translate }}
+  </a>
+
+  <mat-icon *ngIf="ele">arrow_forward</mat-icon>
+  <a *ngIf="ele" [routerLink]="['/user', website, page, ele]" routerLinkActive="active">{{ ele }}</a>
 </nav>
