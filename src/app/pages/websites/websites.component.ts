@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
+import { MatTableDataSource, MatSort } from '@angular/material';
 import * as _ from 'lodash';
 
 import { MonitorService } from '../../services/monitor.service';
@@ -30,7 +30,6 @@ export class WebsitesComponent implements OnInit {
 
   @ViewChild('input') input: ElementRef;
   @ViewChild(MatSort) sort: MatSort;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(private monitor: MonitorService) {
     this.loading = true;
@@ -44,7 +43,6 @@ export class WebsitesComponent implements OnInit {
           this.websites = websites;
           this.dataSource = new MatTableDataSource(websites);
           this.dataSource.sort = this.sort;
-          this.dataSource.paginator = this.paginator;
         } else {
           this.error = true;
         }

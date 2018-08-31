@@ -26,6 +26,7 @@
     "@ngx-translate/core": "^10.0.2",
     "@ngx-translate/http-loader": "^3.0.1",
     "angular5-csv": "^0.2.10",
+    "chart.js": "^2.7.2",
     "classlist.js": "^1.1.20150312",
     "core-js": "^2.5.4",
     "file-saver": "^1.3.8",

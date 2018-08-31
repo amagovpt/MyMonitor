@@ -60,8 +60,6 @@
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
         <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
       </mat-table>
-
-      <mat-paginator [pageSizeOptions]="[10, 20, 50, 100]" showFirstLastButtons></mat-paginator>
     </mat-card-content>
     <mat-card-content *ngIf="websites.length === 0" fxLayout="column" fxLayoutAlign="center center">
       <span>{{ "WEBSITES_PAGE.no_websites.message1" | translate }}</span>

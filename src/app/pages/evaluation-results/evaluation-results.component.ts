@@ -18,7 +18,7 @@ export class EvaluationResultsComponent implements OnInit, OnDestroy {
   error: boolean;
 
   eval: any;
-  tag: string;
+  website: string;
   url: string;
 
   n_cols: number;
@@ -63,9 +63,9 @@ export class EvaluationResultsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.sub = this.route.params.subscribe(params => {
-      this.tag = params.tag;
-      this.url = params.url;
-      this.evaluation.getEvaluation(this.url)
+      this.website = params.website;
+      this.url = params.page;
+      this.evaluation.getEvaluation(this.website, this.url)
         .subscribe(data => {
           if (!data) {
             this.error = true;

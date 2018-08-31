@@ -1,0 +1,31 @@
+<mat-expansion-panel>
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      {{ "ADD_PAGES.title" | translate }}
+    </mat-panel-title>
+    <mat-panel-description>
+      {{ "ADD_PAGES.subtitle" | translate }}
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+
+  <ng-template matExpansionPanelContent>
+    <form name="add_pages" (submit)="addPages($event)" [formGroup]="pagesForm" fxLayout="column" novalidate>
+      <mat-form-field>
+        <label for="add_pages_domain">{{ "ADD_PAGES.domain_label" | translate }}</label>
+        <input id="add_pages_domain" matInput type="text" name="domain" formControlName="domain">
+      </mat-form-field>
+      <mat-form-field>
+        <label for="add_website_pages">{{ "ADD_PAGES.pages_label" | translate }}</label>
+        <textarea id="add_website_pages" name="pages" matInput cdkTextareaAutosize cdkAutosizeMinRows="5" formControlName="pages" [errorStateMatcher]="matcher" required></textarea>
+        <mat-error *ngIf="pagesForm.hasError('required')" [innerHTML]="'MISC.required_field' | translate"></mat-error>
+        <mat-error *ngIf="pagesForm.hasError('url')" [innerHTML]="'ADD_PAGES.error' | translate"></mat-error>
+        <mat-error *ngIf="pagesForm.controls.pages.hasError('domainNoMatch')" [innerHTML]="'ADD_PAGES.url_match_error' | translate"></mat-error>
+      </mat-form-field>
+      <div fxLayout="row" fxLayoutAlign="center center">
+        <button mat-raised-button color="primary" type="submit" [disabled]="pagesForm.invalid">
+          {{ "ADD_PAGES.button" | translate }}
+        </button>
+      </div>
+    </form>
+  </ng-template>
+</mat-expansion-panel>

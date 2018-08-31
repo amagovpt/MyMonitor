@@ -23,6 +23,59 @@
       "code": "Code"
     }
   },
+  "STATISTICS": {
+    "title": "Statistics",
+    "subtitle": "Metadata",
+    "gauge": {
+      "label": "Average score"
+    },
+    "tags": "Nº of categories",
+    "websites": "Nº of websites",
+    "pages": "Nº of pages",
+    "score": "Score",
+    "newest_page_updated": "Most recently evaluated page",
+    "oldest_page_updated": "Least recently evaluated page",
+    "last_updated": "Statistics last updated",
+    "score_distribution": "Score distribution",
+    "error_distribution": "Error distribution",
+    "pages_with_errors": "Pages with errors",
+    "pages_without_errors_a": "Pages without errors A",
+    "pages_without_errors_a_aa": "Pages without errors A+AA",
+    "pages_without_errors_a_aa_aaa": "Pages without errors A+AA+AAA"
+  },
+  "DIALOGS": {
+    "chart": "Chart",
+    "table": "Table",
+    "scores": {
+      "title": "Score distribution",
+      "frequencie": "Frequencie (nº of pages)",
+      "percentage": "Percentage (nº of pages)",
+      "range": "Range",
+      "cumulative": "Cumulative frequencie"
+    },
+    "errors": {
+      "title": "Error distribution",
+      "common_errors": "10 frequent errors (nº of pages)",
+      "level": "Level",
+      "description": "Description",
+      "websites": "Websites",
+      "pages": "Pages",
+      "situations": "Situations"
+    },
+    "close": "Close"
+  },
+  "ADD_PAGES": {
+    "title": "Add pages",
+    "subtitle": "Add pages to this website",
+    "domain_label": "Current domain",
+    "pages_label": "Urls",
+    "required": "This field is <strong>required</strong>",
+    "error": "One of the urls is <strong>invalid</strong>",
+    "url_match_error": "One of the urls doesn't match the domain",
+    "button": "Add pages",
+    "error_message": "There was an error while trying to add pages",
+    "success_message": "Websites added successfully"
+  },
   "WEBSITES_PAGE": {
     "title": "List of websites",
     "table": {
@@ -36,6 +89,23 @@
     "no_websites": {
       "message1": "You currently don't have any websites",
       "message2": "Please contact the administrator to assign websites"
+    }
+  },
+  "PAGES": {
+    "title": "List of pages",
+    "remove_button": "Remove",
+    "remove_success_message": "Pages removed successfully",
+    "remove_error_message": "There was an error while trying to remove the selected pages",
+    "table": {
+      "filter": "Filter",
+      "page": "Page",
+      "score": "Score",
+      "A": "A*",
+      "AA": "AA*",
+      "AAA": "AAA*",
+      "date": "Date",
+      "see_tooltip": "See page",
+      "note": "* Number of errors for each conform level"
     }
   },
   "RESULTS": {

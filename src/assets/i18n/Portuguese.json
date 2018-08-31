@@ -23,6 +23,59 @@
       "code": "Código"
     }
   },
+  "STATISTICS": {
+    "title": "Estatísticas",
+    "subtitle": "Metadados",
+    "gauge": {
+      "label": "Pontuação média"
+    },
+    "tags": "Nº de categorias",
+    "websites": "Nº de websites",
+    "pages": "Nº de páginas",
+    "score": "Pontuação",
+    "newest_page_updated": "Avaliação mais recente duma página",
+    "oldest_page_updated": "Avaliação mais antiga duma página",
+    "last_updated": "Última atualização das estatísticas",
+    "score_distribution": "Distribuição de pontuações",
+    "error_distribution": "Distribuição de erros",
+    "pages_with_errors": "Páginas com erros",
+    "pages_without_errors_a": "Páginas sem erros A",
+    "pages_without_errors_a_aa": "Páginas sem erros A+AA",
+    "pages_without_errors_a_aa_aaa": "Páginas sem erros A+AA+AAA"
+  },
+  "DIALOGS": {
+    "chart": "Gráfico",
+    "table": "Tabela",
+    "scores": {
+      "title": "Distribuição de pontuações",
+      "frequencie": "Frequência (nº de páginas)",
+      "percentage": "Percentagem (nº de páginas)",
+      "range": "Intervalo",
+      "cumulative": "Frequência cumulativa"
+    },
+    "errors": {
+      "title": "Distribuição de erros",
+      "common_errors": "Os 10 erros mais frequentes (nº de páginas)",
+      "level": "Nível",
+      "description": "Descrição",
+      "websites": "Websites",
+      "pages": "Paǵinas",
+      "situations": "Situações"
+    },
+    "close": "Fechar"
+  },
+  "ADD_PAGES": {
+    "title": "Adicionar páginas",
+    "subtitle": "Adicione páginas a este website",
+    "domain_label": "Domínio atual",
+    "pages_label": "Urls",
+    "required": "Este campo é <strong>obrigatório</strong>",
+    "error": "Um dos urls é <strong>inválido</strong>",
+    "url_match_error": "Um dos urls não coincide com o domínio",
+    "button": "Adicionar páginas",
+    "error_message": "Ocorreu um erro ao tentar adicionar as páginas",
+    "success_message": "Páginas adicionadas com sucesso"
+  },
   "WEBSITES_PAGE": {
     "title": "Lista de websites",
     "table": {
@@ -36,6 +89,23 @@
     "no_websites": {
       "message1": "Atualmente não contém nenhum website",
       "message2": "Por favor contate o administrador para lhe atribuir websites"
+    }
+  },
+  "PAGES": {
+    "title": "Lista de páginas",
+    "remove_button": "Remover",
+    "remove_success_message": "Páginas removidas com successo",
+    "remove_error_message": "Ocorreu um erro ao tentar remover as páginas selecionadas",
+    "table": {
+      "filter": "Filtro",
+      "page": "Página",
+      "score": "Pontuação",
+      "A": "A*",
+      "AA": "AA*",
+      "AAA": "AAA*",
+      "date": "Data",
+      "see_tooltip": "Ver páginas",
+      "note": "* Número de erros por nível de conformidade"
     }
   },
   "RESULTS": {

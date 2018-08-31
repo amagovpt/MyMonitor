@@ -36,7 +36,7 @@ export class EvaluationService {
     private translate: TranslateService
   ) { }
 
-  getEvaluation(url: string): Observable<Evaluation> {
+  getEvaluation(website: string, url: string): Observable<Evaluation> {
     if (this.url && _.isEqual(this.url, url) && this.evaluation) {
       return of(this.evaluation.processed);
     } else {
@@ -46,7 +46,7 @@ export class EvaluationService {
         this.evaluation = <Evaluation> JSON.parse(sessionStorage.getItem('evaluation'));
         return of(this.evaluation.processed);
       } else {
-        return ajax.post(this.getServer('/monitor/evaluation'), {url: encodeURIComponent(url) , cookie: this.user.getUserData()}).pipe(
+        return ajax.post(this.getServer('/monitor/evaluation'), {website, url: encodeURIComponent(url) , cookie: this.user.getUserData()}).pipe(
           retry(3),
           map(res => {
             const response = <Response> res.response;

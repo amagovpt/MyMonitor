@@ -1,0 +1,84 @@
+<mat-card class="mat-typography">
+  <mat-card-header>
+    <mat-card-title>
+      <h1>{{ "PAGES.title" | translate:{value: website} }}</h1>
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <div class="page-table-header">
+      <mat-form-field>
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="{{ 'PAGES.table.filter' | translate}}">
+      </mat-form-field>
+    </div>
+
+    <mat-table #table [dataSource]="dataSource" matSort matSortActive="Score" matSortDisableClear matSortDirection="desc">
+
+      <ng-container matColumnDef="Uri">
+        <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex>
+          {{ "PAGES.table.page" | translate }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element" fxFlex>
+          <strong>{{element.Uri}}</strong>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="Score">
+        <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="10" fxHide.lt-sm>
+          {{ "PAGES.table.score" | translate }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element" fxFlex="10" fxHide.lt-sm>
+          {{element.Score | toFixed }}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="A">
+        <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="7" fxHide.lt-md>
+          {{ "PAGES.table.A" | translate }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element" fxFlex="7" fxHide.lt-md>
+          {{element.A}}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="AA">
+        <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="7" fxHide.lt-md>
+          {{ "PAGES.table.AA" | translate }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element" fxFlex="7" fxHide.lt-md>
+          {{element.AA}}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="AAA">
+        <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="7" fxHide.lt-md>
+          {{ "PAGES.table.AAA" | translate }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element" fxFlex="7" fxHide.lt-md>
+          {{element.AAA}}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="Evaluation_Date">
+        <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="10" fxHide.lt-md> 
+          {{ "PAGES.table.date" | translate }} 
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element" fxFlex="10" fxHide.lt-md>
+          {{element.Evaluation_Date | date}}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="See">
+        <mat-header-cell *matHeaderCellDef fxFlex="10"></mat-header-cell>
+        <mat-cell *matCellDef="let element" fxFlex="10">
+          <button mat-icon-button matTooltip="{{ 'PAGES.table.see_tooltip' | translate }}" [routerLink]="getUriRoute(element.Uri)" fxFlex>
+            <mat-icon class="md-24" aria-label="">visibility</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+    <small><strong>{{ "PAGES.table.note" | translate }}</strong></small>
+  </mat-card-content>
+</mat-card>

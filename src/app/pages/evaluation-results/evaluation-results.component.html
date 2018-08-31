@@ -9,7 +9,7 @@
       </mat-card-subtitle>
     </mat-card-header>
     <mat-card-actions *ngIf="!loading && !error">
-      <a mat-icon-button class="tools" [routerLink]="['/user', tag]" matTooltip="{{ 'RESULTS.actions.back' | translate }}">
+      <a mat-icon-button class="tools" [routerLink]="['/user', website]" matTooltip="{{ 'RESULTS.actions.back' | translate }}">
          <mat-icon aria-label="'RESULTS.actions.back' | translate">arrow_back</mat-icon>
       </a>
       <span fxFlex></span>
@@ -19,7 +19,7 @@
       <a mat-icon-button class="tools" (click)="downloadEvaluation()" download="eval.csv" matTooltip="{{ 'RESULTS.actions.download' | translate }}">
          <mat-icon aria-label="'RESULTS.actions.download' | translate">file_download</mat-icon>
       </a>
-      <a mat-icon-button class="tools" [routerLink]="['/user', tag, url, 'code']" matTooltip="{{ 'RESULTS.actions.pagecode' | translate }}">
+      <a mat-icon-button class="tools" [routerLink]="['/user', website, url, 'code']" matTooltip="{{ 'RESULTS.actions.pagecode' | translate }}">
          <mat-icon aria-label="'RESULTS.actions.pagecode' | translate">code</mat-icon>
       </a>
       <a mat-icon-button class="tools" matTooltip="{{ 'RESULTS.actions.open_webpage' | translate }}" href="http://{{url}}" target="_blank">
@@ -137,7 +137,7 @@
                                     <ul>
                                         <li *ngFor="let item of res.tech_list">
                                             <span [innerHtml]="'ELEMS.'+item.txt | translate | html"></span>: <strong>{{ item.tot }}</strong>
-                                            <a [routerLink]="['/user', tag, url, item.ele]" routerLinkActive="active" *ngIf="item.ele">
+                                            <a [routerLink]="['/user', website, url, item.ele]" routerLinkActive="active" *ngIf="item.ele">
                                                 <img src="assets/images/see.png" width="18" height="18" class="ico">
                                             </a>
                                         </li>

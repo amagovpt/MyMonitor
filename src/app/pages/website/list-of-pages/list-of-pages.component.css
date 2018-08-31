@@ -1,0 +1,12 @@
+.page-table-header {
+  min-height: 1em;
+  padding: 8px 24px 0;
+}
+
+.mat-form-field {
+  width: 100%;
+}
+
+mat-row:hover {
+  background-color: rgba(0,0,0, 0.05);
+}

@@ -36,12 +36,20 @@ import { EvaluationResultsComponent } from './pages/evaluation-results/evaluatio
 import { ElementResultComponent } from './pages/element-result/element-result.component';
 import { WebpageCodeComponent } from './pages/webpage-code/webpage-code.component';
 import { WebsiteComponent } from './pages/website/website.component';
+import { ListOfPagesComponent } from './pages/website/list-of-pages/list-of-pages.component';
+import { WebsiteAddPagesComponent } from './pages/website/website-add-pages/website-add-pages.component';
+import { WebsiteStatisticsComponent } from './pages/website/website-statistics/website-statistics.component';
+import { ErrorDistributionDialogComponent } from './dialogs/error-distribution-dialog/error-distribution-dialog.component';
+import { ScoreDistributionDialogComponent } from './dialogs/score-distribution-dialog/score-distribution-dialog.component';
 
 const appRoutes: Routes = [
   { path: '', component: LoginComponent, canActivate: [NoAuthGuard] },
   { path: 'user', component: UserComponent, canActivate: [UserAuthGuard], children: [
     { path: '', component: WebsitesComponent },
-    { path: ':website', component: WebsiteComponent }
+    { path: ':website', component: WebsiteComponent },
+    { path: ':website/:page', component: EvaluationResultsComponent },
+    { path: ':website/:page/code', component: WebpageCodeComponent },
+    { path: ':website/:page/:ele', component: ElementResultComponent }
   ] },
   { path: '**', component: NotFound404Component }
 ];
@@ -73,7 +81,12 @@ export function HttpLoaderFactory(http: HttpClient) {
     EvaluationResultsComponent,
     ElementResultComponent,
     WebpageCodeComponent,
-    WebsiteComponent
+    WebsiteComponent,
+    ListOfPagesComponent,
+    WebsiteAddPagesComponent,
+    WebsiteStatisticsComponent,
+    ErrorDistributionDialogComponent,
+    ScoreDistributionDialogComponent
   ],
   imports: [
     RouterModule.forRoot(
@@ -99,6 +112,10 @@ export function HttpLoaderFactory(http: HttpClient) {
     ReactiveFormsModule,
     NgxGaugeModule,
     HighlightModule.forRoot()
+  ],
+  entryComponents: [
+    ScoreDistributionDialogComponent,
+    ErrorDistributionDialogComponent
   ],
   providers: [
     CookieService,
