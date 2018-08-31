@@ -23,6 +23,21 @@
       "code": "Code"
     }
   },
+  "WEBSITES_PAGE": {
+    "title": "List of websites",
+    "table": {
+      "filter": "Filter",
+      "name_label": "Name",
+      "domain_label": "Domain",
+      "pages_label": "Nº pages",
+      "creation_label": "Creation date",
+      "see_tooltip": "See website"
+    },
+    "no_websites": {
+      "message1": "You currently don't have any websites",
+      "message2": "Please contact the administrator to assign websites"
+    }
+  },
   "RESULTS": {
     "title": "Web accessibility practices report (W3C WCAG 2.0)",
     "actions": {

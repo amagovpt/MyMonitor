@@ -23,6 +23,21 @@
       "code": "Código"
     }
   },
+  "WEBSITES_PAGE": {
+    "title": "Lista de websites",
+    "table": {
+      "filter": "Filtro",
+      "name_label": "Nome",
+      "domain_label": "Domínio",
+      "pages_label": "Nº páginas",
+      "creation_label": "Data de criação",
+      "see_tooltip": "Ver website"
+    },
+    "no_websites": {
+      "message1": "Atualmente não contém nenhum website",
+      "message2": "Por favor contate o administrador para lhe atribuir websites"
+    }
+  },
   "RESULTS": {
     "title": "Relatório de práticas de acessibilidade Web (WCAG 2.0 do W3C)",
     "actions": {

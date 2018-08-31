@@ -1,3 +1,73 @@
-<p>
-  websites works!
-</p>
+<section>
+  <mat-card class="mat-typography">
+    <mat-card-header fxLayout="row" fxLayoutAlign="center center">
+      <mat-card-title>
+        <h1>{{ "WEBSITES_PAGE.title" | translate }}</h1>
+      </mat-card-title>
+    </mat-card-header>
+  </mat-card>
+  <br>
+  <mat-card *ngIf="!loading && !error">
+    <mat-card-content *ngIf="websites.length > 0">
+      <div class="table-filter">
+        <mat-form-field>
+          <label for="website_table_filter">{{ "WEBSITES_PAGE.table.filter" | translate }}</label>
+          <input id="website_table_filter" matInput (keyup)="applyFilter($event.target.value)">
+        </mat-form-field>
+      </div>
+
+      <mat-table #table [dataSource]="dataSource" matSort>
+
+        <ng-container matColumnDef="Name">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            {{ "WEBSITES_PAGE.table.name_label" | translate }}
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <strong>{{element.Name}}</strong>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="Domain">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            {{ "WEBSITES_PAGE.table.domain_label" | translate }}
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.Domain}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="Pages">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            {{ "WEBSITES_PAGE.table.pages_label" | translate }}
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.Pages}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="Creation_Date">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            {{ "WEBSITES_PAGE.table.creation_label" | translate }}
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.Creation_Date | date}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="see">
+          <mat-header-cell *matHeaderCellDef></mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <button mat-icon-button matTooltip="{{ 'WEBSITES_PAGE.table.see_tooltip' | translate }}" [routerLink]="['/user', element.Name]">
+              <mat-icon class="md-24" aria-label="">visibility</mat-icon>
+            </button>
+          </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </mat-table>
+
+      <mat-paginator [pageSizeOptions]="[10, 20, 50, 100]" showFirstLastButtons></mat-paginator>
+    </mat-card-content>
+    <mat-card-content *ngIf="websites.length === 0" fxLayout="column" fxLayoutAlign="center center">
+      <span>{{ "WEBSITES_PAGE.no_websites.message1" | translate }}</span>
+      <span>{{ "WEBSITES_PAGE.no_websites.message2" | translate }}</span>
+    </mat-card-content>
+  </mat-card>
+  <app-loading *ngIf="loading"></app-loading>
+  <app-error *ngIf="error"></app-error>
+</section>

@@ -51,12 +51,11 @@ export class UserService {
       }),
       catchError((err: MmError) => {
         switch (err.code) {
-          case -3: // error, password doesn't match
-            this.message.show('LOGIN.messages.password_match');
-            break;
-          case -1: // user does exist but doesn't belong to this website
-          case -2: // user doesn't exist
+          case -1: // user doesn't exist
             this.message.show('LOGIN.messages.no_user');
+            break;
+          case -2: // error, password doesn't match
+            this.message.show('LOGIN.messages.password_match');
             break;
           default:
             this.message.show('LOGIN.messages.system_error');
@@ -74,7 +73,7 @@ export class UserService {
   }
 
   getUserData(): {} {
-    return JSON.parse(atob(this.cookieService.get('MM-SSID')));
+    return atob(this.cookieService.get('MM-SSID'));
   }
 
   getEmail(): string {
@@ -84,6 +83,7 @@ export class UserService {
   logout(location: string = '/'): void {
     const host = this.getEnv();
 
+    sessionStorage.removeItem('MM-email');
     this.cookieService.delete('MM-SSID');
     this.router.navigateByUrl(location);
   }

@@ -21,5 +21,32 @@ export class MonitorService {
     private message: MessageService
   ) { }
 
+  getUserWebsites(): Observable<Array<any>> {
+    return ajax.post(this.getServer('/monitor/user/websites'), {cookie: this.user.getUserData()}).pipe(
+      retry(3),
+      map(res => {
+        const response = <Response> res.response;
 
+        if (!res.response || res.status === 404) {
+          throw new MmError(404, 'Service not found', 'SERIOUS');
+        }
+
+        if (response.success !== 1) {
+          throw new MmError(response.success, response.message);
+        }
+
+        return <Array<any>> response.result;
+      }),
+      catchError(err => {
+        console.log(err);
+        return of(null);
+      })
+    );
+  }
+
+  private getServer(service: string): string {
+    const host = location.host;
+
+    return 'http://' + _.split(host, ':')[0] + ':3000' + service;
+  }
 }

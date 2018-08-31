@@ -35,11 +35,13 @@ import { NavbarComponent } from './layout/header/navbar/navbar.component';
 import { EvaluationResultsComponent } from './pages/evaluation-results/evaluation-results.component';
 import { ElementResultComponent } from './pages/element-result/element-result.component';
 import { WebpageCodeComponent } from './pages/webpage-code/webpage-code.component';
+import { WebsiteComponent } from './pages/website/website.component';
 
 const appRoutes: Routes = [
   { path: '', component: LoginComponent, canActivate: [NoAuthGuard] },
   { path: 'user', component: UserComponent, canActivate: [UserAuthGuard], children: [
-    { path: '', component: WebsitesComponent }
+    { path: '', component: WebsitesComponent },
+    { path: ':website', component: WebsiteComponent }
   ] },
   { path: '**', component: NotFound404Component }
 ];
@@ -70,7 +72,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     NavbarComponent,
     EvaluationResultsComponent,
     ElementResultComponent,
-    WebpageCodeComponent
+    WebpageCodeComponent,
+    WebsiteComponent
   ],
   imports: [
     RouterModule.forRoot(
