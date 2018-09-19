@@ -42,9 +42,9 @@ export class ScoreDistributionDialogComponent implements OnInit {
     this.translate.get(['DIALOGS.scores.percentage', 'DIALOGS.scores.frequencie'])
       .subscribe(res => {
 
-      let frequencies = new Array<number>(10).fill(0);
+      const frequencies = new Array<number>(10).fill(0);
 
-      for (let p of this.data.pages) {
+      for (const p of this.data.pages) {
         frequencies[_.floor(p.Score) - 1]++;
       }
 

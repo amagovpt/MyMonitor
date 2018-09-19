@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
 import { Location } from '@angular/common';
-import * as _ from 'lodash'
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-list-of-pages',
@@ -28,12 +28,14 @@ export class ListOfPagesComponent implements OnInit {
 
   @ViewChild('input') input: ElementRef;
   @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(private location: Location) { }
 
   ngOnInit(): void {
     this.dataSource = new MatTableDataSource(this.pages);
     this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
   }
 
   applyFilter(filterValue: string): void {
@@ -43,7 +45,7 @@ export class ListOfPagesComponent implements OnInit {
   }
 
   getUriRoute(uri: string): Array<string> {
-    let path = this.location.path();
+    const path = this.location.path();
     let segments = _.split(path, '/');
     segments[0] = '/user';
     segments.splice(1, 1);

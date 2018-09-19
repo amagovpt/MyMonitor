@@ -21,7 +21,7 @@ class DomainUrlValidation {
     domain = _.replace(domain, 'https://', '');
     domain = _.replace(domain, 'www.', '');
 
-    const urls =_.uniq(_.without(_.split(AC.get('pages').value, '\n'), ''));
+    const urls = _.uniq(_.without(_.split(AC.get('pages').value, '\n'), ''));
 
     let invalid = false;
     const size = _.size(urls);
@@ -29,7 +29,7 @@ class DomainUrlValidation {
     if (!size) {
       return null;
     }
-     
+
     for (let i = 0 ; i < size ; i++) {
       let url = _.trim(urls[i]);
       url = _.replace(url, 'http://', '');
@@ -92,9 +92,14 @@ export class WebsiteAddPagesComponent implements OnInit {
       p = _.replace(p, 'http://', '');
       p = _.replace(p, 'https://', '');
       p = _.replace(p, 'www.', '');
+
+      if (p[_.size(p)-1] === '/') {
+        p = p.substring(0, _.size(p)-1);
+      }
+
       return _.trim(p);
     });
-    
+
     this.addWebsitePages.next({ domain: this.domain, urls: pages});
   }
 }

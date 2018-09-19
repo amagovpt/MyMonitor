@@ -33,15 +33,15 @@ td {
   text-align: left;
 }
 
-.tr-err {
+.tr-err, .rowerr {
   background-color: #f99;
 }
 
-.tr-ok {
+.tr-ok, .rowok {
   background-color: #9c9;
 }
 
-.tr-war {
+.tr-war, .rowwar {
   background-color: #ff9;
 }
 

@@ -19,7 +19,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   ele: string;
 
   constructor(
-    private router: Router, 
+    private router: Router,
     private location: Location
   ) {
     this.website = null;
@@ -46,7 +46,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
             } else {
               this.ele = decodeURIComponent(segments[4]);
             }
-            
+
           case 4:
             this.page = decodeURIComponent(segments[3]);
 

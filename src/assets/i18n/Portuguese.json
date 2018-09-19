@@ -106,7 +106,8 @@
       "date": "Data",
       "see_tooltip": "Ver páginas",
       "note": "* Número de erros por nível de conformidade"
-    }
+    },
+    "no_pages": "Este website atualmente não contém páginas"
   },
   "RESULTS": {
     "title": "Relatório de práticas de acessibilidade Web (WCAG 2.0 do W3C)",
@@ -126,6 +127,15 @@
         "n_elements_label": "Nº de elementos (x)HTML",
         "page_size_label": "Tamanho da página",
         "last_update_label": "Última actualização"
+      },
+      "table": {
+        "title": "Nº práticas encontradas",
+        "labels": {
+          "p": "P",
+          "ok": "Aceitáveis",
+          "err": "Não aceitáveis",
+          "warn": "Para ver manualmente"
+        }
       }
     },
     "results": {
@@ -142,7 +152,9 @@
         "score_table": "Quadro de pontuações"
       },
       "sc": "Critério de sucesso",
+      "practice": "Prática encontrada",
       "lvl": "Nível",
+      "details": "Detalhes",
       "understanding": "Compreensível"
     },
     "scoreboard": {

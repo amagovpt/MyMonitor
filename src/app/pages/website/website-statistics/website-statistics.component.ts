@@ -57,7 +57,7 @@ export class WebsiteStatisticsComponent implements OnInit {
     this.newest_page = this.pages[0].Evaluation_Date;
     this.oldest_page = this.pages[0].Evaluation_Date;
 
-    for (let p of this.pages) {
+    for (const p of this.pages) {
       this.score += p.Score;
 
       if (p.Evaluation_Date > this.newest_page) {

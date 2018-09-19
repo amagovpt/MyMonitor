@@ -21,7 +21,7 @@ export class ErrorDistributionDialogComponent implements OnInit {
   errors: any;
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: any, 
+    @Inject(MAT_DIALOG_DATA) public data: any,
     private translate: TranslateService
   ) {
     this.errors = {};
@@ -29,8 +29,8 @@ export class ErrorDistributionDialogComponent implements OnInit {
     const keys = _.keys(this.elemStats);
     const size = _.size(keys);
 
-    for (let p of this.data.pages) {
-      let perrors = JSON.parse(atob(p.Errors));
+    for (const p of this.data.pages) {
+      const perrors = JSON.parse(atob(p.Errors));
 
       for (let i = 0 ; i < size ; i++) {
         const k = keys[i];

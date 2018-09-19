@@ -16,9 +16,12 @@
   <div *ngIf="!loading && !error">
     <app-website-add-pages [website]="website" (addPages)="addWebsitePages($event)"></app-website-add-pages>
     <br>
-    <app-website-statistics [pages]="pages"></app-website-statistics>
+    <app-website-statistics *ngIf="pages.length > 0" [pages]="pages"></app-website-statistics>
     <br>
-    <app-list-of-pages [pages]="pages"></app-list-of-pages>
+    <app-list-of-pages *ngIf="pages.length > 0" [pages]="pages"></app-list-of-pages>
+    <div *ngIf="pages.length === 0" fxLayout="row" fxLayoutAlign="center center">
+      <p class="no_pages">{{ "PAGES.no_pages" | translate }}</p>
+    </div>
   </div>
   
   <app-loading *ngIf="loading"></app-loading>

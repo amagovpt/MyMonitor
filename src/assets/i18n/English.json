@@ -106,7 +106,8 @@
       "date": "Date",
       "see_tooltip": "See page",
       "note": "* Number of errors for each conform level"
-    }
+    },
+    "no_pages": "This website currently doesn't have any pages"
   },
   "RESULTS": {
     "title": "Web accessibility practices report (W3C WCAG 2.0)",
@@ -126,6 +127,15 @@
         "n_elements_label": "Nº of (x)HTML elements",
         "page_size_label": "Page size",
         "last_update_label": "Last update"
+      },
+      "table": {
+        "title": "Nº practices found",
+        "labels": {
+          "p": "P",
+          "ok": "Acceptable",
+          "err": "Non Acceptable",
+          "warn": "To view manually"
+        }
       }
     },
     "results": {
@@ -142,7 +152,9 @@
         "score_table": "Score board"
       },
       "sc": "Success criteria",
+      "practice": "Practice found",
       "lvl": "Level",
+      "details": "Details",
       "understanding": "Understanding"
     },
     "scoreboard": {

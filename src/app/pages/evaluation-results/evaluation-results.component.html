@@ -82,93 +82,178 @@
     </mat-card>
     <br>
     <mat-card class="mat-typography" *ngIf="!loading && !error">
-        <mat-card-header>
-            <mat-card-title>
-                <h1>{{ "RESULTS.results.title" | translate }}</h1>
-            </mat-card-title>
-            <mat-card-subtitle>
-                <h2>{{eval.metadata.count_results}} {{ "RESULTS.results.subtitle" | translate }}</h2>
-            </mat-card-subtitle>
-        </mat-card-header>
-        <mat-card-content>
-            <mat-tab-group>
-                <mat-tab *ngFor="let tab of getTabsNames()" label="{{ 'RESULTS.results.tabs.'+tab | translate }} ({{eval.tabs[tab]}})">
-                    <div *ngFor="let res of eval.results[tab]" fxLayout="column">
-                        <mat-card>
-                            <mat-card-header fxLayout="column" fxLayoutAlign="center stretch">
-                                <mat-card-title fxLayout="row" fxLayoutAlign="start center">
-                                    <span *ngIf="res.tnum === 1" [innerHTML]="'TESTS_RESULTS.'+res.title+'.s' | translate:{value: res.tnum} | html" fxFlex="70"></span>
-                                    <span *ngIf="res.tnum !== 1" [innerHTML]="'TESTS_RESULTS.'+res.title+'.p' | translate:{value: res.tnum} | html" fxFlex="70"></span>
-                                    <span fxFlex></span>
-                                    <span class="grade" title="{{ 'RESULTS.results.grade' | translate }}" fxLayout="row" fxLayoutAlign="center center">
-                  {{ res.score }}
-                </span>
-                                </mat-card-title>
-                            </mat-card-header>
-                            <mat-card-content>
-                                <mat-expansion-panel>
-                                    <mat-expansion-panel-header>
-                                        <mat-panel-title>
-                                            {{ res.tech }}
-                                        </mat-panel-title>
-                                        <mat-panel-description fxHide.lt-md>
-                                            {{ "TECHS."+res.tech | translate }}
-                                        </mat-panel-description>
-                                    </mat-expansion-panel-header>
+          <mat-card-content>
+            <table class="table table-bordered">
+              <thead class="thead-dark">
+                <tr>
+                  <th rowspan="2">
+                    {{ "RESULTS.summary.table.labels.p" | translate }}
+                  </th>
+                  <th colspan="4">
+                    {{ "RESULTS.summary.table.title" | translate }}
+                  </th>
+                </tr>
+                <tr>
+                  <th scope="col">{{ "RESULTS.summary.table.labels.ok" | translate }}</th>
+                  <th scope="col">{{ "RESULTS.summary.table.labels.err" | translate }}</th>
+                  <th scope="col">{{ "RESULTS.summary.table.labels.warn" | translate }}</th>
+                  <th scope="col">Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td scope="row">A</td>
+                  <td class="tr-ok">{{ eval.infoak.A.ok }}</td>
+                  <td class="tr-err">{{ eval.infoak.A.err }}</td>
+                  <td class="tr-war">{{ eval.infoak.A.war }}</td>
+                  <td>{{ eval.infoak.A.ok + eval.infoak.A.err + eval.infoak.A.war }}</td>
+                </tr>
+                <tr>
+                  <td scope="row">AA</td>
+                  <td class="tr-ok">{{ eval.infoak.AA.ok }}</td>
+                  <td class="tr-err">{{ eval.infoak.AA.err }}</td>
+                  <td class="tr-war">{{ eval.infoak.AA.war }}</td>
+                  <td>{{ eval.infoak.AA.ok + eval.infoak.AA.err + eval.infoak.AA.war }}</td>
+                </tr>
+                <tr>
+                  <td scope="row">AAA</td>
+                  <td class="tr-ok">{{ eval.infoak.AAA.ok }}</td>
+                  <td class="tr-err">{{ eval.infoak.AAA.err }}</td>
+                  <td class="tr-war">{{ eval.infoak.AAA.war }}</td>
+                  <td>{{ eval.infoak.AAA.ok + eval.infoak.AAA.err + eval.infoak.AAA.war }}</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td>Total</td>
+                  <td>{{ eval.infoak.A.ok + eval.infoak.AA.ok + eval.infoak.AAA.ok }}</td>
+                  <td>{{ eval.infoak.A.err + eval.infoak.AA.err + eval.infoak.AAA.err }}</td>
+                  <td>{{ eval.infoak.A.war + eval.infoak.AA.war + eval.infoak.AAA.war }}</td>
+                  <td>
+                    {{ 
+                      eval.infoak.A.ok + eval.infoak.AA.ok + eval.infoak.AAA.ok +
+                      eval.infoak.A.err + eval.infoak.AA.err + eval.infoak.AAA.err +
+                      eval.infoak.A.war + eval.infoak.AA.war + eval.infoak.AAA.war
+                    }}
+                  </td>
+                </tr>
+              </tfoot>
+            </table>
+          </mat-card-content>
+        </mat-card>
+        <br>
+        <mat-card class="mat-typography" *ngIf="!loading && !error">
+            <mat-card-header>
+                <mat-card-title>
+                    <h1>{{ "RESULTS.results.title" | translate }}</h1>
+                </mat-card-title>
+                <mat-card-subtitle>
+                    <h2>{{eval.metadata.count_results}} {{ "RESULTS.results.subtitle" | translate }}</h2>
+                </mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th scope="col">{{ "RESULTS.results.practice" | translate }}</th>
+                    <th scope="col">{{ "RESULTS.results.lvl" | translate }}</th>
+                    <th scope="col">{{ "RESULTS.results.details" | translate }}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let r of eval.results" class="{{ 'row' + r.color }}">
+                    <td>
+                      <span><img src="{{ r.ico }}"></span>
+                      <span *ngIf="r.value === 1" [innerHTML]="'TESTS_RESULTS.'+r.msg+'.s' | translate:{value: r.value} | html"></span>
+                      <span *ngIf="r.value !== 1" [innerHTML]="'TESTS_RESULTS.'+r.msg+'.p' | translate:{value: r.value} | html"></span>
+                    </td>
+                    <td>{{ r.lvl }}</td>
+                    <td>
+                      <a *ngFor="let i of r.tech_list" [routerLink]="['/user', website, url, i.ele]">
+                        <img *ngIf="i.ele" src="assets/images/see2.png" width="30" height="30">
+                      </a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+                <!--<mat-tab-group>
+                    <mat-tab *ngFor="let tab of getTabsNames()" label="{{ 'RESULTS.results.tabs.'+tab | translate }} ({{eval.tabs[tab]}})">
+                        <div *ngFor="let res of eval.results[tab]" fxLayout="column">
+                            <mat-card>
+                                <mat-card-header fxLayout="column" fxLayoutAlign="center stretch">
+                                    <mat-card-title fxLayout="row" fxLayoutAlign="start center">
+                                        <span *ngIf="res.tnum === 1" [innerHTML]="'TESTS_RESULTS.'+res.title+'.s' | translate:{value: res.tnum} | html" fxFlex="70"></span>
+                                        <span *ngIf="res.tnum !== 1" [innerHTML]="'TESTS_RESULTS.'+res.title+'.p' | translate:{value: res.tnum} | html" fxFlex="70"></span>
+                                        <span fxFlex></span>
+                                        <span class="grade" title="{{ 'RESULTS.results.grade' | translate }}" fxLayout="row" fxLayoutAlign="center center">
+                      {{ res.score }}
+                    </span>
+                                    </mat-card-title>
+                                </mat-card-header>
+                                <mat-card-content>
+                                    <mat-expansion-panel>
+                                        <mat-expansion-panel-header>
+                                            <mat-panel-title>
+                                                {{ res.tech }}
+                                            </mat-panel-title>
+                                            <mat-panel-description fxHide.lt-md>
+                                                {{ "TECHS."+res.tech | translate }}
+                                            </mat-panel-description>
+                                        </mat-expansion-panel-header>
 
-                                    <ng-template matExpansionPanelContent>
-                                        <span><strong>{{ "TECHS."+res["tech"] | translate }}</strong></span>
-                                        <div [innerHTML]="'TXT_TECHNIQUES.'+res.tech | translate | html"></div>
-                                        <div fxLayout="column">
-                                            <span><a href="{{ res.tech_website }}" target="_blank">WCAG 2.0: {{ res.tech }}</a></span>
-                                            <br>
-                                            <span>{{ "TECHFAIL."+res.tech_fail | translate }}</span>
-                                            <br>
-                                            <ol>
-                                                <li *ngFor="let li of res.tech_related_sc">
-                                                    {{ "RESULTS.results.sc" | translate }} {{ li.sc }} (<em>{{ "RESULTS.results.lvl" | translate }} {{ li.lvl }}</em>) <a href="{{ li.link }}" target="_blank">{{ "RESULTS.results.understanding" | translate }} {{ li.sc }}</a>
-                                                </li>
-                                            </ol>
-                                        </div>
-                                    </ng-template>
-                                </mat-expansion-panel>
-                                <br>
-                                <div>
-                                    <ul>
-                                        <li *ngFor="let item of res.tech_list">
-                                            <span [innerHtml]="'ELEMS.'+item.txt | translate | html"></span>: <strong>{{ item.tot }}</strong>
-                                            <a [routerLink]="['/user', website, url, item.ele]" routerLinkActive="active" *ngIf="item.ele">
-                                                <img src="assets/images/see.png" width="18" height="18" class="ico">
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </mat-card-content>
-                        </mat-card>
-                    </div>
-                </mat-tab>
-                <mat-tab label="{{ 'RESULTS.results.tabs.score_table' | translate }}" fxLayout="column" fxLayoutAlign="start stretch">
-                    <div>
-                        <table class="table table-bordered">
-                            <thead>
-                                <th>{{ "RESULTS.scoreboard.level" | translate }}</th>
-                                <th>{{ "RESULTS.scoreboard.sc" | translate }}</th>
-                                <th>{{ "RESULTS.scoreboard.description" | translate }}</th>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let r of eval.scoreBoard" class="{{r.class}}">
-                                    <td>{{r.level}}</td>
-                                    <td [innerHtml]="r.sc | html"></td>
-                                    <td *ngIf="r.tnum === 1" [innerHtml]="'TESTS_RESULTS.'+r.desc+'.s' | translate:{value: r.tnum} | html"></td>
-                                    <td *ngIf="r.tnum !== 1" [innerHtml]="'TESTS_RESULTS.'+r.desc+'.p' | translate:{value: r.tnum} | html"></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </mat-tab>
-            </mat-tab-group>
-        </mat-card-content>
-    </mat-card>
+                                        <ng-template matExpansionPanelContent>
+                                            <span><strong>{{ "TECHS."+res["tech"] | translate }}</strong></span>
+                                            <div [innerHTML]="'TXT_TECHNIQUES.'+res.tech | translate | html"></div>
+                                            <div fxLayout="column">
+                                                <span><a href="{{ res.tech_website }}" target="_blank">WCAG 2.0: {{ res.tech }}</a></span>
+                                                <br>
+                                                <span>{{ "TECHFAIL."+res.tech_fail | translate }}</span>
+                                                <br>
+                                                <ol>
+                                                    <li *ngFor="let li of res.tech_related_sc">
+                                                        {{ "RESULTS.results.sc" | translate }} {{ li.sc }} (<em>{{ "RESULTS.results.lvl" | translate }} {{ li.lvl }}</em>) <a href="{{ li.link }}" target="_blank">{{ "RESULTS.results.understanding" | translate }} {{ li.sc }}</a>
+                                                    </li>
+                                                </ol>
+                                            </div>
+                                        </ng-template>
+                                    </mat-expansion-panel>
+                                    <br>
+                                    <div>
+                                        <ul>
+                                            <li *ngFor="let item of res.tech_list">
+                                                <span [innerHtml]="'ELEMS.'+item.txt | translate | html"></span>: <strong>{{ item.tot }}</strong>
+                                                <a [routerLink]="['/results', url, item.ele]" routerLinkActive="active" *ngIf="item.ele">
+                                                    <img src="assets/images/see.png" width="18" height="18" class="ico">
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </mat-card-content>
+                            </mat-card>
+                        </div>
+                    </mat-tab>
+                    <mat-tab label="{{ 'RESULTS.results.tabs.score_table' | translate }}" fxLayout="column" fxLayoutAlign="start stretch">
+                        <div>
+                            <table class="table table-bordered">
+                                <thead>
+                                    <th>{{ "RESULTS.scoreboard.level" | translate }}</th>
+                                    <th>{{ "RESULTS.scoreboard.sc" | translate }}</th>
+                                    <th>{{ "RESULTS.scoreboard.description" | translate }}</th>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let r of eval.scoreBoard" class="{{r.class}}">
+                                        <td>{{r.level}}</td>
+                                        <td [innerHtml]="r.sc | html"></td>
+                                        <td *ngIf="r.tnum === 1" [innerHtml]="'TESTS_RESULTS.'+r.desc+'.s' | translate:{value: r.tnum} | html"></td>
+                                        <td *ngIf="r.tnum !== 1" [innerHtml]="'TESTS_RESULTS.'+r.desc+'.p' | translate:{value: r.tnum} | html"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </mat-tab>
+                </mat-tab-group>-->
+            </mat-card-content>
+        </mat-card>
     <app-loading *ngIf="loading && !error"></app-loading>
     <app-error *ngIf="error"></app-error>
 </section>

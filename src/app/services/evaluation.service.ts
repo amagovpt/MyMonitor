@@ -6,6 +6,7 @@ import { Angular5Csv } from 'angular5-csv/Angular5-csv';
 import { Observable, of } from 'rxjs';
 import { ajax } from 'rxjs/ajax';
 import { map, retry, catchError } from 'rxjs/operators';
+
 import * as _ from 'lodash';
 
 import { Response } from '../models/response';
@@ -19,6 +20,7 @@ import tests from './tests';
 import techs from './techs';
 import scs from './scs';
 import xpath from './xpath';
+import tests_colors from './tests_colors';
 
 @Injectable({
   providedIn: 'root'
@@ -158,16 +160,16 @@ export class EvaluationService {
 
     const _eval = this.evaluation.processed;
 
-    for (const row in _eval['scoreBoard']) {
+    for (const row in _eval['results']) {
       const rowData = [];
-      error = 'CSV.' + _eval['scoreBoard'][row]['class'];
-      level = _eval['scoreBoard'][row]['level'];
-      sc = _eval['scoreBoard'][row]['sc'];
-      num = _eval['scoreBoard'][row]['tnum'];
-      desc = 'TESTS_RESULTS.' + _eval['scoreBoard'][row]['desc'] + ((num === 1) ? '.s' : '.p');
+      error = 'CSV.' + (_eval['results'][row]['prio'] === 3 ? 'scoreok' : _eval['results'][row]['prio'] === 2 ? 'scorewar': 'scorerror');
+      level = _eval['results'][row]['lvl'];
+      //sc = _eval['scoreBoard'][row]['sc'];
+      num = _eval['results'][row]['value'];
+      desc = 'TESTS_RESULTS.' + _eval['results'][row]['msg'] + ((num === 1) ? '.s' : '.p');
 
       descs.push(desc, error);
-      rowData.push(error, level, sc, desc, num);
+      rowData.push(error, level, /*sc,*/ desc, num);
       data.push(rowData);
     }
 
@@ -175,16 +177,16 @@ export class EvaluationService {
       const labels = new Array<string>();
 
       for (const row in data) {
-        data[row][3] = res[data[row][3]].replace('{{value}}', data[row][4]);
-        data[row][3] = data[row][3].replace(new RegExp('<mark>', 'g'), '');
-        data[row][3] = data[row][3].replace(new RegExp('</mark>', 'g'), '');
-        data[row][3] = data[row][3].replace(new RegExp('<code>', 'g'), '');
-        data[row][3] = data[row][3].replace(new RegExp('</code>', 'g'), '');
+        data[row][2] = res[data[row][2]].replace('{{value}}', data[row][3]);
+        data[row][2] = data[row][2].replace(new RegExp('<mark>', 'g'), '');
+        data[row][2] = data[row][2].replace(new RegExp('</mark>', 'g'), '');
+        data[row][2] = data[row][2].replace(new RegExp('<code>', 'g'), '');
+        data[row][2] = data[row][2].replace(new RegExp('</code>', 'g'), '');
         data[row][0] = res[data[row][0]];
       }
       labels.push(res['CSV.errorType']);
       labels.push(res['CSV.level']);
-      labels.push(res['CSV.criteria']);
+      //labels.push(res['CSV.criteria']);
       labels.push(res['CSV.desc']);
       labels.push(res['CSV.count']);
 
@@ -195,7 +197,7 @@ export class EvaluationService {
   private getServer(service: string): string {
     const host = location.host;
 
-    return 'http://' + _.split(host, ':')[0] + ':3000' + service;
+    return 'https://' + _.split(host, ':')[0] + ':3001' + service;
   }
 
   //EMBEBED
@@ -554,7 +556,7 @@ export class EvaluationService {
     data['metadata']['count_results'] = _.size(tot['results']);
 
     data['tabs'] = {};
-    data['results'] = {'A': [], 'B': [], 'C': [], 'D': [], 'E': [], 'F': []};
+    data['results'] = []; // {'A': [], 'B': [], 'C': [], 'D': [], 'E': [], 'F': []};
     data['scoreBoard'] = [];
     data['elems'] = [];
 
@@ -562,8 +564,33 @@ export class EvaluationService {
 
     const hidden = ['all', 'w3cValidator'];
 
+    let infotot = {
+        'ok': 0,
+        'err': 0,
+        'war': 0,
+        'tot': 0
+      };
+
+      let infoak = {
+        'A': {
+          'ok': 0,
+          'err': 0,
+          'war': 0,
+        },
+        'AA': {
+          'ok': 0,
+          'err': 0,
+          'war': 0,
+        },
+        'AAA': {
+          'ok': 0,
+          'err': 0,
+          'war': 0,
+        }
+      };
+
     for (const ee in tot.results) {
-      const r = tot.results[ee];
+      const r = tot.results[ee];      
 
       const split = _.split(r, '@');
       const sco = parseInt(split[0]);
@@ -576,6 +603,20 @@ export class EvaluationService {
       const refs = tests[ee]['ref'];
       const lev = tests[ee]['level'];
       const techfail = refs[0] === 'F' ? 'relationF' : 'relationT';
+
+      let color;
+
+      if (tests_colors[ee] === 'R') {
+        color = 'err';
+      } else if (tests_colors[ee] === 'Y') {
+        color = 'war';
+      } else if (tests_colors[ee] == 'G') {
+        color = 'ok';
+      }
+
+      let level = _.toUpper(lev);
+
+      infoak[level][color]++;
 
       let tnum;
 
@@ -598,7 +639,26 @@ export class EvaluationService {
       const msg = ee;
 
       const result = {};
-      result['title'] = ee;
+      result['ico'] = 'assets/images/ico' + color + '.png';
+      result['color'] = color;
+      result['lvl'] = level;
+      result['msg'] = ee;
+      result['value'] = tnum;
+      result['prio'] = color === 'ok' ? 3 : color === 'err'? 1 : 2;
+      result['tech_list'] = new Array();
+
+      if (!_.includes(hidden, ele)) {
+        result['tech_list'].push(this.testView(ele, ele, tot['elems'][ele]));
+        if (!isNaN(tot['elems'][ele])) {
+          result['value'] += parseInt(tot['elems'][ele]);
+        }
+      }
+
+      result['tech_list'].push(this.testView(tes, tes, tnum));
+
+
+      data['results'].push(result);
+      /*result['title'] = ee;
       result['score'] = sco;
       result['tech'] = refs;
       result['tech_desc'] = techs[refs];
@@ -679,10 +739,13 @@ export class EvaluationService {
         'desc': msg,
         'tnum': result['tnum'],
         'prio': prio
-      });
+      });*/
     }
 
-    data['scoreBoard'] = _.orderBy(data['scoreBoard'], ['level', 'prio'], ['asc', 'asc']);
+    data['results'] = _.orderBy(data['results'], ['lvl', 'prio'], ['asc', 'asc']);
+
+    //data['scoreBoard'] = _.orderBy(data['scoreBoard'], ['level', 'prio'], ['asc', 'asc']);
+    data['infoak'] = infoak;
 
     for (const k in tabsSize) {
       const v = tabsSize[k];
@@ -690,7 +753,7 @@ export class EvaluationService {
         data['tabs'][k] = v;
       }
     }
-
+    
     return data;
   }
 
