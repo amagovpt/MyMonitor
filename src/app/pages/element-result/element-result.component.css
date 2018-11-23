@@ -6,15 +6,35 @@ mat-card-header {
   text-align: center;
 }
 
-.a {
-  padding-right: 1rem;
-  text-decoration: underline;
+.result {
+  width: 91%;
+}
+
+table tr td {
+  padding: 0.5em;
+}
+
+table tr td:first-child {
+  text-align: right;
+  border-right: thin solid black;
+}
+
+table tr td:nth-child(2) {
+  text-align: left;
+}
+
+code {
+  vertical-align: middle;
+}
+
+.element {
+	text-decoration: underline;
   color: blue;
 }
 
 iframe {
-  width: 100%;
-  height: 800px;
+	width: 100%;
+	height: 800px;
 }
 
 .total_results {

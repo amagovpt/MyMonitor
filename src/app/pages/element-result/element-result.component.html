@@ -5,7 +5,7 @@
         <h1>{{ url }}</h1>
       </mat-card-title>
       <mat-card-subtitle>
-         <h2>{{ "ELEMENT_RESULTS.subtitle" | translate }} <strong>{{ ele }}</strong></h2>
+        <h2>{{ "ELEMENT_RESULTS.subtitle" | translate }} <strong [innerHTML]="'ELEMS.' + ele | translate"></strong></h2>
       </mat-card-subtitle>
     </mat-card-header>
     <mat-card-actions>
@@ -16,7 +16,8 @@
   </mat-card>
   <br>
   <mat-tab-group (selectedTabChange)="tabChanged($event)">
-    <mat-tab *ngIf="data.elements" label="{{ 'ELEMENT_RESULTS.elements_tab' | translate }}" fxLayout="column" fxLayoutAlign="start streth">
+    <mat-tab *ngIf="data.elements" label="{{ 'ELEMENT_RESULTS.elements_tab' | translate }}" fxLayout="column"
+      fxLayoutAlign="start streth">
       <br>
       <span class="total_results">
         {{ "ELEMENT_RESULTS.total_elements" | translate }} {{ data.size }}
@@ -28,16 +29,28 @@
             <mat-card fxLayout="column" fxLayoutAlign="center center" fxHide.lt-md style="width: 5%;">
               <strong>{{ i+1 }}</strong>
             </mat-card>
-            <mat-card style="width: 91%;">
+            <mat-card class="result">
               <mat-card-content>
-                <div>
-                  <span class="a">{{e.ele}}</span>
-                  <span>{{e.attr}}</span>
-                </div>
-                <div [innerHTML]="e.code | html"></div>
-                <div>
-                  <pre><code highlight [code]="e.code"></code></pre>
-                </div>
+                <table>
+                  <tr>
+                    <td scope="row"><strong>{{ "ELEMENT_RESULTS.result.element" | translate }}</strong></td>
+                    <td><span class="element">{{ e.ele }}</span></td>
+                  </tr>
+                  <tr>
+                    <td scope="row"><strong>{{ "ELEMENT_RESULTS.result.attributes" | translate }}</strong></td>
+                    <td><span>{{ e.attr }}</span></td>
+                  </tr>
+                  <tr>
+                    <td scope="row"><strong>{{ "ELEMENT_RESULTS.result.content" | translate }}</strong></td>
+                    <td>
+                      <div [innerHTML]="e.code | html"></div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td scope="row"><strong>{{ "ELEMENT_RESULTS.result.code" | translate }}</strong></td>
+                    <td><code highlight [code]="e.showCode"></code></td>
+                  </tr>
+                </table>
               </mat-card-content>
             </mat-card>
           </div>
@@ -48,7 +61,8 @@
     <mat-tab *ngIf="data.page" label="{{ 'ELEMENT_RESULTS.page_tab' | translate }}">
       <iframe id="iframe" #iframe></iframe>
     </mat-tab>
-    <mat-tab label="{{ 'ELEMENT_RESULTS.inline_css_tab' | translate }}" fxLayout="column" fxLayoutAlign="start streth" *ngIf="data.inline_css">
+    <mat-tab label="{{ 'ELEMENT_RESULTS.inline_css_tab' | translate }}" fxLayout="column" fxLayoutAlign="start streth"
+      *ngIf="data.inline_css">
       <pre [innerHTML]="data.inline_css | html"></pre>
     </mat-tab>
     <mat-tab label="{{ 'ELEMENT_RESULTS.embedded_css_tab' | translate }}" *ngIf="data.embedded_css">

@@ -6,6 +6,7 @@ import { map, retry, catchError } from 'rxjs/operators';
 import { MatDialog } from '@angular/material';
 import * as _ from 'lodash';
 
+import { ConfigService } from './config.service';
 import { CookieService } from 'ngx-cookie-service';
 import { MessageService } from './message.service';
 
@@ -42,7 +43,7 @@ export class UserService {
         const cookie = response.result;
         const host = this.getEnv();
         const tomorrow = new Date();
-        tomorrow.setDate(tomorrow.getDate() + 1);
+        tomorrow.setTime(tomorrow.getTime() + 1 * 86400000);
 
         sessionStorage.setItem('MM-email', email);
         this.cookieService.set('MM-SSID', btoa(cookie), tomorrow, '/', host, false);
@@ -95,6 +96,6 @@ export class UserService {
   private getServer(service: string): string {
     const host = location.host;
 
-    return 'https://' + _.split(host, ':')[0] + ':3001' + service;
+    return 'http://' + _.split(host, ':')[0] + ':3443' + service;
   }
 }

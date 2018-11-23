@@ -5,6 +5,9 @@
   <mat-icon>arrow_forward</mat-icon>
   <a routerLink="/user" routerLinkActive="active">{{ "HEADER.NAV.home" | translate }}</a>
 
+  <mat-icon *ngIf="settings">arrow_forward</mat-icon>
+  <a *ngIf="settings" routerLink="/user/settings" routerLinkActive="active">{{ "HEADER.settings" | translate }}</a>
+
   <mat-icon *ngIf="website">arrow_forward</mat-icon>
   <a *ngIf="website" [routerLink]="['/user', website]" routerLinkActive="active">{{ website }}</a>
 
