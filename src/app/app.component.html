@@ -9,6 +9,26 @@
           <h4 mat-line>{{ "SIDEBAR.websites" | translate }}</h4>
         </mat-list-item>
 
+        <mat-list-item *ngIf="website" [routerLink]="['/user', website]" (click)="sidenav.close">
+          <mat-icon mat-list-icon>home</mat-icon>
+          <h4 mat-line>{{website}}</h4>
+        </mat-list-item>
+
+        <mat-list-item *ngIf="page" [routerLink]="['/user', website, page]" (click)="sidenav.close">
+          <mat-icon mat-list-icon>home</mat-icon>
+          <h4 mat-line>{{page}}</h4>
+        </mat-list-item>
+
+        <mat-list-item *ngIf="code" [routerLink]="['/user', website, page, 'code']" (click)="sidenav.close">
+          <mat-icon mat-list-icon>home</mat-icon>
+          <h4 mat-line>{{ "HEADER.NAV.code" | translate }}</h4>
+        </mat-list-item>
+
+        <mat-list-item *ngIf="ele" [routerLink]="['/user', website, page,ele]" (click)="sidenav.close">
+          <mat-icon mat-list-icon>home</mat-icon>
+          <h4 mat-line>{{ele}}</h4>
+        </mat-list-item>
+
         <mat-list-item (click)="user.logout();sidenav.close()">
           <mat-icon mat-list-icon>cancel</mat-icon>
           <h4 mat-line>{{ "LOGIN.logout" | translate }}</h4>

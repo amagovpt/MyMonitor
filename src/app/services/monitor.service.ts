@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { ajax } from 'rxjs/ajax';
 import { map, retry, catchError } from 'rxjs/operators';
@@ -18,7 +19,8 @@ export class MonitorService {
 
   constructor(
     private user: UserService,
-    private message: MessageService
+    private message: MessageService,
+    private router: Router
   ) { }
 
   getUserWebsites(): Observable<Array<any>> {
@@ -61,6 +63,9 @@ export class MonitorService {
         return <Array<any>> response.result;
       }),
       catchError(err => {
+        if ( err.code === -1) {
+          this.router.navigateByUrl('/user');
+        }
         console.log(err);
         return of(null);
       })
@@ -124,6 +129,6 @@ export class MonitorService {
   private getServer(service: string): string {
     const host = location.host;
 
-    return 'https://' + _.split(host, ':')[0] + ':3001' + service;
+    return 'http://' + _.split(host, ':')[0] + ':3443' + service;
   }
 }

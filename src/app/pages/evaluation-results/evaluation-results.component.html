@@ -38,13 +38,16 @@
         </mat-card-subtitle>
       </mat-card-header>
         <mat-card-content>
-          <mat-grid-list cols="{{ n_cols }}" rowHeight="1.5:1">
-            <mat-grid-tile>
+          <div fxLayout="row" fxLayout.lt-sm="column" fxLayout="row" fxLayoutAlign="space-between center">
+            <div></div>
+            <div>
               <ngx-gauge [type]="'semi'" [thick]="'10'" [value]="eval.metadata.score" [label]="'RESULTS.summary.score' | translate" [min]="0" [max]="10" [duration]="2000" [thresholds]="thresholdConfig">
                 </ngx-gauge>
-            </mat-grid-tile>
-            <mat-grid-tile colspan="{{colspan}}" fxLayout="row" fxLayoutAlign="center center">
-              <table class="table">
+            </div>
+            <div>
+            </div>
+            <div>
+              <table class="table" summary="Titulo, Número de elementos e tamnaho da página da avaliação">
                 <tr>
                   <th scope="row">
                     <strong>URI</strong>
@@ -76,8 +79,9 @@
                   <td>{{ eval.metadata.last_update | date }}</td>
                 </tr>
               </table>
-            </mat-grid-tile>
-          </mat-grid-list>
+            </div>
+            <div></div>
+          </div>
       </mat-card-content>
     </mat-card>
     <br>
@@ -163,14 +167,14 @@
                 <tbody>
                   <tr *ngFor="let r of eval.results" class="{{ 'row' + r.color }}">
                     <td>
-                      <span><img src="{{ r.ico }}"></span>
+                      <span><img  src="{{ r.ico }}"></span>
                       <span *ngIf="r.value === 1" [innerHTML]="'TESTS_RESULTS.'+r.msg+'.s' | translate:{value: r.value} | html"></span>
                       <span *ngIf="r.value !== 1" [innerHTML]="'TESTS_RESULTS.'+r.msg+'.p' | translate:{value: r.value} | html"></span>
                     </td>
                     <td>{{ r.lvl }}</td>
                     <td>
-                      <a *ngFor="let i of r.tech_list" [routerLink]="['/user', website, url, i.ele]">
-                        <img *ngIf="i.ele" src="assets/images/see2.png" width="30" height="30">
+                      <a *ngFor="let i of r.tech_list" attr.arial-label="{{'TESTS_RESULTS.img' | translate}}" [routerLink]="['/user', website, url, i.ele]">
+                        <img *ngIf="i.ele" alt="{{'TESTS_RESULTS.img' | translate}}" src="assets/images/see2.png" width="30" height="30">
                       </a>
                     </td>
                   </tr>

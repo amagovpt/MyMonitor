@@ -197,7 +197,7 @@ export class EvaluationService {
   private getServer(service: string): string {
     const host = location.host;
 
-    return 'https://' + _.split(host, ':')[0] + ':3001' + service;
+    return 'http://' + _.split(host, ':')[0] + ':3443' + service;
   }
 
   //EMBEBED

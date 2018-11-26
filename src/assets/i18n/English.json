@@ -323,6 +323,7 @@
         "count": "Number of occurrences"
     },
     "TESTS_RESULTS": {
+      "img" : "More details",
       "a_01a": {
         "s": "It was found that the first hyperlink of the <mark>page allows</mark> to jump directly to the main content area.",
         "p": "It was noted that the first hyperlink on the <mark>page allows</mark> to skip directly to the main content area."

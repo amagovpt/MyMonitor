@@ -83,6 +83,7 @@
       "name_label": "Nome",
       "domain_label": "Domínio",
       "pages_label": "Nº páginas",
+      "pages_label2": "Páginas",
       "creation_label": "Data de criação",
       "see_tooltip": "Ver website"
     },
@@ -323,6 +324,7 @@
         "count": "Número de ocorrências"
     },
     "TESTS_RESULTS": {
+        "img" : "Ver mais detalhes",
         "a_01a": {
             "s": "Constatou-se que a primeira hiperligação da página <mark>permite saltar</mark> diretamente para a área do conteúdo principal.",
             "p": "Constatou-se que a primeira hiperligação da página <mark>permite saltar</mark> diretamente para a área do conteúdo principal."

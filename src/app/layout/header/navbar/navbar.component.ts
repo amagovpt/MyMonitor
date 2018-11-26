@@ -46,7 +46,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
             } else {
               this.ele = decodeURIComponent(segments[4]);
             }
-
           case 4:
             this.page = decodeURIComponent(segments[3]);
 
