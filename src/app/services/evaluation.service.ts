@@ -796,23 +796,6 @@ export class EvaluationService {
     return item;
   }
 
-  private testView(ele: string, txt: string, tot: number): any {
-    const item = {};
-
-    item['txt'] = txt;
-    item['tot'] = tot ? tot : 0;
-
-    if (ele === 'w3cValidatorErrors' || ele === 'dtdOld') {
-      return item;
-    }
-
-    if (tot > 0 || ele === 'langNo' || ele === 'langCodeNo' || ele === 'langExtra' || ele === 'titleChars') {
-      item['ele'] = ele;
-    }
-
-    return item;
-  }
-
   private convertBytes(length: number): string {
     if (length < 1024) {
         return length + ' bytes';
