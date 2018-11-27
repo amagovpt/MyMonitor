@@ -12,7 +12,23 @@
       </mat-form-field>
     </div>
 
+    <button mat-raised-button color="warn" (click)="deletePages()" [disabled]="selection.selected.length === 0">
+      {{ "PAGES.remove_button" | translate }}
+    </button>
+
     <mat-table #table [dataSource]="dataSource" matSort matSortActive="Score" matSortDisableClear matSortDirection="desc">
+
+      <ng-container matColumnDef="select">
+        <mat-header-cell *matHeaderCellDef>
+          <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()"
+            [indeterminate]="selection.hasValue() && !isAllSelected()">
+          </mat-checkbox>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row)">
+          </mat-checkbox>
+        </mat-cell>
+      </ng-container>
 
       <ng-container matColumnDef="Uri">
         <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex>
@@ -60,8 +76,8 @@
       </ng-container>
 
       <ng-container matColumnDef="Evaluation_Date">
-        <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="10" fxHide.lt-md> 
-          {{ "PAGES.table.date" | translate }} 
+        <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="10" fxHide.lt-md>
+          {{ "PAGES.table.date" | translate }}
         </mat-header-cell>
         <mat-cell *matCellDef="let element" fxFlex="10" fxHide.lt-md>
           {{element.Evaluation_Date | date}}
@@ -71,7 +87,12 @@
       <ng-container matColumnDef="See">
         <mat-header-cell *matHeaderCellDef fxFlex="10"></mat-header-cell>
         <mat-cell *matCellDef="let element" fxFlex="10">
+<<<<<<< HEAD
           <button mat-icon-button matTooltip="{{ 'PAGES.table.see_tooltip' | translate }}" [routerLink]="getUriRoute(element.Uri)" attr.aria-label="{{ 'PAGES.table.see_tooltip' | translate }}"fxFlex>
+=======
+          <button mat-icon-button matTooltip="{{ 'PAGES.table.see_tooltip' | translate }}" [routerLink]="getUriRoute(element.Uri)"
+            fxFlex>
+>>>>>>> 662980eadc72e5fd84193ba89bb40f07388645a6
             <mat-icon class="md-24" aria-label="">visibility</mat-icon>
           </button>
         </mat-cell>

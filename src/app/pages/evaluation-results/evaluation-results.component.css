@@ -7,22 +7,42 @@ mat-card {
 }
 
 @media only screen and (max-width:960px){
-  .score {
+	.score {
     height: 200px;
   }
 }
 
 .text-center {
-  text-align: center;
+	text-align: center;
 }
 
 .vertical-middle {
-  vertical-align: middle;
+	vertical-align: middle;
 }
 
 #score {
+	font-weight: bold;
+	font-size: 4rem;
+}
+
+.summary-table th, .summary-table td {
+  text-align: center;
+  border: 2px solid #fff;
+  padding: 0.5em;
+}
+
+.summary-header {
+  background-color: #eee;
   font-weight: bold;
-  font-size: 4rem;
+}
+
+.summary-header2 {
+  background-color: black;
+  color: white;
+}
+
+.summary-table tr:nth-child(3) {
+  border-bottom: medium solid black;
 }
 
 th {
@@ -34,19 +54,19 @@ td {
 }
 
 .tr-err, .rowerr {
-  background-color: #f99;
+	background-color: #f99;
 }
 
 .tr-ok, .rowok {
-  background-color: #9c9;
+	background-color: #9c9;
 }
 
 .tr-war, .rowwar {
-  background-color: #ff9;
+	background-color: #ff9;
 }
 
 ::ng-deep mark {
-  background-color: yellow;
+	background-color: yellow;
 }
 
 .tools:focus {
@@ -54,7 +74,7 @@ td {
 }
 
 .pointer {
-  cursor: pointer;
+	cursor: pointer;
 }
 
 .grade {

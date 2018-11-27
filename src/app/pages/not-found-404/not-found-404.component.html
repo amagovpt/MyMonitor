@@ -5,12 +5,12 @@
         <mat-card-title fx>
           <h1>{{ "MISC._404.title" | translate }}</h1>
         </mat-card-title>
-        <mat-card-subtitle>
-          <h2>{{ "MISC._404.description" | translate }}</h2>
-        </mat-card-subtitle>
       </mat-card-header>
+      <mat-card-content fxLayout="row" fxLayoutAlign="center center">
+        <p>{{ "MISC._404.description" | translate }}</p>
+      </mat-card-content>
       <mat-card-actions fxLayout="row" fxLayoutAlign="center center">
-        <a mat-button routerLink="/">{{ "MISC._404.homepage" | translate }}</a>
+        <a mat-raised-button color="primary" routerLink="/">{{ "MISC._404.homepage" | translate }}</a>
       </mat-card-actions>
     </mat-card>
   </section>

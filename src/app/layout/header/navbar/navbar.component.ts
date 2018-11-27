@@ -13,6 +13,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   sub: Subscription;
 
+  settings: boolean;
   website: string;
   page: string;
   code: boolean;
@@ -22,6 +23,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     private router: Router,
     private location: Location
   ) {
+    this.settings = false;
     this.website = null;
     this.page = null;
     this.code = false;
@@ -31,6 +33,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.sub = this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
+        this.settings = false;
         this.website = null;
         this.page = null;
         this.code = false;
@@ -50,7 +53,11 @@ export class NavbarComponent implements OnInit, OnDestroy {
             this.page = decodeURIComponent(segments[3]);
 
           case 3:
-            this.website = decodeURIComponent(segments[2]);
+            if (segments[2] === 'settings') {
+              this.settings = true;
+            } else {
+              this.website = decodeURIComponent(segments[2]);
+            }
             break;
         }
       }

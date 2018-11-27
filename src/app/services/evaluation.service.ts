@@ -13,6 +13,7 @@ import { Response } from '../models/response';
 import { Evaluation } from '../models/evaluation';
 import { MmError } from '../models/error';
 
+import { ConfigService } from './config.service';
 import { UserService } from './user.service';
 import { MessageService } from './message.service';
 
@@ -35,6 +36,7 @@ export class EvaluationService {
     private http: HttpClient,
     private message: MessageService,
     private user: UserService,
+    private config: ConfigService,
     private translate: TranslateService
   ) { }
 
@@ -48,7 +50,7 @@ export class EvaluationService {
         this.evaluation = <Evaluation> JSON.parse(sessionStorage.getItem('evaluation'));
         return of(this.evaluation.processed);
       } else {
-        return ajax.post(this.getServer('/monitor/evaluation'), {website, url: encodeURIComponent(url) , cookie: this.user.getUserData()}).pipe(
+        return ajax.post(this.config.getServer('/monitor/evaluation'), {website, url: encodeURIComponent(url) , cookie: this.user.getUserData()}).pipe(
           retry(3),
           map(res => {
             const response = <Response> res.response;
@@ -79,7 +81,7 @@ export class EvaluationService {
   }
 
   evaluateUrl(url: string): Observable<any> {
-    return ajax.post(this.getServer('/monitor/evaluate/'), {url: encodeURIComponent(url), cookie: this.user.getUserData()}).pipe(
+    return ajax.post(this.config.getServer('/monitor/evaluate/'), {url: encodeURIComponent(url), cookie: this.user.getUserData()}).pipe(
       retry(3),
       map(res => {
         const response = <Response> res.response;
@@ -145,7 +147,7 @@ export class EvaluationService {
     if (_.includes(testSee['css'], ele)) {
       results = this.getCSS(webpage, ele);
     } else {
-      results = this.getElements(webpage, allNodes, ele, _.includes(testSee['div'], ele) || _.includes(testSee['span'], ele));
+      results = this.getElements(url, webpage, allNodes, ele, _.includes(testSee['div'], ele) || _.includes(testSee['span'], ele));
     }
 
     return results;
@@ -194,12 +196,15 @@ export class EvaluationService {
     });
   }
 
+<<<<<<< HEAD
   private getServer(service: string): string {
     const host = location.host;
 
     return 'http://' + _.split(host, ':')[0] + ':3443' + service;
   }
 
+=======
+>>>>>>> 662980eadc72e5fd84193ba89bb40f07388645a6
   //EMBEBED
   private highLightCss(styles: any, ele: string): any {
     const begin = '<em style=\'background-color: yellow;border: 0.3em solid Yellow;font-weight: bold;\'>';
@@ -490,7 +495,7 @@ export class EvaluationService {
     return { 'embedded_css': this.highLightCss(styles, ele), 'inline_css': this.highLightCss2(classes, ele)};
   }
 
-  private getElements(webpage: string, allNodes: Array<string>, ele: string, inpage: boolean): any {
+  private getElements(url: string, webpage: string, allNodes: Array<string>, ele: string, inpage: boolean): any {
     let path;
 
     if (allNodes[ele]) {
@@ -502,10 +507,12 @@ export class EvaluationService {
     const parser = new DOMParser();
     const doc = parser.parseFromString(webpage, 'text/html');
 
-    const nodes = doc.evaluate(path, doc, null, XPathResult.ORDERED_NODE_ITERATOR_TYPE, null);
+    const nodes = doc.evaluate(path, doc, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
 
     const elements = new Array();
-    let n = nodes.iterateNext();
+
+    let i = 0;
+    let n = nodes.snapshotItem(i);
 
     while (n) {
       let attrs = '';
@@ -513,23 +520,48 @@ export class EvaluationService {
       for (let i = 0 ; i < _.size(n['attributes']) ; i++) {
         const attr = <Attr> n['attributes'][i];
         if (attr.value) {
-          attrs +=  attr.name + '="' + attr.value + '" ';
+          attrs += attr.name + '="' + attr.value + '" ';
         } else {
           attrs += attr.name + ' ';
+        }
+      }
+
+      let eleOuterHtml = _.clone(n['outerHTML']);
+
+      if (_.toLower(n.nodeName) === 'img') {
+        let fixSrcUrl = _.clone(url);
+        if (fixSrcUrl[_.size(fixSrcUrl)-1] === '/') {
+          fixSrcUrl = fixSrcUrl.substring(0, _.size(fixSrcUrl) - 2);
+        }
+
+        if (n['attributes']['src'] && !_.startsWith(n['attributes']['src'].value, 'http')) {
+          n['attributes']['src'].value = `http://${fixSrcUrl}${n['attributes']['src'].value}`;
+
+          n['width'] = '250';
+          n['height'] = '250';
+        }
+
+        if (n['attributes']['srcset'] && !_.startsWith(n['attributes']['srcset'].value, 'http')) {
+          n['attributes']['srcset'].value = `http://${fixSrcUrl}${n['attributes']['srcset'].value}`;
+
+          n['width'] = '250';
+          n['height'] = '250';
         }
       }
 
       elements.push({
         ele: _.toLower(n.nodeName),
         attr: attrs,
-        code: n['outerHTML']
+        code: n['outerHTML'],
+        showCode: eleOuterHtml
       });
 
       if (inpage) {
         n['style'] = 'background:#ff0 !important;border:2px dotted #900 !important;padding:2px !important;visibility:visible !important;display:inherit !important;';
       }
 
-      n = nodes.iterateNext();
+      i++;
+      n = nodes.snapshotItem(i)
     }
 
     return {
@@ -541,9 +573,9 @@ export class EvaluationService {
 
   private processData() {
     const tot = this.evaluation.data.tot;
-    const pagecode = this.evaluation.pagecode;
-    const nodes = this.evaluation.data.nodes;
-    const url = this.url;
+    //const pagecode = this.evaluation.pagecode;
+    //const nodes = this.evaluation.data.nodes;
+    //const url = this.url;
 
     const data = {};
     data['metadata'] = {};
@@ -560,9 +592,9 @@ export class EvaluationService {
     data['scoreBoard'] = [];
     data['elems'] = [];
 
-    const tabsSize = {'A': 0, 'B': 0, 'C': 0, 'D': 0, 'E': 0, 'F': 0};
+    //const tabsSize = {'A': 0, 'B': 0, 'C': 0, 'D': 0, 'E': 0, 'F': 0};
 
-    const hidden = ['all', 'w3cValidator'];
+    //const hidden = ['all', 'w3cValidator'];
 
     let infotot = {
         'ok': 0,
@@ -590,19 +622,19 @@ export class EvaluationService {
       };
 
     for (const ee in tot.results) {
-      const r = tot.results[ee];      
+      //const r = tot.results[ee];
 
-      const split = _.split(r, '@');
-      const sco = parseInt(split[0]);
-      const pond = split[1];
+      //const split = _.split(r, '@');
+      //const sco = parseInt(split[0]);
+      /*const pond = split[1];
       const res = split[2];
-      const cant = split[3];
+      const cant = split[3];*/
 
-      const ele = tests[ee]['elem'];
+      //const ele = tests[ee]['elem'];
       const tes = tests[ee]['test'];
       const refs = tests[ee]['ref'];
       const lev = tests[ee]['level'];
-      const techfail = refs[0] === 'F' ? 'relationF' : 'relationT';
+      //const techfail = refs[0] === 'F' ? 'relationF' : 'relationT';
 
       let color;
 
@@ -630,13 +662,13 @@ export class EvaluationService {
         }
       }
 
-      const scrcrd = this.resIcon(sco);
+      //const scrcrd = this.resIcon(sco);
 
-      tabsSize[scrcrd]++;
+      //tabsSize[scrcrd]++;
 
-      const row = scrcrd + '' + scrcrd;
+      //const row = scrcrd + '' + scrcrd;
 
-      const msg = ee;
+      //const msg = ee;
 
       const result = {};
       result['ico'] = 'assets/images/ico' + color + '.png';
@@ -645,17 +677,16 @@ export class EvaluationService {
       result['msg'] = ee;
       result['value'] = tnum;
       result['prio'] = color === 'ok' ? 3 : color === 'err'? 1 : 2;
-      result['tech_list'] = new Array();
+      //result['tech_list'] = new Array();
 
-      if (!_.includes(hidden, ele)) {
-        result['tech_list'].push(this.testView(ele, ele, tot['elems'][ele]));
+      /*if (!_.includes(hidden, ele)) {
+        result['tech_list'] = this.testView(ele, ele, tot['elems'][ele]);
         if (!isNaN(tot['elems'][ele])) {
           result['value'] += parseInt(tot['elems'][ele]);
         }
-      }
+      }*/
 
-      result['tech_list'].push(this.testView(tes, tes, tnum));
-
+      result['tech_list'] = this.testView(tes, tes, tnum);
 
       data['results'].push(result);
       /*result['title'] = ee;
@@ -747,14 +778,31 @@ export class EvaluationService {
     //data['scoreBoard'] = _.orderBy(data['scoreBoard'], ['level', 'prio'], ['asc', 'asc']);
     data['infoak'] = infoak;
 
-    for (const k in tabsSize) {
+    /*for (const k in tabsSize) {
       const v = tabsSize[k];
       if (v > 0) {
         data['tabs'][k] = v;
       }
     }
-    
+    console.log(data);*/
     return data;
+  }
+
+  private testView(ele: string, txt: string, tot: number): any {
+    const item = {};
+
+    item['txt'] = txt;
+    item['tot'] = tot ? tot : 0;
+
+    if (ele === 'w3cValidatorErrors' || ele === 'dtdOld') {
+      return item;
+    }
+
+    if (tot > 0 || ele === 'langNo' || ele === 'langCodeNo' || ele === 'langExtra' || ele === 'titleChars') {
+      item['ele'] = ele;
+    }
+
+    return item;
   }
 
   private testView(ele: string, txt: string, tot: number): any {
@@ -784,7 +832,7 @@ export class EvaluationService {
     }
   }
 
-  private resIcon(r: number): string {
+  /*private resIcon(r: number): string {
     switch (r) {
       case 10: return 'A';
       case 9: case 8: return 'B';
@@ -793,5 +841,5 @@ export class EvaluationService {
       case 3: case 2: return 'E';
       case 1: return 'F';
     }
-  }
+  }*/
 }

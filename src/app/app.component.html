@@ -9,6 +9,7 @@
           <h4 mat-line>{{ "SIDEBAR.websites" | translate }}</h4>
         </mat-list-item>
 
+<<<<<<< HEAD
         <mat-list-item *ngIf="website" [routerLink]="['/user', website]" (click)="sidenav.close">
           <mat-icon mat-list-icon>home</mat-icon>
           <h4 mat-line>{{website}}</h4>
@@ -27,6 +28,11 @@
         <mat-list-item *ngIf="ele" [routerLink]="['/user', website, page,ele]" (click)="sidenav.close">
           <mat-icon mat-list-icon>home</mat-icon>
           <h4 mat-line>{{ele}}</h4>
+=======
+        <mat-list-item routerLink="/user/settings" (click)="sidenav.close()">
+          <mat-icon mat-list-icon>settings</mat-icon>
+          <h4 mat-line>{{ "HEADER.settings" | translate }}</h4>
+>>>>>>> 662980eadc72e5fd84193ba89bb40f07388645a6
         </mat-list-item>
 
         <mat-list-item (click)="user.logout();sidenav.close()">
@@ -51,7 +57,7 @@
   </mat-sidenav>
 
   <mat-sidenav-content>
-    
+
     <perfect-scrollbar #scrollRef>
       <div class="main">
         <app-header [sidenav]="sidenav"></app-header>
@@ -62,7 +68,7 @@
         <app-footer></app-footer>
       </div>
     </perfect-scrollbar>
-    
+
     <button class="go_to_top" *ngIf="showGoToTop" fxHide.lt-md mat-fab color="accent" matTooltip="{{ 'MISC.go_to_top' | translate }}" (click)="goToTop()">
       <mat-icon aria-label="'MISC.go_to_top' | translate">arrow_upward</mat-icon>
     </button>

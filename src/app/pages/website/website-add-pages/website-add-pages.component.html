@@ -17,8 +17,8 @@
       <mat-form-field>
         <label for="add_website_pages">{{ "ADD_PAGES.pages_label" | translate }}</label>
         <textarea id="add_website_pages" name="pages" matInput cdkTextareaAutosize cdkAutosizeMinRows="5" formControlName="pages" [errorStateMatcher]="matcher" required></textarea>
-        <mat-error *ngIf="pagesForm.hasError('required')" [innerHTML]="'MISC.required_field' | translate"></mat-error>
-        <mat-error *ngIf="pagesForm.hasError('url')" [innerHTML]="'ADD_PAGES.error' | translate"></mat-error>
+        <mat-error *ngIf="pagesForm.controls.pages.hasError('required')" [innerHTML]="'MISC.required_field' | translate"></mat-error>
+        <mat-error *ngIf="pagesForm.controls.pages.hasError('url')" [innerHTML]="'ADD_PAGES.error' | translate"></mat-error>
         <mat-error *ngIf="pagesForm.controls.pages.hasError('domainNoMatch')" [innerHTML]="'ADD_PAGES.url_match_error' | translate"></mat-error>
       </mat-form-field>
       <div fxLayout="row" fxLayoutAlign="center center">

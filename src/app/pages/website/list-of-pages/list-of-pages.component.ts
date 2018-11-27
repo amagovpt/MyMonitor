@@ -1,6 +1,23 @@
-import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
-import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
-import { Location } from '@angular/common';
+import {
+  Component,
+  OnInit,
+  Input,
+  Output,
+  EventEmitter,
+  ViewChild,
+  ElementRef
+} from '@angular/core';
+import {
+  MatTableDataSource,
+  MatPaginator,
+  MatSort
+} from '@angular/material';
+import {
+  Location
+} from '@angular/common';
+import {
+  SelectionModel
+} from '@angular/cdk/collections';
 import * as _ from 'lodash';
 
 @Component({
@@ -12,7 +29,10 @@ export class ListOfPagesComponent implements OnInit {
 
   @Input('pages') pages: Array<any>;
 
+  @Output('removePages') removePages = new EventEmitter<Array<number>>();
+
   displayedColumns = [
+    'select',
     'Uri',
     'Score',
     'A',
@@ -30,12 +50,19 @@ export class ListOfPagesComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private location: Location) { }
+  constructor(private location: Location) {
+    this.selection = new SelectionModel<any>(true, []);
+  }
 
   ngOnInit(): void {
     this.dataSource = new MatTableDataSource(this.pages);
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
+  }
+
+  deletePages(): void {
+    const pagesId = _.map(this.selection.selected, 'PageId');
+    this.removePages.next(pagesId);
   }
 
   applyFilter(filterValue: string): void {
@@ -44,7 +71,7 @@ export class ListOfPagesComponent implements OnInit {
     this.dataSource.filter = filterValue;
   }
 
-  getUriRoute(uri: string): Array<string> {
+  getUriRoute(uri: string): Array < string > {
     const path = this.location.path();
     let segments = _.split(path, '/');
     segments[0] = '/user';
@@ -53,5 +80,19 @@ export class ListOfPagesComponent implements OnInit {
     segments = _.map(segments, s => decodeURIComponent(s));
 
     return segments;
+  }
+
+  /** Whether the number of selected elements matches the total number of rows. */
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.dataSource.data.length;
+    return numSelected === numRows;
+  }
+
+  /** Selects all rows if they are not all selected; otherwise clear selection. */
+  masterToggle() {
+    this.isAllSelected() ?
+      this.selection.clear() :
+      this.dataSource.data.forEach(row => this.selection.select(row));
   }
 }

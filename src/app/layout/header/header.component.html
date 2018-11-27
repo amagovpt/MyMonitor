@@ -2,6 +2,9 @@
   <mat-toolbar color="primary">
     <mat-toolbar-row fxHide.lt-md>
       <span fxFlex>My Monitor <span *ngIf="user.getEmail()">- {{ user.getEmail() }}</span></span>
+      <button mat-button *ngIf="user.isUserLoggedIn()" routerLink="/user/settings">
+        {{ "HEADER.settings" | translate }}
+      </button>
       <button mat-button *ngIf="user.isUserLoggedIn()" (click)="user.logout()">
         {{ "LOGIN.logout" | translate }}
       </button>

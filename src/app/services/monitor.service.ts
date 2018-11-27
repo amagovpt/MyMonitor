@@ -5,6 +5,7 @@ import { ajax } from 'rxjs/ajax';
 import { map, retry, catchError } from 'rxjs/operators';
 import * as _ from 'lodash';
 
+import { ConfigService } from './config.service';
 import { UserService } from './user.service';
 import { MessageService } from './message.service';
 
@@ -20,11 +21,15 @@ export class MonitorService {
   constructor(
     private user: UserService,
     private message: MessageService,
+<<<<<<< HEAD
     private router: Router
+=======
+    private config: ConfigService
+>>>>>>> 662980eadc72e5fd84193ba89bb40f07388645a6
   ) { }
 
   getUserWebsites(): Observable<Array<any>> {
-    return ajax.post(this.getServer('/monitor/user/websites'), {cookie: this.user.getUserData()}).pipe(
+    return ajax.post(this.config.getServer('/monitor/user/websites'), {cookie: this.user.getUserData()}).pipe(
       retry(3),
       map(res => {
         const response = <Response> res.response;
@@ -47,7 +52,7 @@ export class MonitorService {
   }
 
   getUserWebsitePages(website: string): Observable<Array<any>> {
-    return ajax.post(this.getServer('/monitor/user/website/pages'), {website, cookie: this.user.getUserData()}).pipe(
+    return ajax.post(this.config.getServer('/monitor/user/website/pages'), {website, cookie: this.user.getUserData()}).pipe(
       retry(3),
       map(res => {
         const response = <Response> res.response;
@@ -73,7 +78,7 @@ export class MonitorService {
   }
 
   getWebsiteDomain(website: string): Observable<string> {
-    return ajax.post(this.getServer('/monitor/user/website/domain'), {website, cookie: this.user.getUserData()}).pipe(
+    return ajax.post(this.config.getServer('/monitor/user/website/domain'), {website, cookie: this.user.getUserData()}).pipe(
       retry(3),
       map(res => {
         const response = <Response> res.response;
@@ -99,7 +104,7 @@ export class MonitorService {
   }
 
   addWebsitePages(website: string, domain: string, pages: Array<string>): Observable<Array<Page>> {
-    return ajax.post(this.getServer('/monitor/user/website/addPages'), {website, domain, pages: JSON.stringify(pages), cookie: this.user.getUserData()}).pipe(
+    return ajax.post(this.config.getServer('/monitor/user/website/addPages'), {website, domain, pages: JSON.stringify(pages), cookie: this.user.getUserData()}).pipe(
       retry(3),
       map(res => {
         const response = <Response> res.response;
@@ -126,9 +131,56 @@ export class MonitorService {
     );
   }
 
-  private getServer(service: string): string {
-    const host = location.host;
+  removePages(website: string, pagesId: Array<number>): Observable<Array<Page>> {
+    return ajax.post(this.config.getServer('/monitor/user/website/removePages'), {website, pagesId: JSON.stringify(pagesId), cookie: this.user.getUserData()}).pipe(
+      retry(3),
+      map(res => {
+        const response = <Response> res.response;
 
+        if (!res.response || res.status === 404) {
+          throw new MmError(404, 'Service not found', 'SERIOUS');
+        }
+
+        if (response.success !== 1) {
+          throw new MmError(response.success, response.message);
+        }
+
+        return <Array<any>> response.result;
+      }),
+      catchError(err => {
+        console.log(err);
+        return of(null);
+      })
+    );
+  }
+
+<<<<<<< HEAD
     return 'http://' + _.split(host, ':')[0] + ':3443' + service;
+=======
+  changePassword(password: string, newPassword: string, confirmPassword: string): Observable<boolean> {
+    return ajax.post(this.config.getServer('/monitor/user/changePassword'), {password, newPassword, confirmPassword, cookie: this.user.getUserData()}).pipe(
+      retry(3),
+      map(res => {
+        const response = <Response> res.response;
+
+        if (!res.response || res.status === 404) {
+          throw new MmError(404, 'Service not found', 'SERIOUS');
+        }
+
+        if (response.success !== 1) {
+          throw new MmError(response.success, response.message);
+        }
+
+        return <boolean> response.result;
+      }),
+      catchError(err => {
+        if (err.code === -1) {
+          this.message.show('SETTINGS.change_password.old_password_match_error');
+        }
+        console.log(err);
+        return of(null);
+      })
+    );
+>>>>>>> 662980eadc72e5fd84193ba89bb40f07388645a6
   }
 }

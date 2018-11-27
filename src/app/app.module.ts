@@ -41,15 +41,19 @@ import { WebsiteAddPagesComponent } from './pages/website/website-add-pages/webs
 import { WebsiteStatisticsComponent } from './pages/website/website-statistics/website-statistics.component';
 import { ErrorDistributionDialogComponent } from './dialogs/error-distribution-dialog/error-distribution-dialog.component';
 import { ScoreDistributionDialogComponent } from './dialogs/score-distribution-dialog/score-distribution-dialog.component';
+import { RemovePagesConfirmationDialogComponent } from './dialogs/remove-pages-confirmation-dialog/remove-pages-confirmation-dialog.component';
+import { UserAuthErrorDialogComponent } from './dialogs/user-auth-error-dialog/user-auth-error-dialog.component';
+import { SettingsComponent } from './pages/settings/settings.component';
 
 const appRoutes: Routes = [
   { path: '', component: LoginComponent, canActivate: [NoAuthGuard] },
   { path: 'user', component: UserComponent, canActivate: [UserAuthGuard], children: [
-    { path: '', component: WebsitesComponent },
-    { path: ':website', component: WebsiteComponent },
-    { path: ':website/:page', component: EvaluationResultsComponent },
-    { path: ':website/:page/code', component: WebpageCodeComponent },
-    { path: ':website/:page/:ele', component: ElementResultComponent }
+    { path: '', component: WebsitesComponent, canActivate: [UserAuthGuard] },
+    { path: 'settings', component: SettingsComponent, canActivate: [UserAuthGuard] },
+    { path: ':website', component: WebsiteComponent, canActivate: [UserAuthGuard] },
+    { path: ':website/:page', component: EvaluationResultsComponent, canActivate: [UserAuthGuard] },
+    { path: ':website/:page/code', component: WebpageCodeComponent, canActivate: [UserAuthGuard] },
+    { path: ':website/:page/:ele', component: ElementResultComponent, canActivate: [UserAuthGuard] }
   ] },
   { path: '**', component: NotFound404Component }
 ];
@@ -86,7 +90,10 @@ export function HttpLoaderFactory(http: HttpClient) {
     WebsiteAddPagesComponent,
     WebsiteStatisticsComponent,
     ErrorDistributionDialogComponent,
-    ScoreDistributionDialogComponent
+    ScoreDistributionDialogComponent,
+    RemovePagesConfirmationDialogComponent,
+    UserAuthErrorDialogComponent,
+    SettingsComponent
   ],
   imports: [
     RouterModule.forRoot(
@@ -115,7 +122,9 @@ export function HttpLoaderFactory(http: HttpClient) {
   ],
   entryComponents: [
     ScoreDistributionDialogComponent,
-    ErrorDistributionDialogComponent
+    ErrorDistributionDialogComponent,
+    RemovePagesConfirmationDialogComponent,
+    UserAuthErrorDialogComponent
   ],
   providers: [
     CookieService,
