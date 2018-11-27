@@ -7,8 +7,38 @@
       <h2>{{ "STATISTICS.subtitle" | translate }}</h2>
     </mat-card-subtitle>
   </mat-card-header>
-  <mat-card-content>
-    <mat-grid-list cols="{{ n_cols }}" rowHeight="{{ rowHeight }}">
+
+  <mat-card-content fxLayout.gt-sm="row" fxLayout ="column" fxLayoutAlign="space-between center">
+    <div>
+    </div>
+    <div>
+      <ngx-gauge 
+          [type]="'semi'"
+          [thick]="'10'"
+          [value]="score | toFixed" 
+          [label]="'STATISTICS.gauge.label' | translate" 
+          [min]="0" 
+          [max]="10"
+          [duration]="2000"
+          [thresholds]="thresholdConfig">
+        </ngx-gauge>
+    </div>
+    <div fxLayout="column">
+      <div>
+        <span><strong>{{ "STATISTICS.pages" | translate }}:</strong> {{ pages.length }}</span>
+      </div>
+      <br>
+      <div >
+        <span><strong>{{ "STATISTICS.newest_page_updated" | translate }}:</strong> {{ newest_page | date }}</span>
+      </div>
+      <br>
+      <div>
+        <span><strong>{{ "STATISTICS.oldest_page_updated" | translate }}:</strong> {{ oldest_page | date }}</span>
+      </div>
+    </div>
+    <div>
+    </div>  
+    <!--<mat-grid-list cols="{{ n_cols }}" rowHeight="{{rowHeight}}">
       <mat-grid-tile>
         <ngx-gauge 
           [type]="'semi'"
@@ -34,13 +64,13 @@
           </mat-list-item>
         </mat-list>
       </mat-grid-tile>
-    </mat-grid-list>
+    </mat-grid-list> -->
   </mat-card-content>
   <mat-card-actions fxLayout="row" fxLayoutAlign="center center">
-    <button mat-raised-button color="primary" (click)="openScoreDistributionDialog()">
+    <button mat-raised-button color="primary" attr.aria-label="{{ 'STATISTICS.score_distribution' | translate }}" (click)="openScoreDistributionDialog()">
       {{ "STATISTICS.score_distribution" | translate }}
     </button>
-    <button mat-raised-button color="warn" (click)="openErrorDistributionDialog()">
+    <button mat-raised-button color="warn" attr.aria-label="{{ 'STATISTICS.error_distribution' | translate }}"  (click)="openErrorDistributionDialog()">
       {{ "STATISTICS.error_distribution" | translate }}
     </button>
   </mat-card-actions>

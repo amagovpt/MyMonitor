@@ -41,15 +41,21 @@ export class WebsiteStatisticsComponent implements OnInit {
       this.rowHeight = '1.5:1';
     }
 
+
+
     this.score = 0;
   }
 
   @HostListener('window:resize', ['$event'])
   onResize(event) {
-    if (event.target.innerWidth < 960) {
+    if (event.target.innerWidth < 960 ){
       this.n_cols = 1;
+      this.colspan = 1;
+      this.rowHeight = '1.5:1';
     } else {
       this.n_cols = 3;
+      this.colspan = 2;
+      this.rowHeight = '1.5:1';
     }
   }
 

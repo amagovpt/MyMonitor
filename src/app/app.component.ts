@@ -1,6 +1,9 @@
 import { OnInit, Component, Injectable, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { merge } from 'rxjs';
+import { Location } from '@angular/common';
+import { Router, NavigationEnd } from '@angular/router';
+import { Subscription } from 'rxjs';
 import * as _ from 'lodash';
 
 import { UserService } from './services/user.service';
@@ -29,11 +32,20 @@ export class AppComponent implements OnInit, AfterViewInit {
     'Portuguese': 'pt'
   };
 
+  sub: Subscription;
+
+  website: string;
+  page: string;
+  code: boolean;
+  ele: string;
+
   showGoToTop: boolean;
 
   constructor(
     public el: ElementRef,
     public user: UserService,
+    private router: Router,
+    private location: Location,
     public translate: TranslateService
   ) {
     this.translate.addLangs(_.values(this.langs));
@@ -60,6 +72,34 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.translate.onLangChange.subscribe(() => {
       this.updateLanguage();
     });
+
+    this.sub = this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.website = null;
+        this.page = null;
+        this.code = false;
+        this.ele = null;
+
+        const path = this.location.path();
+        const segments = _.split(path, '/');
+
+        switch (_.size(segments)) {
+          case 5:
+            if (segments[4] === 'code') {
+              this.code = true;
+            } else {
+              this.ele = decodeURIComponent(segments[4]);
+            }
+          case 4:
+            this.page = decodeURIComponent(segments[3]);
+
+          case 3:
+            this.website = decodeURIComponent(segments[2]);
+            break;
+        }
+      }
+    });
+
   }
 
   ngAfterViewInit(): void {

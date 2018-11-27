@@ -19,40 +19,40 @@
       <mat-table #table [dataSource]="dataSource" matSort>
 
         <ng-container matColumnDef="Name">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>
+          <mat-header-cell *matHeaderCellDef mat-sort-header attr.aria-label="1" fxFlex.lt-md="60" fxFlex="35">
             {{ "WEBSITES_PAGE.table.name_label" | translate }}
           </mat-header-cell>
-          <mat-cell *matCellDef="let element">
+          <mat-cell *matCellDef="let element" fxFlex.lt-md="60" fxFlex="35">
             <strong>{{element.Name}}</strong>
           </mat-cell>
         </ng-container>
 
-        <ng-container matColumnDef="Domain">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>
+        <ng-container matColumnDef="Domain" >
+          <mat-header-cell fxHide.lt-md *matHeaderCellDef mat-sort-header attr.aria-label="2" fxFlex="30">
             {{ "WEBSITES_PAGE.table.domain_label" | translate }}
           </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.Domain}} </mat-cell>
+          <mat-cell fxHide.lt-md *matCellDef="let element" fxFlex="30" > {{element.Domain}}  </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="Pages">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>
+          <mat-header-cell fxHide.lt-md *matHeaderCellDef mat-sort-header attr.aria-label="3"  fxFlex.gt-md="20">
             {{ "WEBSITES_PAGE.table.pages_label" | translate }}
           </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.Pages}} </mat-cell>
+          <mat-cell fxHide.lt-md *matCellDef="let element" fxFlex.gt-md="20"> {{element.Pages}} </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="Creation_Date">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>
+          <mat-header-cell fxHide.lt-sm *matHeaderCellDef mat-sort-header attr.aria-label="4" fxFlex="15">
             {{ "WEBSITES_PAGE.table.creation_label" | translate }}
           </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.Creation_Date | date}} </mat-cell>
+          <mat-cell fxHide.lt-sm *matCellDef="let element" fxFlex.lt-md="30" fxFlex="15" > {{element.Creation_Date | date}} </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="see">
-          <mat-header-cell *matHeaderCellDef></mat-header-cell>
-          <mat-cell *matCellDef="let element">
-            <button mat-icon-button matTooltip="{{ 'WEBSITES_PAGE.table.see_tooltip' | translate }}" [routerLink]="['/user', element.Name]">
-              <mat-icon class="md-24" aria-label="">visibility</mat-icon>
+          <mat-header-cell *matHeaderCellDef fxFlex.lt-md="10" fxFlex = "5" ></mat-header-cell>
+          <mat-cell *matCellDef="let element" fxFlex.lt-md="10" fxFlex = "5" >
+            <button mat-icon-button attr.aria-label="{{ 'WEBSITES_PAGE.table.see_tooltip' | translate }}" matTooltip="{{ 'WEBSITES_PAGE.table.see_tooltip' | translate }}" [routerLink]="['/user', element.Name]" >
+              <mat-icon class="md-24" >visibility</mat-icon>
             </button>
           </mat-cell>
         </ng-container>

@@ -28,61 +28,65 @@
       </a>
     </mat-card-actions>
   </mat-card>
-  <br>
-  <mat-card class="mat-typography" *ngIf="!loading && !error">
-    <mat-card-header>
-      <mat-card-title>
-        <h1>{{ "RESULTS.summary.title" | translate }}</h1>
-      </mat-card-title>
-      <mat-card-subtitle>
-        <h2>{{ "RESULTS.summary.subtitle" | translate }}</h2>
-      </mat-card-subtitle>
-    </mat-card-header>
-    <mat-card-content>
-      <mat-grid-list cols="{{ n_cols }}" rowHeight="1.5:1">
-        <mat-grid-tile>
-          <ngx-gauge [type]="'semi'" [thick]="'10'" [value]="eval.metadata.score" [label]="'RESULTS.summary.score' | translate"
-            [min]="0" [max]="10" [duration]="2000" [thresholds]="thresholdConfig">
-          </ngx-gauge>
-        </mat-grid-tile>
-        <mat-grid-tile colspan="{{colspan}}" fxLayout="row" fxLayoutAlign="center center">
-          <table class="table">
-            <tr>
-              <th scope="row">
-                <strong>URI</strong>
-              </th>
-              <td>{{eval.metadata.url}}</td>
-            </tr>
-            <tr>
-              <th scope="row">
-                <strong>{{ "RESULTS.summary.metadata.title_label" | translate }}</strong>
-              </th>
-              <td>{{eval.metadata.title}}</td>
-            </tr>
-            <tr>
-              <th scope="row">
-                <strong>{{ "RESULTS.summary.metadata.n_elements_label" | translate }}</strong>
-              </th>
-              <td>{{eval.metadata.n_elements}}</td>
-            </tr>
-            <tr>
-              <th scope="row">
-                <strong>{{ "RESULTS.summary.metadata.page_size_label" | translate }}</strong>
-              </th>
-              <td [innerHTML]="eval.metadata.size | html"></td>
-            </tr>
-            <tr>
-              <th scope="row">
-                <strong>{{ "RESULTS.summary.metadata.last_update_label" | translate }}</strong>
-              </th>
-              <td>{{ eval.metadata.last_update | date }}</td>
-            </tr>
-          </table>
-        </mat-grid-tile>
-      </mat-grid-list>
-    </mat-card-content>
-  </mat-card>
-  <br>
+    <br>
+    <mat-card class="mat-typography" *ngIf="!loading && !error">
+      <mat-card-header>
+        <mat-card-title>
+          <h1>{{ "RESULTS.summary.title" | translate }}</h1>
+        </mat-card-title>
+        <mat-card-subtitle>
+          <h2>{{ "RESULTS.summary.subtitle" | translate }}</h2>
+        </mat-card-subtitle>
+      </mat-card-header>
+        <mat-card-content>
+          <div fxLayout="row" fxLayout.lt-sm="column" fxLayout="row" fxLayoutAlign="space-between center">
+            <div></div>
+            <div>
+              <ngx-gauge [type]="'semi'" [thick]="'10'" [value]="eval.metadata.score" [label]="'RESULTS.summary.score' | translate" [min]="0" [max]="10" [duration]="2000" [thresholds]="thresholdConfig">
+                </ngx-gauge>
+            </div>
+            <div>
+            </div>
+            <div>
+              <table class="table" summary="Titulo, Número de elementos e tamnaho da página da avaliação">
+                <tr>
+                  <th scope="row">
+                    <strong>URI</strong>
+                  </th>
+                  <td>{{eval.metadata.url}}</td>
+                </tr>
+                <tr>
+                  <th scope="row">
+                    <strong>{{ "RESULTS.summary.metadata.title_label" | translate }}</strong>
+                  </th>
+                  <td>{{eval.metadata.title}}</td>
+                </tr>
+                <tr>
+                  <th scope="row">
+                    <strong>{{ "RESULTS.summary.metadata.n_elements_label" | translate }}</strong>
+                  </th>
+                  <td>{{eval.metadata.n_elements}}</td>
+                </tr>
+                <tr>
+                  <th scope="row">
+                    <strong>{{ "RESULTS.summary.metadata.page_size_label" | translate }}</strong>
+                  </th>
+                  <td [innerHTML]="eval.metadata.size | html"></td>
+                </tr>
+                <tr>
+                  <th scope="row">
+                    <strong>{{ "RESULTS.summary.metadata.last_update_label" | translate }}</strong>
+                  </th>
+                  <td>{{ eval.metadata.last_update | date }}</td>
+                </tr>
+              </table>
+            </div>
+            <div></div>
+          </div>
+      </mat-card-content>
+    </mat-card>
+    <br>
+ 
   <mat-card class="mat-typography" *ngIf="!loading && !error">
     <mat-card-content fxLayout="row" fxLayoutAlign="center center">
       <table class="summary-table" fxFlex.gt-sm="60" fxFlex.lt-md>
@@ -180,3 +184,4 @@
   <app-loading *ngIf="loading && !error"></app-loading>
   <app-error *ngIf="error"></app-error>
 </section>
+

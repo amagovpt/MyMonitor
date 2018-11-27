@@ -97,6 +97,7 @@
       "name_label": "Nome",
       "domain_label": "Domínio",
       "pages_label": "Nº páginas",
+      "pages_label2": "Páginas",
       "creation_label": "Data de criação",
       "see_tooltip": "Ver website"
     },
@@ -534,6 +535,7 @@
     "img_02": {
       "s": "Foi encontrada <mark>{{value}}</mark> imagem cuja legenda é um espaço vazio - <code>alt=\"\"</code>.",
       "p": "Foram encontradas <mark>{{value}}</mark> imagens cuja legenda é um espaço vazio - <code>alt=\"\"</code>."
+
     },
     "img_03": {
       "s": "Foi encontrada <mark>{{value}}</mark> imagem cuja legenda não serve de equivalente alternativo.",

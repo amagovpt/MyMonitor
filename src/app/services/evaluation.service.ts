@@ -196,6 +196,14 @@ export class EvaluationService {
     });
   }
 
+
+  private getServer(service: string): string {
+    const host = location.host;
+
+    return 'http://' + _.split(host, ':')[0] + ':3443' + service;
+  }
+
+
   //EMBEBED
   private highLightCss(styles: any, ele: string): any {
     const begin = '<em style=\'background-color: yellow;border: 0.3em solid Yellow;font-weight: bold;\'>';
