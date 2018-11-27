@@ -196,15 +196,14 @@ export class EvaluationService {
     });
   }
 
-<<<<<<< HEAD
+
   private getServer(service: string): string {
     const host = location.host;
 
     return 'http://' + _.split(host, ':')[0] + ':3443' + service;
   }
 
-=======
->>>>>>> 662980eadc72e5fd84193ba89bb40f07388645a6
+
   //EMBEBED
   private highLightCss(styles: any, ele: string): any {
     const begin = '<em style=\'background-color: yellow;border: 0.3em solid Yellow;font-weight: bold;\'>';
@@ -786,23 +785,6 @@ export class EvaluationService {
     }
     console.log(data);*/
     return data;
-  }
-
-  private testView(ele: string, txt: string, tot: number): any {
-    const item = {};
-
-    item['txt'] = txt;
-    item['tot'] = tot ? tot : 0;
-
-    if (ele === 'w3cValidatorErrors' || ele === 'dtdOld') {
-      return item;
-    }
-
-    if (tot > 0 || ele === 'langNo' || ele === 'langCodeNo' || ele === 'langExtra' || ele === 'titleChars') {
-      item['ele'] = ele;
-    }
-
-    return item;
   }
 
   private testView(ele: string, txt: string, tot: number): any {

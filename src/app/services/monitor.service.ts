@@ -21,11 +21,9 @@ export class MonitorService {
   constructor(
     private user: UserService,
     private message: MessageService,
-<<<<<<< HEAD
-    private router: Router
-=======
+    private router: Router,
     private config: ConfigService
->>>>>>> 662980eadc72e5fd84193ba89bb40f07388645a6
+
   ) { }
 
   getUserWebsites(): Observable<Array<any>> {
@@ -154,9 +152,6 @@ export class MonitorService {
     );
   }
 
-<<<<<<< HEAD
-    return 'http://' + _.split(host, ':')[0] + ':3443' + service;
-=======
   changePassword(password: string, newPassword: string, confirmPassword: string): Observable<boolean> {
     return ajax.post(this.config.getServer('/monitor/user/changePassword'), {password, newPassword, confirmPassword, cookie: this.user.getUserData()}).pipe(
       retry(3),
@@ -181,6 +176,5 @@ export class MonitorService {
         return of(null);
       })
     );
->>>>>>> 662980eadc72e5fd84193ba89bb40f07388645a6
   }
 }
