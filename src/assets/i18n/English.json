@@ -88,7 +88,11 @@
     "url_match_error": "One of the urls doesn't match the domain",
     "button": "Add pages",
     "error_message": "There was an error while trying to add pages",
-    "success_message": "Pages added successfully"
+    "success_message": "Pages added successfully",
+    "error_dialog": {
+      "title": "Errors",
+      "message": "Some errors ocurred while trying to add the following pages:"
+    }
   },
   "WEBSITES_PAGE": {
     "title": "List of websites",

@@ -73,7 +73,7 @@
       "new_password": "Nova palavra-chave",
       "confirm_password": "Confirmar nova palavra-chave",
       "new_password_match_error": "As palavras-chave não coincidem",
-      "old_password_math_error": "A palavra-chave atual está incorreta",
+      "old_password_match_error": "A palavra-chave atual está incorreta",
       "submit": "Alterar",
       "success": "Palavra-chave alterada com sucesso"
     }
@@ -88,7 +88,11 @@
     "url_match_error": "Um dos urls não coincide com o domínio",
     "button": "Adicionar páginas",
     "error_message": "Ocorreu um erro ao tentar adicionar as páginas",
-    "success_message": "Páginas adicionadas com sucesso"
+    "success_message": "Páginas adicionadas com sucesso",
+    "error_dialog": {
+      "title": "Erros",
+      "message": "Ocorreram alguns erros ao tentar adicionar as seguintes páginas:"
+    }
   },
   "WEBSITES_PAGE": {
     "title": "Lista de websites",

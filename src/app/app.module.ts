@@ -44,6 +44,7 @@ import { ScoreDistributionDialogComponent } from './dialogs/score-distribution-d
 import { RemovePagesConfirmationDialogComponent } from './dialogs/remove-pages-confirmation-dialog/remove-pages-confirmation-dialog.component';
 import { UserAuthErrorDialogComponent } from './dialogs/user-auth-error-dialog/user-auth-error-dialog.component';
 import { SettingsComponent } from './pages/settings/settings.component';
+import { AddPagesErrorsDialogComponent } from './dialogs/add-pages-errors-dialog/add-pages-errors-dialog.component';
 
 const appRoutes: Routes = [
   { path: '', component: LoginComponent, canActivate: [NoAuthGuard] },
@@ -93,7 +94,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     ScoreDistributionDialogComponent,
     RemovePagesConfirmationDialogComponent,
     UserAuthErrorDialogComponent,
-    SettingsComponent
+    SettingsComponent,
+    AddPagesErrorsDialogComponent
   ],
   imports: [
     RouterModule.forRoot(
@@ -124,7 +126,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     ScoreDistributionDialogComponent,
     ErrorDistributionDialogComponent,
     RemovePagesConfirmationDialogComponent,
-    UserAuthErrorDialogComponent
+    UserAuthErrorDialogComponent,
+    AddPagesErrorsDialogComponent
   ],
   providers: [
     CookieService,

@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { ajax } from 'rxjs/ajax';
 import { map, retry, catchError } from 'rxjs/operators';
+import { MatDialog } from '@angular/material';
 import * as _ from 'lodash';
 
 import { ConfigService } from './config.service';
@@ -13,6 +14,8 @@ import { Response } from '../models/response';
 import { Page } from '../models/page';
 import { MmError } from '../models/error';
 
+import { AddPagesErrorsDialogComponent } from '../dialogs/add-pages-errors-dialog/add-pages-errors-dialog.component';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -22,6 +25,7 @@ export class MonitorService {
     private user: UserService,
     private message: MessageService,
     private router: Router,
+    private dialog: MatDialog,
     private config: ConfigService
 
   ) { }
@@ -108,23 +112,26 @@ export class MonitorService {
         const response = <Response> res.response;
 
         if (!res.response || res.status === 404) {
-          throw new MmError(404, 'Service not found', 'SERIOUS');
+          throw new MmError(404, 'Service not found', null, null, 'SERIOUS');
         }
 
         if (response.success !== 1) {
-          throw new MmError(response.success, response.message);
+          throw new MmError(response.success, response.message, 'NORMAL', response.errors, response.result);
         }
 
         return <Array<Page>> response.result;
       }),
       catchError(err => {
         console.log(err);
-        if (err.code === -17) {
-          this.message.show('MISC.unexpected_error');
+        if (err.code === 0) {
+          this.dialog.open(AddPagesErrorsDialogComponent, {
+            data: err.errors
+          });
+          return of(err.result);
         } else {
-          this.message.show('ADD_PAGES.error_message');
+          this.message.show('MISC.unexpected_error');
+          return of(null);
         }
-        return of(null);
       })
     );
   }

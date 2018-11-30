@@ -1,0 +1,10 @@
+<h1 mat-dialog-title>{{ "ADD_PAGES.error_dialog.title" | translate }}</h1>
+<mat-dialog-content fxLayout="column">
+  <p>{{ "ADD_PAGES.error_dialog.message" | translate }}</p>
+  <span *ngFor="let page of pages"><strong>{{ page }}</strong></span>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-raised-button color="accent" mat-dialog-close>
+    {{ "MISC.message_close" | translate }}
+  </button>
+</mat-dialog-actions>

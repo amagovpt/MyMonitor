@@ -22,12 +22,12 @@ export class UserService {
     private router: Router,
     private cookieService: CookieService,
     private message: MessageService,
-    private dialog: MatDialog
+    private config: ConfigService
   ) { }
 
   login(email: string, password: string): Observable<boolean> {
     const app = 'monitor';
-    return ajax.post(this.getServer('/session/login'), {email, password, app}).pipe(
+    return ajax.post(this.config.getServer('/session/login'), {email, password, app}).pipe(
       retry(3),
       map(res => {
         if (!res.response || res.status === 404) {
@@ -91,11 +91,5 @@ export class UserService {
 
   private getEnv(): string {
     return _.split(location.host, ':')[0];
-  }
-
-  private getServer(service: string): string {
-    const host = location.host;
-
-    return 'http://' + _.split(host, ':')[0] + ':3443' + service;
   }
 }
