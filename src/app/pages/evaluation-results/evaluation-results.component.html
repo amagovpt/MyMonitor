@@ -38,55 +38,57 @@
           <h2>{{ "RESULTS.summary.subtitle" | translate }}</h2>
         </mat-card-subtitle>
       </mat-card-header>
-        <mat-card-content>
-          <div fxLayout="row" fxLayout.lt-sm="column" fxLayout="row" fxLayoutAlign="space-between center">
-            <div></div>
-            <div>
-              <ngx-gauge [type]="'semi'" [thick]="'10'" [value]="eval.metadata.score" [label]="'RESULTS.summary.score' | translate" [min]="0" [max]="10" [duration]="2000" [thresholds]="thresholdConfig">
-                </ngx-gauge>
-            </div>
-            <div>
-            </div>
-            <div>
-              <table class="table" summary="Titulo, Número de elementos e tamnaho da página da avaliação">
-                <tr>
-                  <th scope="row">
-                    <strong>URI</strong>
-                  </th>
-                  <td>{{eval.metadata.url}}</td>
-                </tr>
-                <tr>
-                  <th scope="row">
-                    <strong>{{ "RESULTS.summary.metadata.title_label" | translate }}</strong>
-                  </th>
-                  <td>{{eval.metadata.title}}</td>
-                </tr>
-                <tr>
-                  <th scope="row">
-                    <strong>{{ "RESULTS.summary.metadata.n_elements_label" | translate }}</strong>
-                  </th>
-                  <td>{{eval.metadata.n_elements}}</td>
-                </tr>
-                <tr>
-                  <th scope="row">
-                    <strong>{{ "RESULTS.summary.metadata.page_size_label" | translate }}</strong>
-                  </th>
-                  <td [innerHTML]="eval.metadata.size | html"></td>
-                </tr>
-                <tr>
-                  <th scope="row">
-                    <strong>{{ "RESULTS.summary.metadata.last_update_label" | translate }}</strong>
-                  </th>
-                  <td>{{ eval.metadata.last_update | date }}</td>
-                </tr>
-              </table>
-            </div>
-            <div></div>
-          </div>
+      <mat-card-content fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="space-around center">
+        <div>
+          <ngx-gauge
+            [type]="'semi'"
+            [thick]="'10'"
+            [value]="eval.metadata.score"
+            [label]="'RESULTS.summary.score' | translate"
+            [min]="0"
+            [max]="10"
+            [duration]="2000"
+            [thresholds]="thresholdConfig">
+          </ngx-gauge>
+        </div>
+        <div>
+          <table class="table" summary="Titulo, Número de elementos e tamanho da página da avaliação">
+            <tr>
+              <th scope="row">
+                <strong>URI</strong>
+              </th>
+              <td>{{eval.metadata.url}}</td>
+            </tr>
+            <tr>
+              <th scope="row">
+                <strong>{{ "RESULTS.summary.metadata.title_label" | translate }}</strong>
+              </th>
+              <td>{{eval.metadata.title}}</td>
+            </tr>
+            <tr>
+              <th scope="row">
+                <strong>{{ "RESULTS.summary.metadata.n_elements_label" | translate }}</strong>
+              </th>
+              <td>{{eval.metadata.n_elements}}</td>
+            </tr>
+            <tr>
+              <th scope="row">
+                <strong>{{ "RESULTS.summary.metadata.page_size_label" | translate }}</strong>
+              </th>
+              <td [innerHTML]="eval.metadata.size | html"></td>
+            </tr>
+            <tr>
+              <th scope="row">
+                <strong>{{ "RESULTS.summary.metadata.last_update_label" | translate }}</strong>
+              </th>
+              <td>{{ eval.metadata.last_update | date }}</td>
+            </tr>
+          </table>
+        </div>
       </mat-card-content>
     </mat-card>
     <br>
- 
+
   <mat-card class="mat-typography" *ngIf="!loading && !error">
     <mat-card-content fxLayout="row" fxLayoutAlign="center center">
       <table class="summary-table" fxFlex.gt-sm="60" fxFlex.lt-md>
@@ -159,21 +161,21 @@
         <thead>
           <tr>
             <th scope="col">{{ "RESULTS.results.practice" | translate }}</th>
-            <th scope="col">{{ "RESULTS.results.lvl" | translate }}</th>
+            <th scope="col" fxHide.lt-sm>{{ "RESULTS.results.lvl" | translate }}</th>
             <th scope="col">{{ "RESULTS.results.details" | translate }}</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let r of eval.results" class="{{ 'row' + r.color }}">
             <td>
-              <span><img src="{{ r.ico }}"></span>
+              <span><img src="{{ r.ico }}" alt="{{ 'RESULTS.results.alt_row' + r.color | translate }}"></span>
               <span *ngIf="r.value === 1" [innerHTML]="'TESTS_RESULTS.'+r.msg+'.s' | translate:{value: r.value} | html"></span>
               <span *ngIf="r.value !== 1" [innerHTML]="'TESTS_RESULTS.'+r.msg+'.p' | translate:{value: r.value} | html"></span>
             </td>
-            <td class="text-center">{{ r.lvl }}</td>
+            <td class="text-center" fxHide.lt-sm>{{ r.lvl }}</td>
             <td class="text-center">
               <a *ngIf="r.tech_list.ele" [routerLink]="[r.tech_list.ele]" attr.aria-label="{{ 'RESULTS.results.practice' | translate }}">
-                <img src="assets/images/see2.png" width="25" height="25">
+                <img src="assets/images/see2.png" width="25" height="25" alt="{{ 'RESULTS.results.alt_see' | translate }}">
               </a>
             </td>
           </tr>

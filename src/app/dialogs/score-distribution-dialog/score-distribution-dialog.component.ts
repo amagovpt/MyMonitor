@@ -39,7 +39,7 @@ export class ScoreDistributionDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.translate.get(['DIALOGS.scores.percentage', 'DIALOGS.scores.frequencie'])
+    this.translate.get(['DIALOGS.scores.percentage', 'DIALOGS.scores.frequency', 'DIALOGS.scores.percentage_label', 'DIALOGS.scores.range'])
       .subscribe(res => {
 
       const frequencies = new Array<number>(10).fill(0);
@@ -82,7 +82,7 @@ export class ScoreDistributionDialogComponent implements OnInit {
               borderColor: 'blue'
             },
             {
-              label: res['DIALOGS.scores.frequencie'],
+              label: res['DIALOGS.scores.frequency'],
               data: this.percentageValues,
               backgroundColor: [
                 'red',
@@ -100,6 +100,7 @@ export class ScoreDistributionDialogComponent implements OnInit {
           ]
         },
         options: {
+          maintainAspectRatio: false,
           scales: {
             yAxes: [{
               display: true,
@@ -108,13 +109,24 @@ export class ScoreDistributionDialogComponent implements OnInit {
                 steps: 1,
                 stepValue: 1,
                 max: 100
+              },
+              scaleLabel: {
+                display: true,
+                labelString: res['DIALOGS.scores.percentage_label']
+              }
+            }],
+            xAxes: [{
+              display: true,
+              scaleLabel: {
+                display: true,
+                labelString: res['DIALOGS.scores.range']
               }
             }]
           },
           tooltips: {
             callbacks: {
               label: (tooltipItem) => {
-                return [res['DIALOGS.scores.percentage'] + ': ' + tooltipItem.yLabel.toFixed(1) + '%', res['DIALOGS.scores.frequencie'] + ': ' + this.values[tooltipItem.index]];
+                return [res['DIALOGS.scores.percentage'] + ': ' + tooltipItem.yLabel.toFixed(1) + '%', res['DIALOGS.scores.frequency'] + ': ' + this.values[tooltipItem.index]];
               }
             }
           }

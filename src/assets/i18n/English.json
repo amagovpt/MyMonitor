@@ -49,10 +49,11 @@
     "table": "Table",
     "scores": {
       "title": "Score distribution",
-      "frequencie": "Frequencie (nº of pages)",
+      "frequency": "Frequency (nº of pages)",
       "percentage": "Percentage (nº of pages)",
+      "percentage_label": "Percentage (%)",
       "range": "Range",
-      "cumulative": "Cumulative frequencie"
+      "cumulative": "Cumulative frequency"
     },
     "errors": {
       "title": "Error distribution",
@@ -61,7 +62,9 @@
       "description": "Description",
       "websites": "Websites",
       "pages": "Pages",
-      "situations": "Situations"
+      "situations": "Situations",
+      "tests_label": "Tests",
+      "situations_label": "Nº of situations"
     },
     "close": "Close"
   },
@@ -180,7 +183,11 @@
       "practice": "Practice found",
       "lvl": "Level",
       "details": "Details",
-      "understanding": "Understanding"
+      "understanding": "Understanding",
+      "alt_rowerr": "Non acceptable:",
+      "alt_rowwar": "To view manually:",
+      "alt_rowok": "Acceptable:",
+      "alt_see": "See results from the practice:"
     },
     "scoreboard": {
       "level": "Level",

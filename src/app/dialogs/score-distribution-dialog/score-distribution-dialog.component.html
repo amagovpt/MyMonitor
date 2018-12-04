@@ -2,26 +2,28 @@
 <mat-dialog-content>
   <mat-tab-group>
     <mat-tab label="{{ 'DIALOGS.chart' | translate }}">
-      <canvas #chartDomains></canvas>
+      <div class="chart">
+        <canvas #chartDomains></canvas>
+      </div>
     </mat-tab>
     <mat-tab label="{{ 'DIALOGS.table' | translate }}">
       <table class="table table-sm">
         <thead>
           <tr>
             <th>{{ "DIALOGS.scores.range" | translate }}</th>
-            <th>{{ "DIALOGS.scores.frequencie" | translate }}</th>
-            <th>{{ "DIALOGS.scores.frequencie" | translate }} (%)</th>
+            <th>{{ "DIALOGS.scores.frequency" | translate }}</th>
+            <th fxHide.lt-sm>{{ "DIALOGS.scores.frequency" | translate }} (%)</th>
             <th>{{ "DIALOGS.scores.cumulative" | translate }}</th>
-            <th>{{ "DIALOGS.scores.cumulative" | translate }} (%)</th>
+            <th fxHide.lt-sm>{{ "DIALOGS.scores.cumulative" | translate }} (%)</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let lab of labels; let i = index">
             <td>{{labels[i]}}</td>
             <td>{{values[i]}}</td>
-            <td>{{percentageValues[i] | toFixed}}%</td>
+            <td fxHide.lt-sm>{{percentageValues[i] | toFixed}}%</td>
             <td>{{freq[i]}}</td>
-            <td>{{freqPer[i] | toFixed}}%</td>
+            <td fxHide.lt-sm>{{freqPer[i] | toFixed}}%</td>
           </tr>
         </tbody>
       </table>

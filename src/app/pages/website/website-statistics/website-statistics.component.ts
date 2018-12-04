@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, HostListener } from '@angular/core';
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialog } from '@angular/material';
 
 import { ScoreDistributionDialogComponent } from '../../../dialogs/score-distribution-dialog/score-distribution-dialog.component';
 import { ErrorDistributionDialogComponent } from '../../../dialogs/error-distribution-dialog/error-distribution-dialog.component';
@@ -13,9 +13,7 @@ export class WebsiteStatisticsComponent implements OnInit {
 
   @Input('pages') pages: Array<any>;
 
-  n_cols: number;
-  colspan: number;
-  rowHeight: string;
+  dialogWidth: string;
 
   score: number;
   newest_page: string;
@@ -31,31 +29,21 @@ export class WebsiteStatisticsComponent implements OnInit {
       '7.5': {color: 'green'}
     };
 
-    if (window.innerWidth < 960) {
-      this.n_cols = 1;
-      this.colspan = 1;
-      this.rowHeight = '0.5:0.3';
-    } else {
-      this.n_cols = 3;
-      this.colspan = 2;
-      this.rowHeight = '1.5:1';
-    }
-
-
-
     this.score = 0;
+
+    if (window.innerWidth < 960) {
+      this.dialogWidth = '100vw';
+    } else {
+      this.dialogWidth = '60vw';
+    }
   }
 
   @HostListener('window:resize', ['$event'])
   onResize(event) {
-    if (event.target.innerWidth < 960 ){
-      this.n_cols = 1;
-      this.colspan = 1;
-      this.rowHeight = '1.5:1';
+    if (event.target.innerWidth < 960) {
+      this.dialogWidth = '100vw';
     } else {
-      this.n_cols = 3;
-      this.colspan = 2;
-      this.rowHeight = '1.5:1';
+      this.dialogWidth = '60vw';
     }
   }
 
@@ -82,7 +70,7 @@ export class WebsiteStatisticsComponent implements OnInit {
         number: this.pages.length,
         pages: this.pages
       },
-      width: '900px'
+      width: this.dialogWidth
     });
   }
 
@@ -91,7 +79,7 @@ export class WebsiteStatisticsComponent implements OnInit {
       data: {
         pages: this.pages
       },
-      width: '900px'
+      width: this.dialogWidth
     });
   }
 }

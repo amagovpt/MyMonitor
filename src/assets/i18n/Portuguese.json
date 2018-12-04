@@ -49,8 +49,9 @@
     "table": "Tabela",
     "scores": {
       "title": "Distribuição de pontuações",
-      "frequencie": "Frequência (nº de páginas)",
+      "frequency": "Frequência (nº de páginas)",
       "percentage": "Percentagem (nº de páginas)",
+      "percentage_label": "Percentagem (%)",
       "range": "Intervalo",
       "cumulative": "Frequência cumulativa"
     },
@@ -61,7 +62,9 @@
       "description": "Descrição",
       "websites": "Websites",
       "pages": "Paǵinas",
-      "situations": "Situações"
+      "situations": "Situações",
+      "tests_label": "Testes",
+      "situations_label": "Nº de situações"
     },
     "close": "Fechar"
   },
@@ -181,7 +184,11 @@
       "practice": "Prática encontrada",
       "lvl": "Nível",
       "details": "Detalhes",
-      "understanding": "Compreensível"
+      "understanding": "Compreensível",
+      "alt_rowerr": "Não aceitável:",
+      "alt_rowwar": "Para ver manualmente:",
+      "alt_rowok": "Aceitável:",
+      "alt_see": "Ver resultados da prática:"
     },
     "scoreboard": {
       "level": "Nível",

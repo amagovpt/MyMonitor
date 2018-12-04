@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import * as _ from 'lodash';
@@ -21,9 +21,6 @@ export class EvaluationResultsComponent implements OnInit, OnDestroy {
   website: string;
   url: string;
 
-  n_cols: number;
-  colspan: number;
-
   thresholdConfig: any;
 
   constructor(
@@ -40,25 +37,6 @@ export class EvaluationResultsComponent implements OnInit, OnDestroy {
 
     this.loading = true;
     this.error = false;
-
-    if (window.innerWidth < 960) {
-      this.n_cols = 1;
-      this.colspan = 1;
-    } else {
-      this.n_cols = 3;
-      this.colspan = 2;
-    }
-  }
-
-  @HostListener('window:resize', ['$event'])
-  onResize(event): void {
-    if (event.target.innerWidth < 960) {
-      this.n_cols = 1;
-      this.colspan = 1;
-    } else {
-      this.n_cols = 3;
-      this.colspan = 2;
-    }
   }
 
   ngOnInit(): void {

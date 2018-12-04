@@ -94,9 +94,13 @@ export class AppComponent implements OnInit, AfterViewInit {
             this.page = decodeURIComponent(segments[3]);
 
           case 3:
-            this.website = decodeURIComponent(segments[2]);
+            if (segments[2] !== 'settings') {
+              this.website = decodeURIComponent(segments[2]);
+            }
             break;
         }
+
+        this.scrollRef.directiveRef.scrollToTop();
       }
     });
 

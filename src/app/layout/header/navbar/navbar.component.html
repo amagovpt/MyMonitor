@@ -20,5 +20,5 @@
   </a>
 
   <mat-icon *ngIf="ele">arrow_forward</mat-icon>
-  <a *ngIf="ele" [routerLink]="['/user', website, page, ele]" routerLinkActive="active">{{ ele }}</a>
+  <a *ngIf="ele" [routerLink]="['/user', website, page, ele]" routerLinkActive="active" [innerHtml]="'ELEMS.' + ele | translate"></a>
 </nav>

@@ -77,11 +77,17 @@ export class ErrorDistributionDialogComponent implements OnInit {
       return 'ELEMS.' + k['key'];
     });
     translations.push('DIALOGS.errors.common_errors');
+    translations.push('DIALOGS.errors.tests_label');
+    translations.push('DIALOGS.errors.situations_label');
 
     this.translate.get(translations).subscribe((res: any) => {
 
       const label = res['DIALOGS.errors.common_errors'];
+      const tests_label = res['DIALOGS.errors.tests_label'];
+      const situations_label = res['DIALOGS.errors.situations_label'];
       delete res['DIALOGS.errors.common_errors'];
+      delete res['DIALOGS.errors.tests_label'];
+      delete res['DIALOGS.errors.situations_label']
 
       const labels = _.map(_.values(res), s => {
         s = _.replace(s, new RegExp('<code>', 'g'), '"');
@@ -113,6 +119,17 @@ export class ErrorDistributionDialogComponent implements OnInit {
                 stepValue: 1,
                 max: this.calculateMax(Math.max(...values)),
                 maxTicksLimit: this.calculateMax(Math.max(...values)) + 1
+              },
+              scaleLabel: {
+                display: true,
+                labelString: situations_label
+              }
+            }],
+            yAxes: [{
+              display: true,
+              scaleLabel: {
+                display: true,
+                labelString: tests_label
               }
             }]
           }

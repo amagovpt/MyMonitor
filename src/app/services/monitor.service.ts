@@ -122,13 +122,13 @@ export class MonitorService {
         return <Array<Page>> response.result;
       }),
       catchError(err => {
-        console.log(err);
         if (err.code === 0) {
           this.dialog.open(AddPagesErrorsDialogComponent, {
             data: err.errors
           });
           return of(err.result);
         } else {
+          console.log(err);
           this.message.show('MISC.unexpected_error');
           return of(null);
         }
