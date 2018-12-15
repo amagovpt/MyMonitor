@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/co
 import { ActivatedRoute } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Subscription } from 'rxjs';
+import * as _ from 'lodash';
 
 import { EvaluationService } from '../../services/evaluation.service';
 
@@ -46,9 +47,74 @@ export class ElementResultComponent implements OnInit, OnDestroy {
 
   tabChanged(event): void {
     if (event.index === 1) {
+      const parser = new DOMParser();
+      const evalDoc = parser.parseFromString(this.data.page, 'text/html');
+      const imgNodes = evalDoc.evaluate('//img', evalDoc, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
+
+      let i = 0;
+      let n = imgNodes.snapshotItem(i);
+      const protocol = _.startsWith(this.data.finalUrl, 'https://') ? 'https://' : 'http://';
+      const www = _.includes(this.data.finalUrl, 'www.') ? 'www.' : '';
+
+      while(n) {
+        let fixSrcUrl = _.clone(this.url);
+        if (fixSrcUrl[_.size(fixSrcUrl)-1] === '/') {
+          fixSrcUrl = fixSrcUrl.substring(0, _.size(fixSrcUrl) - 2);
+        }
+
+        if (n['attributes']['src'] && !_.startsWith(n['attributes']['src'].value, 'http') && !_.startsWith(n['attributes']['src'].value, 'https')) {
+          n['attributes']['src'].value = `${protocol}${www}${fixSrcUrl}${n['attributes']['src'].value}`;
+        }
+
+        if (n['attributes']['srcset'] && !_.startsWith(n['attributes']['srcset'].value, 'http') && !_.startsWith(n['attributes']['srcset'].value, 'https')) {
+          n['attributes']['srcset'].value = `${protocol}${www}${fixSrcUrl}${n['attributes']['srcset'].value}`;
+        }
+
+        i++;
+        n = imgNodes.snapshotItem(i);
+      }
+
+      i = 0;
+      const cssNodes = evalDoc.evaluate('//link', evalDoc, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
+
+      n = cssNodes.snapshotItem(i);
+
+      while(n) {
+        let fixSrcUrl = _.clone(this.url);
+        if (fixSrcUrl[_.size(fixSrcUrl)-1] === '/') {
+          fixSrcUrl = fixSrcUrl.substring(0, _.size(fixSrcUrl) - 2);
+        }
+
+        if (n['attributes']['href'] && !_.startsWith(n['attributes']['href'].value, 'http') && !_.startsWith(n['attributes']['href'].value, 'https')) {
+          n['attributes']['href'].value = `${protocol}${www}${fixSrcUrl}${n['attributes']['href'].value}`;
+        }
+        //console.log(n['attributes']['href']);
+        i++;
+        n = cssNodes.snapshotItem(i);
+      }
+
+      i = 0;
+      const scriptNodes = evalDoc.evaluate('//script', evalDoc, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
+
+      n = scriptNodes.snapshotItem(i);
+
+      while(n) {
+        let fixSrcUrl = _.clone(this.url);
+        if (fixSrcUrl[_.size(fixSrcUrl)-1] === '/') {
+          fixSrcUrl = fixSrcUrl.substring(0, _.size(fixSrcUrl) - 2);
+        }
+
+        if (n['attributes']['src'] && !_.startsWith(n['attributes']['src'].value, 'http') && !_.startsWith(n['attributes']['src'].value, 'https')) {
+          n['attributes']['src'].value = `${protocol}${www}${fixSrcUrl}${n['attributes']['src'].value}`;
+        }
+
+        i++;
+        n = scriptNodes.snapshotItem(i);
+      }
+
       const doc = this.iframe.nativeElement.contentDocument || this.iframe.nativeElement.contentWindow;
       doc.open();
-      doc.write(this.data.page);
+      doc.write(evalDoc.getElementsByTagName('html')[0]['outerHTML']);
       doc.close();
     }
   }

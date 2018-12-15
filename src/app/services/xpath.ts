@@ -10,7 +10,7 @@ const xpath: any = {
   'embed': '//embed',
   'fieldLegNo': '//fieldset[not(.//legend) or not(.//legend[normalize-space(.)!=""])]',
   'fieldNoForm': '//fieldset[not(ancestor::form)]',
-  'fontHtml': '//b|//basefont[@*]|//body[@text or @link or @alink or @vlink]|//font[@*]//i|//s|//strike|//u',
+  'fontHtml': '//b|//basefont[@*]|//body[@text or @link or @alink or @vlink]|//font[@*]|//i|//s|//strike|//u',
   'form': '//form',
   'formSubmitNo': '//form[not(.//input[@type="submit"]) and not(.//input[@type="image"]) and not(.//button[@type="submit"])]',
   'frame': '//frame',

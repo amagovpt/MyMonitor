@@ -425,7 +425,7 @@ export class EvaluationService {
         } else {
           inline += begin + styles[s] + end;
         }
-      } else if ( ele = 'colorContrast') {
+      } else if ( ele === 'colorContrast') {
         const color = false;
         const bg = false;
         let ok = false;
@@ -507,11 +507,12 @@ export class EvaluationService {
     const doc = parser.parseFromString(webpage, 'text/html');
 
     const nodes = doc.evaluate(path, doc, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
-
     const elements = new Array();
 
     let i = 0;
     let n = nodes.snapshotItem(i);
+    let protocol = _.startsWith(this.evaluation.processed.metadata.url, 'https://') ? 'https://' : 'http://';
+    let www = _.includes(this.evaluation.processed.metadata.url, 'www.') ? 'www.' : '';
 
     while (n) {
       let attrs = '';
@@ -526,25 +527,25 @@ export class EvaluationService {
       }
 
       let eleOuterHtml = _.clone(n['outerHTML']);
-
+      console.log(n.nodeName);
       if (_.toLower(n.nodeName) === 'img') {
         let fixSrcUrl = _.clone(url);
         if (fixSrcUrl[_.size(fixSrcUrl)-1] === '/') {
           fixSrcUrl = fixSrcUrl.substring(0, _.size(fixSrcUrl) - 2);
         }
 
-        if (n['attributes']['src'] && !_.startsWith(n['attributes']['src'].value, 'http')) {
-          n['attributes']['src'].value = `http://${fixSrcUrl}${n['attributes']['src'].value}`;
+        if (n['attributes']['src'] && !_.startsWith(n['attributes']['src'].value, 'http') && !_.startsWith(n['attributes']['src'].value, 'https')) {
+          n['attributes']['src'].value = `${protocol}${www}${fixSrcUrl}${n['attributes']['src'].value}`;
 
-          n['width'] = '250';
-          n['height'] = '250';
+          //n['width'] = '400';
+          n['height'] = '150';
         }
 
-        if (n['attributes']['srcset'] && !_.startsWith(n['attributes']['srcset'].value, 'http')) {
-          n['attributes']['srcset'].value = `http://${fixSrcUrl}${n['attributes']['srcset'].value}`;
+        if (n['attributes']['srcset'] && !_.startsWith(n['attributes']['srcset'].value, 'http') && !_.startsWith(n['attributes']['srcset'].value, 'https')) {
+          n['attributes']['srcset'].value = `${protocol}${www}${fixSrcUrl}${n['attributes']['srcset'].value}`;
 
-          n['width'] = '250';
-          n['height'] = '250';
+          //n['width'] = '400';
+          n['height'] = '150';
         }
       }
 
@@ -560,13 +561,14 @@ export class EvaluationService {
       }
 
       i++;
-      n = nodes.snapshotItem(i)
+      n = nodes.snapshotItem(i);
     }
 
     return {
       elements,
       size: _.size(elements),
-      page: inpage ? doc.getElementsByTagName('html')[0]['outerHTML'] : undefined
+      page: inpage ? doc.getElementsByTagName('html')[0]['outerHTML'] : undefined,
+      finalUrl: _.clone(this.evaluation.processed.metadata.url)
     };
   }
 

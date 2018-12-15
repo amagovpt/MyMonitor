@@ -19,12 +19,12 @@
     <mat-table #table [dataSource]="dataSource" matSort matSortActive="Score" matSortDisableClear matSortDirection="desc">
 
       <ng-container matColumnDef="select">
-        <mat-header-cell *matHeaderCellDef>
+        <mat-header-cell *matHeaderCellDef fxFlex="10">
           <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()"
             [indeterminate]="selection.hasValue() && !isAllSelected()">
           </mat-checkbox>
         </mat-header-cell>
-        <mat-cell *matCellDef="let row">
+        <mat-cell *matCellDef="let row" fxFlex="10">
           <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row)">
           </mat-checkbox>
         </mat-cell>
