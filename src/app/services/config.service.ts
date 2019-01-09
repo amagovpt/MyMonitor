@@ -6,7 +6,7 @@ import * as _ from 'lodash';
 })
 export class ConfigService {
 
-  PROTOCOL = 'http://';
+  PROTOCOL = 'https://';
   PORT = 3443;
 
   constructor() { }

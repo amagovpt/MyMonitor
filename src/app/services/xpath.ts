@@ -31,6 +31,7 @@ const xpath: any = {
   'label': '//label',
   'labelForNo': '//label[not(@for) or normalize-space(@for)=""]',
   'labelTextNo': '//label[normalize-space(text())=""]',
+  'lang': '//html',
   'langCodeNo': '//html',
   'langExtra': '//html',
   'langMatchNo': '//html',
@@ -42,7 +43,7 @@ const xpath: any = {
   'longDImg': '//img[@longdesc]',
   'longDNo': '//img[normalize-space(@longdesc)="" or normalize-space(@longdesc)="#" or contains(@longdesc, " ")]',
   'marquee': '//marquee',
-  'metaRedir': '//meta[translate(@http-equiv,"REFSH","refsh")="refresh"][contains(@content, "url")]',
+  'metaRedir': '//meta[translate(@http-equiv,"REFSH","refsh")="refresh"][contains(translate(@content, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", "abcdefghijklmnopqrstuvwxyz"), "url")]',
   'metaRefresh': '//meta[translate(@http-equiv,"REFSH","refsh")="refresh"][@content > 0]',
   'newWinOnLoad': '//body[contains(@onload, "window.open") or contains(@onload, "MM_openBrWindow")]',
   'object': '//object',
@@ -56,7 +57,8 @@ const xpath: any = {
   'titleLong': '//title',
   'titleNull': '//title',
   'titleSame': '//title',
-  'titleVrs': '//title'
+  'titleVrs': '//title',
+  'titleOk': '//title'
 };
 
 export default xpath;

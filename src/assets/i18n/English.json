@@ -3,6 +3,8 @@
     "title": "Login",
     "password_label": "Password",
     "email_error": "The e-mail is not valid. <strong>E.g. name@service.com</strong>",
+    "show_password": "Click here to show the password text",
+    "hide_password": "Click here to hide the password text",
     "submit": "Login",
     "logout": "Logout",
     "messages": {

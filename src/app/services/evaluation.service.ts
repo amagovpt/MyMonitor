@@ -17,7 +17,7 @@ import { ConfigService } from './config.service';
 import { UserService } from './user.service';
 import { MessageService } from './message.service';
 
-import tests from './tests';
+import tests from './tests.new';
 import techs from './techs';
 import scs from './scs';
 import xpath from './xpath';
@@ -494,7 +494,7 @@ export class EvaluationService {
     return { 'embedded_css': this.highLightCss(styles, ele), 'inline_css': this.highLightCss2(classes, ele)};
   }
 
-  private getElements(url: string, webpage: string, allNodes: Array<string>, ele: string, inpage: boolean): any {
+  private getElements(url: string, webpage: string, allNodes: Array < string > , ele: string, inpage: boolean): any {
     let path;
 
     if (allNodes[ele]) {
@@ -503,59 +503,78 @@ export class EvaluationService {
       path = xpath[ele];
     }
 
+    webpage = this.fixImgSrc(url, webpage);
+
+    const elements = this.getElementsList(ele, path, webpage);
+
+    return {
+      elements,
+      size: _.size(elements),
+      page: inpage ? this.showElementsHighlightedInPage(path, webpage, inpage) : undefined,
+      finalUrl: _.clone(this.evaluation.processed.metadata.url)
+    };
+  }
+
+  private fixImgSrc(url: string, webpage: string): string {
+    const parser = new DOMParser();
+    const imgDoc = parser.parseFromString(webpage, 'text/html');
+
+    const protocol = _.startsWith(this.evaluation.processed.metadata.url, 'https://') ? 'https://' : 'http://';
+    const www = _.includes(this.evaluation.processed.metadata.url, 'www.') ? 'www.' : '';
+
+    const imgNodes = imgDoc.evaluate('//*[@src]', imgDoc, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
+    let i = 0;
+    let n = imgNodes.snapshotItem(i);
+
+    let fixSrcUrl = _.clone(url);
+    if (fixSrcUrl[_.size(fixSrcUrl) - 1] === '/') {
+      fixSrcUrl = fixSrcUrl.substring(0, _.size(fixSrcUrl) - 2);
+    }
+
+    while (n) {
+      if (n['attributes']['src'] && !_.startsWith(n['attributes']['src'].value, 'http') && !_.startsWith(n['attributes']['src'].value, 'https')) {
+        if (_.startsWith(n['attributes']['src'].value, '/')) {
+          n['attributes']['src'].value = `${protocol}${www}${fixSrcUrl}${n['attributes']['src'].value}`;
+        } else {
+          n['attributes']['src'].value = `${protocol}${www}${fixSrcUrl}/${n['attributes']['src'].value}`;
+        }
+      }
+
+      if (n['attributes']['srcset']) {
+        let split = _.split(n['attributes']['srcset'].value, ', ');
+        if (_.size(split) > 0) {
+          let value = '';
+          for (let u of split) {
+            if (!_.startsWith(u, 'http') && !_.startsWith(u, 'https')) {
+              if (_.startsWith(u, '/')) {
+                value += `${protocol}${www}${fixSrcUrl}${u}, `;
+              } else {
+                value += `${protocol}${www}${fixSrcUrl}/${u}, `;
+              }
+            }
+          }
+          n['attributes']['srcset'].value = _.clone(value.substring(0, _.size(value) - 2));
+        } else {
+          n['attributes']['srcset'].value = `${protocol}${www}${fixSrcUrl}${n['attributes']['srcset'].value}`;
+        }
+      }
+
+      i++;
+      n = imgNodes.snapshotItem(i);
+    }
+
+    return imgDoc.getElementsByTagName('html')[0]['outerHTML'];
+  }
+
+  private showElementsHighlightedInPage(path: string, webpage: string, inpage: boolean): string {
     const parser = new DOMParser();
     const doc = parser.parseFromString(webpage, 'text/html');
-
     const nodes = doc.evaluate(path, doc, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
-    const elements = new Array();
 
     let i = 0;
     let n = nodes.snapshotItem(i);
-    let protocol = _.startsWith(this.evaluation.processed.metadata.url, 'https://') ? 'https://' : 'http://';
-    let www = _.includes(this.evaluation.processed.metadata.url, 'www.') ? 'www.' : '';
 
     while (n) {
-      let attrs = '';
-
-      for (let i = 0 ; i < _.size(n['attributes']) ; i++) {
-        const attr = <Attr> n['attributes'][i];
-        if (attr.value) {
-          attrs += attr.name + '="' + attr.value + '" ';
-        } else {
-          attrs += attr.name + ' ';
-        }
-      }
-
-      let eleOuterHtml = _.clone(n['outerHTML']);
-      console.log(n.nodeName);
-      if (_.toLower(n.nodeName) === 'img') {
-        let fixSrcUrl = _.clone(url);
-        if (fixSrcUrl[_.size(fixSrcUrl)-1] === '/') {
-          fixSrcUrl = fixSrcUrl.substring(0, _.size(fixSrcUrl) - 2);
-        }
-
-        if (n['attributes']['src'] && !_.startsWith(n['attributes']['src'].value, 'http') && !_.startsWith(n['attributes']['src'].value, 'https')) {
-          n['attributes']['src'].value = `${protocol}${www}${fixSrcUrl}${n['attributes']['src'].value}`;
-
-          //n['width'] = '400';
-          n['height'] = '150';
-        }
-
-        if (n['attributes']['srcset'] && !_.startsWith(n['attributes']['srcset'].value, 'http') && !_.startsWith(n['attributes']['srcset'].value, 'https')) {
-          n['attributes']['srcset'].value = `${protocol}${www}${fixSrcUrl}${n['attributes']['srcset'].value}`;
-
-          //n['width'] = '400';
-          n['height'] = '150';
-        }
-      }
-
-      elements.push({
-        ele: _.toLower(n.nodeName),
-        attr: attrs,
-        code: n['outerHTML'],
-        showCode: eleOuterHtml
-      });
-
       if (inpage) {
         n['style'] = 'background:#ff0 !important;border:2px dotted #900 !important;padding:2px !important;visibility:visible !important;display:inherit !important;';
       }
@@ -564,12 +583,209 @@ export class EvaluationService {
       n = nodes.snapshotItem(i);
     }
 
-    return {
-      elements,
-      size: _.size(elements),
-      page: inpage ? doc.getElementsByTagName('html')[0]['outerHTML'] : undefined,
-      finalUrl: _.clone(this.evaluation.processed.metadata.url)
-    };
+    return doc.getElementsByTagName('html')[0]['outerHTML'];
+  }
+
+  private getElementsList(test: string, path: string, webpage: string): Array < any > {
+    const parser = new DOMParser();
+
+    const imgDoc = parser.parseFromString(webpage, 'text/html');
+    const imgNodes = imgDoc.evaluate('//img', imgDoc, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
+    let i = 0;
+    let n = imgNodes.snapshotItem(i);
+
+    /*while (n) {
+      if (n['attributes']['src']) {
+        let img = new Image();
+        img.onload = function () {
+          return true;
+        };
+        img.src = n['attributes']['src'].value;
+
+        if (img.width === 0) {
+          n['width'] = '500';
+          n['fixed'] = '';
+        }
+        if (img.height === 0) {
+          n['height'] = '200';
+          n['fixed'] = '';
+        }
+      }
+
+      if (n['attributes']['srcset']) {
+        let img = new Image();
+        img.onload = function () {
+          return true;
+        };
+        img.srcset = n['attributes']['srcset'].value;
+
+        if (img.width === 0) {
+          n['width'] = '500';
+          n['fixed'] = '';
+        }
+        if (img.height === 0) {
+          n['height'] = '200';
+          n['fixed'] = '';
+        }
+      }
+
+      i++;
+      n = imgNodes.snapshotItem(i);
+    }*/
+
+    const doc = parser.parseFromString(imgDoc.getElementsByTagName('html')[0]['outerHTML'], 'text/html');
+    const elements = new Array();
+    const paths = _.split(path, '|') || [path];
+
+    for (let p of paths) {
+      if (_.includes(p, 'template')) {
+        let tPath = _.join(_.slice(_.split(p, '/'), 0, _.indexOf(_.split(p, '/'), 'template') + 1), '/');
+        let tNodes = doc.evaluate(tPath, doc, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
+        let tNode = tNodes.snapshotItem(0);
+        if (tNode) {
+          let newDoc = parser.parseFromString(tNode['innerHTML'], 'text/html');
+          let newPath = '//' + _.join(_.slice(_.split(p, '/'), _.indexOf(_.split(p, '/'), 'template') + 1), '/');
+          let fNodes = newDoc.evaluate(newPath, newDoc, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
+          let newNode = fNodes.snapshotItem(0);
+          if (newNode) {
+            let attrs = '';
+            const fixed = newNode['attributes']['fixed'];
+            for (let i = 0; i < _.size(_.keys(newNode['attributes'])); i++) {
+              const attr = < Attr > newNode['attributes'][i];
+              if ((attr.name === 'width' || attr.name === 'height' || attr.name === 'fixed') && fixed) {
+                continue;
+              }
+              if (attr.value) {
+                attrs += attr.name + '="' + attr.value + '" ';
+              } else {
+                attrs += attr.name + ' ';
+              }
+            }
+
+            let eleOuterHtml = _.clone(newNode['outerHTML']);
+
+            if (_.toLower(newNode.nodeName) === 'img') {
+              if (newNode['attributes']['src']) {
+                let img = new Image();
+                img.onload = function () {
+                  return true;
+                };
+                img.src = newNode['attributes']['src'].value;
+
+                if (img.width > 500 || img.height > 200) {
+                  if (img.width > img.height) {
+                    newNode['width'] = '500';
+                  } else {
+                    newNode['height'] = '200';
+                  }
+                }
+              }
+
+              if (newNode['attributes']['srcset']) {
+                let img = new Image();
+                img.onload = function () {
+                  return true;
+                };
+                img.src = newNode['attributes']['srcset'].value;
+
+                if (img.width > 500 || img.height > 200) {
+                  if (img.width > img.height) {
+                    newNode['width'] = '500';
+                  } else {
+                    newNode['height'] = '200';
+                  }
+                }
+              }
+            }
+
+            elements.push({
+              ele: _.toLower(newNode.nodeName),
+              attr: attrs,
+              code: newNode['outerHTML'],
+              showCode: eleOuterHtml
+            });
+          }
+        }
+      } else {
+        const nodes = doc.evaluate(p, doc, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
+
+        i = 0;
+        n = nodes.snapshotItem(i);
+
+        while (n) {
+          let attrs = '';
+          const fixed = n['attributes']['fixed'];
+          for (let i = 0; i < _.size(_.keys(n['attributes'])); i++) {
+            const attr = < Attr > n['attributes'][i];
+            if ((attr.name === 'width' || attr.name === 'height' || attr.name === 'fixed') && fixed) {
+              continue;
+            }
+            if (attr.value) {
+              attrs += attr.name + '="' + attr.value + '" ';
+            } else {
+              attrs += attr.name + ' ';
+            }
+          }
+
+          let eleOuterHtml = _.clone(n['outerHTML']);
+
+          if (_.toLower(n.nodeName) === 'img') {
+            if (n['attributes']['src']) {
+              let img = new Image();
+              img.onload = function () {
+                return true;
+              };
+              img.src = n['attributes']['src'].value;
+
+              if (img.width > 500 || img.height > 200) {
+                if (img.width > img.height) {
+                  n['width'] = '500';
+                } else {
+                  n['height'] = '200';
+                }
+              }
+
+            }
+
+            if (n['attributes']['srcset']) {
+              let img = new Image();
+              img.onload = function () {
+                return true;
+              };
+              img.src = n['attributes']['srcset'].value;
+
+              if (img.width > 500 || img.height > 200) {
+                if (img.width > img.height) {
+                  n['width'] = '500';
+                } else {
+                  n['height'] = '200';
+                }
+              }
+            }
+          }
+
+          elements.push({
+            ele: _.toLower(n.nodeName),
+            attr: attrs,
+            code: n['outerHTML'],
+            showCode: eleOuterHtml
+          });
+
+          i++;
+          n = nodes.snapshotItem(i);
+        }
+      }
+    }
+
+    /*let tdoc = new dom().parseFromString(imgDoc.getElementsByTagName('html')[0]['outerHTML']);
+    let tnodes = _xpath.select(path, tdoc);
+    //console.log(tnodes.snapshotItem(0));
+    //console.log(tnodes.snapshotItem(1));
+    for (let tn of tnodes) {
+      console.log(tn['attributes']);
+    }*/
+
+    return elements;
   }
 
   private processData() {
@@ -577,6 +793,8 @@ export class EvaluationService {
     //const pagecode = this.evaluation.pagecode;
     //const nodes = this.evaluation.data.nodes;
     //const url = this.url;
+
+    //console.log(this.evaluation.data);
 
     const data = {};
     data['metadata'] = {};
@@ -598,43 +816,105 @@ export class EvaluationService {
     //const hidden = ['all', 'w3cValidator'];
 
     let infotot = {
+      'ok': 0,
+      'err': 0,
+      'war': 0,
+      'tot': 0
+    };
+
+    let infoak = {
+      'A': {
         'ok': 0,
         'err': 0,
         'war': 0,
-        'tot': 0
-      };
+      },
+      'AA': {
+        'ok': 0,
+        'err': 0,
+        'war': 0,
+      },
+      'AAA': {
+        'ok': 0,
+        'err': 0,
+        'war': 0,
+      }
+    };
 
-      let infoak = {
-        'A': {
-          'ok': 0,
-          'err': 0,
-          'war': 0,
-        },
-        'AA': {
-          'ok': 0,
-          'err': 0,
-          'war': 0,
-        },
-        'AAA': {
-          'ok': 0,
-          'err': 0,
-          'war': 0,
+    for (const test in tests) {
+      if (test) {
+        if (tot.results[test]) {
+          const tes = tests[test]['test'];
+          const lev = tests[test]['level'];
+          const ref = tests[test]['ref'];
+          const ele = tests[test]['elem'];
+
+          let color;
+
+          if (tests_colors[test] === 'R') {
+            color = 'err';
+          } else if (tests_colors[test] === 'Y') {
+            color = 'war';
+          } else if (tests_colors[test] == 'G') {
+            color = 'ok';
+          }
+
+          let level = _.toUpper(lev);
+
+          infoak[level][color]++;
+
+          let tnum;
+
+          if (tot.elems[tes]) {
+            if (tes === 'titleOk') {
+              tnum = tot.info.title;
+            } else if (tes === 'lang') {
+              tnum = tot.info.lang;
+            } else {
+              tnum = tot['elems'][tes];
+            }
+          } else {
+            tnum = tot['elems'][ele];
+          }
+
+
+          const result = {};
+          result['ico'] = 'assets/images/ico' + color + '.png';
+          result['color'] = color;
+          result['lvl'] = level;
+          result['msg'] = test;
+          result['ref'] = ref;
+          result['value'] = tnum;
+          result['prio'] = color === 'ok' ? 3 : color === 'err' ? 1 : 2;
+
+          if (color === 'ok' && ele !== 'all') {
+            result['tech_list'] = this.testView(ele, ele, tes, color, tnum);
+          } else {
+            result['tech_list'] = this.testView(tes, tes, tes, color, tnum);
+          }
+
+          data['results'].push(result);
         }
-      };
+      }
+    }
 
-    for (const ee in tot.results) {
+    data['infoak'] = infoak;
+
+    return data;
+
+    /*for (const ee in tot.results) {
       //const r = tot.results[ee];
 
       //const split = _.split(r, '@');
       //const sco = parseInt(split[0]);
       /*const pond = split[1];
       const res = split[2];
-      const cant = split[3];*/
+      const cant = split[3];
 
-      //const ele = tests[ee]['elem'];
+      const elem = tests[ee]['elem'];
       const tes = tests[ee]['test'];
       const refs = tests[ee]['ref'];
       const lev = tests[ee]['level'];
+      //console.log(elem);
       //const techfail = refs[0] === 'F' ? 'relationF' : 'relationT';
 
       let color;
@@ -677,7 +957,7 @@ export class EvaluationService {
       result['lvl'] = level;
       result['msg'] = ee;
       result['value'] = tnum;
-      result['prio'] = color === 'ok' ? 3 : color === 'err'? 1 : 2;
+      result['prio'] = color === 'ok' ? 3 : color === 'err' ? 1 : 2;
       //result['tech_list'] = new Array();
 
       /*if (!_.includes(hidden, ele)) {
@@ -685,7 +965,7 @@ export class EvaluationService {
         if (!isNaN(tot['elems'][ele])) {
           result['value'] += parseInt(tot['elems'][ele]);
         }
-      }*/
+      }
 
       result['tech_list'] = this.testView(tes, tes, tnum);
 
@@ -771,8 +1051,8 @@ export class EvaluationService {
         'desc': msg,
         'tnum': result['tnum'],
         'prio': prio
-      });*/
-    }
+      });
+    }*/
 
     data['results'] = _.orderBy(data['results'], ['lvl', 'prio'], ['asc', 'asc']);
 
@@ -789,19 +1069,30 @@ export class EvaluationService {
     return data;
   }
 
-  private testView(ele: string, txt: string, tot: number): any {
+  private testView(ele: string, txt: string, test: string, color: string, tot: number): any {
     const item = {};
 
     item['txt'] = txt;
     item['tot'] = tot ? tot : 0;
 
-    if (ele === 'w3cValidatorErrors' || ele === 'dtdOld') {
+    if (ele === 'dtdOld') {
       return item;
     }
 
-    if (tot > 0 || ele === 'langNo' || ele === 'langCodeNo' || ele === 'langExtra' || ele === 'titleChars') {
+    if (ele === 'w3cValidatorErrors') {
+      item['html_validator'] = true;
+      item['ele'] = 'http://validador-html.fccn.pt/check?uri=' + encodeURIComponent(this.url);
+    } else if (tot || tot > 0) {
       item['ele'] = ele;
+
+      if ((test === 'aSkipFirst' || test === 'aSkip' || test === 'langNo' || test === 'h1') && color === 'err') {
+        delete item['ele'];
+      }
     }
+    //console.log(item['ele'] + ' ' + tot);
+    //if (tot > 0 || ele === 'langNo' || ele === 'langCodeNo' || ele === 'langExtra' || ele === 'titleChars') {
+      //item['ele'] = ele;
+    //}
 
     return item;
   }

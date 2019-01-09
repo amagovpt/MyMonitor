@@ -3,6 +3,8 @@
     "title": "Iniciar sessão",
     "password_label": "Palavra-chave",
     "email_error": "Introduza um email válido. <strong>Ex.: nome@serviço.com</strong>",
+    "show_password": "Carregue aqui para mostrar a palavra-chave",
+    "hide_password": "Carregue aqui para esconder a palavra-chave",
     "submit": "Iniciar sessão",
     "logout": "Sair",
     "messages": {

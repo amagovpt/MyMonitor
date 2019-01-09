@@ -56,12 +56,12 @@ export class ElementResultComponent implements OnInit, OnDestroy {
       const protocol = _.startsWith(this.data.finalUrl, 'https://') ? 'https://' : 'http://';
       const www = _.includes(this.data.finalUrl, 'www.') ? 'www.' : '';
 
-      while(n) {
-        let fixSrcUrl = _.clone(this.url);
-        if (fixSrcUrl[_.size(fixSrcUrl)-1] === '/') {
-          fixSrcUrl = fixSrcUrl.substring(0, _.size(fixSrcUrl) - 2);
-        }
+      let fixSrcUrl = _.clone(this.url);
+      if (fixSrcUrl[_.size(fixSrcUrl)-1] === '/') {
+        fixSrcUrl = fixSrcUrl.substring(0, _.size(fixSrcUrl) - 2);
+      }
 
+      while(n) {
         if (n['attributes']['src'] && !_.startsWith(n['attributes']['src'].value, 'http') && !_.startsWith(n['attributes']['src'].value, 'https')) {
           n['attributes']['src'].value = `${protocol}${www}${fixSrcUrl}${n['attributes']['src'].value}`;
         }
@@ -80,36 +80,21 @@ export class ElementResultComponent implements OnInit, OnDestroy {
       n = cssNodes.snapshotItem(i);
 
       while(n) {
-        let fixSrcUrl = _.clone(this.url);
-        if (fixSrcUrl[_.size(fixSrcUrl)-1] === '/') {
-          fixSrcUrl = fixSrcUrl.substring(0, _.size(fixSrcUrl) - 2);
-        }
-
         if (n['attributes']['href'] && !_.startsWith(n['attributes']['href'].value, 'http') && !_.startsWith(n['attributes']['href'].value, 'https')) {
-          n['attributes']['href'].value = `${protocol}${www}${fixSrcUrl}${n['attributes']['href'].value}`;
+          if (_.startsWith(n['attributes']['href'].value, '/')) {
+            n['attributes']['href'].value = `${protocol}${www}${fixSrcUrl}${n['attributes']['href'].value}`;
+          } else {
+            n['attributes']['href'].value = `${protocol}${www}${fixSrcUrl}/${n['attributes']['href'].value}`;
+          }
         }
-        //console.log(n['attributes']['href']);
+        /*const split = _.split(n['attributes']['href'].value, '.css&');
+        if (_.size(split) > 1) {
+          for (let s of split) {
+            console.log(s);
+          }
+        }*/
         i++;
         n = cssNodes.snapshotItem(i);
-      }
-
-      i = 0;
-      const scriptNodes = evalDoc.evaluate('//script', evalDoc, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
-
-      n = scriptNodes.snapshotItem(i);
-
-      while(n) {
-        let fixSrcUrl = _.clone(this.url);
-        if (fixSrcUrl[_.size(fixSrcUrl)-1] === '/') {
-          fixSrcUrl = fixSrcUrl.substring(0, _.size(fixSrcUrl) - 2);
-        }
-
-        if (n['attributes']['src'] && !_.startsWith(n['attributes']['src'].value, 'http') && !_.startsWith(n['attributes']['src'].value, 'https')) {
-          n['attributes']['src'].value = `${protocol}${www}${fixSrcUrl}${n['attributes']['src'].value}`;
-        }
-
-        i++;
-        n = scriptNodes.snapshotItem(i);
       }
 
       const doc = this.iframe.nativeElement.contentDocument || this.iframe.nativeElement.contentWindow;

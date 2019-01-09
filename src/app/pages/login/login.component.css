@@ -6,3 +6,7 @@ main, section, mat-card, form, .content {
   margin-top: 1em;
   width: 50%;
 }
+
+.show-hide-password {
+  float: right;
+}
