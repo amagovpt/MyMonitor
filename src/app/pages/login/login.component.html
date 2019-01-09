@@ -26,12 +26,12 @@
             <br>
             <mat-form-field>
               <label for="login_password">{{ "LOGIN.password_label" | translate }}</label>
-              <button mat-icon-button class="show-hide-password" type="button" (click)="hide = !hide">
-                <mat-icon *ngIf="hide" aria-hidden="false" attr.aria-label="{{ 'LOGIN.hide_password' | translate }}" matSuffix>visibility</mat-icon>
-                <mat-icon *ngIf="!hide" aria-hidden="false" attr.aria-label="{{ 'LOGIN.show_password' | translate }}" matSuffix>visibility_off</mat-icon>
-              </button>
               <input id="login_password" matInput [type]="hide ? 'password' : 'text'" formControlName="password"
                 required>
+              <button mat-icon-button matSuffix type="button" (click)="hide = !hide">
+                <mat-icon *ngIf="hide" aria-hidden="false" attr.aria-label="{{ 'LOGIN.hide_password' | translate }}">visibility</mat-icon>
+                <mat-icon *ngIf="!hide" aria-hidden="false" attr.aria-label="{{ 'LOGIN.show_password' | translate }}">visibility_off</mat-icon>
+              </button>
               <mat-error *ngIf="loginForm.controls.password.hasError('required')" [innerHTML]="'MISC.required_field' | translate">
               </mat-error>
             </mat-form-field>
