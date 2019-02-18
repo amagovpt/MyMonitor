@@ -25,9 +25,9 @@ export class UserService {
     private config: ConfigService
   ) { }
 
-  login(email: string, password: string): Observable<boolean> {
+  login(username: string, password: string): Observable<boolean> {
     const app = 'monitor';
-    return ajax.post(this.config.getServer('/session/login'), {email, password, app}).pipe(
+    return ajax.post(this.config.getServer('/session/login'), {username, password, app}).pipe(
       retry(3),
       map(res => {
         if (!res.response || res.status === 404) {
@@ -45,7 +45,7 @@ export class UserService {
         const tomorrow = new Date();
         tomorrow.setTime(tomorrow.getTime() + 1 * 86400000);
 
-        sessionStorage.setItem('MM-email', email);
+        sessionStorage.setItem('MM-username', username);
         this.cookieService.set('MM-SSID', btoa(cookie), tomorrow, '/', host, false);
         this.router.navigateByUrl('/user');
         return true;
@@ -77,14 +77,14 @@ export class UserService {
     return atob(this.cookieService.get('MM-SSID'));
   }
 
-  getEmail(): string {
-    return sessionStorage.getItem('MM-email');
+  getUsername(): string {
+    return sessionStorage.getItem('MM-username');
   }
 
   logout(location: string = '/'): void {
     const host = this.getEnv();
 
-    sessionStorage.removeItem('MM-email');
+    sessionStorage.removeItem('MM-username');
     this.cookieService.delete('MM-SSID', '/', this.getEnv());
     this.router.navigateByUrl(location);
   }

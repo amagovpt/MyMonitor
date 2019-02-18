@@ -3,7 +3,6 @@
     <div class="content" fxLayout="column" fxLayoutAlign="start center">
       <img class="small-logo" src="assets/images/logo.png" alt="Unidade ACESSO da FCT" fxHide.lt-md>
       <br>
-      <small>V.1.0.0</small>
       <mat-card class="mat-typography" fxLayout="column" fxLayoutAlign="start center">
         <mat-card-header>
           <mat-card-title>
@@ -15,12 +14,11 @@
           <mat-card-content fxLayout="column">
             <br>
             <mat-form-field>
-              <label for="login_email">E-Mail</label>
-              <input id="login_email" matInput type="mail" formControlName="email" #emailEle required>
-              <mat-error *ngIf="loginForm.controls.email.hasError('email') && !loginForm.controls.email.hasError('required')"
-                [innerHTML]="'LOGIN.email_error' | translate">
-              </mat-error>
-              <mat-error *ngIf="loginForm.controls.email.hasError('required')" [innerHTML]="'MISC.required_field' | translate">
+              <label for="login_username">
+                {{ "LOGIN.username_label" | translate }}
+              </label>
+              <input id="login_username" matInput type="text" formControlName="username" #usernameEle required>
+              <mat-error *ngIf="loginForm.controls.username.hasError('required')" [innerHTML]="'MISC.required_field' | translate">
               </mat-error>
             </mat-form-field>
             <br>
@@ -37,7 +35,7 @@
             </mat-form-field>
           </mat-card-content>
           <mat-card-actions fxLayout="row" fxLayoutAlign="center center">
-            <button mat-raised-button color="primary" type="submit" [disabled]="loginForm.controls.email.invalid || loginForm.controls.password.invalid"
+            <button mat-raised-button color="primary" type="submit" [disabled]="loginForm.controls.username.invalid || loginForm.controls.password.invalid"
               *ngIf="!loginLoading">
               {{ "LOGIN.submit" | translate }}
             </button>

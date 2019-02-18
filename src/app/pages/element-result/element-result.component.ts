@@ -56,7 +56,7 @@ export class ElementResultComponent implements OnInit, OnDestroy {
       const protocol = _.startsWith(this.data.finalUrl, 'https://') ? 'https://' : 'http://';
       const www = _.includes(this.data.finalUrl, 'www.') ? 'www.' : '';
 
-      let fixSrcUrl = _.clone(this.url);
+      let fixSrcUrl = _.clone(_.split(_.replace(_.replace(this.url, 'http://', ''), 'https://', ''), '/')[0]);
       if (fixSrcUrl[_.size(fixSrcUrl)-1] === '/') {
         fixSrcUrl = fixSrcUrl.substring(0, _.size(fixSrcUrl) - 2);
       }

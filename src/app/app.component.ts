@@ -1,6 +1,5 @@
-import { OnInit, Component, Injectable, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { OnInit, Component, Injectable, ViewChild, ElementRef } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { merge } from 'rxjs';
 import { Location } from '@angular/common';
 import { Router, NavigationEnd } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -14,11 +13,9 @@ import { UserService } from './services/user.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit, AfterViewInit {
+export class AppComponent implements OnInit {
 
   @ViewChild('sidenav') sidenav: ElementRef;
-
-  @ViewChild('scrollRef') scrollRef: any;
 
   selectedLang: string;
 
@@ -100,23 +97,9 @@ export class AppComponent implements OnInit, AfterViewInit {
             break;
         }
 
-        this.scrollRef.directiveRef.scrollToTop();
+        document.getElementById('main').scrollIntoView();
       }
     });
-
-  }
-
-  ngAfterViewInit(): void {
-    merge(this.scrollRef.directiveRef.PS_SCROLL_DOWN, this.scrollRef.directiveRef.PS_SCROLL_UP)
-      .subscribe(() => {
-        const y = this.scrollRef.directiveRef.geometry().y;
-
-        if (y > 300) {
-          this.showGoToTop = true;
-        } else {
-          this.showGoToTop = false;
-        }
-      });
   }
 
   /**
@@ -135,6 +118,14 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   goToTop(): void {
-    this.scrollRef.directiveRef.scrollToTop(0, 250);
+    document.getElementById('main').scrollIntoView();
+  }
+
+  onScroll(e): void {
+    if (e.srcElement.scrollTop > 300) {
+      this.showGoToTop = true;
+    } else {
+      this.showGoToTop = false;
+    }
   }
 }

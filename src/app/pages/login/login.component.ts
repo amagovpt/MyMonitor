@@ -1,11 +1,9 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormControl, FormGroup, FormControlName, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import * as _ from 'lodash';
-import { HttpClient } from '@angular/common/http';
 
 import { UserService } from '../../services/user.service';
-
 import { MessageService } from '../../services/message.service';
 
 @Component({
@@ -16,7 +14,7 @@ import { MessageService } from '../../services/message.service';
 export class LoginComponent implements OnInit {
 
   // creates a reference to the first input element
-  @ViewChild('emailEle') private emailElement: ElementRef;
+  @ViewChild('usernameEle') private usernameElement: ElementRef;
 
   // shows and hides the password
   hide: boolean;
@@ -30,17 +28,15 @@ export class LoginComponent implements OnInit {
   constructor(
     private router: Router,
     private user: UserService,
-    private message: MessageService,
-    private http: HttpClient
+    private message: MessageService
   ) {
 
     this.hide = true;
     this.loginLoading = false;
 
     this.loginForm = new FormGroup({
-      email: new FormControl('', [
-        Validators.required,
-        Validators.email,
+      username: new FormControl('', [
+        Validators.required
       ]),
       password: new FormControl('', [
         Validators.required
@@ -50,17 +46,17 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     // focus the first input when the page is loaded
-    this.emailElement.nativeElement.focus();
+    this.usernameElement.nativeElement.focus();
   }
 
   // performs a login with the given data
   login(): void {
     this.loginLoading = true;
 
-    const email = this.loginForm.value.email;
+    const username = this.loginForm.value.username;
     const password = this.loginForm.value.password;
 
-    this.user.login(email, password)
+    this.user.login(username, password)
       .subscribe(() => {
         this.loginLoading = false;
       });

@@ -18,7 +18,6 @@ import { UserService } from './user.service';
 import { MessageService } from './message.service';
 
 import tests from './tests.new';
-import techs from './techs';
 import scs from './scs';
 import xpath from './xpath';
 import tests_colors from './tests_colors';
@@ -526,7 +525,7 @@ export class EvaluationService {
     let i = 0;
     let n = imgNodes.snapshotItem(i);
 
-    let fixSrcUrl = _.clone(url);
+    let fixSrcUrl = _.clone(_.split(_.replace(_.replace(_.replace(this.evaluation.processed.metadata.url, 'http://', ''), 'https://', ''), 'www.', ''), '/')[0]);
     if (fixSrcUrl[_.size(fixSrcUrl) - 1] === '/') {
       fixSrcUrl = fixSrcUrl.substring(0, _.size(fixSrcUrl) - 2);
     }
@@ -729,6 +728,7 @@ export class EvaluationService {
 
           let eleOuterHtml = _.clone(n['outerHTML']);
 
+          let code = null;
           if (_.toLower(n.nodeName) === 'img') {
             if (n['attributes']['src']) {
               let img = new Image();
@@ -762,12 +762,21 @@ export class EvaluationService {
                 }
               }
             }
+            code = n['outerHTML'];
+          } else if (_.toLower(n.nodeName) === 'title') {
+            code = n.firstChild.nodeValue;
+          } else if (_.toLower(n.nodeName) === 'html') {
+            code = n['attributes']['lang'].nodeValue;
+            n['innerHTML'] = '';
+            eleOuterHtml = n['outerHTML'];
+          } else {
+            code = n['outerHTML'];
           }
 
           elements.push({
             ele: _.toLower(n.nodeName),
             attr: attrs,
-            code: n['outerHTML'],
+            code: code,
             showCode: eleOuterHtml
           });
 
@@ -806,10 +815,10 @@ export class EvaluationService {
     data['metadata']['last_update'] = tot['info']['date'];
     data['metadata']['count_results'] = _.size(tot['results']);
 
-    data['tabs'] = {};
+    //data['tabs'] = {};
     data['results'] = []; // {'A': [], 'B': [], 'C': [], 'D': [], 'E': [], 'F': []};
-    data['scoreBoard'] = [];
-    data['elems'] = [];
+    //data['scoreBoard'] = [];
+    //data['elems'] = [];
 
     //const tabsSize = {'A': 0, 'B': 0, 'C': 0, 'D': 0, 'E': 0, 'F': 0};
 
@@ -883,8 +892,28 @@ export class EvaluationService {
           result['lvl'] = level;
           result['msg'] = test;
           result['ref'] = ref;
+          //result['ref_website'] = 'http://www.acessibilidade.gov.pt/w3/TR/WCAG20-TECHS/' + ref + '.html';
+          result['ref_website'] = 'https://www.w3.org/TR/WCAG20-TECHS/' + ref + '.html';
+          result['relation'] = tests[test]['ref'] === 'F' ? 'relationF' : 'relationT';
+          result['ref_related_sc'] = new Array();
           result['value'] = tnum;
           result['prio'] = color === 'ok' ? 3 : color === 'err' ? 1 : 2;
+
+          const scstmp = tests[test]['scs'].split(',');
+          let li = {};
+          for (let s in scstmp) {
+            if (s) {
+              s = _.trim(scstmp[s]);
+              if (s !== '') {
+                li['sc'] = s;
+                li['lvl'] = scs[s]['1'];
+                //li['link'] = 'http://www.acessibilidade.gov.pt/w3/TR/UNDERSTANDING-WCAG20/' + scs[s]['0'] + '.html';
+                li['link'] = 'https://www.w3.org/TR/UNDERSTANDING-WCAG20/' + scs[s]['0'] + '.html';
+
+                result['ref_related_sc'].push(_.clone(li));
+              }
+            }
+          }
 
           if (color === 'ok' && ele !== 'all') {
             result['tech_list'] = this.testView(ele, ele, tes, color, tnum);
@@ -1085,7 +1114,7 @@ export class EvaluationService {
     } else if (tot || tot > 0) {
       item['ele'] = ele;
 
-      if ((test === 'aSkipFirst' || test === 'aSkip' || test === 'langNo' || test === 'h1') && color === 'err') {
+      if ((test === 'aSkipFirst' || test === 'aSkip' || test === 'langNo' || test === 'h1' || test === 'titleNo') && color === 'err') {
         delete item['ele'];
       }
     }

@@ -8,9 +8,6 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from './material/material.module';
-import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
-import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
-import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { NgxGaugeModule } from 'ngx-gauge';
 import { HighlightModule } from 'ngx-highlightjs';
 
@@ -58,11 +55,6 @@ const appRoutes: Routes = [
   ] },
   { path: '**', component: NotFound404Component }
 ];
-
-const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
-  suppressScrollX: true,
-  wheelPropagation: true
-};
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -116,7 +108,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     RouterModule,
     HttpClientModule,
     MaterialModule,
-    PerfectScrollbarModule,
     FormsModule,
     ReactiveFormsModule,
     NgxGaugeModule,
@@ -129,13 +120,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     UserAuthErrorDialogComponent,
     AddPagesErrorsDialogComponent
   ],
-  providers: [
-    CookieService,
-    {
-      provide: PERFECT_SCROLLBAR_CONFIG,
-      useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
-    }
-  ],
+  providers: [ CookieService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

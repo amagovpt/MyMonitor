@@ -173,6 +173,25 @@
                   <div [innerHTML]="'TXT_TECHNIQUES.' + r.ref | translate">
 
                   </div>
+                  <div fxLayout="column">
+                    <span>
+                      <strong>
+                        <a href="{{ r.ref_website }}" target="_blank">{{ r.ref }}: {{ "TECHS." + r.ref |
+                          translate }}
+                        </a>
+                      </strong>
+                    </span>
+                    <span>{{ "TECHFAIL." + r.relation | translate }}</span>
+                    <ul>
+                      <li *ngFor="let li of r.ref_related_sc">
+                        {{ "RESULTS.results.sc" | translate }}
+                        {{ li.sc }}
+                        <em>({{ "RESULTS.results.lvl" | translate }} {{ li.lvl }}) </em>
+                        <a href="{{ li.link }}" target="_blank">{{ "RESULTS.results.understanding" | translate }} {{
+                          li.sc }}</a>
+                      </li>
+                    </ul>
+                  </div>
                 </ng-template>
               </mat-expansion-panel>
             </td>
