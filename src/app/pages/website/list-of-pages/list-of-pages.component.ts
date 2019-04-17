@@ -39,7 +39,7 @@ export class ListOfPagesComponent implements OnInit {
     'AA',
     'AAA',
     'Evaluation_Date',
-    'See'
+    //'See'
   ];
 
   // data source of domains

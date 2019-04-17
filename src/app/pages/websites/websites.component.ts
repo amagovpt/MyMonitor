@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { MatTableDataSource, MatSort } from '@angular/material';
 import * as _ from 'lodash';
 
@@ -19,7 +19,7 @@ export class WebsitesComponent implements OnInit {
     'Domain',
     'Pages',
     'Creation_Date',
-    'see'
+    //'see'
   ];
 
   websites: Array<any>;
@@ -31,7 +31,10 @@ export class WebsitesComponent implements OnInit {
   @ViewChild('input') input: ElementRef;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private monitor: MonitorService) {
+  constructor(
+    private monitor: MonitorService,
+    private cd: ChangeDetectorRef
+  ) {
     this.loading = true;
     this.error = false;
   }
@@ -48,6 +51,7 @@ export class WebsitesComponent implements OnInit {
         }
 
         this.loading = false;
+        this.cd.detectChanges();
       });
   }
 

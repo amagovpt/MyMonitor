@@ -2,14 +2,14 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { A11yModule } from '@angular/cdk/a11y';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { NoopAnimationsModule, BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from './material/material.module';
 import { NgxGaugeModule } from 'ngx-gauge';
-import { HighlightModule } from 'ngx-highlightjs';
 
 import { CookieService } from 'ngx-cookie-service';
 
@@ -103,15 +103,14 @@ export function HttpLoaderFactory(http: HttpClient) {
     }),
     BrowserModule,
     NoopAnimationsModule,
-    BrowserAnimationsModule,
+    A11yModule,
     FlexLayoutModule,
     RouterModule,
     HttpClientModule,
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
-    NgxGaugeModule,
-    HighlightModule.forRoot()
+    NgxGaugeModule
   ],
   entryComponents: [
     ScoreDistributionDialogComponent,

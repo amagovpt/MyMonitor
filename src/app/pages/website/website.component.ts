@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { MatDialog } from '@angular/material';
@@ -28,7 +28,8 @@ export class WebsiteComponent implements OnInit, OnDestroy {
     private activatedRoute: ActivatedRoute,
     private monitor: MonitorService,
     private message: MessageService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private cd: ChangeDetectorRef
   ) {
     this.loading = true;
     this.error = false;
@@ -48,6 +49,7 @@ export class WebsiteComponent implements OnInit, OnDestroy {
           }
 
           this.loading = false;
+          this.cd.detectChanges();
         });
     });
   }
@@ -66,6 +68,7 @@ export class WebsiteComponent implements OnInit, OnDestroy {
         }
 
         this.loading = false;
+        this.cd.detectChanges();
       });
   }
 
@@ -85,6 +88,7 @@ export class WebsiteComponent implements OnInit, OnDestroy {
             }
 
             this.loading = false;
+            this.cd.detectChanges();
           });
       }
     });
