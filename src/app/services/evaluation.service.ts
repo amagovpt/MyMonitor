@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { Angular5Csv } from 'angular5-csv/Angular5-csv';
+import { AngularCsv } from 'angular7-csv';
 import { Observable, of } from 'rxjs';
 import { ajax } from 'rxjs/ajax';
 import { map, retry, catchError } from 'rxjs/operators';
@@ -191,7 +191,7 @@ export class EvaluationService {
       labels.push(res['CSV.desc']);
       labels.push(res['CSV.count']);
 
-      new Angular5Csv(data, this.url + '-' + _eval.metadata.last_update, {headers: labels});
+      new AngularCsv(data, this.url + '-' + _eval.metadata.last_update, {headers: labels});
     });
   }
 

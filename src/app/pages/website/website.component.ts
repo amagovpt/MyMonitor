@@ -78,6 +78,8 @@ export class WebsiteComponent implements OnInit, OnDestroy {
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'true') {
         this.loading = true;
+        this.cd.detectChanges();
+
         this.monitor.removePages(this.website, pagesId)
           .subscribe(pages => {
             if (pages === null) {
