@@ -19,19 +19,19 @@
       <mat-table #table [dataSource]="dataSource" matSort>
 
         <ng-container matColumnDef="Name">
-          <mat-header-cell *matHeaderCellDef mat-sort-header attr.aria-label="1" fxFlex.lt-md="60" fxFlex="35">
+          <mat-header-cell *matHeaderCellDef mat-sort-header attr.aria-label="1" fxFlex.lt-sm="100" fxFlex="35">
             {{ "WEBSITES_PAGE.table.name_label" | translate }}
           </mat-header-cell>
-          <mat-cell *matCellDef="let element" fxFlex.lt-md="60" fxFlex="35">
+          <mat-cell *matCellDef="let element" fxFlex.lt-sm="100" fxFlex="35">
             <a [routerLink]="[element.Name]"><strong>{{element.Name}}</strong></a>
           </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="Domain" >
-          <mat-header-cell fxHide.lt-md *matHeaderCellDef mat-sort-header attr.aria-label="2" fxFlex="30">
+          <mat-header-cell *matHeaderCellDef mat-sort-header attr.aria-label="2" fxFlex="30">
             {{ "WEBSITES_PAGE.table.domain_label" | translate }}
           </mat-header-cell>
-          <mat-cell fxHide.lt-md *matCellDef="let element" fxFlex="30" > {{element.Domain}}  </mat-cell>
+          <mat-cell  *matCellDef="let element" fxFlex="30">{{element.Domain}}</mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="Pages">

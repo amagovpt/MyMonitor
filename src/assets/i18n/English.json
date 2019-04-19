@@ -9,8 +9,8 @@
     "submit": "Login",
     "logout": "Logout",
     "messages": {
-      "password_match": "The password is incorrect",
-      "no_user": "The user doesn't exist",
+      "password_match": "Wrong username or password",
+      "no_user": "Wrong username or password",
       "system_error": "There was a system error. Please try later"
     }
   },
@@ -59,15 +59,15 @@
       "cumulative": "Cumulative frequency"
     },
     "errors": {
-      "title": "Error distribution",
-      "common_errors": "10 frequent errors (nº of pages)",
+      "title": "10 most frequent errors",
+      "common_errors": "Nº of pages",
       "level": "Level",
       "description": "Description",
       "websites": "Websites",
       "pages": "Pages",
-      "situations": "Situations",
+      "situations": "Occurrences",
       "tests_label": "Tests",
-      "situations_label": "Nº of situations"
+      "situations_label": "Nº of pages"
     },
     "close": "Close"
   },

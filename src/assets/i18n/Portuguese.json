@@ -9,8 +9,8 @@
     "submit": "Iniciar sessão",
     "logout": "Sair",
     "messages": {
-      "password_match": "A palavra-chave está incorreta",
-      "no_user": "O utilizador não existe",
+      "password_match": "Utilizador ou palavra-chave incorretos",
+      "no_user": "Utilizador ou palavra-chave incorretos",
       "system_error": "Erro no sistema. Por favor tente mais tarde"
     }
   },
@@ -59,15 +59,15 @@
       "cumulative": "Frequência cumulativa"
     },
     "errors": {
-      "title": "Distribuição de erros",
-      "common_errors": "Os 10 erros mais frequentes (nº de páginas)",
+      "title": "10 erros mais frequentes",
+      "common_errors": "Nº de páginas",
       "level": "Nível",
       "description": "Descrição",
       "websites": "Websites",
       "pages": "Paǵinas",
-      "situations": "Situações",
+      "situations": "Ocurrências",
       "tests_label": "Testes",
-      "situations_label": "Nº de situações"
+      "situations_label": "Nº de páginas"
     },
     "close": "Fechar"
   },

@@ -40,7 +40,7 @@
               {{ "LOGIN.submit" | translate }}
             </button>
             <div *ngIf="loginLoading">
-              <mat-progress-spinner mode="indeterminate" [diameter]="30"></mat-progress-spinner>
+              <span><strong>{{ "MISC.loading" | translate }}</strong></span>
             </div>
           </mat-card-actions>
         </form>

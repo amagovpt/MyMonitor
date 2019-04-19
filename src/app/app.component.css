@@ -29,6 +29,7 @@ mat-nav-list, mat-list {
 .main {
   margin-bottom: -116px;
   min-height: 100vh;
+  background-color: #FFF6FF;
 }
 
 .main:after {

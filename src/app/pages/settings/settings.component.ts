@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, FormBuilder, Validators, FormGroupDirective, NgForm } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import * as _ from 'lodash';
@@ -38,13 +38,15 @@ export class PasswordValidation {
 })
 export class SettingsComponent implements OnInit {
 
+  loading: boolean;
   passwordForm: FormGroup;
   matcher: ErrorStateMatcher;
 
   constructor(
     private monitor: MonitorService,
     private message: MessageService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private cd: ChangeDetectorRef
   ) {
     this.passwordForm = this.fb.group({
       currentPassword: new FormControl('', Validators.required),
@@ -52,6 +54,7 @@ export class SettingsComponent implements OnInit {
       confirmPassword: new FormControl('', Validators.required)
     }, { validator: PasswordValidation.MatchPassword });
     this.matcher = new MyErrorStateMatcher();
+    this.loading = false;
   }
 
   ngOnInit(): void {
@@ -60,18 +63,21 @@ export class SettingsComponent implements OnInit {
   changePassword(e): void {
     e.preventDefault();
 
+    this.loading = true;
+
     const password = this.passwordForm.value.currentPassword;
     const newPassword = this.passwordForm.value.newPassword;
     const confirmPassword = this.passwordForm.value.confirmPassword;
 
     this.monitor.changePassword(password, newPassword, confirmPassword)
       .subscribe(success => {
-        console.log(success)
         if (success !== null) {
           this.passwordForm.reset();
           this.passwordForm.setErrors(null);
           this.message.show('SETTINGS.change_password.success');
         }
+        this.loading = false;
+        this.cd.detectChanges();
       });
   }
 }
