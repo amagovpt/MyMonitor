@@ -65,10 +65,6 @@ td {
 	background-color: #ff9;
 }
 
-::ng-deep mark {
-	background-color: yellow;
-}
-
 .tools:focus {
   outline: 0;
 }
@@ -86,8 +82,14 @@ td {
   height: 26px;
 }
 
+.desc a {
+  color: black;
+  text-decoration: underline;
+}
+
 ::ng-deep mark {
-  background-color: yellow;
+  background-color: white;
+  font-weight: bold;
 }
 
 ::ng-deep table th, table td.center { text-align:center; }

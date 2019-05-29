@@ -1,8 +1,8 @@
 <mat-divider></mat-divider>
 <footer fxLayout.gt-sm="row" fxLayout.lt-md="column" fxLayoutAlign.gt-sm="space-around center" fxLayoutAlign.lt-md="start center">
-  
-  <span><em lang="en">Copyright</em> © 2018 <a routerLink="http://www.acessibilidades.pt">{{ "FOOTER.link" | translate}}</a> {{ "FOOTER.rights" | translate}}</span>
-  
+
+  <span><em lang="en">Copyright</em> © 2018 <a href="http://www.acessibilidade.gov.pt" target="_blank">{{ "FOOTER.link" | translate}}</a> {{ "FOOTER.rights" | translate}}</span>
+
   <mat-form-field fxHide.lt-md [color]="'white'">
     <label for="language">{{ "FOOTER.language" | translate }}</label>
     <mat-select id="language" [(value)]="selectedLang" (selectionChange)="changeLanguage()">
