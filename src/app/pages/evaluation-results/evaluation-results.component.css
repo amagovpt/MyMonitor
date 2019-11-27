@@ -92,6 +92,10 @@ td {
   font-weight: bold;
 }
 
+::ng-deep code {
+  background-color: whitesmoke;
+}
+
 ::ng-deep table th, table td.center { text-align:center; }
 ::ng-deep table th { padding:0px 0.5em; }
 ::ng-deep table th.mini { width:3em; }

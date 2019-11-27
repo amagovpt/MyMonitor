@@ -13,7 +13,7 @@ export class ConfigService {
   URI: string;
 
   constructor() {
-    this.PROTOCOL = 'http://';
+    this.PROTOCOL = location.protocol + '//'; // 'http://';
     this.HOST = _.split(location.host, ':')[0];
 
     if (this.HOST === 'localhost') {
