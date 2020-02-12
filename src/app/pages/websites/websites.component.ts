@@ -28,8 +28,8 @@ export class WebsitesComponent implements OnInit {
   dataSource: any;
   selection: any;
 
-  @ViewChild('input') input: ElementRef;
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild('input', { static: false }) input: ElementRef;
+  @ViewChild(MatSort, { static: false }) sort: MatSort;
 
   constructor(
     private monitor: MonitorService,

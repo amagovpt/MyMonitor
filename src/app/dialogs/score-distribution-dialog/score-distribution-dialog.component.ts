@@ -12,7 +12,7 @@ import * as _ from 'lodash';
 })
 export class ScoreDistributionDialogComponent implements OnInit {
 
-  @ViewChild('chartDomains') chartDomains: any;
+  @ViewChild('chartDomains', { static: true }) chartDomains: any;
   chart: any;
 
   labels: string[];
