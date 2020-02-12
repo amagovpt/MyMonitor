@@ -9,7 +9,7 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from './material/material.module';
-import { NgxGaugeModule } from 'ngx-gauge';
+//import { NgxGaugeModule } from 'ngx-gauge';
 
 import { CookieService } from 'ngx-cookie-service';
 
@@ -110,7 +110,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
-    NgxGaugeModule
+    //NgxGaugeModule
   ],
   entryComponents: [
     ScoreDistributionDialogComponent,
