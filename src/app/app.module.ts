@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { A11yModule } from '@angular/cdk/a11y';
-import { FlexLayoutModule } from '@angular/flex-layout';
+//import { FlexLayoutModule } from '@angular/flex-layout';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -104,7 +104,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     BrowserModule,
     NoopAnimationsModule,
     A11yModule,
-    FlexLayoutModule,
+    //FlexLayoutModule,
     RouterModule,
     HttpClientModule,
     MaterialModule,
