@@ -2,12 +2,11 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { AngularCsv } from 'angular7-csv';
 import { Observable, of } from 'rxjs';
 import { ajax } from 'rxjs/ajax';
 import { map, retry, catchError } from 'rxjs/operators';
-
-import * as _ from 'lodash';
+import { saveAs } from 'file-saver';
+import clone from 'lodash.clone';
 
 import { Response } from '../models/response';
 import { Evaluation } from '../models/evaluation';
@@ -17,7 +16,7 @@ import { ConfigService } from './config.service';
 import { UserService } from './user.service';
 import { MessageService } from './message.service';
 
-import tests from './tests.new';
+import tests from './tests';
 import scs from './scs';
 import xpath from './xpath';
 import tests_colors from './tests_colors';
@@ -40,11 +39,11 @@ export class EvaluationService {
   ) { }
 
   getEvaluation(website: string, url: string): Observable<Evaluation> {
-    if (this.url && _.isEqual(this.url, url) && this.evaluation) {
+    if (this.url && this.url === url && this.evaluation) {
       return of(this.evaluation.processed);
     } else {
       const _url = sessionStorage.getItem('url');
-      if (_url && _.isEqual(_url, url)) {
+      if (_url && _url === url) {
         this.url = _url;
         this.evaluation = <Evaluation> JSON.parse(sessionStorage.getItem('evaluation'));
         return of(this.evaluation.processed);
@@ -143,10 +142,10 @@ export class EvaluationService {
     };
 
     let results = {};
-    if (_.includes(testSee['css'], ele)) {
+    if (testSee['css'].includes(ele)) {
       results = this.getCSS(webpage, ele);
     } else {
-      results = this.getElements(url, webpage, allNodes, ele, _.includes(testSee['div'], ele) || _.includes(testSee['span'], ele));
+      results = this.getElements(url, webpage, allNodes, ele, testSee['div'].includes(ele) || testSee['span'].includes(ele));
     }
 
     return results;
@@ -191,7 +190,13 @@ export class EvaluationService {
       labels.push(res['CSV.desc']);
       labels.push(res['CSV.count']);
 
-      new AngularCsv(data, this.url + '-' + _eval.metadata.last_update, {headers: labels});
+      let csvContent = labels.join(',') + '\r\n';
+      for (const row of data || []) {
+        csvContent += row.join(',') + '\r\n';
+      }
+      
+      const blob = new Blob([csvContent], { type: 'text/csv' });
+      saveAs(blob, 'eval.csv');
     });
   }
 
@@ -199,9 +204,8 @@ export class EvaluationService {
   private getServer(service: string): string {
     const host = location.host;
 
-    return 'http://' + _.split(host, ':')[0] + ':3443' + service;
+    return 'http://' + host.split(':')[0] + ':3443' + service;
   }
-
 
   //EMBEBED
   private highLightCss(styles: any, ele: string): any {
@@ -316,12 +320,12 @@ export class EvaluationService {
             let color = false;
             let bg = false;
             let ok = false;
-            if (_.trim(nodes[line]).match(/[;{\s]color:/)) {
-              const colorElem = _.trim(nodes[line]).split(/[;{\s]color:/)[1].split(/[;}]/)[0];
+            if (nodes[line].trim().match(/[;{\s]color:/)) {
+              const colorElem = nodes[line].trim().split(/[;{\s]color:/)[1].split(/[;}]/)[0];
 
               const color_array = this.evaluation.data.tot['elems']['color_array'];
               for ( const c in color_array ) {
-                if ( _.trim(color_array[c]['c'].split(':')[1]) === colorElem ) {
+                if (color_array[c]['c'].split(':')[1].trim() === colorElem) {
                   color = true;
                   ok = true;
 
@@ -337,7 +341,7 @@ export class EvaluationService {
               const colorElem = b[1].trim().split(/[;}]/)[0];
               const color_array = this.evaluation.data.tot['elems']['color_array'];
               for ( const c in color_array ) {
-                if ( _.trim(color_array[c]['b'].split(':')[1]) === colorElem ) {
+                if (color_array[c]['b'].split(':')[1].trim() === colorElem ) {
                   bg = true;
                   ok = true;
 
@@ -433,7 +437,7 @@ export class EvaluationService {
           let color = styles[s].split(/[;{\s]color:/)[1].split(/[;}]/)[0];
           const color_array = this.evaluation.data.tot['elems']['color_array'];
           for ( const c in color_array) {
-            if ( _.trim(color_array[c]['c'].split(':')[1]) === color ) {
+            if (color_array[c]['c'].split(':')[1].trim() === color ) {
               color = true;
               ok = true;
               break;
@@ -449,7 +453,7 @@ export class EvaluationService {
           color = color[1].split(/[;}]/)[0];
           const color_array = this.evaluation.data.tot['elems']['color_array'];
           for ( const c in color_array) {
-            if ( _.trim(color_array[c]['b'].split(':')[1]) === color ) {
+            if (color_array[c]['b'].split(':')[1].trim() === color ) {
               color = true;
               ok = true;
               break;
@@ -478,9 +482,9 @@ export class EvaluationService {
     let inline = '';
     const classes = [];
     while (val) {
-      inline = ' ' + _.toLower(val['tagName']) + '{';
+      inline = ' ' + val['tagName'].toLowerCase() + '{';
       let i = 0;
-      while ( i < _.size(val['style'])) {
+      while ( i < val['style'].length) {
         inline += val['style'][i] + ':' + val['style'][val['style'][i]] + ';';
         i += 1;
       }
@@ -508,9 +512,9 @@ export class EvaluationService {
 
     return {
       elements,
-      size: _.size(elements),
+      size: elements.length,
       page: inpage ? this.showElementsHighlightedInPage(path, webpage, inpage) : undefined,
-      finalUrl: _.clone(this.evaluation.processed.metadata.url)
+      finalUrl: clone(this.evaluation.processed.metadata.url)
     };
   }
 
@@ -518,21 +522,21 @@ export class EvaluationService {
     const parser = new DOMParser();
     const imgDoc = parser.parseFromString(webpage, 'text/html');
 
-    const protocol = _.startsWith(this.evaluation.processed.metadata.url, 'https://') ? 'https://' : 'http://';
-    const www = _.includes(this.evaluation.processed.metadata.url, 'www.') ? 'www.' : '';
+    const protocol = this.evaluation.processed.metadata.url.startsWith('https://') ? 'https://' : 'http://';
+    const www = this.evaluation.processed.metadata.url.includes('www.') ? 'www.' : '';
 
     const imgNodes = imgDoc.evaluate('//*[@src]', imgDoc, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
     let i = 0;
     let n = imgNodes.snapshotItem(i);
 
-    let fixSrcUrl = _.clone(_.split(_.replace(_.replace(_.replace(this.evaluation.processed.metadata.url, 'http://', ''), 'https://', ''), 'www.', ''), '/')[0]);
-    if (fixSrcUrl[_.size(fixSrcUrl) - 1] === '/') {
-      fixSrcUrl = fixSrcUrl.substring(0, _.size(fixSrcUrl) - 2);
+    let fixSrcUrl = clone(this.evaluation.processed.metadata.url.replace('http://', '').replace('https://', '').replace('www.', '').split('/')[0]);
+    if (fixSrcUrl[fixSrcUrl.length - 1] === '/') {
+      fixSrcUrl = fixSrcUrl.substring(0, fixSrcUrl.length - 2);
     }
 
     while (n) {
-      if (n['attributes']['src'] && !_.startsWith(n['attributes']['src'].value, 'http') && !_.startsWith(n['attributes']['src'].value, 'https')) {
-        if (_.startsWith(n['attributes']['src'].value, '/')) {
+      if (n['attributes']['src'] && !n['attributes']['src'].value.startsWith('http') && !n['attributes']['src'].value.startsWith('https')) {
+        if (n['attributes']['src'].value.startsWith('/')) {
           n['attributes']['src'].value = `${protocol}${www}${fixSrcUrl}${n['attributes']['src'].value}`;
         } else {
           n['attributes']['src'].value = `${protocol}${www}${fixSrcUrl}/${n['attributes']['src'].value}`;
@@ -540,19 +544,19 @@ export class EvaluationService {
       }
 
       if (n['attributes']['srcset']) {
-        let split = _.split(n['attributes']['srcset'].value, ', ');
-        if (_.size(split) > 0) {
+        let split = n['attributes']['srcset'].value.split(', ');
+        if (split.length > 0) {
           let value = '';
           for (let u of split) {
-            if (!_.startsWith(u, 'http') && !_.startsWith(u, 'https')) {
-              if (_.startsWith(u, '/')) {
+            if (!u.startsWith('http') && !u.startsWith('https')) {
+              if (u.startsWith('/')) {
                 value += `${protocol}${www}${fixSrcUrl}${u}, `;
               } else {
                 value += `${protocol}${www}${fixSrcUrl}/${u}, `;
               }
             }
           }
-          n['attributes']['srcset'].value = _.clone(value.substring(0, _.size(value) - 2));
+          n['attributes']['srcset'].value = clone(value.substring(0, value.length - 2));
         } else {
           n['attributes']['srcset'].value = `${protocol}${www}${fixSrcUrl}${n['attributes']['srcset'].value}`;
         }
@@ -593,63 +597,24 @@ export class EvaluationService {
     let i = 0;
     let n = imgNodes.snapshotItem(i);
 
-    /*while (n) {
-      if (n['attributes']['src']) {
-        let img = new Image();
-        img.onload = function () {
-          return true;
-        };
-        img.src = n['attributes']['src'].value;
-
-        if (img.width === 0) {
-          n['width'] = '500';
-          n['fixed'] = '';
-        }
-        if (img.height === 0) {
-          n['height'] = '200';
-          n['fixed'] = '';
-        }
-      }
-
-      if (n['attributes']['srcset']) {
-        let img = new Image();
-        img.onload = function () {
-          return true;
-        };
-        img.srcset = n['attributes']['srcset'].value;
-
-        if (img.width === 0) {
-          n['width'] = '500';
-          n['fixed'] = '';
-        }
-        if (img.height === 0) {
-          n['height'] = '200';
-          n['fixed'] = '';
-        }
-      }
-
-      i++;
-      n = imgNodes.snapshotItem(i);
-    }*/
-
     const doc = parser.parseFromString(imgDoc.getElementsByTagName('html')[0]['outerHTML'], 'text/html');
     const elements = new Array();
-    const paths = _.split(path, '|') || [path];
+    const paths = path.split('|') || [path];
 
     for (let p of paths) {
-      if (_.includes(p, 'template')) {
-        let tPath = _.join(_.slice(_.split(p, '/'), 0, _.indexOf(_.split(p, '/'), 'template') + 1), '/');
+      if (p.includes('template')) {
+        let tPath = p.split('/').slice(0, p.split('/').indexOf('template') + 1).join('/');
         let tNodes = doc.evaluate(tPath, doc, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
         let tNode = tNodes.snapshotItem(0);
         if (tNode) {
           let newDoc = parser.parseFromString(tNode['innerHTML'], 'text/html');
-          let newPath = '//' + _.join(_.slice(_.split(p, '/'), _.indexOf(_.split(p, '/'), 'template') + 1), '/');
+          let newPath = '//' + p.split('/').slice(p.split('/').indexOf('template') + 1).join('/');
           let fNodes = newDoc.evaluate(newPath, newDoc, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
           let newNode = fNodes.snapshotItem(0);
           if (newNode) {
             let attrs = '';
             const fixed = newNode['attributes']['fixed'];
-            for (let i = 0; i < _.size(_.keys(newNode['attributes'])); i++) {
+            for (let i = 0; i < Object.keys(newNode['attributes']).length ; i++) {
               const attr = < Attr > newNode['attributes'][i];
               if ((attr.name === 'width' || attr.name === 'height' || attr.name === 'fixed') && fixed) {
                 continue;
@@ -661,9 +626,9 @@ export class EvaluationService {
               }
             }
 
-            let eleOuterHtml = _.clone(newNode['outerHTML']);
+            let eleOuterHtml = clone(newNode['outerHTML']);
 
-            if (_.toLower(newNode.nodeName) === 'img') {
+            if (newNode.nodeName.toLowerCase() === 'img') {
               if (newNode['attributes']['src']) {
                 let img = new Image();
                 img.onload = function () {
@@ -698,7 +663,7 @@ export class EvaluationService {
             }
 
             elements.push({
-              ele: _.toLower(newNode.nodeName),
+              ele: newNode.nodeName.toLowerCase(),
               attr: attrs,
               code: newNode['outerHTML'],
               showCode: eleOuterHtml
@@ -714,7 +679,7 @@ export class EvaluationService {
         while (n) {
           let attrs = '';
           const fixed = n['attributes']['fixed'];
-          for (let i = 0; i < _.size(_.keys(n['attributes'])); i++) {
+          for (let i = 0; i < Object.keys(n['attributes']).length ; i++) {
             const attr = < Attr > n['attributes'][i];
             if ((attr.name === 'width' || attr.name === 'height' || attr.name === 'fixed') && fixed) {
               continue;
@@ -726,10 +691,10 @@ export class EvaluationService {
             }
           }
 
-          let eleOuterHtml = _.clone(n['outerHTML']);
+          let eleOuterHtml = clone(n['outerHTML']);
 
           let code = null;
-          if (_.toLower(n.nodeName) === 'img') {
+          if (n.nodeName.toLowerCase() === 'img') {
             if (n['attributes']['src']) {
               let img = new Image();
               img.onload = function () {
@@ -763,9 +728,9 @@ export class EvaluationService {
               }
             }
             code = n['outerHTML'];
-          } else if (_.toLower(n.nodeName) === 'title') {
+          } else if (n.nodeName.toLowerCase() === 'title') {
             code = n.firstChild.nodeValue;
-          } else if (_.toLower(n.nodeName) === 'html') {
+          } else if (n.nodeName.toLowerCase() === 'html') {
             code = n['attributes']['lang'].nodeValue;
             n['innerHTML'] = '';
             eleOuterHtml = n['outerHTML'];
@@ -774,7 +739,7 @@ export class EvaluationService {
           }
 
           elements.push({
-            ele: _.toLower(n.nodeName),
+            ele: n.nodeName.toLowerCase(),
             attr: attrs,
             code: code,
             showCode: eleOuterHtml
@@ -786,24 +751,11 @@ export class EvaluationService {
       }
     }
 
-    /*let tdoc = new dom().parseFromString(imgDoc.getElementsByTagName('html')[0]['outerHTML']);
-    let tnodes = _xpath.select(path, tdoc);
-    //console.log(tnodes.snapshotItem(0));
-    //console.log(tnodes.snapshotItem(1));
-    for (let tn of tnodes) {
-      console.log(tn['attributes']);
-    }*/
-
     return elements;
   }
 
   private processData() {
     const tot = this.evaluation.data.tot;
-    //const pagecode = this.evaluation.pagecode;
-    //const nodes = this.evaluation.data.nodes;
-    //const url = this.url;
-
-    //console.log(this.evaluation.data);
 
     const data = {};
     data['metadata'] = {};
@@ -813,16 +765,9 @@ export class EvaluationService {
     data['metadata']['score'] = tot['info']['score'];
     data['metadata']['size'] = this.convertBytes(tot['info']['size']);
     data['metadata']['last_update'] = tot['info']['date'];
-    data['metadata']['count_results'] = _.size(tot['results']);
+    data['metadata']['count_results'] = tot['results'].length;
 
-    //data['tabs'] = {};
     data['results'] = []; // {'A': [], 'B': [], 'C': [], 'D': [], 'E': [], 'F': []};
-    //data['scoreBoard'] = [];
-    //data['elems'] = [];
-
-    //const tabsSize = {'A': 0, 'B': 0, 'C': 0, 'D': 0, 'E': 0, 'F': 0};
-
-    //const hidden = ['all', 'w3cValidator'];
 
     let infotot = {
       'ok': 0,
@@ -867,7 +812,7 @@ export class EvaluationService {
             color = 'ok';
           }
 
-          let level = _.toUpper(lev);
+          let level = lev.toUpperCase();
 
           infoak[level][color]++;
 
@@ -903,14 +848,14 @@ export class EvaluationService {
           let li = {};
           for (let s in scstmp) {
             if (s) {
-              s = _.trim(scstmp[s]);
+              s = scstmp[s].trim();
               if (s !== '') {
                 li['sc'] = s;
                 li['lvl'] = scs[s]['1'];
                 //li['link'] = 'http://www.acessibilidade.gov.pt/w3/TR/UNDERSTANDING-WCAG20/' + scs[s]['0'] + '.html';
                 li['link'] = 'https://www.w3.org/TR/UNDERSTANDING-WCAG20/' + scs[s]['0'] + '.html';
 
-                result['ref_related_sc'].push(_.clone(li));
+                result['ref_related_sc'].push(clone(li));
               }
             }
           }
@@ -928,173 +873,6 @@ export class EvaluationService {
 
     data['infoak'] = infoak;
 
-    return data;
-
-    /*for (const ee in tot.results) {
-      //const r = tot.results[ee];
-
-      //const split = _.split(r, '@');
-      //const sco = parseInt(split[0]);
-      /*const pond = split[1];
-      const res = split[2];
-      const cant = split[3];
-
-      const elem = tests[ee]['elem'];
-      const tes = tests[ee]['test'];
-      const refs = tests[ee]['ref'];
-      const lev = tests[ee]['level'];
-      //console.log(elem);
-      //const techfail = refs[0] === 'F' ? 'relationF' : 'relationT';
-
-      let color;
-
-      if (tests_colors[ee] === 'R') {
-        color = 'err';
-      } else if (tests_colors[ee] === 'Y') {
-        color = 'war';
-      } else if (tests_colors[ee] == 'G') {
-        color = 'ok';
-      }
-
-      let level = _.toUpper(lev);
-
-      infoak[level][color]++;
-
-      let tnum;
-
-      if (tot.elems[tes]) {
-        if (tes === 'titleOk') {
-          tnum = tot.info.title;
-        } else if (tes === 'lang') {
-          tnum = tot.info.lang;
-        } else {
-          tnum = tot['elems'][tes];
-        }
-      }
-
-      //const scrcrd = this.resIcon(sco);
-
-      //tabsSize[scrcrd]++;
-
-      //const row = scrcrd + '' + scrcrd;
-
-      //const msg = ee;
-
-      const result = {};
-      result['ico'] = 'assets/images/ico' + color + '.png';
-      result['color'] = color;
-      result['lvl'] = level;
-      result['msg'] = ee;
-      result['value'] = tnum;
-      result['prio'] = color === 'ok' ? 3 : color === 'err' ? 1 : 2;
-      //result['tech_list'] = new Array();
-
-      /*if (!_.includes(hidden, ele)) {
-        result['tech_list'] = this.testView(ele, ele, tot['elems'][ele]);
-        if (!isNaN(tot['elems'][ele])) {
-          result['value'] += parseInt(tot['elems'][ele]);
-        }
-      }
-
-      result['tech_list'] = this.testView(tes, tes, tnum);
-
-      data['results'].push(result);
-      /*result['title'] = ee;
-      result['score'] = sco;
-      result['tech'] = refs;
-      result['tech_desc'] = techs[refs];
-      result['tech_website'] = 'http://www.acessibilidade.gov.pt/w3/TR/WCAG20-TECHS/' + refs + '.html';
-      result['tech_fail'] = techfail;
-      result['tech_related_sc'] = new Array();
-      result['tech_list'] = new Array();
-      result['tnum'] = 0;
-
-      const li = {};
-      let sctable = '';
-      const scstmp = tests[ee]['scs'].split(',');
-
-      for (let s in scstmp) {
-        s = _.trim(scstmp[s]);
-        if (s !== '') {
-          li['sc'] = s;
-          li['lvl'] = scs[s]['1'];
-          li['link'] = 'http://www.acessibilidade.gov.pt/w3/TR/UNDERSTANDING-WCAG20/' + scs[s]['0'] + '.html';
-          sctable += sctable === '' ? s : ', ' + s;
-
-          result['tech_related_sc'].push(li);
-        }
-      }
-
-      if (!_.includes(hidden, ele)) {
-        result['tech_list'].push(this.testView(ele, ele, tot['elems'][ele]));
-        if (!isNaN(tot['elems'][ele])) {
-          result['tnum'] += parseInt(tot['elems'][ele]);
-        }
-      }
-
-      result['tech_list'].push(this.testView(tes, tes, tnum));
-
-      if (!isNaN(tnum)) {
-        result['tnum'] += parseInt(tnum);
-      } else if (tnum) {
-        result['tnum'] = tnum;
-      }
-
-      data['results'][scrcrd].push(_.clone(result));
-      data['elems'].push(ele);
-      data['elems'].push(tes);
-
-      let key;
-      let _class;
-      let prio;
-
-      if (lev.indexOf('A') !== -1) {
-        key = lev;
-        if (sco === 10) {
-          _class = 'scoreok';
-          prio = 3;
-        } else {
-          if (sco < 6) {
-            _class = 'scorerror';
-            prio = 1;
-          } else {
-            _class = 'scorewar';
-            prio = 2;
-          }
-        }
-      } else {
-        key = _.toUpper(lev);
-        if (sco === 10) {
-          _class = 'scoreok';
-          prio = 3;
-        } else {
-          _class = 'scorewar';
-          prio = 2;
-        }
-      }
-
-      data['scoreBoard'].push({
-        'class': _class,
-        'level': _.toUpper(lev),
-        'sc': sctable,
-        'desc': msg,
-        'tnum': result['tnum'],
-        'prio': prio
-      });
-    }*/
-
-    data['results'] = _.orderBy(data['results'], ['lvl', 'prio'], ['asc', 'asc']);
-
-    //data['scoreBoard'] = _.orderBy(data['scoreBoard'], ['level', 'prio'], ['asc', 'asc']);
-    data['infoak'] = infoak;
-
-    /*for (const k in tabsSize) {
-      const v = tabsSize[k];
-      if (v > 0) {
-        data['tabs'][k] = v;
-      }
-    }
-    console.log(data);*/
     return data;
   }
 
@@ -1118,10 +896,6 @@ export class EvaluationService {
         delete item['ele'];
       }
     }
-    //console.log(item['ele'] + ' ' + tot);
-    //if (tot > 0 || ele === 'langNo' || ele === 'langCodeNo' || ele === 'langExtra' || ele === 'titleChars') {
-      //item['ele'] = ele;
-    //}
 
     return item;
   }
@@ -1130,20 +904,9 @@ export class EvaluationService {
     if (length < 1024) {
         return length + ' bytes';
     } else if (length < 1024000) {
-        return _.round((length / 1024), 1) + ' KB <em>(' + length + ' bytes)</em>';
+        return Math.round((length / 1024)) + ' KB <em>(' + length + ' bytes)</em>';
     } else {
-        return _.round((length / 1048576), 1) + ' MB <em>(' + length + ' bytes)</em>';
+        return Math.round((length / 1048576)) + ' MB <em>(' + length + ' bytes)</em>';
     }
   }
-
-  /*private resIcon(r: number): string {
-    switch (r) {
-      case 10: return 'A';
-      case 9: case 8: return 'B';
-      case 7: case 6: return 'C';
-      case 5: case 4: return 'D';
-      case 3: case 2: return 'E';
-      case 1: return 'F';
-    }
-  }*/
 }

@@ -2,7 +2,6 @@ import { Component, OnInit, Inject, ViewChild } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Chart } from 'chart.js';
-import * as _ from 'lodash';
 
 @Component({
   selector: 'app-error-distribution-dialog',
@@ -26,8 +25,8 @@ export class ErrorDistributionDialogComponent implements OnInit {
   ) {
     this.errors = {};
 
-    const keys = _.keys(this.elemStats);
-    const size = _.size(keys);
+    const keys = Object.keys(this.elemStats);
+    const size = keys.length;
 
     for (const p of this.data.pages) {
       const perrors = JSON.parse(atob(p.Errors));
@@ -36,7 +35,7 @@ export class ErrorDistributionDialogComponent implements OnInit {
         const k = keys[i];
         if (k === 'a' || k === 'hx') {
           if (!perrors[k]) {
-            if (_.includes(_.keys(this.errors), k)) {
+            if (Object.keys(this.errors).includes(k)) {
               this.errors[k]['n_elems']++;
               this.errors[k]['n_pages']++;
             } else {
@@ -51,7 +50,7 @@ export class ErrorDistributionDialogComponent implements OnInit {
             } else {
               n = parseInt(perrors[k]);
             }
-            if (_.includes(_.keys(this.errors), k)) {
+            if (Object.keys(this.errors).includes(k)) {
               this.errors[k]['n_elems'] += n;
               this.errors[k]['n_pages']++;
             } else {
@@ -62,18 +61,20 @@ export class ErrorDistributionDialogComponent implements OnInit {
       }
     }
 
-    const errors = _.map(this.errors, (v, k) => {
+    const errors = this.errors.map((v, k) => {
       return {
         'key': k,
         'n_elems': this.errors[k]['n_elems'],
         'n_pages': this.errors[k]['n_pages']
       };
     });
-    this.errors = _.slice(_.orderBy(errors, 'n_elems', 'desc'), 0, 10);
+    this.errors = errors.sort((a, b) => {
+      return a['n_elems'] - b['n_elems'];
+    }).slice(0, 10);
   }
 
   ngOnInit(): void {
-    const translations = _.map(this.errors, k => {
+    const translations = this.errors.map(k => {
       return 'ELEMS.' + k['key'];
     });
     translations.push('DIALOGS.errors.common_errors');
@@ -89,13 +90,13 @@ export class ErrorDistributionDialogComponent implements OnInit {
       delete res['DIALOGS.errors.tests_label'];
       delete res['DIALOGS.errors.situations_label']
 
-      const labels = _.map(_.values(res), s => {
-        s = _.replace(s, new RegExp('<code>', 'g'), '"');
-        s = _.replace(s, new RegExp('</code>', 'g'), '"');
+      const labels = Object.values(res).map((s: string) => {
+        s = s.replace(new RegExp('<code>', 'g'), '"');
+        s = s.replace(new RegExp('</code>', 'g'), '"');
         return this.formatLabel(s, 50);
       });
 
-      const values = _.map(this.errors, 'n_pages');
+      const values = this.errors.map('n_pages');
 
       this.chart = new Chart(this.chartErrors.nativeElement, {
         type: 'horizontalBar',

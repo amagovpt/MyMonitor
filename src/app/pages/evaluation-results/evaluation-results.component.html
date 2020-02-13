@@ -40,9 +40,10 @@
     </mat-card-header>
     <mat-card-content fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="space-around center">
       <div>
-        <ngx-gauge [type]="'semi'" [thick]="'10'" [value]="eval.metadata.score" [label]="'RESULTS.summary.score' | translate"
+        <!--<ngx-gauge [type]="'semi'" [thick]="'10'" [value]="eval.metadata.score" [label]="'RESULTS.summary.score' | translate"
           [min]="0" [max]="10" [duration]="2000" [thresholds]="thresholdConfig">
-        </ngx-gauge>
+        </ngx-gauge>-->
+        {{ eval.metadata.score }}
       </div>
       <div>
         <table class="table" summary="Titulo, Número de elementos e tamanho da página da avaliação">

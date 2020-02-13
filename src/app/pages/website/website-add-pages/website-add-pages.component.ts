@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, FormBuilder, Validators, FormGroupDirective, NgForm } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
-import * as _ from 'lodash';
 
 import { MonitorService } from '../../../services/monitor.service';
 
@@ -17,26 +16,26 @@ class DomainUrlValidation {
 
   static UrlMatchDomain(AC: AbstractControl) {
     let domain = AC.get('domain').value;
-    domain = _.replace(domain, 'http://', '');
-    domain = _.replace(domain, 'https://', '');
-    domain = _.replace(domain, 'www.', '');
+    domain = domain.replace('http://', '');
+    domain = domain.replace('https://', '');
+    domain = domain.replace('www.', '');
 
-    const urls = _.uniq(_.without(_.split(AC.get('pages').value, '\n'), ''));
+    const urls =  AC.get('pages').value.split('\n').map(a => a !== '').filter((value, index, self) => self.indexOf(value) === index);
 
     let invalid = false;
-    const size = _.size(urls);
+    const size = urls.length;
 
     if (!size) {
       return null;
     }
 
     for (let i = 0 ; i < size ; i++) {
-      let url = _.trim(urls[i]);
-      url = _.replace(url, 'http://', '');
-      url = _.replace(url, 'https://', '');
-      url = _.replace(url, 'www.', '');
+      let url = urls[i].trim();
+      url = url.replace('http://', '');
+      url = url.replace('https://', '');
+      url = url.replace('www.', '');
 
-      if (!_.startsWith(url, domain)) {
+      if (!url.startsWith(domain)) {
         invalid = true;
       }
     }
@@ -88,16 +87,16 @@ export class WebsiteAddPagesComponent implements OnInit {
   addPages(e): void {
     e.preventDefault();
 
-    const pages = _.map(_.uniq(_.without(_.split(this.pagesForm.value.pages, '\n'), '')), p => {
-      p = _.replace(p, 'http://', '');
-      p = _.replace(p, 'https://', '');
-      p = _.replace(p, 'www.', '');
+    const pages = this.pagesForm.value.pages.split('\n').map(a => a !== '').filter((value, index, self) => self.indexOf(value) === index).map( p => {
+      p = p.replace('http://', '');
+      p = p.replace('https://', '');
+      p = p.replace('www.', '');
 
-      if (p[_.size(p)-1] === '/') {
-        p = p.substring(0, _.size(p)-1);
+      if (p[p.length - 1] === '/') {
+        p = p.substring(0, p.length -1);
       }
 
-      return _.trim(p);
+      return p.trim();
     });
 
     this.addWebsitePages.next({ domain: this.domain, urls: pages});
@@ -105,41 +104,41 @@ export class WebsiteAddPagesComponent implements OnInit {
 }
 
 function urlValidator(control: FormControl) {
-  const urls = _.uniq(_.without(_.split(control.value, '\n'), ''));
+  const urls = control.value.split('\n').map(a => a !== '').filter((value, index, self) => self.indexOf(value) === index);
 
   let invalid = true;
-  const size = _.size(urls);
+  const size = urls.length;
 
   if (!size) {
     return null;
   }
 
   for (let i = 0 ; i < size ; i++) {
-    let url = _.trim(urls[i]);
+    let url = urls[i].trim();
 
-    if (!_.startsWith(url, 'http://') && !_.startsWith(url, 'https://') && !_.startsWith(url, 'www.')) {
-      if (_.includes(url, '.') && url[_.size(url) - 1] !== '.') {
+    if (!url.startsWith('http://') && !url.startsWith('https://') && !url.startsWith('www.')) {
+      if (url.includes('.') && url[url.length - 1] !== '.') {
         invalid = false;
       } else {
         invalid = true;
       }
-    } else if (_.startsWith(url, 'http://')) {
-      url = _.replace(url, 'http://', '');
-      if (_.includes(url, '.') && url[_.size(url) - 1] !== '.') {
+    } else if (url.startsWith('http://')) {
+      url = url.replace('http://', '');
+      if (url.includes('.') && url[url.length - 1] !== '.') {
         invalid = false;
       } else {
         invalid = true;
       }
-    } else if (_.startsWith(url, 'https://')) {
-      url = _.replace(url, 'https://', '');
-      if (_.includes(url, '.') && url[_.size(url) - 1] !== '.') {
+    } else if (url.startsWith('https://')) {
+      url = url.replace('https://', '');
+      if (url.includes('.') && url[url.length - 1] !== '.') {
         invalid = false;
       } else {
         invalid = true;
       }
-    } else if (_.startsWith(url, 'www.')) {
-      url = _.replace(url, 'www.', '');
-      if (_.includes(url, '.') && url[_.size(url) - 1] !== '.') {
+    } else if (url.startsWith('www.')) {
+      url = url.replace('www.', '');
+      if (url.includes(url, '.') && url[url.length - 1] !== '.') {
         invalid = false;
       } else {
         invalid = true;

@@ -2,7 +2,6 @@ import { Component, OnInit, Inject, ViewChild } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Chart } from 'chart.js';
-import * as _ from 'lodash';
 
 
 @Component({
@@ -45,14 +44,14 @@ export class ScoreDistributionDialogComponent implements OnInit {
       const frequencies = new Array<number>(9).fill(0);
 
       for (const p of this.data.pages) {
-        const floor = _.floor(p.Score);
+        const floor = Math.floor(p.Score);
         frequencies[ floor >= 2 ? floor === 10 ? floor - 2 : floor - 1 : 0]++;
       }
 
       this.values = frequencies;
-      const total = _.sum(this.values);
+      const total = this.values.reduce((a, b) => { return a + b; }, 0);
 
-      this.percentageValues = _.map(this.values, (v) => {
+      this.percentageValues = this.values.map((v) => {
         return (v / total) * 100;
       });
 

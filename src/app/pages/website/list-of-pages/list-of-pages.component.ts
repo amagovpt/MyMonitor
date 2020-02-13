@@ -16,7 +16,6 @@ import {
 import {
   SelectionModel
 } from '@angular/cdk/collections';
-import * as _ from 'lodash';
 
 @Component({
   selector: 'app-list-of-pages',
@@ -59,23 +58,23 @@ export class ListOfPagesComponent implements OnInit {
   }
 
   deletePages(): void {
-    const pagesId = _.map(this.selection.selected, 'PageId');
+    const pagesId = this.selection.selected.map('PageId');
     this.removePages.next(pagesId);
   }
 
   applyFilter(filterValue: string): void {
-    filterValue = _.trim(filterValue);
-    filterValue = _.toLower(filterValue);
+    filterValue = filterValue.trim();
+    filterValue = filterValue.toLowerCase();
     this.dataSource.filter = filterValue;
   }
 
   getUriRoute(uri: string): Array < string > {
     const path = this.location.path();
-    let segments = _.split(path, '/');
+    let segments = path.split('/');
     segments[0] = '/user';
     segments.splice(1, 1);
     segments.push(uri);
-    segments = _.map(segments, s => decodeURIComponent(s));
+    segments = segments.map(s => decodeURIComponent(s));
 
     return segments;
   }

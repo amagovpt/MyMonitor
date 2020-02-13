@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import * as _ from 'lodash';
 
 import { MonitorService } from '../../services/monitor.service';
 
@@ -57,8 +56,8 @@ export class WebsitesComponent implements OnInit {
   }
 
   applyFilter(filterValue: string): void {
-    filterValue = _.trim(filterValue);
-    filterValue = _.toLower(filterValue);
+    filterValue = filterValue.trim();
+    filterValue = filterValue.toLowerCase();
     this.dataSource.filter = filterValue;
   }
 }

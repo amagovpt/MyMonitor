@@ -3,7 +3,6 @@ import { TranslateService } from '@ngx-translate/core';
 import { Location } from '@angular/common';
 import { Router, NavigationEnd } from '@angular/router';
 import { Subscription } from 'rxjs';
-import * as _ from 'lodash';
 
 import { UserService } from './services/user.service';
 
@@ -46,14 +45,14 @@ export class AppComponent implements OnInit {
     private location: Location,
     public translate: TranslateService
   ) {
-    this.translate.addLangs(_.values(this.langs));
+    this.translate.addLangs(Object.values(this.langs));
     this.translate.setDefaultLang('Portuguese');
 
     const lang = localStorage.getItem('language');
 
     if (!lang) {
       const browserLang = translate.getBrowserLang();
-      const use = _.includes(_.keys(this.langs), browserLang) ? this.langs[browserLang] : 'Portuguese';
+      const use = Object.keys(this.langs).includes(browserLang) ? this.langs[browserLang] : 'Portuguese';
 
       this.translate.use(use);
       localStorage.setItem('language', use);
@@ -79,9 +78,9 @@ export class AppComponent implements OnInit {
         this.ele = null;
 
         const path = this.location.path();
-        const segments = _.split(path, '/');
+        const segments = path.split('/');
 
-        switch (_.size(segments)) {
+        switch (segments.length) {
           case 5:
             if (segments[4] === 'code') {
               this.code = true;

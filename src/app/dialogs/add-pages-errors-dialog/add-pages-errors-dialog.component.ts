@@ -1,6 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import * as _ from 'lodash';
 
 @Component({
   selector: 'app-add-pages-errors-dialog',
@@ -14,7 +13,7 @@ export class AddPagesErrorsDialogComponent implements OnInit {
   constructor(@Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit(): void {
-    this.pages = _.keys(this.data);
+    this.pages = Object.keys(this.data);
   }
 
 }

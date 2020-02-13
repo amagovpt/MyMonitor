@@ -4,7 +4,6 @@ import { Observable, of } from 'rxjs';
 import { ajax } from 'rxjs/ajax';
 import { map, retry, catchError } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
-import * as _ from 'lodash';
 
 import { ConfigService } from './config.service';
 import { UserService } from './user.service';
@@ -27,7 +26,6 @@ export class MonitorService {
     private router: Router,
     private dialog: MatDialog,
     private config: ConfigService
-
   ) { }
 
   getUserWebsites(): Observable<Array<any>> {

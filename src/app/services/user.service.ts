@@ -3,11 +3,8 @@ import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { ajax } from 'rxjs/ajax';
 import { map, retry, catchError } from 'rxjs/operators';
-import { MatDialog } from '@angular/material/dialog';
-import * as _ from 'lodash';
 
 import { ConfigService } from './config.service';
-import { CookieService } from 'ngx-cookie-service';
 import { MessageService } from './message.service';
 
 import { Response } from '../models/response';
@@ -20,7 +17,6 @@ export class UserService {
 
   constructor(
     private router: Router,
-    private cookieService: CookieService,
     private message: MessageService,
     private config: ConfigService
   ) { }
@@ -46,7 +42,8 @@ export class UserService {
         tomorrow.setTime(tomorrow.getTime() + 1 * 86400000);
 
         sessionStorage.setItem('MM-username', username);
-        this.cookieService.set('MM-SSID', btoa(cookie), tomorrow, '/', host, false);
+        localStorage.set('MM-SSID', btoa(cookie));
+        localStorage.set('MM-SSID-TIMEOUT', tomorrow.getTime());
         this.router.navigateByUrl('/user');
         return true;
       }),
@@ -70,11 +67,28 @@ export class UserService {
   }
 
   isUserLoggedIn(): boolean {
-    return this.cookieService.check('MM-SSID');
+    const cookie = localStorage.getItem('MM-SSID');
+
+    if (cookie) {
+      const sessionTimeout = localStorage.getItem('MM-SSID-TIMEOUT');
+      if (sessionTimeout) {
+        const currentDate = new Date();
+        if (currentDate.getTime() < parseInt(sessionTimeout)) {
+          return true;
+        } else {
+          this.logout();
+          return false;
+        }
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
   }
 
   getUserData(): {} {
-    return atob(this.cookieService.get('MM-SSID'));
+    return atob(localStorage.getItem('MM-SSID'));
   }
 
   getUsername(): string {
@@ -85,11 +99,11 @@ export class UserService {
     const host = this.getEnv();
 
     sessionStorage.removeItem('MM-username');
-    this.cookieService.delete('MM-SSID', '/', this.getEnv());
+    localStorage.removeItem('MM-SSID');
     this.router.navigateByUrl(location);
   }
 
   private getEnv(): string {
-    return _.split(location.host, ':')[0];
+    return location.host.split(':')[0];
   }
 }

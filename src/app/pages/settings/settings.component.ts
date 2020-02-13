@@ -1,7 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, FormBuilder, Validators, FormGroupDirective, NgForm } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
-import * as _ from 'lodash';
 
 import { MonitorService } from '../../services/monitor.service';
 import { MessageService } from '../../services/message.service';
@@ -19,7 +18,7 @@ export class PasswordValidation {
     const password = AC.get('newPassword').value;
     const confirmPassword = AC.get('confirmPassword').value;
 
-    if (_.trim(confirmPassword) === '') {
+    if (confirmPassword.trim() === '') {
       return null;
     }
 

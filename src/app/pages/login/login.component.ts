@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import * as _ from 'lodash';
 
 import { UserService } from '../../services/user.service';
 import { MessageService } from '../../services/message.service';

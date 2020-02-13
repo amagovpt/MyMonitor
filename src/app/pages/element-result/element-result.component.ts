@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/co
 import { ActivatedRoute } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Subscription } from 'rxjs';
-import * as _ from 'lodash';
+import clone from 'lodash.clone';
 
 import { EvaluationService } from '../../services/evaluation.service';
 
@@ -53,20 +53,20 @@ export class ElementResultComponent implements OnInit, OnDestroy {
 
       let i = 0;
       let n = imgNodes.snapshotItem(i);
-      const protocol = _.startsWith(this.data.finalUrl, 'https://') ? 'https://' : 'http://';
-      const www = _.includes(this.data.finalUrl, 'www.') ? 'www.' : '';
+      const protocol = this.data.finalUrl.startsWith('https://') ? 'https://' : 'http://';
+      const www = this.data.finalUrl.includes('www.') ? 'www.' : '';
 
-      let fixSrcUrl = _.clone(_.split(_.replace(_.replace(this.url, 'http://', ''), 'https://', ''), '/')[0]);
-      if (fixSrcUrl[_.size(fixSrcUrl)-1] === '/') {
-        fixSrcUrl = fixSrcUrl.substring(0, _.size(fixSrcUrl) - 2);
+      let fixSrcUrl = clone(this.url.replace('http://', '').replace('https://', '').split('/')[0]);
+      if (fixSrcUrl[fixSrcUrl.length - 1] === '/') {
+        fixSrcUrl = fixSrcUrl.substring(0, fixSrcUrl.length - 2);
       }
 
       while(n) {
-        if (n['attributes']['src'] && !_.startsWith(n['attributes']['src'].value, 'http') && !_.startsWith(n['attributes']['src'].value, 'https')) {
+        if (n['attributes']['src'] && !n['attributes']['src'].value.startsWith('http') && !n['attributes']['src'].value.startsWith('https')) {
           n['attributes']['src'].value = `${protocol}${www}${fixSrcUrl}${n['attributes']['src'].value}`;
         }
 
-        if (n['attributes']['srcset'] && !_.startsWith(n['attributes']['srcset'].value, 'http') && !_.startsWith(n['attributes']['srcset'].value, 'https')) {
+        if (n['attributes']['srcset'] && !n['attributes']['srcset'].value.startsWith('http') && !n['attributes']['srcset'].value.startsWith('https')) {
           n['attributes']['srcset'].value = `${protocol}${www}${fixSrcUrl}${n['attributes']['srcset'].value}`;
         }
 
@@ -80,19 +80,13 @@ export class ElementResultComponent implements OnInit, OnDestroy {
       n = cssNodes.snapshotItem(i);
 
       while(n) {
-        if (n['attributes']['href'] && !_.startsWith(n['attributes']['href'].value, 'http') && !_.startsWith(n['attributes']['href'].value, 'https')) {
-          if (_.startsWith(n['attributes']['href'].value, '/')) {
+        if (n['attributes']['href'] && !n['attributes']['href'].value.startsWith('http') && !n['attributes']['href'].value.startsWith('https')) {
+          if (n['attributes']['href'].value.startsWith('/')) {
             n['attributes']['href'].value = `${protocol}${www}${fixSrcUrl}${n['attributes']['href'].value}`;
           } else {
             n['attributes']['href'].value = `${protocol}${www}${fixSrcUrl}/${n['attributes']['href'].value}`;
           }
         }
-        /*const split = _.split(n['attributes']['href'].value, '.css&');
-        if (_.size(split) > 1) {
-          for (let s of split) {
-            console.log(s);
-          }
-        }*/
         i++;
         n = cssNodes.snapshotItem(i);
       }
