@@ -161,7 +161,7 @@ export class MonitorService {
       retry(3),
       map(res => {
         const response = <Response> res.body;
-        console.log(res.status);
+        
         if (!res.body || res.status !== 201) {
           throw new Error('Invalid password');
         }

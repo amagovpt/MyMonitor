@@ -48,12 +48,12 @@ export class EvaluationService {
         this.evaluation = <Evaluation> JSON.parse(sessionStorage.getItem('evaluation'));
         return of(this.evaluation.processed);
       } else {
-        return ajax.post(this.config.getServer('/monitor/evaluation'), {website, url: encodeURIComponent(url) , cookie: this.user.getUserData()}).pipe(
+        return this.http.get<any>(this.config.getServer(`/evaluation/myMonitor/${website}/${encodeURIComponent(url)}`), {observe: 'response'}).pipe(
           retry(3),
           map(res => {
-            const response = <Response> res.response;
+            const response = <Response> res.body;
 
-            if (!res.response || res.status === 404) {
+            if (!res.body || res.status === 404) {
               throw new MmError(404, 'Service not found', 'SERIOUS');
             }
 
