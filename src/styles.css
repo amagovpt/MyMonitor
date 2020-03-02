@@ -1,17 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
 
-@import "~@angular/material/prebuilt-themes/indigo-pink.css";
-
-@include cdk-a11y();
-
 html, body {
-  margin: 0;
+	margin: 0;
   padding: 0;
   height: 100%;
   width: 100%;
   font-family: Roboto, Monospace;
-}
-
-body {
   background-color: #FFF6FF;
 }

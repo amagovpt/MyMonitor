@@ -2,3 +2,11 @@ nav {
   padding-top: 1%;
   padding-left: 5%;
 }
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}

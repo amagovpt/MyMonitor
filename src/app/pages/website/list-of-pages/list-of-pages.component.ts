@@ -58,7 +58,7 @@ export class ListOfPagesComponent implements OnInit {
   }
 
   deletePages(): void {
-    const pagesId = this.selection.selected.map('PageId');
+    const pagesId = this.selection.selected.map((page: any) => page.PageId);
     this.removePages.next(pagesId);
   }
 

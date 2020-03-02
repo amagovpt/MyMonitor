@@ -20,7 +20,7 @@ class DomainUrlValidation {
     domain = domain.replace('https://', '');
     domain = domain.replace('www.', '');
 
-    const urls =  AC.get('pages').value.split('\n').map(a => a !== '').filter((value, index, self) => self.indexOf(value) === index);
+    const urls =  AC.get('pages').value.split('\n').filter(a => a !== '').filter((value, index, self) => self.indexOf(value) === index);
 
     let invalid = false;
     const size = urls.length;
@@ -87,7 +87,7 @@ export class WebsiteAddPagesComponent implements OnInit {
   addPages(e): void {
     e.preventDefault();
 
-    const pages = this.pagesForm.value.pages.split('\n').map(a => a !== '').filter((value, index, self) => self.indexOf(value) === index).map( p => {
+    const pages = this.pagesForm.value.pages.split('\n').filter(a => a !== '').filter((value, index, self) => self.indexOf(value) === index).map( p => {
       p = p.replace('http://', '');
       p = p.replace('https://', '');
       p = p.replace('www.', '');
@@ -104,8 +104,8 @@ export class WebsiteAddPagesComponent implements OnInit {
 }
 
 function urlValidator(control: FormControl) {
-  const urls = control.value.split('\n').map(a => a !== '').filter((value, index, self) => self.indexOf(value) === index);
-
+  const urls = control.value.split('\n').filter(a => a !== '').filter((value, index, self) => self.indexOf(value) === index);
+  
   let invalid = true;
   const size = urls.length;
 

@@ -52,7 +52,7 @@ export class WebsiteStatisticsComponent implements OnInit {
     this.oldest_page = this.pages[0].Evaluation_Date;
 
     for (const p of this.pages) {
-      this.score += p.Score;
+      this.score += parseFloat(p.Score);
 
       if (p.Evaluation_Date > this.newest_page) {
         this.newest_page = p.Evaluation_Date;
@@ -61,7 +61,7 @@ export class WebsiteStatisticsComponent implements OnInit {
       }
     }
 
-    this.score = this.score / this.pages.length;
+    this.score = this.score / this.pages.length;  
   }
 
   openScoreDistributionDialog(): void {

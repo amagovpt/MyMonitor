@@ -17,8 +17,8 @@ export class PasswordValidation {
   static MatchPassword(AC: AbstractControl) {
     const password = AC.get('newPassword').value;
     const confirmPassword = AC.get('confirmPassword').value;
-
-    if (confirmPassword.trim() === '') {
+    
+    if (confirmPassword && confirmPassword.trim() === '') {
       return null;
     }
 

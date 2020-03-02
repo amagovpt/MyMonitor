@@ -16,6 +16,10 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
   }
 
+  logout(): void {
+    this.user.logout().subscribe();
+  }
+
   toggleSidenav(): void {
     (<any>this.sidenav).toggle();
   }

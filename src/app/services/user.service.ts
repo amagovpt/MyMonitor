@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { ajax } from 'rxjs/ajax';
 import { map, retry, catchError } from 'rxjs/operators';
 
 import { ConfigService } from './config.service';
@@ -16,34 +16,35 @@ import { MmError } from '../models/error';
 export class UserService {
 
   constructor(
-    private router: Router,
-    private message: MessageService,
-    private config: ConfigService
+    private readonly router: Router,
+    private readonly http: HttpClient,
+    private readonly message: MessageService,
+    private readonly config: ConfigService
   ) { }
 
   login(username: string, password: string): Observable<boolean> {
-    const app = 'monitor';
-    return ajax.post(this.config.getServer('/session/login'), {username, password, app}).pipe(
+    const type = 'monitor';
+    return this.http.post<any>(this.config.getServer('/auth/login'), {username, password, type}, {observe: 'response'}).pipe(
       retry(3),
       map(res => {
-        if (!res.response || res.status === 404) {
+        if (!res.body || res.status === 404) {
           throw new MmError(404, 'Service not found', 'SERIOUS');
         }
 
-        const response = new Response(res.response);
+        const response = new Response(res.body);
 
         if (response.hasError()) {
           throw new MmError(response.success, response.message);
         }
 
         const cookie = response.result;
-        const host = this.getEnv();
         const tomorrow = new Date();
         tomorrow.setTime(tomorrow.getTime() + 1 * 86400000);
 
         sessionStorage.setItem('MM-username', username);
-        localStorage.set('MM-SSID', btoa(cookie));
-        localStorage.set('MM-SSID-TIMEOUT', tomorrow.getTime());
+        localStorage.setItem('MM-SSID', cookie);
+        localStorage.setItem('expires-at', tomorrow.toString());
+
         this.router.navigateByUrl('/user');
         return true;
       }),
@@ -67,43 +68,55 @@ export class UserService {
   }
 
   isUserLoggedIn(): boolean {
-    const cookie = localStorage.getItem('MM-SSID');
-
-    if (cookie) {
-      const sessionTimeout = localStorage.getItem('MM-SSID-TIMEOUT');
-      if (sessionTimeout) {
-        const currentDate = new Date();
-        if (currentDate.getTime() < parseInt(sessionTimeout)) {
-          return true;
-        } else {
-          this.logout();
-          return false;
-        }
-      } else {
-        return false;
-      }
-    } else {
-      return false;
-    }
+    const token = localStorage.getItem('MM-SSID');
+    const expires = localStorage.getItem('expires-at');
+    return token && new Date() < new Date(expires);
   }
 
-  getUserData(): {} {
-    return atob(localStorage.getItem('MM-SSID'));
+  getUserData(): any {
+    return localStorage.getItem('MM-SSID');
   }
 
   getUsername(): string {
     return sessionStorage.getItem('MM-username');
   }
 
-  logout(location: string = '/'): void {
-    const host = this.getEnv();
+  logout(location: string = '/'): Observable<boolean> {
+    return this.http.post<any>(this.config.getServer('/auth/logout'), {}, {observe: 'response'}).pipe(
+      retry(3),
+      map(res => {
+        if (!res.body || res.status === 404) {
+          throw new MmError(404, 'Service not found', 'SERIOUS');
+        }
 
-    sessionStorage.removeItem('MM-username');
-    localStorage.removeItem('MM-SSID');
-    this.router.navigateByUrl(location);
-  }
+        const response = new Response(res.body);
 
-  private getEnv(): string {
-    return location.host.split(':')[0];
+        if (response.hasError()) {
+          throw new MmError(response.success, response.message);
+        }
+
+        sessionStorage.removeItem('MM-username');
+        localStorage.removeItem('MM-SSID');
+        localStorage.removeItem('expires-at');
+        this.router.navigateByUrl(location);
+        return true;
+      }),
+      catchError((err: MmError) => {
+        switch (err.code) {
+          case -1: // user doesn't exist
+            this.message.show('LOGIN.messages.no_user');
+            break;
+          case -2: // error, password doesn't match
+            this.message.show('LOGIN.messages.password_match');
+            break;
+          default:
+            this.message.show('LOGIN.messages.system_error');
+            break;
+        }
+
+        console.log(err);
+        return of(false);
+      })
+    );
   }
 }

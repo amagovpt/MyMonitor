@@ -9,7 +9,7 @@
   </mat-card-header>
   <mat-card-content fxLayout.gt-sm="row" fxLayout="column" fxLayoutAlign="space-around center">
     <div>
-      <!--<ngx-gauge
+      <ngx-gauge
           [type]="'semi'"
           [thick]="'10'"
           [value]="score | toFixed"
@@ -18,8 +18,7 @@
           [max]="10"
           [duration]="2000"
           [thresholds]="thresholdConfig">
-        </ngx-gauge>-->
-        {{ score | toFixed }}
+        </ngx-gauge>
     </div>
     <div fxLayout="column">
       <div>
@@ -36,10 +35,11 @@
     </div>
   </mat-card-content>
   <mat-card-actions fxLayout="row" fxLayoutAlign="center center">
-    <button mat-raised-button color="primary" attr.aria-label="{{ 'STATISTICS.score_distribution' | translate }}" (click)="openScoreDistributionDialog()">
+    <button mat-flat-button color="primary" attr.aria-label="{{ 'STATISTICS.score_distribution' | translate }}" (click)="openScoreDistributionDialog()">
       {{ "STATISTICS.score_distribution" | translate }}
     </button>
-    <button mat-raised-button color="warn" attr.aria-label="{{ 'STATISTICS.error_distribution' | translate }}"  (click)="openErrorDistributionDialog()">
+    <span fxFlex="1"></span>
+    <button mat-flat-button color="warn" attr.aria-label="{{ 'STATISTICS.error_distribution' | translate }}"  (click)="openErrorDistributionDialog()">
       {{ "STATISTICS.error_distribution" | translate }}
     </button>
   </mat-card-actions>

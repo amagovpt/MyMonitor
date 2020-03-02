@@ -7,6 +7,10 @@
   width: 100%;
 }
 
-/*mat-row:hover {
-  background-color: rgba(0,0,0, 0.05);
-}*/
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}

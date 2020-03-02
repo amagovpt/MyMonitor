@@ -60,14 +60,14 @@ export class ErrorDistributionDialogComponent implements OnInit {
         }
       }
     }
-
-    const errors = this.errors.map((v, k) => {
-      return {
-        'key': k,
-        'n_elems': this.errors[k]['n_elems'],
-        'n_pages': this.errors[k]['n_pages']
-      };
-    });
+    const errors = new Array<any>();
+    for (const key in this.errors || {}) {
+      errors.push({
+        'key': key,
+        'n_elems': this.errors[key]['n_elems'],
+        'n_pages': this.errors[key]['n_pages']
+      });
+    }
     this.errors = errors.sort((a, b) => {
       return a['n_elems'] - b['n_elems'];
     }).slice(0, 10);
@@ -96,7 +96,7 @@ export class ErrorDistributionDialogComponent implements OnInit {
         return this.formatLabel(s, 50);
       });
 
-      const values = this.errors.map('n_pages');
+      const values = this.errors.map((error: any) => error.n_pages);
 
       this.chart = new Chart(this.chartErrors.nativeElement, {
         type: 'horizontalBar',

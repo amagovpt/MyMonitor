@@ -5,7 +5,7 @@
       <button mat-button *ngIf="user.isUserLoggedIn()" routerLink="/user/settings">
         {{ "HEADER.settings" | translate }}
       </button>
-      <button mat-button *ngIf="user.isUserLoggedIn()" (click)="user.logout()">
+      <button mat-button *ngIf="user.isUserLoggedIn()" (click)="logout()">
         {{ "LOGIN.logout" | translate }}
       </button>
     </mat-toolbar-row>

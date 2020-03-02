@@ -39,7 +39,7 @@ mat-nav-list, mat-list {
 }
 
 .footer {
-  background-color: rgb(179, 230, 255);
+  border-top: thin solid black;
 }
 
 @media screen and (min-width: 960px) {

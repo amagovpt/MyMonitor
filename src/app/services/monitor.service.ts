@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { ajax } from 'rxjs/ajax';
 import { map, retry, catchError } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
 
 import { ConfigService } from './config.service';
-import { UserService } from './user.service';
 import { MessageService } from './message.service';
 
 import { Response } from '../models/response';
@@ -21,20 +20,20 @@ import { AddPagesErrorsDialogComponent } from '../dialogs/add-pages-errors-dialo
 export class MonitorService {
 
   constructor(
-    private user: UserService,
-    private message: MessageService,
-    private router: Router,
-    private dialog: MatDialog,
-    private config: ConfigService
+    private readonly message: MessageService,
+    private readonly http: HttpClient,
+    private readonly router: Router,
+    private readonly dialog: MatDialog,
+    private readonly config: ConfigService
   ) { }
 
   getUserWebsites(): Observable<Array<any>> {
-    return ajax.post(this.config.getServer('/monitor/user/websites'), {cookie: this.user.getUserData()}).pipe(
+    return this.http.get<any>(this.config.getServer('/website/myMonitor'), {observe: 'response'}).pipe(
       retry(3),
       map(res => {
-        const response = <Response> res.response;
+        const response = <Response> res.body;
 
-        if (!res.response || res.status === 404) {
+        if (!res.body || res.status === 404) {
           throw new MmError(404, 'Service not found', 'SERIOUS');
         }
 
@@ -52,12 +51,12 @@ export class MonitorService {
   }
 
   getUserWebsitePages(website: string): Observable<Array<any>> {
-    return ajax.post(this.config.getServer('/monitor/user/website/pages'), {website, cookie: this.user.getUserData()}).pipe(
+    return this.http.get<any>(this.config.getServer('/page/myMonitor/website/' + website), {observe: 'response'}).pipe(
       retry(3),
       map(res => {
-        const response = <Response> res.response;
+        const response = <Response> res.body;
 
-        if (!res.response || res.status === 404) {
+        if (!res.body || res.status === 404) {
           throw new MmError(404, 'Service not found', 'SERIOUS');
         }
 
@@ -78,12 +77,12 @@ export class MonitorService {
   }
 
   getWebsiteDomain(website: string): Observable<string> {
-    return ajax.post(this.config.getServer('/monitor/user/website/domain'), {website, cookie: this.user.getUserData()}).pipe(
+    return this.http.get<any>(this.config.getServer('/domain/myMonitor/website/' + website), {observe: 'response'}).pipe(
       retry(3),
       map(res => {
-        const response = <Response> res.response;
+        const response = <Response> res.body;
 
-        if (!res.response || res.status === 404) {
+        if (!res.body || res.status === 404) {
           throw new MmError(404, 'Service not found', 'SERIOUS');
         }
 
@@ -104,12 +103,12 @@ export class MonitorService {
   }
 
   addWebsitePages(website: string, domain: string, pages: Array<string>): Observable<Array<Page>> {
-    return ajax.post(this.config.getServer('/monitor/user/website/addPages'), {website, domain, pages: JSON.stringify(pages), cookie: this.user.getUserData()}).pipe(
+    return this.http.post<any>(this.config.getServer('/page/myMonitor/create'), {website, domain, pages: JSON.stringify(pages)}, {observe: 'response'}).pipe(
       retry(3),
       map(res => {
-        const response = <Response> res.response;
+        const response = <Response> res.body;
 
-        if (!res.response || res.status === 404) {
+        if (!res.body || res.status === 404) {
           throw new MmError(404, 'Service not found', null, null, 'SERIOUS');
         }
 
@@ -135,12 +134,12 @@ export class MonitorService {
   }
 
   removePages(website: string, pagesId: Array<number>): Observable<Array<Page>> {
-    return ajax.post(this.config.getServer('/monitor/user/website/removePages'), {website, pagesId: JSON.stringify(pagesId), cookie: this.user.getUserData()}).pipe(
+    return this.http.post<any>(this.config.getServer('/page/myMonitor/remove'), {website, pagesId: JSON.stringify(pagesId)}, {observe: 'response'}).pipe(
       retry(3),
       map(res => {
-        const response = <Response> res.response;
+        const response = <Response> res.body;
 
-        if (!res.response || res.status === 404) {
+        if (!res.body || res.status === 404) {
           throw new MmError(404, 'Service not found', 'SERIOUS');
         }
 
@@ -158,13 +157,13 @@ export class MonitorService {
   }
 
   changePassword(password: string, newPassword: string, confirmPassword: string): Observable<boolean> {
-    return ajax.post(this.config.getServer('/monitor/user/changePassword'), {password, newPassword, confirmPassword, cookie: this.user.getUserData()}).pipe(
+    return this.http.post<any>(this.config.getServer('/user/changePassword'), {password, newPassword, confirmPassword}, {observe: 'response'}).pipe(
       retry(3),
       map(res => {
-        const response = <Response> res.response;
-
-        if (!res.response || res.status === 404) {
-          throw new MmError(404, 'Service not found', 'SERIOUS');
+        const response = <Response> res.body;
+        console.log(res.status);
+        if (!res.body || res.status !== 201) {
+          throw new Error('Invalid password');
         }
 
         if (response.success !== 1) {
@@ -174,9 +173,7 @@ export class MonitorService {
         return <boolean> response.result;
       }),
       catchError(err => {
-        if (err.code === -1) {
-          this.message.show('SETTINGS.change_password.old_password_match_error');
-        }
+        this.message.show('SETTINGS.change_password.old_password_match_error');
         console.log(err);
         return of(null);
       })

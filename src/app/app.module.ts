@@ -9,7 +9,9 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from './material/material.module';
-//import { NgxGaugeModule } from 'ngx-gauge';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './services/auth.interceptor';
+import { NgxGaugeModule } from 'ngx-gauge';
 
 import { UserAuthGuard } from './guards/user-auth.guard';
 import { NoAuthGuard } from './guards/no-auth.guard';
@@ -108,7 +110,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
-    //NgxGaugeModule
+    NgxGaugeModule
   ],
   entryComponents: [
     ScoreDistributionDialogComponent,
@@ -117,7 +119,13 @@ export function HttpLoaderFactory(http: HttpClient) {
     UserAuthErrorDialogComponent,
     AddPagesErrorsDialogComponent
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
