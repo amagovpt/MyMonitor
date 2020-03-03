@@ -40,13 +40,12 @@
     </mat-card-header>
     <mat-card-content fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="space-around center">
       <div>
-        <!--<ngx-gauge [type]="'semi'" [thick]="'10'" [value]="eval.metadata.score" [label]="'RESULTS.summary.score' | translate"
+        <ngx-gauge [type]="'semi'" [thick]="'10'" [value]="eval.metadata.score" [label]="'RESULTS.summary.score' | translate"
           [min]="0" [max]="10" [duration]="2000" [thresholds]="thresholdConfig">
-        </ngx-gauge>-->
-        {{ eval.metadata.score }}
+        </ngx-gauge>
       </div>
       <div>
-        <table class="table" summary="Titulo, Número de elementos e tamanho da página da avaliação">
+        <table class="metadata" border="1" frame="void" rules="rows">
           <tr>
             <th scope="row">
               <strong>URI</strong>
@@ -83,7 +82,7 @@
   </mat-card>
   <br>
 
-  <mat-card class="mat-typography" *ngIf="!loading && !error">
+  <mat-card *ngIf="!loading && !error">
     <mat-card-content fxLayout="row" fxLayoutAlign="center center">
       <table class="summary-table" fxFlex.gt-sm="60" fxFlex.lt-md>
         <thead>
@@ -151,7 +150,7 @@
       </mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <table class="table table-bordered">
+      <table class="results-table">
         <thead>
           <tr>
             <th scope="col">{{ "RESULTS.results.practice" | translate }}</th>

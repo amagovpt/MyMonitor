@@ -79,12 +79,12 @@ export class EvaluationService {
   }
 
   evaluateUrl(url: string): Observable<any> {
-    return ajax.post(this.config.getServer('/monitor/evaluate/'), {url: encodeURIComponent(url), cookie: this.user.getUserData()}).pipe(
+    return this.http.post<any>(this.config.getServer('/evaluation/myMonitor/evaluate/'), {url: encodeURIComponent(url)}, {observe: 'response'}).pipe(
       retry(3),
       map(res => {
-        const response = <Response> res.response;
+        const response = <Response> res.body;
 
-        if (!res.response || res.status === 404) {
+        if (!res.body || res.status === 404) {
           throw new MmError(404, 'Service not found', 'SERIOUS');
         }
 

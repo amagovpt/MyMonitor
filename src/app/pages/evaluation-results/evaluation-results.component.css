@@ -6,6 +6,14 @@ mat-card {
   text-align: center;
 }
 
+.metadata th, .metadata td {
+  padding: 0.5em;
+}
+
+::ng-deep .reading-block {
+  line-height: 40px;
+}
+
 @media only screen and (max-width:960px){
 	.score {
     height: 200px;
@@ -27,7 +35,7 @@ mat-card {
 
 .summary-table th, .summary-table td {
   text-align: center;
-  border: 2px solid #fff;
+  border: thin solid #fff;
   padding: 0.5em;
 }
 
@@ -41,7 +49,7 @@ mat-card {
   color: white;
 }
 
-.summary-table tr:nth-child(3) {
+.summary-table tr:nth-child(3) td {
   border-bottom: medium solid black;
 }
 
@@ -85,6 +93,14 @@ td {
 .desc a {
   color: black;
   text-decoration: underline;
+}
+
+.results-table {
+  width: 100%;
+}
+
+.results-table td {
+  padding: 1em;
 }
 
 ::ng-deep mark {
