@@ -79,7 +79,7 @@ export class EvaluationService {
   }
 
   evaluateUrl(url: string): Observable<any> {
-    return this.http.post<any>(this.config.getServer('/evaluation/myMonitor/evaluate/'), {url: encodeURIComponent(url)}, {observe: 'response'}).pipe(
+    return this.http.post<any>(this.config.getServer('/page/myMonitor/evaluate/'), {url: encodeURIComponent(url)}, {observe: 'response'}).pipe(
       retry(3),
       map(res => {
         const response = <Response> res.body;
@@ -92,14 +92,7 @@ export class EvaluationService {
           throw new MmError(response.success, response.message);
         }
 
-        this.url = url;
-        this.evaluation = <Evaluation> response.result;
-        this.evaluation.processed = this.processData();
-
-        sessionStorage.setItem('url', url);
-        sessionStorage.setItem('evaluation', JSON.stringify(this.evaluation));
-
-        return this.evaluation.processed;
+        return response.result;
       }),
       catchError(err => {
         console.log(err);

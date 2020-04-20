@@ -1,9 +1,12 @@
 import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
 import * as _ from 'lodash';
 
 import { EvaluationService } from '../../services/evaluation.service';
+
+import { BackgroundEvaluationsInformationDialogComponent } from '../../dialogs/background-evaluations-information-dialog/background-evaluations-information-dialog.component';
 
 @Component({
   selector: 'app-evaluation-results',
@@ -26,6 +29,7 @@ export class EvaluationResultsComponent implements OnInit, OnDestroy {
   constructor(
     private evaluation: EvaluationService,
     private route: ActivatedRoute,
+    private dialog: MatDialog,
     private cd: ChangeDetectorRef
   ) {
 
@@ -63,7 +67,7 @@ export class EvaluationResultsComponent implements OnInit, OnDestroy {
   }
 
   evaluate(): void {
-    this.loading = true;
+    /*this.loading = true;
 
     this.evaluation.evaluateUrl(this.url)
       .subscribe(data => {
@@ -75,6 +79,15 @@ export class EvaluationResultsComponent implements OnInit, OnDestroy {
 
         this.loading = false;
         this.cd.detectChanges();
+      });*/
+    
+    this.evaluation.evaluateUrl(this.url)
+      .subscribe(result => {
+        if (result) {
+          this.dialog.open(BackgroundEvaluationsInformationDialogComponent, { width: '40vw' });
+        } else {
+          alert('Error');
+        }
       });
   }
 
