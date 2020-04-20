@@ -7,6 +7,7 @@ import { MessageService } from '../../services/message.service';
 import { MonitorService } from '../../services/monitor.service';
 
 import { RemovePagesConfirmationDialogComponent } from '../../dialogs/remove-pages-confirmation-dialog/remove-pages-confirmation-dialog.component';
+import { BackgroundEvaluationsInformationDialogComponent } from '../../dialogs/background-evaluations-information-dialog/background-evaluations-information-dialog.component';
 
 @Component({
   selector: 'app-website',
@@ -59,7 +60,7 @@ export class WebsiteComponent implements OnInit, OnDestroy {
   }
 
   addWebsitePages(data): void {
-    this.loading = true;
+    /*this.loading = true;
     this.monitor.addWebsitePages(this.website, data.domain, data.urls)
       .subscribe(pages => {
         if (pages) {
@@ -69,6 +70,14 @@ export class WebsiteComponent implements OnInit, OnDestroy {
 
         this.loading = false;
         this.cd.detectChanges();
+      });*/
+    this.monitor.addWebsitePages(this.website, data.domain, data.urls)
+      .subscribe(result => {
+        if (result) {
+          this.dialog.open(BackgroundEvaluationsInformationDialogComponent, { width: '40vw' })
+        } else {
+          alert('Error');
+        }
       });
   }
 

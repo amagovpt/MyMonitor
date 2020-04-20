@@ -98,6 +98,11 @@
     "error_dialog": {
       "title": "Erros",
       "message": "Ocorreram alguns erros ao tentar adicionar as seguintes páginas:"
+    },
+    "evaluations_dialog": {
+      "title": "Informação",
+      "message": "As páginas irão ser avaliadas em segundo plano, e a sua informação estará disponível assim que possível.",
+      "close": "Fechar"
     }
   },
   "WEBSITES_PAGE": {
