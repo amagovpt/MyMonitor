@@ -15,12 +15,9 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 class DomainUrlValidation {
 
   static UrlMatchDomain(AC: AbstractControl) {
-    let domain = AC.get('domain').value;
-    domain = domain.replace('http://', '');
-    domain = domain.replace('https://', '');
-    domain = domain.replace('www.', '');
+    const domain = AC.get('domain').value;
 
-    const urls =  AC.get('pages').value.split('\n').filter(a => a !== '').filter((value, index, self) => self.indexOf(value) === index);
+    const urls = AC.get('pages').value.split('\n').filter(a => a !== '').filter((value, index, self) => self.indexOf(value) === index);
 
     let invalid = false;
     const size = urls.length;
@@ -30,10 +27,7 @@ class DomainUrlValidation {
     }
 
     for (let i = 0 ; i < size ; i++) {
-      let url = urls[i].trim();
-      url = url.replace('http://', '');
-      url = url.replace('https://', '');
-      url = url.replace('www.', '');
+      const url = urls[i].trim();
 
       if (!url.startsWith(domain)) {
         invalid = true;
@@ -69,7 +63,7 @@ export class WebsiteAddPagesComponent implements OnInit {
   ) {
     this.pagesForm = this.fb.group({
       domain: new FormControl({value: '', disabled: true}),
-      pages: new FormControl('', [Validators.required, urlValidator])
+      pages: new FormControl('', [Validators.required, urlValidator, missingProtocol])
     }, { validator: DomainUrlValidation.UrlMatchDomain });
     this.matcher = new MyErrorStateMatcher();
   }
@@ -87,15 +81,7 @@ export class WebsiteAddPagesComponent implements OnInit {
   addPages(e): void {
     e.preventDefault();
 
-    const pages = this.pagesForm.value.pages.split('\n').filter(a => a !== '').filter((value, index, self) => self.indexOf(value) === index).map( p => {
-      p = p.replace('http://', '');
-      p = p.replace('https://', '');
-      p = p.replace('www.', '');
-
-      if (p[p.length - 1] === '/') {
-        p = p.substring(0, p.length -1);
-      }
-
+    const pages = this.pagesForm.value.pages.split('\n').filter(a => a !== '').filter((value, index, self) => self.indexOf(value) === index).map(p => {
       return p.trim();
     });
 
@@ -103,10 +89,10 @@ export class WebsiteAddPagesComponent implements OnInit {
   }
 }
 
-function urlValidator(control: FormControl) {
-  const urls = control.value.split('\n').filter(a => a !== '').filter((value, index, self) => self.indexOf(value) === index);
-  
-  let invalid = true;
+function missingProtocol(control: FormControl) {
+  const urls = control.value.split('\n').filter(a => a !== '');
+
+  let invalid = false;
   const size = urls.length;
 
   if (!size) {
@@ -114,37 +100,33 @@ function urlValidator(control: FormControl) {
   }
 
   for (let i = 0 ; i < size ; i++) {
-    let url = urls[i].trim();
-
-    if (!url.startsWith('http://') && !url.startsWith('https://') && !url.startsWith('www.')) {
-      if (url.includes('.') && url[url.length - 1] !== '.') {
-        invalid = false;
-      } else {
-        invalid = true;
-      }
-    } else if (url.startsWith('http://')) {
-      url = url.replace('http://', '');
-      if (url.includes('.') && url[url.length - 1] !== '.') {
-        invalid = false;
-      } else {
-        invalid = true;
-      }
-    } else if (url.startsWith('https://')) {
-      url = url.replace('https://', '');
-      if (url.includes('.') && url[url.length - 1] !== '.') {
-        invalid = false;
-      } else {
-        invalid = true;
-      }
-    } else if (url.startsWith('www.')) {
-      url = url.replace('www.', '');
-      if (url.includes(url, '.') && url[url.length - 1] !== '.') {
-        invalid = false;
-      } else {
-        invalid = true;
-      }
-    } else {
+    const url = urls[i].trim();
+  
+    if (!url.startsWith('http://') && !url.startsWith('https://')) {
       invalid = true;
+      break;
+    }
+  }
+
+  return invalid ? { 'missingProtocol': { value: true } } : null;
+}
+
+function urlValidator(control: FormControl) {
+  const urls = control.value.split('\n').filter(a => a !== '');
+  
+  let invalid = false;
+  const size = urls.length;
+
+  if (!size) {
+    return null;
+  }
+
+  for (let i = 0 ; i < size ; i++) {
+    const url = urls[i].trim();
+
+    if (!url.includes(url, '.') || url[url.length - 1] === '.') {
+      invalid = true;
+      break;
     }
   }
 
