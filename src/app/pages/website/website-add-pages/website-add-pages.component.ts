@@ -17,7 +17,7 @@ class DomainUrlValidation {
   static UrlMatchDomain(AC: AbstractControl) {
     const domain = AC.get('domain').value;
 
-    const urls = AC.get('pages').value.split('\n').filter(a => a !== '').filter((value, index, self) => self.indexOf(value) === index);
+    const urls = AC.get('pages').value.split('\n').filter(a => a !== '');
 
     let invalid = false;
     const size = urls.length;
