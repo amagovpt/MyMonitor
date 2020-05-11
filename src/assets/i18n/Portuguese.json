@@ -16,7 +16,7 @@
   },
   "SIDEBAR": {
     "menu": "Menu",
-    "websites": "Websites"
+    "websites": "Sítios web"
   },
   "HEADER": {
     "NAV": {
@@ -34,7 +34,7 @@
       "label": "Pontuação média"
     },
     "tags": "Nº de categorias",
-    "websites": "Nº de websites",
+    "websites": "Nº de sítios web",
     "pages": "Nº de páginas",
     "score": "Pontuação",
     "newest_page_updated": "Avaliação mais recente duma página",
@@ -63,9 +63,9 @@
       "common_errors": "Nº de páginas",
       "level": "Nível",
       "description": "Descrição",
-      "websites": "Websites",
+      "websites": "Sítios web",
       "pages": "Paǵinas",
-      "situations": "Ocurrências",
+      "situations": "Ocorrências",
       "tests_label": "Testes",
       "situations_label": "Nº de páginas"
     },
@@ -86,7 +86,7 @@
   },
   "ADD_PAGES": {
     "title": "Adicionar páginas",
-    "subtitle": "Adicione páginas a este website",
+    "subtitle": "Adicione páginas a este sítio web",
     "domain_label": "Domínio atual",
     "pages_label": "Urls",
     "hint": "Por favor insira urls completos, com o protocolo e www se necessário",
@@ -108,7 +108,7 @@
     }
   },
   "WEBSITES_PAGE": {
-    "title": "Lista de websites",
+    "title": "Lista de sítios web",
     "table": {
       "filter": "Filtro",
       "name_label": "Nome",
@@ -116,11 +116,11 @@
       "pages_label": "Nº páginas",
       "pages_label2": "Páginas",
       "creation_label": "Data de criação",
-      "see_tooltip": "Ver website"
+      "see_tooltip": "Ver sítio web"
     },
     "no_websites": {
-      "message1": "Atualmente não contém nenhum website",
-      "message2": "Por favor contate o administrador para lhe atribuir websites"
+      "message1": "Atualmente não contém nenhum sítio web",
+      "message2": "Por favor contate o administrador para lhe atribuir sítios web"
     }
   },
   "PAGES": {
@@ -146,7 +146,7 @@
       "yes": "Sim",
       "no": "Não"
     },
-    "no_pages": "Este website atualmente não contém páginas"
+    "no_pages": "Este sítio web atualmente não contém páginas"
   },
   "RESULTS": {
     "title": "Relatório de práticas de acessibilidade Web (WCAG 2.0 do W3C)",
