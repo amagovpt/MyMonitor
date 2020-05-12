@@ -9,7 +9,6 @@ import { saveAs } from 'file-saver';
 import clone from 'lodash.clone';
 
 import { Response } from '../models/response';
-import { Evaluation } from '../models/evaluation';
 import { MmError } from '../models/error';
 
 import { ConfigService } from './config.service';
@@ -27,7 +26,7 @@ import tests_colors from './tests_colors';
 export class EvaluationService {
 
   url: string;
-  evaluation: Evaluation;
+  evaluation: any;
 
   constructor(
     private router: Router,
@@ -38,14 +37,14 @@ export class EvaluationService {
     private translate: TranslateService
   ) { }
 
-  getEvaluation(website: string, url: string): Observable<Evaluation> {
+  getEvaluation(website: string, url: string): Observable<any> {
     if (this.url && this.url === url && this.evaluation) {
       return of(this.evaluation.processed);
     } else {
       const _url = sessionStorage.getItem('url');
       if (_url && _url === url) {
         this.url = _url;
-        this.evaluation = <Evaluation> JSON.parse(sessionStorage.getItem('evaluation'));
+        this.evaluation = JSON.parse(sessionStorage.getItem('evaluation'));
         return of(this.evaluation.processed);
       } else {
         return this.http.get<any>(this.config.getServer(`/evaluation/myMonitor/${website}/${encodeURIComponent(url)}`), {observe: 'response'}).pipe(
@@ -62,7 +61,7 @@ export class EvaluationService {
             }
 
             this.url = url;
-            this.evaluation = <Evaluation> response.result;
+            this.evaluation = response.result;
             this.evaluation.processed = this.processData();
 
             sessionStorage.setItem('url', url);

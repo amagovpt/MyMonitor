@@ -30,6 +30,7 @@
     "core-js": "^3.6.5",
     "file-saver": "^2.0.2",
     "lodash.clone": "^4.5.0",
+    "lodash.orderby": "^4.6.0",
     "ngx-gauge": "^1.1.0",
     "rxjs": "^6.5.5",
     "tslib": "^1.10.0",

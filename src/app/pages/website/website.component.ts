@@ -9,6 +9,8 @@ import { MonitorService } from '../../services/monitor.service';
 import { RemovePagesConfirmationDialogComponent } from '../../dialogs/remove-pages-confirmation-dialog/remove-pages-confirmation-dialog.component';
 import { BackgroundEvaluationsInformationDialogComponent } from '../../dialogs/background-evaluations-information-dialog/background-evaluations-information-dialog.component';
 
+import { Website } from '../../models/website';
+
 @Component({
   selector: 'app-website',
   templateUrl: './website.component.html',
@@ -22,6 +24,8 @@ export class WebsiteComponent implements OnInit, OnDestroy {
   sub: Subscription;
 
   website: string;
+
+  websiteObject: Website;
 
   pages: Array<any>;
 
@@ -45,6 +49,11 @@ export class WebsiteComponent implements OnInit, OnDestroy {
         .subscribe(pages => {
           if (pages !== null) {
             this.pages = pages;
+            
+            this.websiteObject = new Website();
+            for (const page of this.pages) {
+              this.websiteObject.addPage(page.Score, page.Errors, page.Tot, page.A, page.AA, page.AAA, page.Evaluation_Date);
+            }
           } else {
             this.error = true;
           }
@@ -103,5 +112,16 @@ export class WebsiteComponent implements OnInit, OnDestroy {
           });
       }
     });
+  }
+
+  reEvaluatePages(): void {
+    this.monitor.reEvaluatePages(this.website)
+      .subscribe(result => {
+        if (result) {
+          this.dialog.open(BackgroundEvaluationsInformationDialogComponent, { width: '40vw' })
+        } else {
+          alert('Error');
+        }
+      });
   }
 }

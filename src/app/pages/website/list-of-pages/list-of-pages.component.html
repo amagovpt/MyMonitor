@@ -12,9 +12,16 @@
       </mat-form-field>
     </div>
 
-    <button mat-raised-button color="warn" (click)="deletePages()" [disabled]="selection.selected.length === 0">
-      {{ "PAGES.remove_button" | translate }}
-    </button>
+    <div>
+      <button mat-flat-button color="warn" (click)="deletePages()" [disabled]="selection.selected.length === 0">
+        {{ "PAGES.remove_button" | translate }}
+      </button>
+      <span fxFlex></span>
+  
+      <button mat-flat-button color="primary" (click)="reEvaluate()">
+        {{ "PAGES.re_evaluate" | translate }}
+      </button>
+    </div>
 
     <mat-table #table [dataSource]="dataSource" matSort matSortActive="Score" matSortDisableClear matSortDirection="desc">
 

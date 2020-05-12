@@ -28,6 +28,8 @@ export class ListOfPagesComponent implements OnInit {
 
   @Output('removePages') removePages = new EventEmitter<Array<number>>();
 
+  @Output('reEvaluatePages') reEvaluatePages = new EventEmitter<void>();
+
   displayedColumns = [
     'select',
     'Uri',
@@ -60,6 +62,10 @@ export class ListOfPagesComponent implements OnInit {
   deletePages(): void {
     const pagesId = this.selection.selected.map((page: any) => page.PageId);
     this.removePages.next(pagesId);
+  }
+
+  reEvaluate(): void {
+    this.reEvaluatePages.next();
   }
 
   applyFilter(filterValue: string): void {

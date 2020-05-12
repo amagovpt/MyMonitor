@@ -9,7 +9,12 @@ export class HtmlPipe implements PipeTransform {
   constructor(private sanitizer: DomSanitizer) { }
 
   transform(value: any, args?: any): any {
-    return this.sanitizer.bypassSecurityTrustHtml(value);
+    if (args) {
+      value = value.replace(/</g, '&#60;').replace(/>/g, '&#62;');
+      return value;
+    } else {
+      return this.sanitizer.bypassSecurityTrustHtml(value);
+    }
   }
 
 }

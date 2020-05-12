@@ -17,8 +17,12 @@
     <app-website-add-pages [website]="website" (addPages)="addWebsitePages($event)"></app-website-add-pages>
     <br>
     <app-website-statistics *ngIf="pages.length > 0" [pages]="pages"></app-website-statistics>
+    <app-top-five-errors [data]="websiteObject.errors"></app-top-five-errors>
+    <app-top-five-best-practices [data]="websiteObject.success"></app-top-five-best-practices>
     <br>
-    <app-list-of-pages *ngIf="pages.length > 0" [pages]="pages" (removePages)="removePages($event)"></app-list-of-pages>
+    <app-accessibility-plot [data]="websiteObject.getAllScores()"></app-accessibility-plot>
+    <br>
+    <app-list-of-pages *ngIf="pages.length > 0" [pages]="pages" (removePages)="removePages($event)" (reEvaluatePages)="reEvaluatePages($event)"></app-list-of-pages>
     <div *ngIf="pages.length === 0" fxLayout="row" fxLayoutAlign="center center">
       <p class="no_pages">{{ "PAGES.no_pages" | translate }}</p>
     </div>

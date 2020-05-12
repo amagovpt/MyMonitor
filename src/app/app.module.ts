@@ -43,6 +43,9 @@ import { UserAuthErrorDialogComponent } from './dialogs/user-auth-error-dialog/u
 import { SettingsComponent } from './pages/settings/settings.component';
 import { AddPagesErrorsDialogComponent } from './dialogs/add-pages-errors-dialog/add-pages-errors-dialog.component';
 import { BackgroundEvaluationsInformationDialogComponent } from './dialogs/background-evaluations-information-dialog/background-evaluations-information-dialog.component';
+import { TopFiveErrorsComponent } from './pages/website/top-five-errors/top-five-errors.component';
+import { TopFiveBestPracticesComponent } from './pages/website/top-five-best-practices/top-five-best-practices.component';
+import { AccessibilityPlotComponent } from './pages/website/accessibility-plot/accessibility-plot.component';
 
 const appRoutes: Routes = [
   { path: '', component: LoginComponent, canActivate: [NoAuthGuard] },
@@ -89,7 +92,10 @@ export function HttpLoaderFactory(http: HttpClient) {
     UserAuthErrorDialogComponent,
     SettingsComponent,
     AddPagesErrorsDialogComponent,
-    BackgroundEvaluationsInformationDialogComponent
+    BackgroundEvaluationsInformationDialogComponent,
+    TopFiveErrorsComponent,
+    TopFiveBestPracticesComponent,
+    AccessibilityPlotComponent
   ],
   imports: [
     RouterModule.forRoot(

@@ -9,7 +9,6 @@ import { ConfigService } from './config.service';
 import { MessageService } from './message.service';
 
 import { Response } from '../models/response';
-import { Page } from '../models/page';
 import { MmError } from '../models/error';
 
 import { AddPagesErrorsDialogComponent } from '../dialogs/add-pages-errors-dialog/add-pages-errors-dialog.component';
@@ -102,7 +101,7 @@ export class MonitorService {
     );
   }
 
-  addWebsitePages(website: string, domain: string, pages: Array<string>): Observable<Array<Page>> {
+  addWebsitePages(website: string, domain: string, pages: Array<string>): Observable<Array<any>> {
     return this.http.post<any>(this.config.getServer('/page/myMonitor/create'), {website, domain, pages: JSON.stringify(pages)}, {observe: 'response'}).pipe(
       retry(3),
       map(res => {
@@ -116,7 +115,7 @@ export class MonitorService {
           throw new MmError(response.success, response.message, 'NORMAL', response.errors, response.result);
         }
 
-        return <Array<Page>> response.result;
+        return <Array<any>> response.result;
       }),
       catchError(err => {
         if (err.code === 0) {
@@ -133,8 +132,31 @@ export class MonitorService {
     );
   }
 
-  removePages(website: string, pagesId: Array<number>): Observable<Array<Page>> {
+  removePages(website: string, pagesId: Array<number>): Observable<Array<any>> {
     return this.http.post<any>(this.config.getServer('/page/myMonitor/remove'), {website, pagesId: JSON.stringify(pagesId)}, {observe: 'response'}).pipe(
+      retry(3),
+      map(res => {
+        const response = <Response> res.body;
+
+        if (!res.body || res.status === 404) {
+          throw new MmError(404, 'Service not found', 'SERIOUS');
+        }
+
+        if (response.success !== 1) {
+          throw new MmError(response.success, response.message);
+        }
+
+        return <Array<any>> response.result;
+      }),
+      catchError(err => {
+        console.log(err);
+        return of(null);
+      })
+    );
+  }
+
+  reEvaluatePages(website: string): Observable<boolean> {
+    return this.http.post<any>(this.config.getServer('/website/myMonitor/reEvaluate'), {website}, {observe: 'response'}).pipe(
       retry(3),
       map(res => {
         const response = <Response> res.body;
