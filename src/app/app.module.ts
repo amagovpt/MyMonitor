@@ -46,6 +46,7 @@ import { BackgroundEvaluationsInformationDialogComponent } from './dialogs/backg
 import { TopFiveErrorsComponent } from './pages/website/top-five-errors/top-five-errors.component';
 import { TopFiveBestPracticesComponent } from './pages/website/top-five-best-practices/top-five-best-practices.component';
 import { AccessibilityPlotComponent } from './pages/website/accessibility-plot/accessibility-plot.component';
+import { CrawlerResultsDialogComponent } from './dialogs/crawler-results-dialog/crawler-results-dialog.component';
 
 const appRoutes: Routes = [
   { path: '', component: LoginComponent, canActivate: [NoAuthGuard] },
@@ -95,7 +96,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     BackgroundEvaluationsInformationDialogComponent,
     TopFiveErrorsComponent,
     TopFiveBestPracticesComponent,
-    AccessibilityPlotComponent
+    AccessibilityPlotComponent,
+    CrawlerResultsDialogComponent
   ],
   imports: [
     RouterModule.forRoot(
@@ -126,7 +128,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     RemovePagesConfirmationDialogComponent,
     UserAuthErrorDialogComponent,
     AddPagesErrorsDialogComponent,
-    BackgroundEvaluationsInformationDialogComponent
+    BackgroundEvaluationsInformationDialogComponent,
+    CrawlerResultsDialogComponent
   ],
   providers: [
     {

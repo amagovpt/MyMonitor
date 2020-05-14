@@ -132,6 +132,93 @@ export class MonitorService {
     );
   }
 
+  checkCrawler(domain: string): Observable<boolean> {
+    return this.http.post<any>(this.config.getServer('/crawler/crawlUserCheck'), {domain}, {observe: 'response'}).pipe(
+      map(res => {
+        const response = <Response> res.body;
+
+        if (!res.body || res.status === 404) {
+          throw new MmError(404, 'Service not found', 'SERIOUS');
+        }
+
+        if (response.success !== 1) {
+          throw new MmError(response.success, response.message);
+        }
+
+        return <boolean> response.result;
+      }),
+      catchError(err => {
+        return of(null);
+      })
+    );
+  }
+
+  crawlWebsite(domain: string): Observable<boolean> {
+    return this.http.post<any>(this.config.getServer('/crawler/crawlUser'), {domain}, {observe: 'response'}).pipe(
+      map(res => {
+        const response = <Response> res.body;
+
+        if (!res.body || res.status === 404) {
+          throw new MmError(404, 'Service not found', 'SERIOUS');
+        }
+
+        if (response.success !== 1) {
+          throw new MmError(response.success, response.message);
+        }
+
+        return <boolean> response.result;
+      }),
+      catchError(err => {
+        console.log(err);
+        return of(null);
+      })
+    );
+  }
+
+  getCrawlerResults(domain: string): Observable<any> {
+    return this.http.post<any>(this.config.getServer('/crawler/crawlUserResults'), {domain}, {observe: 'response'}).pipe(
+      map(res => {
+        const response = <Response> res.body;
+
+        if (!res.body || res.status === 404) {
+          throw new MmError(404, 'Service not found', 'SERIOUS');
+        }
+
+        if (response.success !== 1) {
+          throw new MmError(response.success, response.message);
+        }
+
+        return <any> response.result;
+      }),
+      catchError(err => {
+        console.log(err);
+        return of(null);
+      })
+    );
+  }
+
+  deleteCrawlingResults(domain: string): Observable<boolean> {
+    return this.http.post<any>(this.config.getServer('/crawler/crawlUserDelete'), {domain}, {observe: 'response'}).pipe(
+      map(res => {
+        const response = <Response> res.body;
+
+        if (!res.body || res.status === 404) {
+          throw new MmError(404, 'Service not found', 'SERIOUS');
+        }
+
+        if (response.success !== 1) {
+          throw new MmError(response.success, response.message);
+        }
+
+        return <boolean> response.result;
+      }),
+      catchError(err => {
+        console.log(err);
+        return of(null);
+      })
+    );
+  }
+
   removePages(website: string, pagesId: Array<number>): Observable<Array<any>> {
     return this.http.post<any>(this.config.getServer('/page/myMonitor/remove'), {website, pagesId: JSON.stringify(pagesId)}, {observe: 'response'}).pipe(
       retry(3),

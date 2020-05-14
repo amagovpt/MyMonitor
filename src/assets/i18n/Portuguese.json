@@ -87,6 +87,9 @@
   "ADD_PAGES": {
     "title": "Adicionar páginas",
     "subtitle": "Adicione páginas a este sítio web",
+    "tab1": "Inserir manualmente",
+    "tab2": "Inserir sitemap",
+    "tab3": "Crawl sítio web",
     "domain_label": "Domínio atual",
     "pages_label": "Urls",
     "hint": "Por favor insira urls completos, com o protocolo e www se necessário",
@@ -105,6 +108,22 @@
       "title": "Informação",
       "message": "As páginas irão ser avaliadas em segundo plano, e a sua informação estará disponível assim que possível.",
       "close": "Fechar"
+    },
+    "crawler": {
+      "status": "Estado",
+      "not_running": "parado",
+      "progress": "em progresso",
+      "complete": "completo",
+      "crawl_button": "Crawl sítio web",
+      "results_button": "Ver resutados",
+      "delete_button": "Apagar resultados",
+      "dialog": {
+        "title": "Escolha as páginas para importar",
+        "uri_label": "Páginas",
+        "import": "Importar",
+        "cancel": "Cancelar",
+        "submit": "Importar"
+      }
     }
   },
   "WEBSITES_PAGE": {

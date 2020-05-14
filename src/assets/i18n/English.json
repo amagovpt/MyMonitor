@@ -87,6 +87,9 @@
   "ADD_PAGES": {
     "title": "Add pages",
     "subtitle": "Add pages to this website",
+    "tab1": "Insert manually",
+    "tab2": "Insert sitemap",
+    "tab3": "Crawl website",
     "domain_label": "Current domain",
     "pages_label": "Urls",
     "hint": "Please write complete urls, with protocol and www if need",
@@ -105,6 +108,22 @@
       "title": "Information",
       "message": "The pages will be evaluated in the background and their information will be available as soon as possible.",
       "close": "Close"
+    },
+    "crawler": {
+      "status": "Status",
+      "not_running": "not running",
+      "progress": "in progress",
+      "complete": "complete",
+      "crawl_button": "Crawl website",
+      "results_button": "Check results",
+      "delete_button": "Delete results",
+      "dialog": {
+        "title": "Choose pages to import",
+        "uri_label": "Pages",
+        "import": "Import",
+        "cancel": "Cancel",
+        "submit": "Import"
+      }
     }
   },
   "WEBSITES_PAGE": {

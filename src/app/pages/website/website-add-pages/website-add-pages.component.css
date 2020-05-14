@@ -1,0 +1,20 @@
+.crawler-container {
+  padding: 1em;
+}
+
+.status {
+  font-weight: bold;
+}
+
+.progress {
+  color: blue;
+}
+
+.complete {
+  color: green;
+}
+
+.check-results {
+  background-color: green;
+  color: white;
+}

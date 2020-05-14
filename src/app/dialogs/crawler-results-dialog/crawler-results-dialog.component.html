@@ -1,0 +1,51 @@
+<h1 mat-dialog-title>{{ "ADD_PAGES.crawler.dialog.title" | translate }}</h1>
+<form (submit)="choosePages($event)" novalidate>
+  <mat-dialog-content>
+    <mat-table [dataSource]="dataSource">
+      <ng-container matColumnDef="Uri" class="mat-column-uri">
+        <mat-header-cell *matHeaderCellDef>
+          {{ "ADD_PAGES.crawler.dialog.uri_label" | translate }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <strong>{{element.Uri}}</strong>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="import" class="mat-column-select">
+        <mat-header-cell *matHeaderCellDef>
+          <mat-checkbox color="primary" style="margin-bottom: 0" (change)="$event ? masterToggleImport() : null" [checked]="selectionImport.hasValue() && isAllSelectedImport()" [indeterminate]="selectionImport.hasValue() && !isAllSelectedImport()">
+          </mat-checkbox>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          <mat-checkbox color="primary" style="margin-bottom: 0" (click)="$event.stopPropagation()" (change)="$event ? selectionImport.toggle(row) : null" [checked]="selectionImport.isSelected(row)">
+          </mat-checkbox>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="header-uri" class="mat-column-uri">
+        <mat-header-cell *matHeaderCellDef>
+        </mat-header-cell>
+      </ng-container>
+      <ng-container matColumnDef="header-import" class="mat-column-select">
+        <mat-header-cell *matHeaderCellDef>
+          {{ "ADD_PAGES.crawler.dialog.import" | translate }}
+        </mat-header-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="['header-uri','header-import']"></mat-header-row>
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+  </mat-dialog-content>
+
+  <mat-dialog-actions>
+    <button mat-flat-button color="warn" mat-dialog-close>
+    {{ "ADD_PAGES.crawler.dialog.cancel" | translate }}
+    </button>
+    <span fxFlex></span>
+    <button mat-flat-button color="primary" type="submit" [disabled]="this.selectionImport.selected.length === 0">
+      {{ "ADD_PAGES.crawler.dialog.submit" | translate }}
+    </button>
+  </mat-dialog-actions>
+</form>
