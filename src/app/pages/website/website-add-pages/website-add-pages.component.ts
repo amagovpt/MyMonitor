@@ -100,7 +100,7 @@ export class WebsiteAddPagesComponent implements OnInit {
                   this.crawlResultsDisabled = true;
                 }
               }
-            })
+            });
         }
       });
   }
@@ -138,7 +138,9 @@ export class WebsiteAddPagesComponent implements OnInit {
     });
 
     dialog.afterClosed().subscribe(data => {
-      this.addWebsitePages.next({ domain: this.domain, urls: data})
+      if (data) {
+        this.addWebsitePages.next({ domain: this.domain, urls: data});
+      }
     });
   }
 
