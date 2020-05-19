@@ -124,6 +124,11 @@
         "cancel": "Cancel",
         "submit": "Import"
       }
+    },
+    "sitemap": {
+      "warning": "Sitemaps files need to have the first page equal to website's domain",
+      "uris_invalid": "One of the given uris is invalid",
+      "type_invalid": "Given file's extension is not .xml or .txt"
     }
   },
   "WEBSITES_PAGE": {

@@ -33,7 +33,21 @@
         </form>
       </mat-tab>
       <mat-tab label="{{ 'ADD_PAGES.tab2' | translate }}">
-
+        <div class="crawler-container" fxLayout="row" fxLayoutAlign="start center">
+          <input type="file" accept="text/xml, text/plain" (change)="handleFileInput($event.target.files)" >
+          <span fxFlex="5"></span>
+          <button mat-flat-button color="primary" (click)="addFilePages()" [disabled]="fileErrorMessage || urisFromFile.length === 0">
+            {{ "ADD_PAGES.button" | translate }}
+          </button>
+        </div>
+        <div class="crawler-container" fxLayout="row" fxLayoutAlign="start center">
+          <span class="sitemap-error" *ngIf="fileErrorMessage === 'invalidDomain'">
+            {{ "ADD_PAGES.sitemap.uris_invalid" | translate }}
+          </span>
+          <span class="sitemap-error" *ngIf="fileErrorMessage === 'invalidType'">
+            {{ "ADD_PAGES.sitemap.type_invalid" | translate }}
+          </span>
+        </div>
       </mat-tab>
       <mat-tab label="{{ 'ADD_PAGES.tab3' | translate }}">
         <div class="crawler-container" fxLayout="row" fxLayoutAlign="start center">
@@ -51,6 +65,9 @@
             {{ "ADD_PAGES.crawler.delete_button" | translate }}
           </button>
         </div>
+      </mat-tab>
+      <mat-tab label="Transfer from observatory">
+
       </mat-tab>
     </mat-tab-group>
   </ng-template>
