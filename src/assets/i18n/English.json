@@ -90,6 +90,7 @@
     "tab1": "Insert manually",
     "tab2": "Insert sitemap",
     "tab3": "Crawl website",
+    "tab4": "Transfer from Observatory",
     "domain_label": "Current domain",
     "pages_label": "Urls",
     "hint": "Please write complete urls, with protocol and www if need",
@@ -129,6 +130,12 @@
       "warning": "Sitemaps files need to have the first page equal to website's domain",
       "uris_invalid": "One of the given uris is invalid",
       "type_invalid": "Given file's extension is not .xml or .txt"
+    },
+    "transfer": {
+      "message": "Transfer the Observatory pages that you don't have",
+      "button": "Transfer",
+      "success": "Pages transferred successfully",
+      "error": "There was an error while trying to transfer the pages"
     }
   },
   "WEBSITES_PAGE": {

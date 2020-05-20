@@ -90,6 +90,7 @@
     "tab1": "Inserir manualmente",
     "tab2": "Inserir sitemap",
     "tab3": "Crawl sítio web",
+    "tab4": "Transferir do Observatório",
     "domain_label": "Domínio atual",
     "pages_label": "Urls",
     "hint": "Por favor insira urls completos, com o protocolo e www se necessário",
@@ -129,6 +130,12 @@
       "warning": "Os ficheiros sitemap necessitam que a sua primeira página seja igual ao domínio do sítio web",
       "uris_invalid": "Um dos uris no ficheiro inserido é inválido",
       "type_invalid": "O ficheiro inserido não é do tipo .xml ou .txt"
+    },
+    "transfer": {
+      "message": "Transfira do Observatório as páginas que ainda não tem",
+      "button": "Transferir",
+      "success": "Páginas transferidas com sucesso",
+      "error": "Ocorreu um erro ao tentar transferir as páginas"
     }
   },
   "WEBSITES_PAGE": {

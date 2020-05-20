@@ -5,6 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import clone from 'lodash.clone';
 
 import { MonitorService } from '../../../services/monitor.service';
+import { MessageService } from '../../../services/message.service';
 
 import { CrawlerResultsDialogComponent } from '../../../dialogs/crawler-results-dialog/crawler-results-dialog.component';
 
@@ -69,8 +70,11 @@ export class WebsiteAddPagesComponent implements OnInit {
   crawlButtonDisable: boolean;
   crawlResultsDisabled: boolean;
 
+  isInObservatory: boolean;
+
   constructor(
     private monitor: MonitorService,
+    private message: MessageService,
     private fb: FormBuilder,
     private dialog: MatDialog,
     private cd: ChangeDetectorRef
@@ -85,6 +89,7 @@ export class WebsiteAddPagesComponent implements OnInit {
     this.crawlResultsDisabled = true;
     this.fileErrorMessage = '';
     this.urisFromFile = [];
+    this.isInObservatory = false;
   }
 
   ngOnInit(): void {
@@ -110,6 +115,7 @@ export class WebsiteAddPagesComponent implements OnInit {
             });
         }
       });
+    this.checkIfWebsiteIsInObservatory();
   }
 
   addPages(e): void {
@@ -239,6 +245,26 @@ export class WebsiteAddPagesComponent implements OnInit {
         }
 
         this.cd.detectChanges();
+      });
+  }
+
+  private checkIfWebsiteIsInObservatory(): void {
+    this.monitor.checkIfWebsiteIsInObservatory(this.website)
+      .subscribe(result => {
+        if (result) {
+          this.isInObservatory = true;
+        }
+      });
+  }
+
+  transferObservatoryPages(): void {
+    this.monitor.transferObservatoryPages(this.website)
+      .subscribe(result => {
+        if (result) {
+          this.message.show('ADD_PAGES.transfer.success');
+        } else {
+          this.message.show('ADD_PAGES.transfer.error');
+        }
       });
   }
 }
