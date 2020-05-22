@@ -80,6 +80,12 @@
       "confirm_password": "Confirm new password",
       "new_password_match_error": "Passwords don't match",
       "old_password_match_error": "Current password doesn't match",
+      "password_hint": "The password should have at least 8 characters, 1 upper case character, 1 lower case character, 1 number and 1 special character",
+      "password_short": "The password has less than 8 characters",
+      "password_uppercase": "The password does not contain any upper case character",
+      "password_lowercase": "The password does not contain any lower case character",
+      "password_number": "The password does not contain any number",
+      "password_special": "The password does not contain any special character",
       "submit": "Change",
       "success": "Password changed successfully"
     }

@@ -21,9 +21,14 @@
         <label for="new_password">{{ "SETTINGS.change_password.new_password" | translate }}</label>
         <input matInput id="new_password" type="password" formControlName="newPassword" [errorStateMatcher]="matcher"
           required>
-        <mat-error *ngIf="passwordForm.controls.newPassword.hasError('required')"
-          [innerHTML]="'MISC.required_field' | translate"></mat-error>
+        <mat-error *ngIf="passwordForm.controls.newPassword.hasError('required')" [innerHTML]="'MISC.required_field' | translate"></mat-error>
+        <mat-error *ngIf="passwordForm.controls.newPassword.hasError('isShort')" [innerHTML]="'SETTINGS.change_password.password_short' | translate"></mat-error>
+        <mat-error *ngIf="passwordForm.controls.newPassword.hasError('doesNotHaveUpperCase')" [innerHTML]="'SETTINGS.change_password.password_uppercase' | translate"></mat-error>
+        <mat-error *ngIf="passwordForm.controls.newPassword.hasError('doesNotHaveLowerCase')" [innerHTML]="'SETTINGS.change_password.password_lowercase' | translate"></mat-error>
+        <mat-error *ngIf="passwordForm.controls.newPassword.hasError('doesNotHaveNumber')" [innerHTML]="'SETTINGS.change_password.password_number' | translate"></mat-error>
+        <mat-error *ngIf="passwordForm.controls.newPassword.hasError('doesNotHaveSpecial')" [innerHTML]="'SETTINGS.change_password.password_special' | translate"></mat-error>
       </mat-form-field>
+      <div class="password-errors"></div>
       <mat-form-field>
         <label for="confirm_password">{{ "SETTINGS.change_password.confirm_password" | translate }}</label>
         <input matInput id="confirm_password" type="password" formControlName="confirmPassword"

@@ -80,6 +80,12 @@
       "confirm_password": "Confirmar nova palavra-chave",
       "new_password_match_error": "As palavras-chave não coincidem",
       "old_password_match_error": "A palavra-chave atual está incorreta",
+      "password_hint": "A palavra-chave deverá ter no mínimo 8 caracteres, 1 caracter maísculo, 1 caracter mínusculo, 1 número e 1 caracter especial",
+      "password_short": "A palavra-chave tem menos de 8 caracteres",
+      "password_uppercase": "A palavra-chave não tem nenhum caracter maísculo",
+      "password_lowercase": "A palavra-chave não tem nenhum caracter mínusculo",
+      "password_number": "A palavra-chave não tem nenhum número",
+      "password_special": "A palavra-chave não tem nenhum caracter especial",
       "submit": "Alterar",
       "success": "Palavra-chave alterada com sucesso"
     }
