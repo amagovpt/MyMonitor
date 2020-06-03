@@ -21,7 +21,7 @@
   "HEADER": {
     "NAV": {
       "location": "Você está em",
-      "access": "Acesso",
+      "ecosystem": "Ecosistema",
       "home": "My Monitor",
       "code": "Código"
     },
