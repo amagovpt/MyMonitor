@@ -1,8 +1,8 @@
-import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { DomSanitizer } from '@angular/platform-browser';
 import { Subscription } from 'rxjs';
-import clone from 'lodash.clone';
+import { Location } from '@angular/common';
+import * as _ from 'lodash';
 
 import { EvaluationService } from '../../services/evaluation.service';
 
@@ -11,7 +11,7 @@ import { EvaluationService } from '../../services/evaluation.service';
   templateUrl: './element-result.component.html',
   styleUrls: ['./element-result.component.css']
 })
-export class ElementResultComponent implements OnInit, OnDestroy {
+export class ElementResultComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @ViewChild('iframe') iframe: ElementRef;
 
@@ -25,7 +25,7 @@ export class ElementResultComponent implements OnInit, OnDestroy {
 
   constructor(
     private router: ActivatedRoute,
-    public sanitizer: DomSanitizer,
+    private location: Location,
     private evaluation: EvaluationService
   ) {
     this.data = {};
@@ -34,11 +34,29 @@ export class ElementResultComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.sub = this.router.params.subscribe(params => {
       this.website = params.website;
-      this.url = params.page;
+      this.url = params.url;
       this.ele = params.ele;
 
       this.data = this.evaluation.getTestResults(this.ele);
     });
+  }
+
+  ngAfterViewInit(): void {
+    if (this.ele !== 'titleOk' && this.ele !== 'lang') {
+      const images = document.querySelectorAll('.img img');
+      
+      for (let i = 0 ; i < images.length ; i++) {
+        const img = images.item(i);
+        
+        if (img['width'] > 500 || img['height'] > 200) {
+          if (img['width'] > img['height']) {
+            img['width'] = '500';
+          } else {
+            img['height'] = '200';
+          }
+        }
+      }
+    }
   }
 
   ngOnDestroy(): void {
@@ -47,54 +65,21 @@ export class ElementResultComponent implements OnInit, OnDestroy {
 
   tabChanged(event): void {
     if (event.index === 1) {
-      const parser = new DOMParser();
-      const evalDoc = parser.parseFromString(this.data.page, 'text/html');
-      const imgNodes = evalDoc.evaluate('//img', evalDoc, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
-
-      let i = 0;
-      let n = imgNodes.snapshotItem(i);
-      const protocol = this.data.finalUrl.startsWith('https://') ? 'https://' : 'http://';
-      const www = this.data.finalUrl.includes('www.') ? 'www.' : '';
-
-      let fixSrcUrl = clone(this.url.replace('http://', '').replace('https://', '').split('/')[0]);
-      if (fixSrcUrl[fixSrcUrl.length - 1] === '/') {
-        fixSrcUrl = fixSrcUrl.substring(0, fixSrcUrl.length - 2);
-      }
-
-      while(n) {
-        if (n['attributes']['src'] && !n['attributes']['src'].value.startsWith('http') && !n['attributes']['src'].value.startsWith('https')) {
-          n['attributes']['src'].value = `${protocol}${www}${fixSrcUrl}${n['attributes']['src'].value}`;
-        }
-
-        if (n['attributes']['srcset'] && !n['attributes']['srcset'].value.startsWith('http') && !n['attributes']['srcset'].value.startsWith('https')) {
-          n['attributes']['srcset'].value = `${protocol}${www}${fixSrcUrl}${n['attributes']['srcset'].value}`;
-        }
-
-        i++;
-        n = imgNodes.snapshotItem(i);
-      }
-
-      i = 0;
-      const cssNodes = evalDoc.evaluate('//link', evalDoc, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
-
-      n = cssNodes.snapshotItem(i);
-
-      while(n) {
-        if (n['attributes']['href'] && !n['attributes']['href'].value.startsWith('http') && !n['attributes']['href'].value.startsWith('https')) {
-          if (n['attributes']['href'].value.startsWith('/')) {
-            n['attributes']['href'].value = `${protocol}${www}${fixSrcUrl}${n['attributes']['href'].value}`;
-          } else {
-            n['attributes']['href'].value = `${protocol}${www}${fixSrcUrl}/${n['attributes']['href'].value}`;
-          }
-        }
-        i++;
-        n = cssNodes.snapshotItem(i);
-      }
-
       const doc = this.iframe.nativeElement.contentDocument || this.iframe.nativeElement.contentWindow;
       doc.open();
-      doc.write(evalDoc.getElementsByTagName('html')[0]['outerHTML']);
+      doc.write(this.data.page);
       doc.close();
     }
+  }
+
+  goBack(): Array<string> {
+    const path = this.location.path();
+    let segments = _.split(path, '/');
+    segments[0] = '/user';
+    segments.splice(1, 1);
+    segments.splice(_.size(segments) - 1, 1);
+    segments = _.map(segments, s => decodeURIComponent(s));
+
+    return segments;
   }
 }

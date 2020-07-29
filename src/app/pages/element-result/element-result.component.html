@@ -9,7 +9,7 @@
       </mat-card-subtitle>
     </mat-card-header>
     <mat-card-actions>
-      <a mat-icon-button class="tools" [routerLink]="['/user', website, url]" matTooltip="{{ 'RESULTS.actions.back' | translate }}">
+      <a mat-icon-button class="tools" [routerLink]="goBack()" matTooltip="{{ 'RESULTS.actions.back' | translate }}">
         <mat-icon aria-label="'RESULTS.actions.back' | translate">arrow_back</mat-icon>
       </a>
     </mat-card-actions>
@@ -48,9 +48,7 @@
                   </tr>
                   <tr>
                     <td scope="row"><strong>{{ "ELEMENT_RESULTS.result.code" | translate }}</strong></td>
-                    <td>
-                      <code>{{ e.showCode }}</code>
-                    </td>
+                    <td><code>{{ e.showCode }}</code></td>
                   </tr>
                 </table>
               </mat-card-content>

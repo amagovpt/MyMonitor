@@ -9,6 +9,18 @@
       <a mat-icon-button class="tools" [routerLink]="['/user']" matTooltip="{{ 'RESULTS.actions.back' | translate }}">
          <mat-icon aria-label="'RESULTS.actions.back' | translate">arrow_back</mat-icon>
       </a>
+      <!--<span fxFlex></span>
+      <button mat-icon-button class="tools" [matMenuTriggerFor]="menu" matTooltip="{{ 'RESULTS.actions.download' | translate }}">
+        <mat-icon aria-label="'RESULTS.actions.download' | translate">file_download</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="downloadCSV()">
+          <a download="eval.csv">CSV</a>
+        </button>
+        <button mat-menu-item (click)="downloadEARL()">
+          <a download="eval.json">EARL</a>
+        </button>
+      </mat-menu>-->
     </mat-card-actions>
   </mat-card>
   <br>
