@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { Observable } from 'rxjs/internal/Observable';
-import { of } from 'rxjs/internal/observable/of';
+import { Observable, of } from 'rxjs';
 import { map, retry, catchError } from 'rxjs/operators';
 import { saveAs } from 'file-saver';
 
@@ -17,8 +15,6 @@ import { Response } from '../models/response';
 import { MmError } from '../models/error';
 
 import { ConfigService } from './config.service';
-import { UserService } from './user.service';
-import { MessageService } from './message.service';
 
 import tests from './tests';
 import scs from './scs';
@@ -38,10 +34,7 @@ export class EvaluationService {
   };
 
   constructor(
-    private router: Router,
     private http: HttpClient,
-    private message: MessageService,
-    private user: UserService,
     private config: ConfigService,
     private translate: TranslateService
   ) { }
@@ -114,6 +107,42 @@ export class EvaluationService {
         return of(null);
       })
     );
+  }
+
+  downloadWebsiteEARL(website: string): Observable<void> {
+    return this.http.get<any>(this.config.getServer('/evaluation/myMonitor/website/evaluations/' + website), {observe: 'response'}).pipe(
+      retry(3),
+      map(res => {
+        const response = <Response> res.body;
+
+        if (!res.body || res.status === 404) {
+          throw new MmError(404, 'Service not found', 'SERIOUS');
+        }
+
+        if (response.success !== 1) {
+          throw new MmError(response.success, response.message);
+        }
+
+        const data = {
+          '@context': 'https://act-rules.github.io/earl-context.json',
+          '@graph': new Array<any>()
+        };
+    
+        for (const page of response.result || []) {
+          this.evaluation = page;
+          this.evaluation.processed = this.processData();
+          const testSubject = this.generateEARL(this.evaluation);
+          data['@graph'].push(testSubject);
+        }
+    
+        const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'text/json' });
+        saveAs(blob, 'eval.json');
+      }),
+      catchError(err => {
+        console.log(err);
+        return of(null);
+      })
+    );      
   }
 
   getTestResults(test: string): any {
@@ -232,12 +261,7 @@ export class EvaluationService {
     });
   }
 
-  downloadEARL(): void {
-    const data = {
-      '@context': 'https://act-rules.github.io/earl-context.json',
-      '@graph': new Array<any>()
-    };
-
+  private generateEARL(evaluation: any): any {
     const assertor = {
       '@id': 'Access Monitor',
       '@type': 'Software',
@@ -246,27 +270,27 @@ export class EvaluationService {
   
     const testSubject = {
       '@type': 'TestSubject',
-      source: this.url,
+      source: evaluation.data.rawUrl,
       assertor,
       assertions: new Array<any>()
     };
     
-    for (const test in this.evaluation.data.tot.results || {}) {
+    for (const test in evaluation.data.tot.results || {}) {
       
-      const value = this.evaluation.processed.results.filter(r => r.msg === test)[0].tech_list.tot;
+      const value = evaluation.processed.results.filter(r => r.msg === test)[0].tech_list.tot;
       
       const sources = new Array<any>();
       
       let pointers = new Array<any>(); 
       
       if (test === 'img_01a') {
-        pointers = typeof this.evaluation.data.nodes['img'] === 'string' ?
-          this.evaluation.data.nodes['img'].split(',') :
-          this.evaluation.data.nodes['img'][0].split(',');
-      } else if (this.evaluation.data.nodes[tests[test].test] !== undefined) {
-        pointers = typeof this.evaluation.data.nodes[tests[test].test] === 'string' ?
-          this.evaluation.data.nodes[tests[test].test].split(',') : 
-          this.evaluation.data.nodes[tests[test].test][0].split(',');
+        pointers = typeof evaluation.data.nodes['img'] === 'string' ?
+          evaluation.data.nodes['img'].split(',') :
+          evaluation.data.nodes['img'][0].split(',');
+      } else if (evaluation.data.nodes[tests[test].test] !== undefined) {
+        pointers = typeof evaluation.data.nodes[tests[test].test] === 'string' ?
+          evaluation.data.nodes[tests[test].test].split(',') : 
+          evaluation.data.nodes[tests[test].test][0].split(',');
       }
 
       for (const pointer of pointers || []) {
@@ -290,7 +314,7 @@ export class EvaluationService {
                       .replace('</mark>', '')
                       .replace('<code>', '')
                       .replace('</code>', ''),
-        date: this.evaluation.data.date
+        date: evaluation.data.date
       };
       
       const assertion = {
@@ -313,6 +337,17 @@ export class EvaluationService {
 
       testSubject.assertions.push(assertion);
     }
+
+    return testSubject;
+  }
+
+  downloadEARL(): void {
+    const data = {
+      '@context': 'https://act-rules.github.io/earl-context.json',
+      '@graph': new Array<any>()
+    };
+
+    const testSubject = this.generateEARL(this.evaluation);
 
     data['@graph'].push(testSubject);
 

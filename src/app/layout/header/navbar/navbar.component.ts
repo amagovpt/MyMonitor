@@ -2,7 +2,6 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Location } from '@angular/common';
 import { Router, NavigationEnd } from '@angular/router';
 import { Subscription } from 'rxjs';
-import * as _ from 'lodash';
 
 @Component({
   selector: 'app-navbar',
@@ -40,9 +39,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
         this.ele = null;
 
         const path = this.location.path();
-        const segments = _.split(path, '/');
+        const segments = path.split('/');
 
-        switch (_.size(segments)) {
+        switch (segments.length) {
           case 5:
             if (segments[4] === 'code') {
               this.code = true;

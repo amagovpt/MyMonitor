@@ -5,6 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 
 import { MessageService } from '../../services/message.service';
 import { MonitorService } from '../../services/monitor.service';
+import { EvaluationService } from '../../services/evaluation.service';
 
 import { RemovePagesConfirmationDialogComponent } from '../../dialogs/remove-pages-confirmation-dialog/remove-pages-confirmation-dialog.component';
 import { BackgroundEvaluationsInformationDialogComponent } from '../../dialogs/background-evaluations-information-dialog/background-evaluations-information-dialog.component';
@@ -33,6 +34,7 @@ export class WebsiteComponent implements OnInit, OnDestroy {
     private activatedRoute: ActivatedRoute,
     private monitor: MonitorService,
     private message: MessageService,
+    private evaluation: EvaluationService,
     private dialog: MatDialog,
     private cd: ChangeDetectorRef
   ) {
@@ -131,5 +133,7 @@ export class WebsiteComponent implements OnInit, OnDestroy {
 
   downloadEARL(): void {
     //TODO: download website earl report
+    this.evaluation.downloadWebsiteEARL(this.website)
+      .subscribe();
   }
 }
