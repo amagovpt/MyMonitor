@@ -307,7 +307,6 @@ export class EvaluationService {
     saveAs(blob, 'eval.csv');
   }
 
-
   private generateEARL(evaluation: any): any {
     const assertor = {
       '@id': 'Access Monitor',
