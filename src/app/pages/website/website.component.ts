@@ -128,11 +128,11 @@ export class WebsiteComponent implements OnInit, OnDestroy {
   }
 
   downloadCSV(): void {
-    //TODO: download website csv report
+    this.evaluation.downloadWebsiteCSV(this.website)
+      .subscribe();
   }
 
   downloadEARL(): void {
-    //TODO: download website earl report
     this.evaluation.downloadWebsiteEARL(this.website)
       .subscribe();
   }

@@ -129,7 +129,9 @@
         "uri_label": "Páginas",
         "import": "Importar",
         "cancel": "Cancelar",
-        "submit": "Importar"
+        "submit": "Importar",
+        "total": "Total:",
+        "selected": "Selecionadas:" 
       }
     },
     "sitemap": {

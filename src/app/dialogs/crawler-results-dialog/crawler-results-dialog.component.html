@@ -44,6 +44,8 @@
     {{ "ADD_PAGES.crawler.dialog.cancel" | translate }}
     </button>
     <span fxFlex></span>
+    <span *ngIf="dataSource" fxFlex="10">{{ "ADD_PAGES.crawler.dialog.total" | translate }} {{ dataSource.data.length  }}</span>
+    <span fxFlex="10">{{ "ADD_PAGES.crawler.dialog.selected" | translate }} {{ selectionImport.selected.length  }}</span>
     <button mat-flat-button color="primary" type="submit" [disabled]="this.selectionImport.selected.length === 0">
       {{ "ADD_PAGES.crawler.dialog.submit" | translate }}
     </button>

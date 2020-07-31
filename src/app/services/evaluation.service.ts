@@ -109,6 +109,38 @@ export class EvaluationService {
     );
   }
 
+  downloadWebsiteCSV(website: string): Observable<void> {
+    return this.http.get<any>(this.config.getServer('/evaluation/myMonitor/website/evaluations/' + website), {observe: 'response'}).pipe(
+      retry(3),
+      map(res => {
+        const response = <Response> res.body;
+
+        if (!res.body || res.status === 404) {
+          throw new MmError(404, 'Service not found', 'SERIOUS');
+        }
+
+        if (response.success !== 1) {
+          throw new MmError(response.success, response.message);
+        }
+
+        let data = '';
+    
+        for (const page of response.result || []) {
+          this.evaluation = page;
+          this.evaluation.processed = this.processData();
+          data += this.generateCSV(this.evaluation) + '\r\n\r\n';
+        }
+    
+        const blob = new Blob([data], { type: 'text/json' });
+        saveAs(blob, 'eval.csv');
+      }),
+      catchError(err => {
+        console.log(err);
+        return of(null);
+      })
+    );      
+  }
+
   downloadWebsiteEARL(website: string): Observable<void> {
     return this.http.get<any>(this.config.getServer('/evaluation/myMonitor/website/evaluations/' + website), {observe: 'response'}).pipe(
       retry(3),
@@ -208,58 +240,73 @@ export class EvaluationService {
     };
   }
 
-  downloadCSV(): void {
+  private generateCSV(evaluation: any): string {
     const data = [];
 
-    let error, level, sc, desc, num;
+    let error, level, desc, num;
     const descs = ['CSV.errorType', 'CSV.level', 'CSV.criteria', 'CSV.desc', 'CSV.count'];
     const numTable = [];
 
-    const _eval = this.evaluation.processed;
-
+    const _eval = evaluation.processed;
+    
     for (const row in _eval['results']) {
       if (_eval['results'][row]) {
         const rowData = [];
         error = 'CSV.' + (_eval['results'][row]['prio'] === 3 ? 'scoreok' : _eval['results'][row]['prio'] === 2 ? 'scorewar' : 'scorerror');
         level = _eval['results'][row]['lvl'];
-        //sc = _eval['scoreBoard'][row]['sc'];
         num = _eval['results'][row]['value'];
         desc = 'TESTS_RESULTS.' + _eval['results'][row]['msg'] + ((num === 1) ? '.s' : '.p');
 
         descs.push(desc, error);
-        rowData.push(error, level, /*sc,*/ desc, num);
+        rowData.push(_eval['results'][row]['msg'], error, level, desc, num);
         data.push(rowData);
       }
     }
 
-    this.translate.get(descs).subscribe(res => {
-      const labels = new Array <string>();
+    const res = {};
 
-      for (const row in data) {
-        if (data[row]) {
-          data[row][2] = res[data[row][2]].replace('{{value}}', data[row][3]);
-          data[row][2] = data[row][2].replace(new RegExp('<mark>', 'g'), '');
-          data[row][2] = data[row][2].replace(new RegExp('</mark>', 'g'), '');
-          data[row][2] = data[row][2].replace(new RegExp('<code>', 'g'), '');
-          data[row][2] = data[row][2].replace(new RegExp('</code>', 'g'), '');
-          data[row][0] = res[data[row][0]];
-        }
+    for (const dec of descs || []) {
+      res[dec] = this.translate.instant(dec);
+    }
+
+    const labels = new Array <string>();
+
+    for (const row in data) {
+      if (data[row]) {
+        data[row][3] = res[data[row][3]].replace('{{value}}', data[row][4]);
+        data[row][3] = data[row][3].replace(new RegExp('<mark>', 'g'), '');
+        data[row][3] = data[row][3].replace(new RegExp('</mark>', 'g'), '');
+        data[row][3] = data[row][3].replace(new RegExp('<code>', 'g'), '');
+        data[row][3] = data[row][3].replace(new RegExp('</code>', 'g'), '');
+        data[row][3] = data[row][3].replace(new RegExp('&lt;', 'g'), '');
+        data[row][3] = data[row][3].replace(new RegExp('&gt;', 'g'), '');
+        data[row][1] = res[data[row][1]];
       }
-      labels.push(res['CSV.errorType']);
-      labels.push(res['CSV.level']);
-      //labels.push(res['CSV.criteria']);
-      labels.push(res['CSV.desc']);
-      labels.push(res['CSV.count']);
+    }
+    labels.push('ID');
+    labels.push(res['CSV.errorType']);
+    labels.push(res['CSV.level']);
+    //labels.push(res['CSV.criteria']);
+    labels.push(res['CSV.desc']);
+    labels.push(res['CSV.count']);
 
-      let csvContent = labels.join(',') + '\r\n';
-      for (const row of data || []) {
-        csvContent += row.join(',') + '\r\n';
-      }
+    let csvContent = evaluation.data.rawUrl + '\r\n';
+    csvContent += evaluation.data.date + '\r\n';
+    csvContent += labels.join(',') + '\r\n';
+    for (const row of data || []) {
+      csvContent += row.join(',') + '\r\n';
+    }
 
-      const blob = new Blob([csvContent], { type: 'text/csv' });
-      saveAs(blob, 'eval.csv');
-    });
+    return csvContent;
   }
+
+  downloadCSV(): void {
+    const csvContent = this.generateCSV(this.evaluation);
+
+    const blob = new Blob([csvContent], { type: 'text/csv' });
+    saveAs(blob, 'eval.csv');
+  }
+
 
   private generateEARL(evaluation: any): any {
     const assertor = {
@@ -767,6 +814,8 @@ export class EvaluationService {
               tnum = tot.info.title;
             } else if (tes === 'lang') {
               tnum = tot.info.lang;
+            } else if (tes === 'langNo') {
+              tnum = 'lang';
             } else if (tes === 'titleLong') {
               tnum = tot.info.title.length;
             } else {
