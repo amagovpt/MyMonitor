@@ -3,6 +3,8 @@ import { MatDialog } from '@angular/material/dialog';
 
 import { ScoreDistributionDialogComponent } from '../../../dialogs/score-distribution-dialog/score-distribution-dialog.component';
 import { ErrorDistributionDialogComponent } from '../../../dialogs/error-distribution-dialog/error-distribution-dialog.component';
+import { CorrectionDistributionDialogComponent } from '../../../dialogs/correction-distribution-dialog/correction-distribution-dialog.component';
+import { Website } from 'src/app/models/website';
 
 @Component({
   selector: 'app-website-statistics',
@@ -11,6 +13,7 @@ import { ErrorDistributionDialogComponent } from '../../../dialogs/error-distrib
 })
 export class WebsiteStatisticsComponent implements OnInit {
 
+  @Input('data') websiteObject: Website;
   @Input('pages') pages: Array<any>;
 
   dialogWidth: string;
@@ -77,9 +80,18 @@ export class WebsiteStatisticsComponent implements OnInit {
   openErrorDistributionDialog(): void {
     this.dialog.open(ErrorDistributionDialogComponent, {
       data: {
-        pages: this.pages
+        website: this.websiteObject
       },
       width: this.dialogWidth
+    });
+  }
+
+  openCorrectionDistributionDialog(): void {
+    this.dialog.open(CorrectionDistributionDialogComponent, {
+      data: {
+        website: this.websiteObject
+      },
+      width: this.dialogWidth,
     });
   }
 }

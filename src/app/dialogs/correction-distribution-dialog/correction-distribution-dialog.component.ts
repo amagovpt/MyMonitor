@@ -1,24 +1,23 @@
-import { Component, OnInit, Inject, ViewChild } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Chart } from 'chart.js';
-import tests from "../../tests";
+import {Component, OnInit, Inject, ViewChild} from '@angular/core';
+import {TranslateService} from '@ngx-translate/core';
+import {MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {Chart} from 'chart.js';
+import tests from '../../tests'
 import {MatTableDataSource} from "@angular/material/table";
-import {CorrectionData} from "../correction-distribution-dialog/correction-distribution-dialog.component";
-import { MatSort } from '@angular/material/sort';
-import * as includes from "lodash.includes";
-import * as forEach from "lodash.foreach";
-import * as slice from "lodash.slice";
-import * as without from "lodash.without";
-import * as size from "lodash.size";
-import * as clone from "lodash.clone";
+import {MatSort} from "@angular/material/sort";
+import * as forEach from 'lodash.foreach';
+import * as slice from 'lodash.slice';
+import * as includes from 'lodash.includes';
+import * as without from 'lodash.without';
+import * as size from 'lodash.size';
+import * as clone from 'lodash.clone';
 
 @Component({
-  selector: 'app-error-distribution-dialog',
-  templateUrl: './error-distribution-dialog.component.html',
-  styleUrls: ['./error-distribution-dialog.component.scss']
+  selector: 'app-correction-distribution-dialog',
+  templateUrl: './correction-distribution-dialog.component.html',
+  styleUrls: ['./correction-distribution-dialog.component.scss']
 })
-export class ErrorDistributionDialogComponent implements OnInit {
+export class CorrectionDistributionDialogComponent implements OnInit {
 
   elemGroups: any = {
     'a': 'link',
@@ -49,18 +48,16 @@ export class ErrorDistributionDialogComponent implements OnInit {
     'w3cValidator': 'validator'
   };
 
-  @ViewChild('chartErrors', { static: true }) chartErrors: any;
+  @ViewChild('chart', { static: true }) chartCorrections: any;
   @ViewChild(MatSort, { static: true }) matSort: MatSort;
 
   chart: any;
+  tests: any;
   keys: any;
-  errors: any;
-  testsFile: any;
-  isCat: boolean;
-
+  tagsSuccess: {}[];
+  nPages: number;
   graphData: any;
-  dataSource: MatTableDataSource<ErrorData>;
-  dataSourcePerElement: MatTableDataSource<CorrectionData>;
+  dataSource: MatTableDataSource<CorrectionData>;
   columnDefinitions: any[];
   columnDefinitionsMobile: any[];
   existingElemGroups: any;
@@ -69,10 +66,10 @@ export class ErrorDistributionDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private translate: TranslateService
   ) {
-    this.testsFile = tests;
-    this.isCat = this.data.isCat;
-    this.errors = this.data.errors;
-    
+    this.tests = tests;
+    this.nPages = this.data.website.pages.length;
+    this.tagsSuccess = [];
+    this.graphData = [];
     this.existingElemGroups = [];
 
     this.columnDefinitions = [
@@ -81,7 +78,7 @@ export class ErrorDistributionDialogComponent implements OnInit {
       { def: 'description', hide: false},
       { def: 'pages', hide: false},
       { def: 'elems', hide: false},
-      { def: 'quartiles', hide: false}
+      { def: 'quartiles', hide: false},
     ];
 
     this.columnDefinitionsMobile = [
@@ -90,54 +87,52 @@ export class ErrorDistributionDialogComponent implements OnInit {
       { def: 'pages', hide: false}
     ];
 
-    this.graphData = [];
-    const tableData: ErrorData[] = [];
-
-    forEach(this.data.website.tot, (v, k) => {
-      if (v['result'] === 'failed') {
-        let key = k;
+    const tableData: CorrectionData[] = [];
+    forEach(this.data.website.tot, (v, key) => {
+      if (v['result'] === 'passed' || v['result'] === 'warning') {
         let elem = v['elem'];
         let n_pages = v['n_pages'];
+        let n_websites = v['n_websites'];
         let result = v['result'];
 
-        let quartiles = calculateQuartiles(this.data, k);
+        let quartiles = calculateQuartiles(this.data, key);
         if (!includes(this.existingElemGroups, this.elemGroups[v['elem']])) {
           this.existingElemGroups.push(this.elemGroups[v['elem']]);
         }
         // description, element name
-        let translations: string[] = ["TEST_RESULTS." + k, "TEST_ELEMENTS." + elem];
-        tableData.push(this.addToTableData(k, v, translations, quartiles));
-        this.graphData.push({key, elem, n_pages, result});
+        let translations: string[] = ["TEST_RESULTS." + key, "TEST_ELEMENTS." + elem];
+        tableData.push(this.addToTableData(key, v, translations, quartiles));
+        this.graphData.push({key, elem, n_pages, n_websites, result});
       }
     });
 
     this.graphData.sort(function (a, b) {
       return b.n_pages === a.n_pages ? a.key.localeCompare(b.key) : b.n_pages - a.n_pages;
     });
-
+    
     // because we only want the top 10
     this.graphData = slice(this.graphData, 0, 10);
     this.dataSource = new MatTableDataSource(tableData);
-
   }
 
   ngOnInit(): void {
     this.dataSource.sort = this.matSort;
-    const translations = this.graphData.map((key: any) => {
-      return 'TEST_RESULTS.' + key['key'];
+
+    const translations = this.graphData.map((v, k) => {
+      return 'TEST_RESULTS.' + v['key'];
     });
-    translations.push('DIALOGS.errors.common_errors');
-    translations.push('DIALOGS.errors.tests_label');
-    translations.push('DIALOGS.errors.situations_label');
+    translations.push('DIALOGS.corrections.n_corrections');
+    translations.push('DIALOGS.corrections.tests_label');
+    translations.push('DIALOGS.corrections.situations_label');
 
     this.translate.get(translations).subscribe((res: any) => {
 
-      const label = res['DIALOGS.errors.common_errors'];
-      const testsLabel = res['DIALOGS.errors.tests_label'];
-      const situationsLabel = res['DIALOGS.errors.situations_label'];
-      delete res['DIALOGS.errors.common_errors'];
-      delete res['DIALOGS.errors.tests_label'];
-      delete res['DIALOGS.errors.situations_label'];
+      const label = res['DIALOGS.corrections.n_corrections'];
+      const testsLabel = res['DIALOGS.corrections.tests_label'];
+      const situationsLabel = res['DIALOGS.corrections.situations_label'];
+      delete res['DIALOGS.corrections.n_corrections'];
+      delete res['DIALOGS.corrections.tests_label'];
+      delete res['DIALOGS.corrections.situations_label'];
 
       const labels = Object.values(res).map((s: string) => {
         s = s.replace(new RegExp('<code>', 'g'), '"');
@@ -152,17 +147,17 @@ export class ErrorDistributionDialogComponent implements OnInit {
         return s;
       });
 
-      const values = this.graphData.map((error: any) => error.n_pages);
+      const values = this.graphData.map((v: any) => v.n_pages);
 
-      this.chart = new Chart(this.chartErrors.nativeElement, {
+      this.chart = new Chart(this.chartCorrections.nativeElement, {
         type: 'horizontalBar',
         data: {
-          labels,
+          labels: labels,
           datasets: [
             {
-              label,
+              label: label,
               data: values,
-              backgroundColor: 'red'
+              backgroundColor: 'green'
             }
           ]
         },
@@ -182,8 +177,8 @@ export class ErrorDistributionDialogComponent implements OnInit {
                 beginAtZero: true,
                 steps: 1,
                 stepValue: 1,
-                max: this.calculateMax(Math.max(...values)),
-                maxTicksLimit: this.calculateMax(Math.max(...values)) + 1
+                max: this.nPages,
+                maxTicksLimit: this.nPages + 1
               },
               scaleLabel: {
                 display: true,
@@ -195,9 +190,6 @@ export class ErrorDistributionDialogComponent implements OnInit {
               scaleLabel: {
                 display: true,
                 labelString: testsLabel
-              },
-              ticks: {
-                autoSkip: false
               }
             }]
           }
@@ -214,17 +206,12 @@ export class ErrorDistributionDialogComponent implements OnInit {
     }
   }
 
-  private calculateMax(max: number): number {
-    const t = max + (max / 3);
-    return Math.ceil(t);
-  }
-
   private formatLabel(str: string, maxwidth: number): any {
     const sections = [];
     const words = str.split(' ');
     let temp = '';
 
-    words.forEach((item: any, index: number) => {
+    words.forEach(function (item, index) {
       if (temp.length > 0) {
         const concat = temp + ' ' + item;
 
@@ -257,7 +244,7 @@ export class ErrorDistributionDialogComponent implements OnInit {
     return sections;
   }
 
-  private addToTableData(key: string, tot: any, translations: string[], quartiles: any): ErrorData {
+  private addToTableData(key: string, tot: any, translations: string[], quartiles: any = []): CorrectionData {
     let descr, elemName;
     this.translate.get(translations).subscribe((res: any) => {
       descr = res['TEST_RESULTS.' + key];
@@ -265,7 +252,6 @@ export class ErrorDistributionDialogComponent implements OnInit {
     });
 
     return {
-      key: key,
       level: (tests[key]['level']).toUpperCase(),
       elem: tot['elem'],
       element: elemName,
@@ -273,22 +259,21 @@ export class ErrorDistributionDialogComponent implements OnInit {
       websites: tot['n_websites'],
       pages: tot['n_pages'],
       elems: tot['result'] === 'passed' ? -1 : tot['n_times'],
-      quartiles: quartiles,
+      quartiles: tot['result'] === 'passed' ? '-' : quartiles,
       elemGroup: this.elemGroups[tot['elem']]
     };
   }
 
   getDisplayedColumns() {
-    return this.columnDefinitions.filter(cd => !cd.hide).map(cd => cd.def);
+    return this.columnDefinitions.filter(cd=>!cd.hide).map(cd=>cd.def);
   }
-  
   getDisplayedColumnsMobile() {
     return this.columnDefinitionsMobile.filter(cd=>!cd.hide).map(cd=>cd.def);
   }
 }
 
 function calculateQuartiles(d: any, test: any): Array<any> {
-  let data = d.website.getPassedWarningOccurrencesByPage(test);
+  const data = d.website.getPassedWarningOccurrencesByPage(test);
 
   const values = without(data, undefined).sort((a, b) => a - b);
 
@@ -355,8 +340,7 @@ function calculateQuartiles(d: any, test: any): Array<any> {
   return final;
 }
 
-export interface ErrorData {
-  key: string;
+export interface CorrectionData {
   level: string;
   elem: string;
   element: string;
@@ -367,3 +351,4 @@ export interface ErrorData {
   quartiles: any;
   elemGroup: string;
 }
+

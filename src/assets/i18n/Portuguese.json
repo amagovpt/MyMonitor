@@ -41,7 +41,9 @@
     "oldest_page_updated": "Avaliação mais antiga duma página",
     "last_updated": "Última atualização das estatísticas",
     "score_distribution": "Distribuição de pontuações",
-    "error_distribution": "Distribuição de erros",
+    "error_distribution": "Más práticas",
+    "correction_distribution": "Boas práticas",
+    "element_correction_distribution": "Distribuição de correção por elemento",
     "pages_with_errors": "Páginas com erros",
     "pages_without_errors_a": "Páginas sem erros A",
     "pages_without_errors_a_aa": "Páginas sem erros A+AA",
@@ -49,7 +51,6 @@
   },
   "DIALOGS": {
     "chart": "Gráfico",
-    "table": "Tabela",
     "scores": {
       "title": "Distribuição de pontuações",
       "frequency": "Frequência (nº de páginas)",
@@ -58,8 +59,19 @@
       "range": "Intervalo",
       "cumulative": "Frequência cumulativa"
     },
+    "corrections": {
+      "title": "Boas práticas",
+      "table_title": "Tabela de boas práticas",
+      "chart_title": "Gráfico de boas prácticas",
+      "n_corrections": "Nº de páginas",
+      "tests_label": "Resultados de testes passados",
+      "situations_label": "Nº de páginas"
+    },
     "errors": {
       "title": "10 erros mais frequentes",
+      "table_title": "Tabela de más práticas",
+      "chart_all_title": "Gráfico de más prácticas",
+      "chart_title": "10 más práticas mais frequentes",
       "common_errors": "Nº de páginas",
       "level": "Nível",
       "description": "Descrição",
@@ -68,6 +80,30 @@
       "situations": "Ocorrências",
       "tests_label": "Testes",
       "situations_label": "Nº de páginas"
+    },
+    "table": {
+      "title": "Grau de correção por elemento",
+      "pages": "Páginas",
+      "websites": "Sítios web",
+      "description": "Descrição",
+      "elems": "Elementos",
+      "level": "Nível",
+      "element": "Elemento",
+      "n_corrections": "Nº de páginas",
+      "tests_label": "Elementos estudados nos testes passados",
+      "situations_label": "Nº de páginas",
+      "quartiles": "Ocorrências",
+      "occurrences": {
+        "single_error": "aviso em",
+        "multi_error": "avisos em",
+        "single_page_tag": "sítio web",
+        "single_page_listTags": "tag",
+        "multi_page_tag": "sítios web",
+        "multi_page_listTags": "tags",
+        "from": "De",
+        "to": "a"
+      },
+      "select": "Tipo de elemento"
     },
     "close": "Fechar"
   },
@@ -1063,5 +1099,47 @@
   "TECHFAIL": {
     "relationF": "Esta falha WCAG 2.0 está relacionada com:",
     "relationT": "Esta técnica WCAG 2.0 está relacionada com:"
+  },
+  "ELEM_GROUPS": {
+    "area": "Elementos area",
+    "ehandler": "Controladores de eventos",
+    "form": "Formulários",
+    "frame": "Frames",
+    "graphic": "Botões gráficos",
+    "heading": "Cabeçalho",
+    "headings": "Cabeçalhos",
+    "image": "Imagens",
+    "link": "Links",
+    "object": "Embedded objects",
+    "other": "Atributos e outros elementos",
+    "table": "Tabelas",
+    "validator": "Validador W3C",
+    "all_types": "Todos os tipos de elementos"
+  },
+  "TEST_ELEMENTS": {
+    "a": "<a>",
+    "all": "Todos",
+    "area": "<area>",
+    "applet": "<applet>",
+    "ehandler": "Manipuladores de eventos",
+    "embed": "<embed>",
+    "fontValues": "Tamanho de letra",
+    "form": "<form>",
+    "frame": "<frame>",
+    "frameset": "<frameset>",
+    "hx": "Cabeçalhos h1-h6",
+    "id": "Atributo id",
+    "iframe": "<iframe>",
+    "img": "<img>",
+    "inpImg": "Botões gráficos",
+    "inputLabel": "<label> para <input>",
+    "label": "<label>",
+    "longDImg": "<img> longdesc",
+    "object": "<object>",
+    "table": "<table>",
+    "tableComplex": "Tabelas de dados complexos",
+    "tableData": "Tabelas de dados",
+    "tableLayout": "Tabelas de disposição",
+    "w3cValidator": "Validador W3C"
   }
 }

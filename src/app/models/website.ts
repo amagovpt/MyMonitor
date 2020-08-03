@@ -158,9 +158,24 @@ export class Website {
     
     for (const p of this.pages) {
       const error = p.evaluation.tot['elems'][tests[test]['test']];
-      if (error && (error === 'langNo' || error === 'titleNo')) {
-        occurrences.push(1);
-      } else {
+      if (error && tests[test]['result'] === 'failed') {
+        if (error === 'langNo' || error === 'titleNo') {
+          occurrences.push(1);
+        } else {
+          occurrences.push(error);
+        }
+      }
+
+    }
+    return occurrences;
+  }
+
+  getPassedWarningOccurrencesByPage(test: string): Array<number> {
+    const occurrences = new Array<number>();
+    
+    for (const p of this.pages) {
+      const error = p.evaluation.tot['elems'][tests[test]['test']];
+      if (error && (tests[test]['result'] === 'passed' || tests[test]['result'] === 'warning')) {
         occurrences.push(error);
       }
 

@@ -51,7 +51,7 @@ export class WebsiteComponent implements OnInit, OnDestroy {
         .subscribe(pages => {
           if (pages !== null) {
             this.pages = pages;
-            console.log(pages)
+            
             this.websiteObject = new Website();
             for (const page of this.pages || []) {
               this.websiteObject.addPage(page.Score, page.Errors, page.Tot, page.A, page.AA, page.AAA, page.Evaluation_Date);

@@ -2,8 +2,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { DomSanitizer } from '@angular/platform-browser';
-
 import { saveAs } from 'file-saver';
+import { html } from 'js-beautify';
 
 @Component({
   selector: 'app-webpage-code',
@@ -30,7 +30,7 @@ export class WebpageCodeComponent implements OnInit, OnDestroy {
     this.sub = this.activatedRoute.params.subscribe(params => {
       this.website = params.website;
       this.url = params.page;
-      this.pagecode = JSON.parse(sessionStorage.getItem('evaluation')).pagecode;
+      this.pagecode = html(JSON.parse(sessionStorage.getItem('evaluation')).pagecode, { indent_size: 2 });;
       const blob = new Blob([this.pagecode], { type: 'text/html' });
       this.downloadHTML = this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(blob));
     });

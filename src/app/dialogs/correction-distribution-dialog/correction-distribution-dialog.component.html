@@ -1,7 +1,7 @@
-<h1 mat-dialog-title>{{ "DIALOGS.errors.title" | translate }}</h1>
+<h1 mat-dialog-title>{{ "DIALOGS.corrections.title" | translate }}</h1>
 <mat-dialog-content>
   <mat-tab-group fxHide.lt-sm>
-    <mat-tab label='{{ "DIALOGS.errors.table_title" | translate }}'>
+    <mat-tab label="{{ 'DIALOGS.corrections.table_title' | translate }}">
 
       <mat-form-field>
         <mat-select placeholder='{{"DIALOGS.table.select" | translate}}' (selectionChange)="applyFilter($event.value)">
@@ -19,31 +19,26 @@
         matSortDirection="desc">
         <ng-container matColumnDef="level">
           <mat-header-cell *matHeaderCellDef mat-sort-header>{{ "DIALOGS.table.level" | translate }}</mat-header-cell>
-          <mat-cell *matCellDef="let s">
-            <span>{{s['level']}}</span>
+          <mat-cell *matCellDef="let s"><span>{{s['level']}}</span>
           </mat-cell>
         </ng-container>
         <ng-container matColumnDef="element">
           <mat-header-cell *matHeaderCellDef mat-sort-header>{{ "DIALOGS.table.element" | translate }}</mat-header-cell>
-          <mat-cell *matCellDef="let s">
-            <span>{{s['element']}}</span>
+          <mat-cell *matCellDef="let s"><span>{{s['element']}}</span>
           </mat-cell>
         </ng-container>
         <ng-container matColumnDef="description">
           <mat-header-cell *matHeaderCellDef mat-sort-header>{{ "DIALOGS.table.description" | translate }}</mat-header-cell>
-          <mat-cell *matCellDef="let s">
-            <span>{{s['description']}}</span></mat-cell>
+          <mat-cell *matCellDef="let s"><span>{{s['description']}}</span></mat-cell>
         </ng-container>
         <ng-container matColumnDef="websites">
           <mat-header-cell *matHeaderCellDef mat-sort-header>{{ "DIALOGS.table.websites" | translate }}</mat-header-cell>
-          <mat-cell *matCellDef="let s">
-            <span>{{s['websites']}}</span>
+          <mat-cell *matCellDef="let s"><span>{{s['websites']}}</span>
           </mat-cell>
         </ng-container>
         <ng-container matColumnDef="pages">
           <mat-header-cell *matHeaderCellDef mat-sort-header>{{ "DIALOGS.table.pages" | translate }}</mat-header-cell>
-          <mat-cell *matCellDef="let s">
-            <span>{{s['pages']}}</span>
+          <mat-cell *matCellDef="let s"><span>{{s['pages']}}</span>
           </mat-cell>
         </ng-container>
         <ng-container matColumnDef="elems">
@@ -142,22 +137,23 @@
 
         <mat-header-row *matHeaderRowDef="getDisplayedColumns(); sticky: true"></mat-header-row>
         <mat-row *matRowDef="let row; columns: getDisplayedColumns();"></mat-row>
-        
+
       </mat-table>
     </mat-tab>
 
-    <mat-tab label="{{ 'DIALOGS.errors.chart_title' | translate }}">
+    <mat-tab label="{{ 'DIALOGS.corrections.chart_title' | translate }}">
       <div class="chart">
-        <canvas #chartErrors></canvas>
+        <canvas #chart></canvas>
       </div>
     </mat-tab>
-  </mat-tab-group>
 
+  </mat-tab-group>
   <mat-table fxHide.gt-xs matSort
              [dataSource]="dataSource"
              [matSortDisableClear]="true"
              matSortActive="pages"
-             matSortDirection="desc">
+             matSortDirection="desc"
+             class="mobile-friendly">
     <ng-container matColumnDef="level">
       <mat-header-cell *matHeaderCellDef
                        mat-sort-header>{{ "DIALOGS.table.level" | translate }}</mat-header-cell>
@@ -186,10 +182,8 @@
     <mat-row *matRowDef="let row; columns: getDisplayedColumnsMobile();"></mat-row>
   </mat-table>
 </mat-dialog-content>
-
 <mat-divider></mat-divider>
-
 <mat-dialog-actions fxLayout="row">
   <span fxFlex></span>
-  <button mat-flat-button color="warn" mat-dialog-close>{{ "DIALOGS.close" | translate }}</button>
+  <button mat-raised-button color="warn" mat-dialog-close>{{ "DIALOGS.close" | translate }}</button>
 </mat-dialog-actions>

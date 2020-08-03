@@ -42,6 +42,8 @@
     "last_updated": "Statistics last updated",
     "score_distribution": "Score distribution",
     "error_distribution": "Error distribution",
+    "correction_distribution": "Correction distribution",
+    "element_correction_distribution": "Element correction distribution",
     "pages_with_errors": "Pages with errors",
     "pages_without_errors_a": "Pages without errors A",
     "pages_without_errors_a_aa": "Pages without errors A+AA",
@@ -49,7 +51,6 @@
   },
   "DIALOGS": {
     "chart": "Chart",
-    "table": "Table",
     "scores": {
       "title": "Score distribution",
       "frequency": "Frequency (nº of pages)",
@@ -58,8 +59,19 @@
       "range": "Range",
       "cumulative": "Cumulative frequency"
     },
+    "corrections": {
+      "title": "Good practices",
+      "table_title": "Good practices table",
+      "chart_title": "10 most frequent good practices",
+      "n_corrections": "Nº of pages",
+      "tests_label": "Results of passed tests",
+      "situations_label": "Nº of pages"
+    },
     "errors": {
       "title": "10 most frequent errors",
+      "table_title": "Bad practices table",
+      "chart_all_title": "Bad practices graph",
+      "chart_title": "10 most frequent bad practices",
       "common_errors": "Nº of pages",
       "level": "Level",
       "description": "Description",
@@ -68,6 +80,30 @@
       "situations": "Occurrences",
       "tests_label": "Tests",
       "situations_label": "Nº of pages"
+    },
+    "table": {
+      "title": "Element correction degree",
+      "pages": "Pages",
+      "websites": "Websites",
+      "description": "Description",
+      "elems": "Elements",
+      "level": "Level",
+      "element": "Element",
+      "n_corrections": "Nº of pages",
+      "tests_label": "Elements studied in passed tests",
+      "situations_label": "Nº of pages",
+      "quartiles": "Occurrences",
+      "occurrences": {
+        "single_error": "warning in",
+        "multi_error": "warnings in",
+        "single_page_tag": "website",
+        "single_page_listTags": "tag",
+        "multi_page_tag": "websites",
+        "multi_page_listTags": "tags",
+        "from": "",
+        "to": "to"
+      },
+      "select": "Type of element"
     },
     "close": "Close"
   },
@@ -1062,5 +1098,47 @@
   "TECHFAIL": {
     "relationF": "This WCAG 2.0 failure is related to:",
     "relationT": "This WCAG 2.0 technique is related to:"
+  },
+  "ELEM_GROUPS": {
+    "area": "Area elements",
+    "ehandler": "Event handlers",
+    "form": "Forms",
+    "frame": "Frames",
+    "graphic": "Graphic buttons",
+    "heading": "Heading",
+    "headings": "Headings",
+    "image": "Images",
+    "link": "Links",
+    "object": "Embedded objects",
+    "other": "Attributes and other elements",
+    "table": "Tables",
+    "validator": "W3C Validator results",
+    "all_types": "Every type of element"
+  },
+  "TEST_ELEMENTS": {
+    "a": "<a>",
+    "all": "All",
+    "area": "<area>",
+    "applet": "<applet>",
+    "ehandler": "Event manipulators",
+    "embed": "<embed>",
+    "fontValues": "Font size",
+    "form": "<form>",
+    "frame": "<frame>",
+    "frameset": "<frameset>",
+    "hx": "Headings h1-h6",
+    "id": "id attribute",
+    "iframe": "<iframe>",
+    "img": "<img>",
+    "inpImg": "Graphic buttons",
+    "inputLabel": "<label> for <input>",
+    "label": "<label>",
+    "longDImg": "<img> longdesc",
+    "object": "<object>",
+    "table": "<table>",
+    "tableComplex": "Complex data tables",
+    "tableData": "Data tables",
+    "tableLayout": "Layout tables",
+    "w3cValidator": "W3C Validator"
   }
 }

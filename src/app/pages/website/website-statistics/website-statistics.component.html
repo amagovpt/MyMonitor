@@ -39,6 +39,10 @@
       {{ "STATISTICS.score_distribution" | translate }}
     </button>
     <span fxFlex="1"></span>
+    <button mat-flat-button color="green" ngClass.lt-sm='mobile-button' (click)="openCorrectionDistributionDialog()">
+      {{ "STATISTICS.correction_distribution" | translate }}
+    </button>
+    <span fxFlex="1"></span>
     <button mat-flat-button color="warn" attr.aria-label="{{ 'STATISTICS.error_distribution' | translate }}"  (click)="openErrorDistributionDialog()">
       {{ "STATISTICS.error_distribution" | translate }}
     </button>
