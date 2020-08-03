@@ -50,7 +50,8 @@
     "pages_without_errors_a_aa_aaa": "Pages without errors A+AA+AAA"
   },
   "DIALOGS": {
-    "chart": "Chart",
+    "chart_title": "Chart",
+    "table_title": "Table",
     "scores": {
       "title": "Score distribution",
       "frequency": "Frequency (nº of pages)",
@@ -204,7 +205,7 @@
     "remove_error_message": "There was an error while trying to remove the selected pages",
     "re_evaluate": "Re-evaluate all pages",
     "top_5_errors": {
-      "title": "Top 5 common errors for each of the 3 WCAG 2.0 levels (nº of pages)",
+      "title": "Top 5 common errors for each of the 3 WCAG 2.1 levels (nº of pages)",
       "errorA_title": "Top 5 errors from level \"A\"",
       "errorAA_title": "Top 5 errors from level \"AA\"",
       "errorAAA_title": "Top 5 errors from level \"AAA\"",
@@ -245,7 +246,7 @@
     "no_pages": "This website currently doesn't have any pages"
   },
   "RESULTS": {
-    "title": "Web accessibility practices report (W3C WCAG 2.0)",
+    "title": "Web accessibility practices report (W3C WCAG 2.1)",
     "actions": {
       "back": "Go back",
       "re_evaluate": "Re-evaluate page",
@@ -1096,8 +1097,8 @@
     "H50": "<p>To group related links to each other is a facilitating action of navigation. To group, we can use lists - <code>&lt;ul&gt;</code>; <code>&lt;ol&gt;</code> - or the <code>&lt;map&gt;</code> element usual in the marking of images map.</p>"
   },
   "TECHFAIL": {
-    "relationF": "This WCAG 2.0 failure is related to:",
-    "relationT": "This WCAG 2.0 technique is related to:"
+    "relationF": "This WCAG 2.1 failure is related to:",
+    "relationT": "This WCAG 2.1 technique is related to:"
   },
   "ELEM_GROUPS": {
     "area": "Area elements",

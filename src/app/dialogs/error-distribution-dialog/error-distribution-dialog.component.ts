@@ -56,7 +56,6 @@ export class ErrorDistributionDialogComponent implements OnInit {
   keys: any;
   errors: any;
   testsFile: any;
-  isCat: boolean;
 
   graphData: any;
   dataSource: MatTableDataSource<ErrorData>;
@@ -70,7 +69,6 @@ export class ErrorDistributionDialogComponent implements OnInit {
     private translate: TranslateService
   ) {
     this.testsFile = tests;
-    this.isCat = this.data.isCat;
     this.errors = this.data.errors;
     
     this.existingElemGroups = [];
