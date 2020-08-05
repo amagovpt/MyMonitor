@@ -34,16 +34,27 @@
           <mat-cell *matCellDef="let s">
             <span>{{s['description']}}</span></mat-cell>
         </ng-container>
+        <ng-container matColumnDef="scs">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>{{ "DIALOGS.table.scs" | translate }}</mat-header-cell>
+          <mat-cell *matCellDef="let s"><span>{{s['scs']}}</span></mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="fps">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>{{ "DIALOGS.table.FPS" | translate }}</mat-header-cell>
+          <mat-cell *matCellDef="let s"><span>{{s['fps']}}</span></mat-cell>
+        </ng-container>
         <ng-container matColumnDef="websites">
           <mat-header-cell *matHeaderCellDef mat-sort-header>{{ "DIALOGS.table.websites" | translate }}</mat-header-cell>
-          <mat-cell *matCellDef="let s">
-            <span>{{s['websites']}}</span>
+          <mat-cell *matCellDef="let s"><span>{{s['websites']}}</span>
           </mat-cell>
         </ng-container>
         <ng-container matColumnDef="pages">
           <mat-header-cell *matHeaderCellDef mat-sort-header>{{ "DIALOGS.table.pages" | translate }}</mat-header-cell>
-          <mat-cell *matCellDef="let s">
-            <span>{{s['pages']}}</span>
+          <mat-cell *matCellDef="let s"><span>{{s['pages']}}</span>
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="pagesPercentage">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>{{ "DIALOGS.table.pagesPercentage" | translate }}</mat-header-cell>
+          <mat-cell *matCellDef="let s"><span>{{s['pagesPercentage']}}%</span>
           </mat-cell>
         </ng-container>
         <ng-container matColumnDef="elems">
@@ -185,6 +196,18 @@
     <mat-header-row *matHeaderRowDef="getDisplayedColumnsMobile(); sticky: true"></mat-header-row>
     <mat-row *matRowDef="let row; columns: getDisplayedColumnsMobile();"></mat-row>
   </mat-table>
+  <ul>
+    <li>WV: {{ "DIALOGS.table.WV" | translate }}</li>
+    <li>LV: {{ "DIALOGS.table.LV" | translate }}</li>
+    <li>WPC: {{ "DIALOGS.table.WPC" | translate }}</li>
+    <li>WH: {{ "DIALOGS.table.WH" | translate }}</li>
+    <li>LH: {{ "DIALOGS.table.LH" | translate }}</li>
+    <li>WVC: {{ "DIALOGS.table.WVC" | translate }}</li>
+    <li>LMS: {{ "DIALOGS.table.LMS" | translate }}</li>
+    <li>LR: {{ "DIALOGS.table.LR" | translate }}</li>
+    <li>PST: {{ "DIALOGS.table.PST" | translate }}</li>
+    <li>LC: {{ "DIALOGS.table.LC" | translate }}</li>
+  </ul>
 </mat-dialog-content>
 
 <mat-divider></mat-divider>

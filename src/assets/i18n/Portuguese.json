@@ -85,8 +85,10 @@
     "table": {
       "title": "Grau de correção por elemento",
       "pages": "Páginas",
+      "pagesPercentage": "Páginas (%)",
       "websites": "Sítios web",
       "description": "Descrição",
+      "scs": "Critério de sucesso",
       "elems": "Elementos",
       "level": "Nível",
       "element": "Elemento",
@@ -104,7 +106,18 @@
         "from": "De",
         "to": "a"
       },
-      "select": "Tipo de elemento"
+      "select": "Tipo de elemento",
+      "FPS": "Declarações de desempenho funcional",
+      "WV": "Utilização sem visão",
+      "LV": "Utilização com baixa visão",
+      "WPC": "Utilização sem percepção da cor",
+      "WH": "Utilização sem audição",
+      "LH": "Utilização com audição limitada",
+      "WVC": "Utilização sem oralidade",
+      "LMS": "Utilização com manipulação e/ou força limitada",
+      "LR": "Utilização com alcance limitado",
+      "PST": "Minimizar o potencial desencadeamento de convulsões fotossensíveis",
+      "LC": "Utilização com disfunção cognitiva"
     },
     "close": "Fechar"
   },
@@ -127,6 +140,13 @@
       "success": "Palavra-chave alterada com sucesso"
     }
   },
+  "ITEMS_PER_PAGE_LABEL": "Itens por página",
+  "NEXT_PAGE_LABEL": "Próxima página",
+  "PREVIOUS_PAGE_LABEL": "Página anterior",
+  "FIRST_PAGE_LABEL": "Primeira página",
+  "LAST_PAGE_LABEL": "Última páginas",
+  "RANGE_PAGE_LABEL_1": "0 de {{length}}",
+  "RANGE_PAGE_LABEL_2": "{{startIndex}} - {{endIndex}} de {{length}}",
   "ADD_PAGES": {
     "title": "Adicionar páginas",
     "subtitle": "Adicione páginas a este sítio web",
@@ -174,7 +194,9 @@
     "sitemap": {
       "warning": "Os ficheiros sitemap necessitam que a sua primeira página seja igual ao domínio do sítio web",
       "uris_invalid": "Um dos uris no ficheiro inserido é inválido",
-      "type_invalid": "O ficheiro inserido não é do tipo .xml ou .txt"
+      "type_invalid": "O ficheiro inserido não é do tipo .xml ou .txt",
+      "txt_example": "Exemplo em txt do mapa do sitio web",
+      "xml_example": "Exemplo em xml do mapa do sitio web"
     },
     "transfer": {
       "message": "Transfira do Observatório as páginas que ainda não tem",

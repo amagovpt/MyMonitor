@@ -85,8 +85,10 @@
     "table": {
       "title": "Element correction degree",
       "pages": "Pages",
+      "pagesPercentage": "Pages (%)",
       "websites": "Websites",
       "description": "Description",
+      "scs": "Success criteria",
       "elems": "Elements",
       "level": "Level",
       "element": "Element",
@@ -104,7 +106,18 @@
         "from": "",
         "to": "to"
       },
-      "select": "Type of element"
+      "select": "Type of element",
+      "FPS": "Functional perfomance statements",
+      "WV": "Usage without vision",
+      "LV": "Usage with limited vision",
+      "WPC": "Usage without perception of colour",
+      "WH": "Usage without hearing",
+      "LH": "Usage with limited hearing",
+      "WVC": "Usage without vocal capability",
+      "LMS": "Usage with limited manipulation or strength",
+      "LR": "Usage with limited reach",
+      "PST": "Minimize photosensitive seizure triggers",
+      "LC": "Usage with limited cognition"
     },
     "close": "Close"
   },
@@ -127,6 +140,13 @@
       "success": "Password changed successfully"
     }
   },
+  "ITEMS_PER_PAGE_LABEL": "Items per page",
+  "NEXT_PAGE_LABEL": "Next page",
+  "PREVIOUS_PAGE_LABEL": "Previous page",
+  "FIRST_PAGE_LABEL": "First page",
+  "LAST_PAGE_LABEL": "Last page",
+  "RANGE_PAGE_LABEL_1": "0 of {{length}}",
+  "RANGE_PAGE_LABEL_2": "{{startIndex}} - {{endIndex}} of {{length}}",
   "ADD_PAGES": {
     "title": "Add pages",
     "subtitle": "Add pages to this website",
@@ -174,7 +194,9 @@
     "sitemap": {
       "warning": "Sitemaps files need to have the first page equal to website's domain",
       "uris_invalid": "One of the given uris is invalid",
-      "type_invalid": "Given file's extension is not .xml or .txt"
+      "type_invalid": "Given file's extension is not .xml or .txt",
+      "txt_example": "Sitemap txt example",
+      "xml_example": "Sitemap xml example"
     },
     "transfer": {
       "message": "Transfer the Observatory pages that you don't have",

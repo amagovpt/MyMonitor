@@ -3,6 +3,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Chart } from 'chart.js';
 import tests from "../../tests";
+import users from '../../users';
 import {MatTableDataSource} from "@angular/material/table";
 import {CorrectionData} from "../correction-distribution-dialog/correction-distribution-dialog.component";
 import { MatSort } from '@angular/material/sort';
@@ -77,7 +78,10 @@ export class ErrorDistributionDialogComponent implements OnInit {
       { def: 'level', hide: false},
       { def: 'element', hide: false},
       { def: 'description', hide: false},
+      { def: 'scs', hide: false},
+      { def: 'fps', hide: false},
       { def: 'pages', hide: false},
+      { def: 'pagesPercentage', hide: false},
       { def: 'elems', hide: false},
       { def: 'quartiles', hide: false}
     ];
@@ -262,14 +266,33 @@ export class ErrorDistributionDialogComponent implements OnInit {
       elemName = res['TEST_ELEMENTS.' + tot['elem']];
     });
 
+    const scs = tests[key]['scs'].split(',').map(scs => scs.trim()) || [tests[key]['scs'].trim()];
+    const fps = new Array<string>();
+
+    for (const sc of scs || []) {
+      for (const clause in users || {}) {
+        if (users[clause]['WCAG 2.1'] === sc) {
+          const types = users[clause]['Benefits'];
+          for (const type of types.split(' ') || []) {
+            if (!fps.includes(type)) {
+              fps.push(type);
+            }
+          }
+        }
+      }
+    }
+
     return {
       key: key,
       level: (tests[key]['level']).toUpperCase(),
       elem: tot['elem'],
       element: elemName,
       description: descr,
+      scs: tests[key]['scs'],
+      fps: fps.join(', '),
       websites: tot['n_websites'],
       pages: tot['n_pages'],
+      pagesPercentage: (tot['n_pages'] / this.data.website.pages.length * 100).toFixed(1),
       elems: tot['result'] === 'passed' ? -1 : tot['n_times'],
       quartiles: quartiles,
       elemGroup: this.elemGroups[tot['elem']]
@@ -286,7 +309,7 @@ export class ErrorDistributionDialogComponent implements OnInit {
 }
 
 function calculateQuartiles(d: any, test: any): Array<any> {
-  let data = d.website.getPassedWarningOccurrencesByPage(test);
+  let data = d.website.getErrorOccurrencesByPage(test);
 
   const values = without(data, undefined).sort((a, b) => a - b);
 
@@ -359,8 +382,11 @@ export interface ErrorData {
   elem: string;
   element: string;
   description: string;
+  scs: string;
+  fps: string;
   websites: number;
   pages: number;
+  pagesPercentage: string;
   elems: number;
   quartiles: any;
   elemGroup: string;

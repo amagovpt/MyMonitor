@@ -2,7 +2,8 @@ import {Component, OnInit, Inject, ViewChild} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {Chart} from 'chart.js';
-import tests from '../../tests'
+import tests from '../../tests';
+import users from '../../users';
 import {MatTableDataSource} from "@angular/material/table";
 import {MatSort} from "@angular/material/sort";
 import * as forEach from 'lodash.foreach';
@@ -76,7 +77,10 @@ export class CorrectionDistributionDialogComponent implements OnInit {
       { def: 'level', hide: false},
       { def: 'element', hide: false},
       { def: 'description', hide: false},
+      { def: 'scs', hide: false},
+      { def: 'fps', hide: false},
       { def: 'pages', hide: false},
+      { def: 'pagesPercentage', hide: false},
       { def: 'elems', hide: false},
       { def: 'quartiles', hide: false},
     ];
@@ -251,13 +255,32 @@ export class CorrectionDistributionDialogComponent implements OnInit {
       elemName = res['TEST_ELEMENTS.' + tot['elem']];
     });
 
+    const scs = tests[key]['scs'].split(',').map(scs => scs.trim()) || [tests[key]['scs'].trim()];
+    const fps = new Array<string>();
+
+    for (const sc of scs || []) {
+      for (const clause in users || {}) {
+        if (users[clause]['WCAG 2.1'] === sc) {
+          const types = users[clause]['Benefits'];
+          for (const type of types.split(' ') || []) {
+            if (!fps.includes(type)) {
+              fps.push(type);
+            }
+          }
+        }
+      }
+    }
+
     return {
       level: (tests[key]['level']).toUpperCase(),
       elem: tot['elem'],
       element: elemName,
       description: descr,
+      scs: tests[key]['scs'],
+      fps: fps.join(', '),
       websites: tot['n_websites'],
       pages: tot['n_pages'],
+      pagesPercentage: (tot['n_pages'] / this.nPages * 100).toFixed(1),
       elems: tot['result'] === 'passed' ? -1 : tot['n_times'],
       quartiles: tot['result'] === 'passed' ? '-' : quartiles,
       elemGroup: this.elemGroups[tot['elem']]
@@ -345,8 +368,11 @@ export interface CorrectionData {
   elem: string;
   element: string;
   description: string;
+  scs: string;
+  fps: string;
   websites: number;
   pages: number;
+  pagesPercentage: string;
   elems: number;
   quartiles: any;
   elemGroup: string;

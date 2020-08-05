@@ -37,7 +37,7 @@ export class WebsiteStatisticsComponent implements OnInit {
     if (window.innerWidth < 960) {
       this.dialogWidth = '100vw';
     } else {
-      this.dialogWidth = '60vw';
+      this.dialogWidth = '80vw';
     }
   }
 
@@ -46,7 +46,7 @@ export class WebsiteStatisticsComponent implements OnInit {
     if (event.target.innerWidth < 960) {
       this.dialogWidth = '100vw';
     } else {
-      this.dialogWidth = '60vw';
+      this.dialogWidth = '80vw';
     }
   }
 

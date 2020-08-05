@@ -174,10 +174,16 @@ export class WebsiteAddPagesComponent implements OnInit {
     reader.readAsText(file);
     reader.onload = () => {
       const parser = new DOMParser();
-      const json = {}; // this.xml2Json.xmlToJson(xml);
-      const urlJson = json['urlset']['url'];
+      const doc = parser.parseFromString(reader.result.toString(), 'text/xml');
+      
+      const urls = doc.getElementsByTagName('loc');
 
-      this.urisFromFile = clone(urlJson.map(u => u.loc));
+      this.urisFromFile = new Array<string>();
+      for (let i = 0 ; i < urls.length ; i++) {
+        const url = urls.item(i);
+        this.urisFromFile.push(url.textContent.trim());
+      }
+
       this.validateFileUris(this.domain, this.urisFromFile);
     };
     return result;
