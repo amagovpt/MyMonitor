@@ -6,6 +6,11 @@ mat-card {
   text-align: center;
 }
 
+.summary {
+  width: 100%;
+}
+
+
 .metadata th, .metadata td {
   padding: 0.5em;
 }

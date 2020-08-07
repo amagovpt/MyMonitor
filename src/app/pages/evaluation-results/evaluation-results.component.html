@@ -46,15 +46,13 @@
         <h2>{{ "RESULTS.summary.subtitle" | translate }}</h2>
       </mat-card-subtitle>
     </mat-card-header>
-    <mat-card-content fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="space-around center">
-      <div>
+    <mat-card-content fxLayout="column" fxLayoutAlign="space-around center">
+      <div class="summary" fxLayout="row" fxLayout.lt-sm="column" fxLayoutAlign="space-around center">
         <ngx-gauge [type]="'semi'" [thick]="'10'" [value]="eval.metadata.score" [label]="'RESULTS.summary.score' | translate"
           [min]="0" [max]="10" [duration]="2000" [thresholds]="thresholdConfig">
         </ngx-gauge>
-      </div>
-      <div>
         <table class="metadata" border="1" frame="void" rules="rows">
-          <tr>
+          <tr *ngIf="eval.metadata.url">
             <th scope="row">
               <strong>URI</strong>
             </th>
@@ -78,14 +76,9 @@
             </th>
             <td [innerHTML]="eval.metadata.size | html"></td>
           </tr>
-          <tr>
-            <th scope="row">
-              <strong>{{ "RESULTS.summary.metadata.last_update_label" | translate }}</strong>
-            </th>
-            <td>{{ eval.metadata.last_update | date }}</td>
-          </tr>
         </table>
       </div>
+      <span *ngIf="!eval.metadata.validator"><strong>{{ "RESULTS.summary.metadata.validator" | translate }}</strong></span>
     </mat-card-content>
   </mat-card>
   <br>

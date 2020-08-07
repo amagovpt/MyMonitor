@@ -763,6 +763,7 @@ export class EvaluationService {
     data['metadata']['size'] = this.convertBytes(tot['info']['size']);
     data['metadata']['last_update'] = tot['info']['date'];
     data['metadata']['count_results'] = tot['results'].length;
+    data['metadata']['validator'] = tot.elems['w3cValidator'] === 'true';
 
     data['results'] = [];
 
@@ -805,10 +806,9 @@ export class EvaluationService {
           const level = lev.toUpperCase();
 
           infoak[level][color]++;
-
-          let tnum;
           
-          if (tot.elems[tes]) {
+          let tnum;
+          if (tot.elems[tes] !== undefined) {
             if (tes === 'titleOk') {
               tnum = tot.info.title;
             } else if (tes === 'lang') {
@@ -820,6 +820,10 @@ export class EvaluationService {
             } else {
               tnum = tot['elems'][tes];
             }
+          } else if (tes === 'imgAltNo') {
+            tnum = tot.elems['img'];
+          } else if (tes === 'inputLabelNo') {
+            tnum = tot.elems['label'];
           } else {
             tnum = tot['elems'][ele];
           }
