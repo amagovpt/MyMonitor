@@ -25,7 +25,7 @@
     "@angular/router": "^9.1.2",
     "@ngx-translate/core": "^12.1.1",
     "@ngx-translate/http-loader": "^4.0.0",
-    "chart.js": "^2.9.3",
+    "chart.js": "^2.9.4",
     "classlist.js": "^1.1.20150312",
     "file-saver": "^2.0.2",
     "lodash.clone": "^4.5.0",
