@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { BackgroundEvaluationsInformationDialogComponent } from './background-evaluations-information-dialog.component';
 
@@ -6,7 +6,7 @@ describe('BackgroundEvaluationsInformationDialogComponent', () => {
   let component: BackgroundEvaluationsInformationDialogComponent;
   let fixture: ComponentFixture<BackgroundEvaluationsInformationDialogComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ BackgroundEvaluationsInformationDialogComponent ]
     })

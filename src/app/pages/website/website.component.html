@@ -32,7 +32,7 @@
     <app-top-five-errors [data]="websiteObject.errors"></app-top-five-errors>
     <app-top-five-best-practices [data]="websiteObject.success"></app-top-five-best-practices>
     <br>
-    <app-accessibility-plot [data]="websiteObject.getAllScores()"></app-accessibility-plot>
+    <app-accessibility-plot *ngIf="pages.length > 0" [data]="websiteObject.getAllScores()"></app-accessibility-plot>
     <br>
     <app-list-of-pages *ngIf="pages.length > 0" [pages]="pages" (removePages)="removePages($event)" (reEvaluatePages)="reEvaluatePages($event)"></app-list-of-pages>
     <div *ngIf="pages.length === 0" fxLayout="row" fxLayoutAlign="center center">

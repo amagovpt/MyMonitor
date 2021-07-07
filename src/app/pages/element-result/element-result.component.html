@@ -17,7 +17,7 @@
   <br>
   <mat-tab-group (selectedTabChange)="tabChanged($event)">
     <mat-tab *ngIf="data.elements" label="{{ 'ELEMENT_RESULTS.elements_tab' | translate }}" fxLayout="column"
-      fxLayoutAlign="start streth">
+      fxLayoutAlign="start stretch">
       <br>
       <span class="total_results">
         {{ "ELEMENT_RESULTS.total_elements" | translate }} {{ data.size }}
@@ -61,7 +61,7 @@
     <mat-tab *ngIf="data.page" label="{{ 'ELEMENT_RESULTS.page_tab' | translate }}">
       <iframe id="iframe" #iframe></iframe>
     </mat-tab>
-    <mat-tab label="{{ 'ELEMENT_RESULTS.inline_css_tab' | translate }}" fxLayout="column" fxLayoutAlign="start streth"
+    <mat-tab label="{{ 'ELEMENT_RESULTS.inline_css_tab' | translate }}" fxLayout="column" fxLayoutAlign="start stretch"
       *ngIf="data.inline_css">
       <pre [innerHTML]="data.inline_css | html"></pre>
     </mat-tab>
