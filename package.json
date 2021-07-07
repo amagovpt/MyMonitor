@@ -4,7 +4,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build:prod": "ng build --configuration production --build-optimizer --base-href=\"/mm/\"",
+    "build:dev": "ng build --configuration production --build-optimizer --base-href=\"/mm/\"",
+    "build:prod": "ng build --configuration production --build-optimizer",
     "build:stats": "ng build --configuration production --build-optimizer --stats-json",
     "test": "ng test",
     "lint": "ng lint",
