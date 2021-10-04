@@ -188,7 +188,7 @@
         "cancel": "Cancel",
         "submit": "Import",
         "total": "Total:",
-        "selected": "Selected:" 
+        "selected": "Selected:"
       }
     },
     "sitemap": {
@@ -734,6 +734,14 @@
     "frame_02": {
       "s": "I observed that the webpage is based on a frame structure but it uses an <mark>incorrect <acronym title=\"Document Type Declaration\"> DTD </ acronym> declaration</mark>.",
       "p": "I observed that the webpage is based on a frame structure but is uses an <mark>incorrect <acronym title=\"Document Type Declaration\"> DTD </ acronym> declaration</mark>."
+    },
+    "heading_01": {
+      "s": "I observed that <mark>all</mark> the headings in this page have an accessible name.",
+      "p": "I observed that <mark>all</mark> the headings in this page have an accessible name."
+    },
+    "heading_02": {
+      "s": "I have identified <mark>{{value}}</mark> heading without an accessible name.",
+      "p": "I have identified <mark>{{value}}</mark> headings without an accessible name."
     },
     "hx_01a": {
       "s": "I noticed that this page <mark>has no</mark> headers.",

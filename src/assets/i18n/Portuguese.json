@@ -188,7 +188,7 @@
         "cancel": "Cancelar",
         "submit": "Importar",
         "total": "Total:",
-        "selected": "Selecionadas:" 
+        "selected": "Selecionadas:"
       }
     },
     "sitemap": {
@@ -735,6 +735,14 @@
     "frame_02": {
       "s": "Constatei que a página está assente numa estrutura de molduras (frames) mas utiliza uma declaração de <acronym title=\"Declaração do Tipo de Documento\">DTD</acronym> <mark>incorreta</mark>.",
       "p": "Constatei que a página está assente numa estrutura de molduras (frames) mas utiliza uma declaração de <acronym title=\"Declaração do Tipo de Documento\">DTD</acronym> <mark>incorreta</mark>."
+    },
+    "heading_01": {
+      "s": "Constatei que todos os cabeçalhos desta página <mark>têm</mark> nome acessível",
+      "p": "Constatei que todos os cabeçalhos desta página <mark>têm</mark> nome acessível"
+    },
+    "heading_02": {
+      "s": "Identifiquei <mark>{{value}}</mark> cabeçalho sem nome acessível.",
+      "p": "Identifiquei <mark>{{value}}</mark> cabeçalhos sem nome acessível."
     },
     "hx_01a": {
       "s": "Constatei que esta página <mark>não tem</mark> cabeçalhos",

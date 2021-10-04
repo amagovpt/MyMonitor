@@ -1,5 +1,5 @@
-import { Page } from './page';
-import tests from '../tests';
+import { Page } from "./page";
+import tests from "../tests";
 
 export class Website {
   pages: Array<Page>;
@@ -26,7 +26,15 @@ export class Website {
     this.tot = {};
   }
 
-  addPage(score: string, errors: any, tot: any, A: number, AA: number, AAA: number, evaluationDate: Date): void {
+  addPage(
+    score: string,
+    errors: any,
+    tot: any,
+    A: number,
+    AA: number,
+    AAA: number,
+    evaluationDate: Date
+  ): void {
     const page = new Page();
     page.addEvaluation(score, errors, tot, A, AA, AAA, evaluationDate);
     this.pages.push(page);
@@ -46,71 +54,98 @@ export class Website {
     }
 
     const floor = Math.floor(parseFloat(score));
-    this.frequencies[ floor >= 2 ? floor === 10 ? floor - 2 : floor - 1 : 0 ]++;
+    this.frequencies[floor >= 2 ? (floor === 10 ? floor - 2 : floor - 1) : 0]++;
 
     const perrors = page.evaluation.errors;
 
     for (const key in page.evaluation.tot.results || {}) {
-
       let tnum;
-      let test = tests[key]['test'];
-      let elem = tests[key]['elem'];
-      if (key === 'layout_01a' || key === 'layout_02a' || key === 'a_01a' || key === 'a_01b' || key.includes('title_')) {
+      let test = tests[key]["test"];
+      let elem = tests[key]["elem"];
+      if (
+        key === "layout_01a" ||
+        key === "layout_02a" ||
+        key === "a_01a" ||
+        key === "a_01b" ||
+        key.includes("title_")
+      ) {
         tnum = 1;
       } else {
         if (page.evaluation.tot.elems[test]) {
-          if (test === 'langNo' || test === 'langCodeNo' || test === 'langExtra' || test === 'titleNo' || test === 'titleOk' || test === 'lang' || test === 'aSkipFirst') {
+          if (
+            test === "langNo" ||
+            test === "langCodeNo" ||
+            test === "langExtra" ||
+            test === "titleNo" ||
+            test === "titleOk" ||
+            test === "lang" ||
+            test === "aSkipFirst"
+          ) {
             tnum = 1;
           } else {
-            tnum = page.evaluation.tot['elems'][test];
+            tnum = page.evaluation.tot["elems"][test];
           }
         } else {
-          tnum = page.evaluation.tot['elems'][elem];
+          tnum = page.evaluation.tot["elems"][elem];
         }
       }
 
       if (Object.keys(this.tot).includes(key)) {
-        this.tot[key]['n_times'] += tnum;
-        this.tot[key]['n_pages']++;
+        this.tot[key]["n_times"] += tnum;
+        this.tot[key]["n_pages"]++;
       } else {
         this.tot[key] = {
           n_pages: 1,
           n_times: tnum,
-          elem: tests[key]['elem'],
-          test: tests[key]['test'],
-          result: tests[key]['result']
+          elem: tests[key]["elem"],
+          test: tests[key]["test"],
+          result: tests[key]["result"],
         };
       }
 
-      const k = tests[key]['test'];
+      const k = tests[key]["test"];
 
-      if (tests[key]['result'] === 'failed') {
-        if (k === 'a' || k === 'hx') {
+      if (tests[key]["result"] === "failed") {
+        if (k === "a" || k === "hx") {
           return;
         }
 
         if (perrors[k]) {
           let n = 0;
-          if (k === 'langNo' || k === 'langCodeNo' || k === 'langExtra' || k === 'titleNo') {
+          if (
+            k === "langNo" ||
+            k === "langCodeNo" ||
+            k === "langExtra" ||
+            k === "titleNo"
+          ) {
             n = 1;
           } else {
             n = parseInt(perrors[k], 0);
           }
           if (Object.keys(this.errors).includes(key)) {
-            this.errors[key]['n_elems'] += n;
-            this.errors[key]['n_pages']++;
+            this.errors[key]["n_elems"] += n;
+            this.errors[key]["n_pages"]++;
           } else {
-            this.errors[key] = {n_elems: n, elem: tests[key]['elem'], n_pages: 1};
+            this.errors[key] = {
+              n_elems: n,
+              elem: tests[key]["elem"],
+              n_pages: 1,
+            };
           }
         }
-      } else if (tests[key]['result'] === 'passed') {
-        if (k === 'a' || k === 'hx') {
+      } else if (tests[key]["result"] === "passed") {
+        if (k === "a" || k === "hx") {
           return;
         }
         if (Object.keys(this.success).includes(key)) {
-          this.success[key]['n_pages']++;
+          this.success[key]["n_pages"]++;
         } else {
-          this.success[key] = {key: key, test: k, elem: tests[key]['elem'], n_pages: 1};
+          this.success[key] = {
+            key: key,
+            test: k,
+            elem: tests[key]["elem"],
+            n_pages: 1,
+          };
         }
       }
     }
@@ -155,30 +190,32 @@ export class Website {
 
   getErrorOccurrencesByPage(test: string): Array<number> {
     const occurrences = new Array<number>();
-    
+
     for (const p of this.pages) {
-      const error = p.evaluation.tot['elems'][tests[test]['test']];
-      if (error && tests[test]['result'] === 'failed') {
-        if (error === 'langNo' || error === 'titleNo') {
+      const error = p.evaluation.tot["elems"][tests[test]["test"]];
+      if (error && tests[test]["result"] === "failed") {
+        if (error === "langNo" || error === "titleNo") {
           occurrences.push(1);
         } else {
           occurrences.push(error);
         }
       }
-
     }
     return occurrences;
   }
 
   getPassedWarningOccurrencesByPage(test: string): Array<number> {
     const occurrences = new Array<number>();
-    
+
     for (const p of this.pages) {
-      const error = p.evaluation.tot['elems'][tests[test]['test']];
-      if (error && (tests[test]['result'] === 'passed' || tests[test]['result'] === 'warning')) {
+      const error = p.evaluation.tot["elems"][tests[test]["test"]];
+      if (
+        error &&
+        (tests[test]["result"] === "passed" ||
+          tests[test]["result"] === "warning")
+      ) {
         occurrences.push(error);
       }
-
     }
     return occurrences;
   }
