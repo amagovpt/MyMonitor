@@ -14,7 +14,7 @@
         <form name="add_pages" (submit)="addPages($event)" [formGroup]="pagesForm" fxLayout="column" novalidate>
           <mat-form-field>
             <label for="add_pages_domain">{{ "ADD_PAGES.domain_label" | translate }}</label>
-            <input id="add_pages_domain" matInput type="text" name="domain" formControlName="domain">
+            <input id="add_pages_domain" matInput type="text" name="domain" formControlName="startingUrl">
           </mat-form-field>
           <mat-form-field>
             <label for="add_website_pages">{{ "ADD_PAGES.pages_label" | translate }}</label>

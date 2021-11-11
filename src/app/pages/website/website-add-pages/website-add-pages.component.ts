@@ -1,28 +1,51 @@
-import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, FormBuilder, Validators, FormGroupDirective, NgForm } from '@angular/forms';
-import { ErrorStateMatcher } from '@angular/material/core';
-import { MatDialog } from '@angular/material/dialog';
-import clone from 'lodash.clone';
+import {
+  Component,
+  OnInit,
+  Input,
+  Output,
+  EventEmitter,
+  ChangeDetectorRef,
+} from "@angular/core";
+import {
+  AbstractControl,
+  FormControl,
+  FormGroup,
+  FormBuilder,
+  Validators,
+  FormGroupDirective,
+  NgForm,
+} from "@angular/forms";
+import { ErrorStateMatcher } from "@angular/material/core";
+import { MatDialog } from "@angular/material/dialog";
+import clone from "lodash.clone";
 
-import { MonitorService } from '../../../services/monitor.service';
-import { MessageService } from '../../../services/message.service';
+import { MonitorService } from "../../../services/monitor.service";
+import { MessageService } from "../../../services/message.service";
 
-import { CrawlerResultsDialogComponent } from '../../../dialogs/crawler-results-dialog/crawler-results-dialog.component';
+import { CrawlerResultsDialogComponent } from "../../../dialogs/crawler-results-dialog/crawler-results-dialog.component";
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
-  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+  isErrorState(
+    control: FormControl | null,
+    form: FormGroupDirective | NgForm | null
+  ): boolean {
     const isSubmitted = form && form.submitted;
-    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+    return !!(
+      control &&
+      control.invalid &&
+      (control.dirty || control.touched || isSubmitted)
+    );
   }
 }
 
 class DomainUrlValidation {
-
   static UrlMatchDomain(AC: AbstractControl) {
-    const domain = AC.get('domain').value;
+    const startingUrl = AC.get("startingUrl").value;
 
-    const urls = AC.get('pages').value.split('\n').filter(a => a !== '');
+    const urls = AC.get("pages")
+      .value.split("\n")
+      .filter((a) => a !== "");
 
     let invalid = false;
     const size = urls.length;
@@ -31,16 +54,16 @@ class DomainUrlValidation {
       return null;
     }
 
-    for (let i = 0 ; i < size ; i++) {
+    for (let i = 0; i < size; i++) {
       const url = urls[i].trim();
 
-      if (!url.startsWith(domain)) {
+      if (!url.startsWith(startingUrl)) {
         invalid = true;
       }
     }
 
     if (invalid) {
-      AC.get('pages').setErrors({ 'domainNoMatch': true });
+      AC.get("pages").setErrors({ domainNoMatch: true });
     } else {
       return null;
     }
@@ -48,19 +71,18 @@ class DomainUrlValidation {
 }
 
 @Component({
-  selector: 'app-website-add-pages',
-  templateUrl: './website-add-pages.component.html',
-  styleUrls: ['./website-add-pages.component.css']
+  selector: "app-website-add-pages",
+  templateUrl: "./website-add-pages.component.html",
+  styleUrls: ["./website-add-pages.component.css"],
 })
 export class WebsiteAddPagesComponent implements OnInit {
-
-  @Input('website') website: string;
-  @Output('addPages') addWebsitePages = new EventEmitter<any>();
+  @Input("website") website: string;
+  @Output("addPages") addWebsitePages = new EventEmitter<any>();
 
   matcher: ErrorStateMatcher;
 
   pagesForm: FormGroup;
-  domain: string;
+  startingUrl: string;
 
   urisFromFile: string[];
   urisFromFileString: string;
@@ -79,40 +101,47 @@ export class WebsiteAddPagesComponent implements OnInit {
     private dialog: MatDialog,
     private cd: ChangeDetectorRef
   ) {
-    this.pagesForm = this.fb.group({
-      domain: new FormControl({value: '', disabled: true}),
-      pages: new FormControl('', [Validators.required, urlValidator, missingProtocol])
-    }, { validator: DomainUrlValidation.UrlMatchDomain });
+    this.pagesForm = this.fb.group(
+      {
+        startingUrl: new FormControl({ value: "", disabled: true }),
+        pages: new FormControl("", [
+          Validators.required,
+          urlValidator,
+          missingProtocol,
+        ]),
+      },
+      { validator: DomainUrlValidation.UrlMatchDomain }
+    );
     this.matcher = new MyErrorStateMatcher();
-    this.crawlStatus = 'not_running';
+    this.crawlStatus = "not_running";
     this.crawlButtonDisable = false;
     this.crawlResultsDisabled = true;
-    this.fileErrorMessage = '';
+    this.fileErrorMessage = "";
     this.urisFromFile = [];
     this.isInObservatory = false;
   }
 
   ngOnInit(): void {
-    this.monitor.getWebsiteDomain(this.website)
-      .subscribe(domain => {
-        if (domain) {
-          this.domain = domain;
-          this.pagesForm.controls.domain.setValue(domain);
+    this.monitor
+      .getWebsiteStartingUrl(this.website)
+      .subscribe((startingUrl) => {
+        if (startingUrl) {
+          this.startingUrl = startingUrl;
+          this.pagesForm.controls.startingUrl.setValue(startingUrl);
 
-          this.monitor.checkCrawler(this.domain)
-            .subscribe(result => {
-              if (result !== null) {
-                if (result) {
-                  this.crawlStatus = 'complete';
-                  this.crawlButtonDisable = true;
-                  this.crawlResultsDisabled = false;
-                } else {
-                  this.crawlStatus = 'progress';
-                  this.crawlButtonDisable = true;
-                  this.crawlResultsDisabled = true;
-                }
+          this.monitor.checkCrawler(this.startingUrl).subscribe((result) => {
+            if (result !== null) {
+              if (result) {
+                this.crawlStatus = "complete";
+                this.crawlButtonDisable = true;
+                this.crawlResultsDisabled = false;
+              } else {
+                this.crawlStatus = "progress";
+                this.crawlButtonDisable = true;
+                this.crawlResultsDisabled = true;
               }
-            });
+            }
+          });
         }
       });
     this.checkIfWebsiteIsInObservatory();
@@ -121,32 +150,36 @@ export class WebsiteAddPagesComponent implements OnInit {
   addPages(e): void {
     e.preventDefault();
 
-    const pages = this.pagesForm.value.pages.split('\n').filter(a => a !== '').filter((value, index, self) => self.indexOf(value) === index).map(p => {
-      return p.trim();
-    });
+    const pages = this.pagesForm.value.pages
+      .split("\n")
+      .filter((a) => a !== "")
+      .filter((value, index, self) => self.indexOf(value) === index)
+      .map((p) => {
+        return p.trim();
+      });
 
-    this.addWebsitePages.next({ domain: this.domain, urls: pages});
+    this.addWebsitePages.next({ startingUrl: this.startingUrl, urls: pages });
   }
 
   handleFileInput(files: FileList) {
     const fileToRead = files.item(0);
     this.urisFromFile = [];
     if (fileToRead === null) {
-      this.fileErrorMessage = '';
+      this.fileErrorMessage = "";
       this.urisFromFile = [];
       return;
     }
 
     switch (fileToRead.type) {
-      case ('text/plain'):
+      case "text/plain":
         this.parseTXT(fileToRead);
         break;
-      case ('text/xml'):
+      case "text/xml":
         this.parseXML(fileToRead);
         break;
       default:
         this.urisFromFile = [];
-        this.fileErrorMessage = 'invalidType';
+        this.fileErrorMessage = "invalidType";
         break;
     }
   }
@@ -159,10 +192,13 @@ export class WebsiteAddPagesComponent implements OnInit {
     // divide the url in the result array
     reader.onload = () => {
       const urlFile = reader.result.toString();
-      const lines = urlFile.split('\n').map(l => l.trim()).filter(u => u !== '');
+      const lines = urlFile
+        .split("\n")
+        .map((l) => l.trim())
+        .filter((u) => u !== "");
 
       this.urisFromFile = clone(lines);
-      this.validateFileUris(this.domain, this.urisFromFile);
+      this.validateFileUris(this.startingUrl, this.urisFromFile);
       this.cd.detectChanges();
     };
     return result;
@@ -174,89 +210,94 @@ export class WebsiteAddPagesComponent implements OnInit {
     reader.readAsText(file);
     reader.onload = () => {
       const parser = new DOMParser();
-      const doc = parser.parseFromString(reader.result.toString(), 'text/xml');
-      
-      const urls = doc.getElementsByTagName('loc');
+      const doc = parser.parseFromString(reader.result.toString(), "text/xml");
+
+      const urls = doc.getElementsByTagName("loc");
 
       this.urisFromFile = new Array<string>();
-      for (let i = 0 ; i < urls.length ; i++) {
+      for (let i = 0; i < urls.length; i++) {
         const url = urls.item(i);
         this.urisFromFile.push(url.textContent.trim());
       }
 
-      this.validateFileUris(this.domain, this.urisFromFile);
+      this.validateFileUris(this.startingUrl, this.urisFromFile);
     };
     return result;
   }
 
-  validateFileUris(domain: string, uris: string[]): void {
-    if (domain === '') {
-      this.fileErrorMessage = 'invalidDomain';
+  validateFileUris(startingUrl: string, uris: string[]): void {
+    if (startingUrl === "") {
+      this.fileErrorMessage = "invalidDomain";
       return;
     }
     if (uris !== undefined || uris !== []) {
       for (let url of uris) {
-        if (!url.startsWith(domain)) {
-          this.fileErrorMessage = 'invalidDomain';
+        if (!url.startsWith(startingUrl)) {
+          this.fileErrorMessage = "invalidDomain";
           return;
         } else {
-          this.fileErrorMessage = '';
+          this.fileErrorMessage = "";
         }
       }
     }
   }
 
   addFilePages(): void {
-    this.addWebsitePages.next({ domain: this.domain, urls: this.urisFromFile});
+    this.addWebsitePages.next({
+      startingUrl: this.startingUrl,
+      urls: this.urisFromFile,
+    });
   }
 
   crawlWebsite(): void {
-    this.monitor.crawlWebsite(this.domain)
-      .subscribe(result => {
-        if (result) {
-          this.crawlStatus = 'progress';
-          this.crawlButtonDisable = true;
-        } else {
-          alert('Error');
-        }
+    this.monitor.crawlWebsite(this.startingUrl).subscribe((result) => {
+      if (result) {
+        this.crawlStatus = "progress";
+        this.crawlButtonDisable = true;
+      } else {
+        alert("Error");
+      }
 
-        this.cd.detectChanges();
-      });
+      this.cd.detectChanges();
+    });
   }
 
   openCrawlingResultsDialog(): void {
     const dialog = this.dialog.open(CrawlerResultsDialogComponent, {
-      width: '60vw',
+      width: "60vw",
       data: {
-        domain: this.domain
-      }
+        startingUrl: this.startingUrl,
+      },
     });
 
-    dialog.afterClosed().subscribe(data => {
+    dialog.afterClosed().subscribe((data) => {
       if (data) {
-        this.addWebsitePages.next({ domain: this.domain, urls: data});
+        this.addWebsitePages.next({
+          startingUrl: this.startingUrl,
+          urls: data,
+        });
       }
     });
   }
 
   deleteCrawlingResults(): void {
-    this.monitor.deleteCrawlingResults(this.domain)
-      .subscribe(result => {
-        if (result) {
-          this.crawlStatus = 'not_running';
-          this.crawlButtonDisable = false;
-          this.crawlResultsDisabled = true;
-        } else {
-          alert('Error');
-        }
+    this.monitor.deleteCrawlingResults(this.startingUrl).subscribe((result) => {
+      if (result) {
+        this.crawlStatus = "not_running";
+        this.crawlButtonDisable = false;
+        this.crawlResultsDisabled = true;
+      } else {
+        alert("Error");
+      }
 
-        this.cd.detectChanges();
-      });
+      this.cd.detectChanges();
+    });
   }
 
   private checkIfWebsiteIsInObservatory(): void {
-    this.monitor.checkIfWebsiteIsInObservatory(this.website)
-      .subscribe(result => {
+    this.monitor
+      .checkIfWebsiteIsInObservatory(this.website)
+      .subscribe((result) => {
         if (result) {
           this.isInObservatory = true;
         }
@@ -264,19 +305,18 @@ export class WebsiteAddPagesComponent implements OnInit {
   }
 
   transferObservatoryPages(): void {
-    this.monitor.transferObservatoryPages(this.website)
-      .subscribe(result => {
-        if (result) {
-          this.message.show('ADD_PAGES.transfer.success');
-        } else {
-          this.message.show('ADD_PAGES.transfer.error');
-        }
-      });
+    this.monitor.transferObservatoryPages(this.website).subscribe((result) => {
+      if (result) {
+        this.message.show("ADD_PAGES.transfer.success");
+      } else {
+        this.message.show("ADD_PAGES.transfer.error");
+      }
+    });
   }
 }
 
 function missingProtocol(control: FormControl) {
-  const urls = control.value.split('\n').filter(a => a !== '');
+  const urls = control.value.split("\n").filter((a) => a !== "");
 
   let invalid = false;
   const size = urls.length;
@@ -285,21 +325,21 @@ function missingProtocol(control: FormControl) {
     return null;
   }
 
-  for (let i = 0 ; i < size ; i++) {
+  for (let i = 0; i < size; i++) {
     const url = urls[i].trim();
-  
-    if (!url.startsWith('http://') && !url.startsWith('https://')) {
+
+    if (!url.startsWith("http://") && !url.startsWith("https://")) {
       invalid = true;
       break;
     }
   }
 
-  return invalid ? { 'missingProtocol': { value: true } } : null;
+  return invalid ? { missingProtocol: { value: true } } : null;
 }
 
 function urlValidator(control: FormControl) {
-  const urls = control.value.split('\n').filter(a => a !== '');
-  
+  const urls = control.value.split("\n").filter((a) => a !== "");
+
   let invalid = false;
   const size = urls.length;
 
@@ -307,14 +347,14 @@ function urlValidator(control: FormControl) {
     return null;
   }
 
-  for (let i = 0 ; i < size ; i++) {
+  for (let i = 0; i < size; i++) {
     const url = urls[i].trim();
 
-    if (!url.includes(url, '.') || url[url.length - 1] === '.') {
+    if (!url.includes(url, ".") || url[url.length - 1] === ".") {
       invalid = true;
       break;
     }
   }
 
-  return invalid ? { 'url': { value: true } } : null;
+  return invalid ? { url: { value: true } } : null;
 }
