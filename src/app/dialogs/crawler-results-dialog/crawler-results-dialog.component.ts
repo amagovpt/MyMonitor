@@ -1,21 +1,17 @@
-import { Component, OnInit, Inject, ChangeDetectorRef } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { MatTableDataSource } from '@angular/material/table';
-import { SelectionModel } from '@angular/cdk/collections';
+import { Component, OnInit, Inject, ChangeDetectorRef } from "@angular/core";
+import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
+import { MatTableDataSource } from "@angular/material/table";
+import { SelectionModel } from "@angular/cdk/collections";
 
-import { MonitorService } from '../../services/monitor.service';
+import { MonitorService } from "../../services/monitor.service";
 
 @Component({
-  selector: 'app-crawler-results-dialog',
-  templateUrl: './crawler-results-dialog.component.html',
-  styleUrls: ['./crawler-results-dialog.component.css']
+  selector: "app-crawler-results-dialog",
+  templateUrl: "./crawler-results-dialog.component.html",
+  styleUrls: ["./crawler-results-dialog.component.css"],
 })
 export class CrawlerResultsDialogComponent implements OnInit {
-
-  displayedColumns = [
-    'Uri',
-    'import'
-  ];
+  displayedColumns = ["Uri", "import"];
 
   pages: Array<any>;
   dataSource: MatTableDataSource<any>;
@@ -36,22 +32,21 @@ export class CrawlerResultsDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.monitor.getCrawlerResults(this.data.domain)
-      .subscribe(pages => {
-        if (pages) {
-          this.dataSource = new MatTableDataSource(pages);
-        } else {
-          this.error = true;
-        }
+    this.monitor.getCrawlerResults(this.data.startingUrl).subscribe((pages) => {
+      if (pages) {
+        this.dataSource = new MatTableDataSource(pages);
+      } else {
+        this.error = true;
+      }
 
-        this.loading = false;
-        this.cd.detectChanges();
-      });
+      this.loading = false;
+      this.cd.detectChanges();
+    });
   }
 
   choosePages(e: any): void {
     e.preventDefault();
-    this.dialog.close(this.selectionImport.selected.map(p => p.Uri));
+    this.dialog.close(this.selectionImport.selected.map((p) => p.Uri));
   }
 
   /** Whether the number of selected elements matches the total number of rows. */
@@ -63,9 +58,10 @@ export class CrawlerResultsDialogComponent implements OnInit {
 
   /** Selects all rows if they are not all selected; otherwise clear selection. */
   masterToggleImport() {
-    this.isAllSelectedImport() ?
-      this.dataSource.data.forEach(row => {
-        this.selectionImport.deselect(row);
-      }) : this.dataSource.data.forEach(row => this.selectionImport.select(row));
+    this.isAllSelectedImport()
+      ? this.dataSource.data.forEach((row) => {
+          this.selectionImport.deselect(row);
+        })
+      : this.dataSource.data.forEach((row) => this.selectionImport.select(row));
   }
 }

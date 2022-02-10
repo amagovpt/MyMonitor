@@ -154,7 +154,7 @@
     "tab2": "Insert sitemap",
     "tab3": "Crawl website",
     "tab4": "Transfer from Observatory",
-    "domain_label": "Current domain",
+    "domain_label": "Current starting url",
     "pages_label": "Urls",
     "hint": "Please write complete urls, with protocol and www if need",
     "required": "This field is <strong>required</strong>",
@@ -210,7 +210,7 @@
     "table": {
       "filter": "Filter",
       "name_label": "Name",
-      "domain_label": "Domain",
+      "domain_label": "Starting url",
       "pages_label": "Nº pages",
       "creation_label": "Creation date",
       "see_tooltip": "See website"
@@ -522,6 +522,8 @@
     "form_01b": "Forms without the button to submit the data",
     "frame_01": "Frames elements without or empty title attribute",
     "frame_02": "Webpage based on frame structure but with incorrect DTD declaration",
+    "heading_01": "Headings with accessible name",
+    "heading_02": "Headings without accessible name",
     "hx_01a": "No headings",
     "hx_01b": "Headings on the page",
     "hx_01c": "No main heading (h1) found",

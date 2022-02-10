@@ -82,9 +82,9 @@ export class MonitorService {
       );
   }
 
-  getWebsiteDomain(website: string): Observable<string> {
+  getWebsiteStartingUrl(website: string): Observable<string> {
     return this.http
-      .get<any>(this.config.getServer("/domain/myMonitor/website/" + website), {
+      .get<any>(this.config.getServer("/website/myMonitor/url/" + website), {
         observe: "response",
       })
       .pipe(
@@ -114,13 +114,13 @@ export class MonitorService {
 
   addWebsitePages(
     website: string,
-    domain: string,
+    startingUrl: string,
     pages: Array<string>
   ): Observable<Array<any>> {
     return this.http
       .post<any>(
         this.config.getServer("/page/myMonitor/create"),
-        { website, domain, pages: JSON.stringify(pages) },
+        { website, startingUrl, pages: JSON.stringify(pages) },
         { observe: "response" }
       )
       .pipe(
@@ -159,11 +159,11 @@ export class MonitorService {
       );
   }
 
-  checkCrawler(domain: string): Observable<boolean> {
+  checkCrawler(website: string): Observable<boolean> {
     return this.http
       .post<any>(
         this.config.getServer("/crawler/crawlUserCheck"),
-        { domain },
+        { website },
         { observe: "response" }
       )
       .pipe(
@@ -186,11 +186,11 @@ export class MonitorService {
       );
   }
 
-  crawlWebsite(domain: string): Observable<boolean> {
+  crawlWebsite(website: string): Observable<boolean> {
     return this.http
       .post<any>(
         this.config.getServer("/crawler/crawlUser"),
-        { domain },
+        { website },
         { observe: "response" }
       )
       .pipe(
@@ -214,11 +214,11 @@ export class MonitorService {
       );
   }
 
-  getCrawlerResults(domain: string): Observable<any> {
+  getCrawlerResults(website: string): Observable<any> {
     return this.http
       .post<any>(
         this.config.getServer("/crawler/crawlUserResults"),
-        { domain },
+        { website },
         { observe: "response" }
       )
       .pipe(
@@ -242,11 +242,11 @@ export class MonitorService {
       );
   }
 
-  deleteCrawlingResults(domain: string): Observable<boolean> {
+  deleteCrawlingResults(website: string): Observable<boolean> {
     return this.http
       .post<any>(
         this.config.getServer("/crawler/crawlUserDelete"),
-        { domain },
+        { website },
         { observe: "response" }
       )
       .pipe(
