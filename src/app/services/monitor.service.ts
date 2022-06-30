@@ -169,7 +169,6 @@ export class MonitorService {
       .pipe(
         map((res) => {
           const response = <Response>res.body;
-
           if (!res.body || res.status === 404) {
             throw new MmError(404, "Service not found", "SERIOUS");
           }
@@ -224,7 +223,6 @@ export class MonitorService {
       .pipe(
         map((res) => {
           const response = <Response>res.body;
-
           if (!res.body || res.status === 404) {
             throw new MmError(404, "Service not found", "SERIOUS");
           }
