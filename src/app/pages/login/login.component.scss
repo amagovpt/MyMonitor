@@ -1,8 +1,18 @@
-main, section, mat-card, form, .content {
+main,  mat-card, form, .content {
   width: 100%;
 }
 
 .small-logo {
   margin-top: 1em;
-  width: 50%;
+  width: 95%;
+}
+
+.login-width{
+  width: 30%;
+}
+section{
+  width: 87%;
+}
+.mat-typography{
+  padding: 3em 3em;
 }

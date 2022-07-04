@@ -1,6 +1,7 @@
 {
   "LOGIN": {
-    "title": "Iniciar sessão",
+    "title": "Bem-vindo ao My Monitor",
+    "subtitle": "Inicie a sua sessão:",
     "username_label": "Utilizador",
     "password_label": "Palavra-chave",
     "email_error": "Introduza um email válido. <strong>Ex.: nome@serviço.com</strong>",

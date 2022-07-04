@@ -1,6 +1,7 @@
 {
   "LOGIN": {
-    "title": "Login",
+    "title": "Bem-vindo ao My Monitor",
+    "subtitle": "Inicie a sua sessão:",
     "username_label": "Username",
     "password_label": "Password",
     "email_error": "The e-mail is not valid. <strong>E.g. name@service.com</strong>",
@@ -21,8 +22,8 @@
   "HEADER": {
     "tool": "A tool of the ecosystem from",
     "title": {
-      "part1": "Portuguese Observatory",
-      "part2": "of Web Accessibility"
+      "part1": "My Monitor",
+      "part2": ""
     },
     "text": "The Public Observatory of accessibility and usability practices on websites and mobile applications.",
     "NAV": {

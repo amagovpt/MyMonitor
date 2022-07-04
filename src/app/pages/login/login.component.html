@@ -1,9 +1,8 @@
 <main id="main" fxLayout="row" fxLayoutAlign="center center">
-  <section fxLayout="row" fxLayoutAlign="center center" fxFlex.lt-md="95" fxFlex.md="60" fxFlex.lg="50" fxFlex.gt-lg="30">
-    <div class="content" fxLayout="column" fxLayoutAlign="start center">
-      <img class="small-logo" src="assets/images/logo.png" alt="Unidade ACESSO da FCT" fxHide.lt-md>
-      <br>
-      <mat-card class="mat-typography" fxLayout="column" fxLayoutAlign="start center">
+  <section fxLayout="row" fxLayoutAlign="strech center">
+    <mat-card class="content" fxLayout="row" fxLayoutAlign="space-between center">
+      <div class="login-width">
+      <div class="mat-typography" fxLayout="column" fxLayoutAlign="start center">
         <mat-card-header>
           <mat-card-title>
             <h1>{{ "LOGIN.title" | translate }}</h1>
@@ -44,7 +43,11 @@
             </div>
           </mat-card-actions>
         </form>
-      </mat-card>
-    </div>
+      </div>
+      </div>
+      <div class="login-width" >
+      <img class="small-logo" src="assets/images/logo.png" alt="Unidade ACESSO da FCT" fxHide.lt-md>
+      </div>
+    </mat-card>
   </section>
 </main>
