@@ -5,7 +5,7 @@ import { Chart } from "chart.js";
 @Component({
   selector: "app-accessibility-plot",
   templateUrl: "./accessibility-plot.component.html",
-  styleUrls: ["./accessibility-plot.component.css"],
+  styleUrls: ["./accessibility-plot.component.scss"],
 })
 export class AccessibilityPlotComponent implements OnInit {
   @Input() data: any;

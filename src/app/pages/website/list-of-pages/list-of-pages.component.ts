@@ -21,7 +21,7 @@ import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-list-of-pages',
   templateUrl: './list-of-pages.component.html',
-  styleUrls: ['./list-of-pages.component.css']
+  styleUrls: ['./list-of-pages.component.scss']
 })
 export class ListOfPagesComponent implements OnInit {
 

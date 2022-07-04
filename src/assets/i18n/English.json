@@ -19,13 +19,46 @@
     "websites": "Websites"
   },
   "HEADER": {
-    "NAV": {
-      "location": "You are in",
-      "ecosystem": "Ecosystem",
-      "home": "My Monitor",
-      "code": "Code"
+    "tool": "A tool of the ecosystem from",
+    "title": {
+      "part1": "Portuguese Observatory",
+      "part2": "of Web Accessibility"
     },
-    "settings": "Settings"
+    "text": "The Public Observatory of accessibility and usability practices on websites and mobile applications.",
+    "NAV": {
+      "location": "Acessibilidade.gov.pt",
+      "observatory": "Observatory",
+      "numbers": "The Observatory in numbers",
+      "directories": "Directories"
+    },
+    "dark_mode": "Dark mode",
+    "light_mode": "Light mode",
+    "language_en": "Em português",
+    "DROPDOWN": {
+      "ecosystem": "Ecosystem",
+      "text": "Sites and tools to support accessibility and usability, to ensure promotion good practices and improve the experience of using digital services.",
+      "external_link": "external link",
+      "accessibility": {
+        "text": "Dissemination, sharing and promotion of best accessibility practices for web content and mobile applications.",
+        "link1": "DL n.º 83/2018 - accessibility of the web and mobile applications",
+        "link2": "Generate the Accessibility Statement",
+        "link3": "AccessMonitor Validator"
+      },
+      "usability": {
+        "text": "Resources, tools and good practices to improve the usability and experience of using digital services.",
+        "link1": "Usability Guide",
+        "link2": "Verification list",
+        "link3": "Components",
+        "link4": "Templates"
+      },
+      "badge": {
+        "text": "Seal of excellence that rewards good accessibility and usability practices on public service websites.",
+        "link1": "How to get the badge",
+        "link2": "Support kit",
+        "link3": "Candidacy",
+        "link4": "Declaration of accessibility and usability"
+      }
+    }
   },
   "STATISTICS": {
     "title": "Statistics",
@@ -348,7 +381,11 @@
     }
   },
   "FOOTER": {
-    "language": "Language",
+    "accessibility": "Accessibility",
+    "terms": "Terms and Conditions",
+    "privacy": "Privacy policy",
+    "options": "Visualization options",
+    "glossary": "Glossary",
     "link": "Administrative Modernization Agency",
     "rights": "All rights reserved."
   },

@@ -7,7 +7,7 @@ import { Chart } from 'chart.js';
 @Component({
   selector: 'app-score-distribution-dialog',
   templateUrl: './score-distribution-dialog.component.html',
-  styleUrls: ['./score-distribution-dialog.component.css']
+  styleUrls: ['./score-distribution-dialog.component.scss']
 })
 export class ScoreDistributionDialogComponent implements OnInit {
 

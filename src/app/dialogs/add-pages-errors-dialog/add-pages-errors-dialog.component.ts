@@ -4,7 +4,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 @Component({
   selector: 'app-add-pages-errors-dialog',
   templateUrl: './add-pages-errors-dialog.component.html',
-  styleUrls: ['./add-pages-errors-dialog.component.css']
+  styleUrls: ['./add-pages-errors-dialog.component.scss']
 })
 export class AddPagesErrorsDialogComponent implements OnInit {
 

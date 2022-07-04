@@ -11,7 +11,7 @@ import { BackgroundEvaluationsInformationDialogComponent } from '../../dialogs/b
 @Component({
   selector: 'app-evaluation-results',
   templateUrl: './evaluation-results.component.html',
-  styleUrls: ['./evaluation-results.component.css']
+  styleUrls: ['./evaluation-results.component.scss']
 })
 export class EvaluationResultsComponent implements OnInit, OnDestroy {
 

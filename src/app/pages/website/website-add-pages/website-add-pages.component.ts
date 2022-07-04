@@ -73,7 +73,7 @@ class DomainUrlValidation {
 @Component({
   selector: "app-website-add-pages",
   templateUrl: "./website-add-pages.component.html",
-  styleUrls: ["./website-add-pages.component.css"],
+  styleUrls: ["./website-add-pages.component.scss"],
 })
 export class WebsiteAddPagesComponent implements OnInit {
   @Input("website") website: string;

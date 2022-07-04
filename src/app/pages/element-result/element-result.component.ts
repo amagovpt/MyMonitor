@@ -16,7 +16,7 @@ import { EvaluationService } from "../../services/evaluation.service";
 @Component({
   selector: "app-element-result",
   templateUrl: "./element-result.component.html",
-  styleUrls: ["./element-result.component.css"],
+  styleUrls: ["./element-result.component.scss"],
 })
 export class ElementResultComponent
   implements OnInit, AfterViewInit, OnDestroy

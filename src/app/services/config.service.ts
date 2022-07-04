@@ -18,6 +18,6 @@ export class ConfigService {
   }
 
   getServer(service: string): string {
-    return this.server + service;
+    return "http://10.55.37.16/api2" + service;
   }
 }

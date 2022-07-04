@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-background-evaluations-information-dialog',
   templateUrl: './background-evaluations-information-dialog.component.html',
-  styleUrls: ['./background-evaluations-information-dialog.component.css']
+  styleUrls: ['./background-evaluations-information-dialog.component.scss']
 })
 export class BackgroundEvaluationsInformationDialogComponent implements OnInit {
 

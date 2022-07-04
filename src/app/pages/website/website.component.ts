@@ -15,7 +15,7 @@ import { Website } from "../../models/website";
 @Component({
   selector: "app-website",
   templateUrl: "./website.component.html",
-  styleUrls: ["./website.component.css"],
+  styleUrls: ["./website.component.scss"],
 })
 export class WebsiteComponent implements OnInit, OnDestroy {
   loading: boolean;

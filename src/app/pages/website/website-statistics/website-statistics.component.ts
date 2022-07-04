@@ -9,7 +9,7 @@ import { Website } from 'src/app/models/website';
 @Component({
   selector: 'app-website-statistics',
   templateUrl: './website-statistics.component.html',
-  styleUrls: ['./website-statistics.component.css']
+  styleUrls: ['./website-statistics.component.scss']
 })
 export class WebsiteStatisticsComponent implements OnInit {
 

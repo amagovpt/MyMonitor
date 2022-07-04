@@ -8,7 +8,7 @@ import { MonitorService } from "../../services/monitor.service";
 @Component({
   selector: "app-crawler-results-dialog",
   templateUrl: "./crawler-results-dialog.component.html",
-  styleUrls: ["./crawler-results-dialog.component.css"],
+  styleUrls: ["./crawler-results-dialog.component.scss"],
 })
 export class CrawlerResultsDialogComponent implements OnInit {
   displayedColumns = ["Uri", "import"];

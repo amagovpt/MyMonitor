@@ -17,7 +17,7 @@ import * as clone from "lodash.clone";
 @Component({
   selector: "app-error-distribution-dialog",
   templateUrl: "./error-distribution-dialog.component.html",
-  styleUrls: ["./error-distribution-dialog.component.css"],
+  styleUrls: ["./error-distribution-dialog.component.scss"],
 })
 export class ErrorDistributionDialogComponent implements OnInit {
   elemGroups: any = {

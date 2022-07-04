@@ -5,7 +5,7 @@ import _tests from "../../../tests";
 @Component({
   selector: "app-top-five-errors",
   templateUrl: "./top-five-errors.component.html",
-  styleUrls: ["./top-five-errors.component.css"],
+  styleUrls: ["./top-five-errors.component.scss"],
 })
 export class TopFiveErrorsComponent implements OnInit {
   @Input("data") data: any;
