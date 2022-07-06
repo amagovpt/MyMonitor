@@ -1,3 +1,4 @@
+@import '../../global/sccss/button.scss';
 .table-filter,
 .table-filter mat-form-field,
 .table-filter input {
@@ -43,3 +44,18 @@ a:hover {
   align-items: center;
   justify-content: center;
 }
+.table-title{
+  font-family: Lato;
+  font-size: 22px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.btn-add{
+  @extend %btn;
+  font-size: 16px;
+  padding: 0.5em 1em;
+  svg{
+        margin-left: 0.5em;
+  }}

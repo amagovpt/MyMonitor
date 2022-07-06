@@ -243,6 +243,8 @@
     "title": "My Monitor",
     "subtitle": "Websites",
     "table": {
+      "title":"Lista de sítios web",
+      "button":"Adicionar",
       "filter": "Filtro",
       "name_label": "Nome",
       "domain_label": "Url inicial",

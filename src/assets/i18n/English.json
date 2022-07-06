@@ -240,8 +240,11 @@
     }
   },
   "WEBSITES_PAGE": {
-    "title": "List of websites",
+    "title": "My Monitor",
+    "subtitle": "Websites",
     "table": {
+      "title": "List of websites",
+      "button": "Add",
       "filter": "Filter",
       "name_label": "Name",
       "domain_label": "Starting url",
