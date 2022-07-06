@@ -240,7 +240,8 @@
     }
   },
   "WEBSITES_PAGE": {
-    "title": "Lista de sítios web",
+    "title": "My Monitor",
+    "subtitle": "Websites",
     "table": {
       "filter": "Filtro",
       "name_label": "Nome",

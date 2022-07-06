@@ -1,6 +1,7 @@
 nav {
-  padding-top: 1%;
-  padding-left: 5%;
+    padding-top: 3em;
+    padding-bottom: 3em;
+
 }
 
 a {
@@ -8,4 +9,12 @@ a {
 	color: var(--top-header-icon-color);
 	font-size: 1.1em;
 
+}
+section {
+  width: 87%;
+}
+div{
+    display: flex;
+    place-content: center;
+    align-items: center;
 }

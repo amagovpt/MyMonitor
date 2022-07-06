@@ -1,3 +1,5 @@
+<div>
+<section>
 <nav fxLayout="row">
   <a href="/">{{ "HEADER.NAV.ecosystem" | translate }}</a>
 
@@ -21,3 +23,5 @@
   <mat-icon *ngIf="ele">keyboard_arrow_right</mat-icon>
   <a *ngIf="ele" [routerLink]="['/user', website, page, ele]" routerLinkActive="active" [innerHtml]="'ELEMS.' + ele | translate"></a>
 </nav>
+</section>
+</div>
