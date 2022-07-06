@@ -170,6 +170,26 @@
     font-weight: bold;
   }
 }
+.logout {
+	border: none;
+	color: var(--top-header-icon-color);
+	font-size: 1em;
+	font-weight: 600;
+	font-family: "Lato";
+	cursor: pointer;
+	text-decoration: underline;
+	background-color: transparent;
+
+
+	svg {
+	padding-left: 16px;
+	padding-right: 0;
+
+	path {
+		fill: var(--top-header-icon-color);
+	}
+	}
+}
 
 .no-gutters {
   margin-right: 0;

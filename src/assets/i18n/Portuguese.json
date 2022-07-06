@@ -22,15 +22,15 @@
   "HEADER": {
     "tool": "Uma ferramenta do ecossistema do",
     "title": {
-      "part1": "Observatório Português",
-      "part2": "da Acessibilidade Web"
+      "part1": "My Monitor",
+      "part2": ""
     },
     "text": "O Observatório público das práticas de acessibilidade e usabilidade em sítios Web e aplicações móveis.",
     "NAV": {
-      "location": "Acessibilidade.gov.pt",
-      "observatory": "Observatório",
-      "numbers": "O Observatório em números",
-      "directories": "Diretórios"
+      "location": "Você está em",
+      "ecosystem": "Ecosistema",
+      "home": "My Monitor",
+      "code": "Código"
     },
     "dark_mode": "Modo escuro",
     "light_mode": "Modo claro",

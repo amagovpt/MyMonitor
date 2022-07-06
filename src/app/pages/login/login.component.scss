@@ -1,3 +1,5 @@
+@import '../../global/sccss/button.scss';
+
 main,  mat-card, form, .content {
   width: 100%;
 }
@@ -15,4 +17,15 @@ section{
 }
 .mat-typography{
   padding: 3em 3em;
+}
+
+.btn-login{
+  @extend %btn;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  svg{
+        margin-left: 1em;
+
+  }
 }

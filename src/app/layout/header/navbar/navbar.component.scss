@@ -4,9 +4,8 @@ nav {
 }
 
 a {
-  text-decoration: none;
-}
-
-a:hover {
   text-decoration: underline;
+	color: var(--top-header-icon-color);
+	font-size: 1.1em;
+
 }
