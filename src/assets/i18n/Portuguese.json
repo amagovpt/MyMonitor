@@ -61,6 +61,42 @@
       }
     }
   },
+  "WEBSITE_TABLE": {
+    "title": "Diretórios",
+    "subtitle": "Diretório:",
+    "statistics_title": "Estatísticas",
+    "statistics_subtitle": "Metadados",
+    "table": {
+      "filter": "Filtro",
+      "title": "Sítios Web",
+      "subtitle": "Lista de sítios Web",
+      "rank": "Classificação",
+      "name": "Sítio Web",
+      "entity": "Sítio web da entidade",
+      "declaration": "Com declaração de usabilidade e acessibilidade",
+      "declaration_not_conform": "Declaração não conforme",
+      "declaration_partial_conform": "Declaração parcialmente conforme",
+      "declaration_conform": "Declaração plenamente conforme",
+      "stamp": "Com selo de usabilidade e acessibilidade",
+      "stamp_bronze": "Selo Bronze",
+      "stamp_silver": "Selo Prata",
+      "stamp_gold": "Selo Ouro",
+      "score": "Pontuação",
+      "pages": "Páginas",
+      "levels": "Páginas em conformidade*",
+      "A": "A",
+      "AA": "AA",
+      "AAA": "AAA",
+      "see_tooltip": "Ver sítio Web",
+      "note": "* conformidade com WCAG 2.1 (W3C)",
+      "paginator": {
+        "of": "de",
+        "items": "itens",
+        "see": "Ver",
+        "per_page": "itens por página"
+      }
+    }
+  },
   "STATISTICS": {
     "title": "Estatísticas",
     "subtitle": "Metadados",
@@ -243,8 +279,8 @@
     "title": "My Monitor",
     "subtitle": "Websites",
     "table": {
-      "title":"Lista de sítios web",
-      "button":"Adicionar",
+      "title": "Lista de sítios web",
+      "button": "Adicionar",
       "filter": "Filtro",
       "name_label": "Nome",
       "domain_label": "Url inicial",

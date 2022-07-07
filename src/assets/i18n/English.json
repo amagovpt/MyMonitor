@@ -61,6 +61,42 @@
       }
     }
   },
+  "WEBSITE_TABLE": {
+    "title": "Directories",
+    "subtitle": "Directory:",
+    "statistics_title": "Statistics",
+    "statistics_subtitle": "Metadata",
+    "table": {
+      "filter": "Filter",
+      "title": "Websites",
+      "subtitle": "List of websites",
+      "rank": "Rank",
+      "name": "Website",
+      "entity": "Website from the entity",
+      "declaration": "With usability and accessibility declaration",
+      "declaration_not_conform": "Non compliant declaration",
+      "declaration_partial_conform": "Partially compliant declaration",
+      "declaration_conform": "Fully compliant declaration",
+      "stamp": "With usability and accessibility badge",
+      "stamp_bronze": "Bronze badge",
+      "stamp_silver": "Silver badge",
+      "stamp_gold": "Gold badge",
+      "score": "Score",
+      "pages": "N.º of pages",
+      "levels": "Pages conforming*",
+      "A": "A",
+      "AA": "AA",
+      "AAA": "AAA",
+      "see_tooltip": "Go to website",
+      "note": "* conforming to WCAG 2.1 (W3C)",
+      "paginator": {
+        "of": "of",
+        "items": "items",
+        "see": "Show",
+        "per_page": "items per page"
+      }
+    }
+  },
   "STATISTICS": {
     "title": "Statistics",
     "subtitle": "Metadata",
