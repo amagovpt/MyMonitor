@@ -132,7 +132,7 @@
                 <td class="name">
                   <a
                     *ngIf="website.entity"
-                    [routerLink]="[website.id]"
+                    [routerLink]="[website.Name]"
                     matTooltip="{{ 'WEBSITE_TABLE.table.entity' | translate }} {{
                       website.entity
                     }}"
@@ -140,7 +140,8 @@
                     [matTooltipPosition]="'right'"
                     >{{ website.Name }}</a
                   >
-                  <a *ngIf="!website.entity" [routerLink]="[website.id]">{{
+                  <a *ngIf="!website.entity" [routerLink]="[website.Name]"
+>{{
                     website.Name
                   }}</a>
                 </td>
