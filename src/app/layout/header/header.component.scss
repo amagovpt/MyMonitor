@@ -1,12 +1,15 @@
 
 .header_wrapper_1 {
   width: 100%;
-  background-color: var(--top-header-background);
+  background-color: var(--header-background);
 }
 
 .header_wrapper {
   width: 100%;
   background-color: var(--header-background);
+  div{
+	 background-color: white;
+  }
 }
 
 .top_row {
@@ -19,7 +22,6 @@
 
   div {
     height: 35px;
-    background-color: var(--top-header-background);
     font-size: 1em;
     color: var(--home-header-text-2);
     font-weight: 400;
@@ -34,13 +36,13 @@
     }
 
     a {
-      color: var(--top-header-icon-color);
+      color: var(--header-icon-color);
       text-decoration: none;
     }
 
     .switch {
       border: none;
-      background-color: var(--top-header-background);
+      background-color: transparent;
       color: var(--top-header-icon-color);
       font-size: 1em;
       font-weight: 400;
@@ -65,6 +67,7 @@
   margin-bottom: 32px;
   padding-left: 8px;
   padding-right: 8px;
+
 }
 
 .title {
@@ -133,7 +136,7 @@
   display: none;
   position: absolute;
   z-index: 100;
-  background-color: var(--home-header-background);
+  background-color:  var(--header-background);
   width: 100%;
   top: 55px;
   min-height: calc(100vh - 55px);
