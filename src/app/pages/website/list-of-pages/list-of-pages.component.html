@@ -7,103 +7,164 @@
   <mat-card-content>
     <div class="page-table-header">
       <mat-form-field appearance="outline">
-        <label for="pages_filter">{{ "PAGES.table.filter" | translate}}</label>
-        <input id="pages_filter" matInput (keyup)="applyFilter($event.target.value)">
+        <label for="pages_filter">{{ "PAGES.table.filter" | translate }}</label>
+        <input
+          id="pages_filter"
+          matInput
+          (keyup)="applyFilter($event.target.value)"
+        />
       </mat-form-field>
     </div>
 
     <div>
-      <button mat-flat-button color="warn" (click)="deletePages()" [disabled]="selection.selected.length === 0">
+      <button
+        mat-flat-button
+        color="warn"
+        (click)="deletePages()">
         {{ "PAGES.remove_button" | translate }}
       </button>
       <span fxFlex></span>
-  
+
       <button mat-flat-button color="primary" (click)="reEvaluate()">
         {{ "PAGES.re_evaluate" | translate }}
       </button>
     </div>
-
-    <mat-table #table [dataSource]="dataSource" matSort matSortActive="Score" matSortDisableClear matSortDirection="desc">
-
-      <ng-container matColumnDef="select">
-        <mat-header-cell *matHeaderCellDef fxFlex="10">
-          <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()"
-            [indeterminate]="selection.hasValue() && !isAllSelected()">
-          </mat-checkbox>
-        </mat-header-cell>
-        <mat-cell *matCellDef="let row" fxFlex="10">
-          <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row)">
-          </mat-checkbox>
-        </mat-cell>
-      </ng-container>
-
-      <ng-container matColumnDef="Uri">
-        <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex>
-          {{ "PAGES.table.page" | translate }}
-        </mat-header-cell>
-        <mat-cell *matCellDef="let element" fxFlex>
-          <a [routerLink]="getUriRoute(element.Uri)"><strong>{{element.Uri}}</strong></a>
-        </mat-cell>
-      </ng-container>
-
-      <ng-container matColumnDef="Score">
-        <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="10" fxHide.lt-sm>
-          {{ "PAGES.table.score" | translate }}
-        </mat-header-cell>
-        <mat-cell *matCellDef="let element" fxFlex="10" fxHide.lt-sm>
-          {{element.Score | toFixed }}
-        </mat-cell>
-      </ng-container>
-
-      <ng-container matColumnDef="A">
-        <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="7" fxHide.lt-md>
-          {{ "PAGES.table.A" | translate }}
-        </mat-header-cell>
-        <mat-cell *matCellDef="let element" fxFlex="7" fxHide.lt-md>
-          {{element.A}}
-        </mat-cell>
-      </ng-container>
-
-      <ng-container matColumnDef="AA">
-        <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="7" fxHide.lt-md>
-          {{ "PAGES.table.AA" | translate }}
-        </mat-header-cell>
-        <mat-cell *matCellDef="let element" fxFlex="7" fxHide.lt-md>
-          {{element.AA}}
-        </mat-cell>
-      </ng-container>
-
-      <ng-container matColumnDef="AAA">
-        <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="7" fxHide.lt-md>
-          {{ "PAGES.table.AAA" | translate }}
-        </mat-header-cell>
-        <mat-cell *matCellDef="let element" fxFlex="7" fxHide.lt-md>
-          {{element.AAA}}
-        </mat-cell>
-      </ng-container>
-
-      <ng-container matColumnDef="Evaluation_Date">
-        <mat-header-cell *matHeaderCellDef mat-sort-header fxFlex="10" fxHide.lt-md>
-          {{ "PAGES.table.date" | translate }}
-        </mat-header-cell>
-        <mat-cell *matCellDef="let element" fxFlex="10" fxHide.lt-md>
-          {{element.Evaluation_Date | date}}
-        </mat-cell>
-      </ng-container>
-
-      <!--<ng-container matColumnDef="See">
-        <mat-header-cell *matHeaderCellDef fxFlex="10"></mat-header-cell>
-        <mat-cell *matCellDef="let element" fxFlex="10">
-          <button mat-icon-button matTooltip="{{ 'PAGES.table.see_tooltip' | translate }}" [routerLink]="getUriRoute(element.Uri)" attr.aria-label="{{ 'PAGES.table.see_tooltip' | translate }}"fxFlex>
-            <mat-icon class="md-24" aria-label="">visibility</mat-icon>
-          </button>
-        </mat-cell>
-      </ng-container>-->
-
-      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-    </mat-table>
-    <mat-paginator [pageSizeOptions]="[20, 50, 100, 250, 500]" showFirstLastButtons></mat-paginator>
-    <small><strong>{{ "PAGES.table.note" | translate }}</strong></small>
+    <section fxLayout="row" fxLayoutAlign="center center">
+      <div class="table-wrapper">
+        <h3>{{ "PAGES.table.title" | translate }}</h3>
+        <h4>
+          {{ "PAGES.table.subtitle" | translate }}
+        </h4>
+        <table
+          matSort
+          matSortActive="rank"
+          matSortDisableClear
+          (matSortChange)="sortData($event)"
+        >
+          <caption>
+            {{
+              "PAGES.table.subtitle" | translate
+            }}
+          </caption>
+          <thead>
+            <tr>
+              <th><mat-checkbox  (change)="masterToggle()"></mat-checkbox></th>
+              <th mat-sort-header="uri">
+                {{ "PAGES.table.page" | translate }}
+              </th>
+              <th mat-sort-header="score">
+                {{ "PAGES.table.score" | translate }}
+              </th>
+              <th colspan="3">
+                {{ "PAGES.table.levels" | translate }}
+              </th>
+              <th mat-sort-header="date">
+                {{ "PAGES.table.date" | translate }}
+              </th>
+            </tr>
+            <tr>
+              <th colspan="3"></th>
+              <th mat-sort-header="A">
+                {{ "PAGES.table.A" | translate }}
+              </th>
+              <th mat-sort-header="AA">
+                {{ "PAGES.table.AA" | translate }}
+              </th>
+              <th mat-sort-header="AAA">
+                {{ "PAGES.table.AAA" | translate }}
+              </th>
+              <th colspan="1"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let page of sortedData">
+              <td>
+                <mat-checkbox  (change)="onChkChange($event,page)" [checked]="selection[page.Uri]">
+                </mat-checkbox>
+              </td>
+              <td class="name">
+                <a href="{{ page.Uri }}">{{ page.Uri }}</a>
+              </td>
+              <td>{{ page.Score | toFixed }}</td>
+              <td>{{ page.A }}</td>
+              <td>{{ page.AA }}</td>
+              <td>{{ page.AAA }}</td>
+              <td>{{ page.Creation_Date | date: "dd/MM/yyyy" }}</td>
+            </tr>
+          </tbody>
+        </table>
+        <div
+          class="pagination"
+          fxLayout="row"
+          fxLayoutAlign="space-between center"
+        >
+          <div>
+            {{ indicator1 }} - {{ indicator2 }}
+            {{ "PAGES.table.paginator.of" | translate }}
+            {{ pages.length }}
+            {{ "PAGES.table.paginator.items" | translate }}
+          </div>
+          <div>
+            {{ "PAGES.table.paginator.see" | translate }}
+            &nbsp;
+            <select name="items" (change)="changeItemsPerPage($event)">
+              <option value="50" selected>50</option>
+              <option value="100">100</option>
+              <option value="250">250</option>
+              <option value="500">500</option>
+            </select>
+            &nbsp;
+            {{ "PAGES.table.paginator.per_page" | translate }}
+          </div>
+          <div fxLayout="row" fxLayoutAlign="space-around center">
+            <button
+              type="button"
+              (click)="firstPage()"
+              [disabled]="indicator1 === 1"
+            >
+              <img
+                src="assets/icons/icon_pages_last-page-arrow.svg"
+                alt="primeira página"
+                class="flip-image"
+              />
+            </button>
+            <button
+              type="button"
+              (click)="previousPage()"
+              [disabled]="indicator1 === 1"
+            >
+              <img
+                src="assets/icons/icon_pages_next.svg"
+                alt="página anterior"
+                class="flip-image"
+              />
+            </button>
+            <button
+              type="button"
+              (click)="nextPage()"
+              [disabled]="indicator2 === pages.length"
+            >
+              <img
+                src="assets/icons/icon_pages_next.svg"
+                alt="próxima página"
+              />
+            </button>
+            <button
+              type="button"
+              (click)="lastPage()"
+              [disabled]="indicator2 === pages.length"
+            >
+              <img
+                src="assets/icons/icon_pages_last-page-arrow.svg"
+                alt="última página"
+              />
+            </button>
+          </div>
+        </div>
+        <span class="note">
+          {{ "PAGES.table.note" | translate }}
+        </span>
+      </div>
+    </section>
   </mat-card-content>
 </mat-card>

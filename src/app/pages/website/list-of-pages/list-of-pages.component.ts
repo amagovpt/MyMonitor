@@ -5,18 +5,15 @@ import {
   Output,
   EventEmitter,
   ViewChild,
-  ElementRef
+  ElementRef,
+  ChangeDetectorRef
 } from '@angular/core';
 import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatSort, Sort } from '@angular/material/sort';
 import {
   Location
 } from '@angular/common';
-import {
-  SelectionModel
-} from '@angular/cdk/collections';
-import { TranslateService } from '@ngx-translate/core';
+import { MatCheckboxChange } from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-list-of-pages',
@@ -31,57 +28,168 @@ export class ListOfPagesComponent implements OnInit {
 
   @Output('reEvaluatePages') reEvaluatePages = new EventEmitter<void>();
 
-  displayedColumns = [
-    'select',
-    'Uri',
-    'Score',
-    'A',
-    'AA',
-    'AAA',
-    'Evaluation_Date',
-    //'See'
-  ];
-
-  // data source of domains
-  dataSource: any;
-  selection: any;
+  selection: any = {};//url-> selected
 
   @ViewChild('input') input: ElementRef;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  loading: boolean;
+  error: boolean;
+  sortedData: Array<any>;
+  indicator1: number;
+  indicator2: number;
+  pageSize: number;
 
   constructor(
+    private cd: ChangeDetectorRef,
     private location: Location,
-    private translate: TranslateService
+
   ) {
-    this.selection = new SelectionModel<any>(true, []);
+    this.loading = true;
+    this.error = false;
   }
 
   ngOnInit(): void {
-    this.dataSource = new MatTableDataSource(this.pages);
-    this.dataSource.sort = this.sort;
-    this.dataSource.paginator = this.paginator;
+    this.pages.map((page) => {
+      this.selection[page.Uri] = false;
+    });
+    if (this.pages !== null) {
+      this.pageSize = 50;
+      this.sortedData = this.pages.slice(0, this.pageSize);
+      this.indicator1 = 1;
+      this.indicator2 =
+        this.pages.length > this.pageSize
+          ? this.pageSize
+          : this.pages.length;
+    } else {
+      this.error = true;
+    }
 
-    const paginatorIntl = new MatPaginatorIntl();
-    paginatorIntl.itemsPerPageLabel = this.translate.instant('ITEMS_PER_PAGE_LABEL');
-    paginatorIntl.nextPageLabel = this.translate.instant('NEXT_PAGE_LABEL');
-    paginatorIntl.previousPageLabel = this.translate.instant('PREVIOUS_PAGE_LABEL');
-    paginatorIntl.firstPageLabel = this.translate.instant('FIRST_PAGE_LABEL');
-    paginatorIntl.lastPageLabel = this.translate.instant('LAST_PAGE_LABEL');
-    paginatorIntl.getRangeLabel = this.getRangeLabel.bind(this);
-
-    this.dataSource.paginator._intl = paginatorIntl;
+    this.loading = false;
+    this.cd.detectChanges();
   }
 
-  private getRangeLabel(page: number, pageSize: number, length: number): string {
-    if (length === 0 || pageSize === 0) {
-        return this.translate.instant('RANGE_PAGE_LABEL_1', { length });
+  nextPage(): void {
+    this.sortedData = this.pages.slice(
+      this.indicator2,
+      this.indicator2 + this.pageSize
+    );
+    this.indicator1 = this.indicator1 + this.pageSize;
+    this.indicator2 =
+      this.indicator2 + this.pageSize > this.pages.length
+        ? this.pages.length
+        : this.indicator2 + this.pageSize;
+  }
+
+  previousPage(): void {
+    this.sortedData = this.pages.slice(
+      this.indicator1 - this.pageSize - 1 < 0
+        ? 0
+        : this.indicator1 - this.pageSize - 1,
+      this.indicator1 - 1
+    );
+    this.indicator2 = this.indicator1 - 1;
+    this.indicator1 =
+      this.indicator1 - this.pageSize < 1 ? 1 : this.indicator1 - this.pageSize;
+  }
+
+  firstPage(): void {
+    this.sortedData = this.pages.slice(0, this.pageSize);
+    this.indicator1 = 1;
+    this.indicator2 =
+      this.pages.length > this.pageSize
+        ? this.pageSize
+        : this.pages.length;
+  }
+
+  lastPage(): void {
+    this.indicator2 = this.pages.length;
+    this.indicator1 =
+      this.indicator2 % this.pageSize === 0
+        ? this.indicator2 - this.pageSize + 1
+        : this.indicator2 - (this.indicator2 % this.pageSize) + 1;
+    this.sortedData = this.pages.slice(this.indicator1 - 1, this.indicator2);
+  }
+
+  changeItemsPerPage(e): void {
+    this.pageSize = parseInt(e.target.value);
+    if (this.indicator1 + this.pageSize > this.pages.length) {
+      this.lastPage();
+    } else {
+      this.indicator2 = this.indicator1 + this.pageSize - 1;
+      this.sortedData = this.pages.slice(
+        this.indicator1 - 1,
+        this.indicator2
+      );
     }
-    length = Math.max(length, 0);
-    const startIndex = page * pageSize;
-    // If the start index exceeds the list length, do not try and fix the end index to the end.
-    const endIndex = startIndex < length ? Math.min(startIndex + pageSize, length) : startIndex + pageSize;
-    return this.translate.instant('RANGE_PAGE_LABEL_2', { startIndex: startIndex + 1, endIndex, length });
+  }
+
+  sortData(sort: Sort): void {
+    if (sort.active === "score") {
+      if (sort.direction === "asc") {
+        this.pages = this.pages.sort((a, b) => a.Score - b.Score).slice();
+      } else {
+        this.pages = this.pages.sort((a, b) => b.Score - a.Score).slice();
+      }
+    } else if (sort.active === "uri") {
+      if (sort.direction === "asc") {
+        this.pages = this.pages
+          .sort((a, b) => {
+            if (a.Uri.toLowerCase() < b.Uri.toLowerCase()) {
+              return -1;
+            } else if (a.Uri.toLowerCase() > b.Uri.toLowerCase()) {
+              return 1;
+            }
+            return 0;
+          })
+          .slice();
+      } else {
+        this.pages = this.pages
+          .sort((a, b) => {
+            if (a.Uri.toLowerCase() < b.Uri.toLowerCase()) {
+              return 1;
+            } else if (a.Uri.toLowerCase() > b.Uri.toLowerCase()) {
+              return -1;
+            }
+            return 0;
+          })
+          .slice();
+      }
+    } else if (sort.active === "date") {
+      if (sort.direction === "asc") {
+        this.pages = this.pages.sort((a, b) => a.Creation_Date - b.Creation_Date).slice();
+      } else {
+        this.pages = this.pages.sort((a, b) => b.Creation_Date - a.Creation_Date).slice();
+      }
+    } else if (sort.active === "A") {
+      if (sort.direction === "asc") {
+        this.pages = this.pages.sort((a, b) => a.A - b.A).slice();
+      } else {
+        this.pages = this.pages.sort((a, b) => b.A - a.A).slice();
+      }
+    } else if (sort.active === "AA") {
+      if (sort.direction === "asc") {
+        this.pages = this.pages.sort((a, b) => a.AA - b.AA).slice();
+      } else {
+        this.pages = this.pages.sort((a, b) => b.AA - a.AA).slice();
+      }
+    } else if (sort.active === "AAA") {
+      if (sort.direction === "asc") {
+        this.pages = this.pages.sort((a, b) => a.AAA - b.AAA).slice();
+      } else {
+        this.pages = this.pages.sort((a, b) => b.AAA - a.AAA).slice();
+      }
+    }
+
+    if (this.indicator1 + this.pageSize > this.pages.length) {
+      this.lastPage();
+    } else {
+      this.indicator2 = this.indicator1 + this.pageSize - 1;
+      this.sortedData = this.pages.slice(
+        this.indicator1 - 1,
+        this.indicator2
+      );
+    }
   }
 
   deletePages(): void {
@@ -96,10 +204,10 @@ export class ListOfPagesComponent implements OnInit {
   applyFilter(filterValue: string): void {
     filterValue = filterValue.trim();
     filterValue = filterValue.toLowerCase();
-    this.dataSource.filter = filterValue;
+   // this.dataSource.filter = filterValue;
   }
 
-  getUriRoute(uri: string): Array < string > {
+  getUriRoute(uri: string): Array<string> {
     const path = this.location.path();
     let segments = path.split('/');
     segments[0] = '/user';
@@ -112,15 +220,25 @@ export class ListOfPagesComponent implements OnInit {
 
   /** Whether the number of selected elements matches the total number of rows. */
   isAllSelected() {
-    const numSelected = this.selection.selected.length;
-    const numRows = this.dataSource.data.length;
-    return numSelected === numRows;
+    const values = Object.values(this.selection);
+    return values.reduce((prev,curr)=>{return prev && curr},true);
   }
 
   /** Selects all rows if they are not all selected; otherwise clear selection. */
   masterToggle() {
     this.isAllSelected() ?
-      this.selection.clear() :
-      this.dataSource.filteredData.forEach(row => this.selection.select(row));
+      this.changeAll(false) :
+      this.changeAll(true);
+  }
+
+  changeAll(value: boolean) {
+    const keys = Object.keys(this.selection);
+    for (const key of keys) {
+      this.selection[key] = value
+    }
+  }
+
+  onChkChange(ob: MatCheckboxChange, page: any) {
+    this.selection[page.Uri] = ob.checked;
   }
 }

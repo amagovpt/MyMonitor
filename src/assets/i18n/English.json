@@ -327,6 +327,7 @@
       "A": "A*",
       "AA": "AA*",
       "AAA": "AAA*",
+      "levels":"",
       "date": "Date",
       "see_tooltip": "See page",
       "note": "* Number of errors for each conform level"

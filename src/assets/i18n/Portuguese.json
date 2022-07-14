@@ -322,6 +322,8 @@
       "label": "Distribuição de pontuações"
     },
     "table": {
+      "title": "Páginas do sítio web",
+      "subtitle": "Lista de páginas",
       "filter": "Filtro",
       "page": "Página",
       "score": "Pontuação",
@@ -329,6 +331,7 @@
       "AA": "AA*",
       "AAA": "AAA*",
       "date": "Data",
+      "levels": "Erros por nível de conformidade",
       "see_tooltip": "Ver páginas",
       "note": "* Número de erros por nível de conformidade"
     },

@@ -22,3 +22,16 @@ body {
 *::after {
   box-sizing: unset;
 }
+
+.mat-checkbox-checked.mat-accent .mat-checkbox-background {
+  background-color: var(--table-directory-name) !important;
+}
+
+ .mat-checkbox:not(.mat-checkbox-disabled) .mat-checkbox-ripple .mat-ripple-element {
+  background-color: var(--table-directory-name) !important;
+}
+
+.mat-checkbox-frame {
+  border-color: var(--table-directory-name); 
+}
+
