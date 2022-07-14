@@ -119,6 +119,9 @@ const light: Theme = {
     '--table-pagination-select-background': Colours._3,
     '--table-pagination-select-text': Colours._6,
     '--table-pagination-select-border': Colours._4,
+
+    '--home-content-tabs-background': Colours._14,
+    '--home-content-tabs-text': Colours._4,
   }
 };
 
@@ -208,6 +211,9 @@ const dark: Theme = {
     '--table-pagination-select-background': Colours._8,
     '--table-pagination-select-text': Colours._9,
     '--table-pagination-select-border': Colours._10,
+
+    '--home-content-tabs-background': Colours._7,
+    '--home-content-tabs-text': Colours._10,
   }
 };
 

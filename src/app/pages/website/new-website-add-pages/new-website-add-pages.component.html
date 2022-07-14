@@ -1,20 +1,12 @@
 <section
-  id="main"
-  fxLayout="column"
-  fxLayoutAlign="center center"
-  ngClass.gt-sm="padded"
-  ngClass.lt-md="unpadded"
->
+  id="main">
   <div
     class="content"
-    fxLayout="row"
-    gdColumns.gt-md="55% 45%"
-    ngClass.lt-md="noTopMargin"
   >
     <div fxLayout="column" fxLayoutAlign="start">
       <div class="tabs03">
         <div class="tabs">
-          <div role="tablist" fxLayout="row" gdColumns.gt-sm="33% 33% 33%">
+          <div role="tablist" fxLayout="row" gdColumns.gt-sm="25% 25% 25% 25%">
             <button
               type="button"
               role="tab"
@@ -23,7 +15,7 @@
               id="tab_url"
               fxHide.lt-md
             >
-              {{ "HOME_PAGE.tabs.url" | translate }}
+            {{ 'ADD_PAGES.tab1' | translate }}
             </button>
             <button
               type="button"
@@ -34,7 +26,7 @@
               tabindex="-1"
               fxHide.lt-md
             >
-              {{ "HOME_PAGE.tabs.input" | translate }}
+              {{ 'ADD_PAGES.tab2' | translate }}
             </button>
             <button
               type="button"
@@ -45,7 +37,18 @@
               tabindex="-1"
               fxHide.lt-md
             >
-              {{ "HOME_PAGE.tabs.file" | translate }}
+              {{ 'ADD_PAGES.tab3' | translate }}
+            </button>
+            <button
+              type="button"
+              role="tab"
+              aria-selected="false"
+              aria-controls="obs_tab"
+              id="tab_obs"
+              tabindex="-1"
+              fxHide.lt-md
+            >
+              {{ 'ADD_PAGES.tab4' | translate }}
             </button>
             <div class="listbox-area" fxHide.gt-sm fxFlex="100%" fxLayout="row">
               <div class="left-area">
@@ -73,13 +76,16 @@
                       aria-selected="true"
                       class="focused"
                     >
-                      {{ "HOME_PAGE.tabs.url" | translate }}
+                      {{ 'ADD_PAGES.tab1' | translate }}
                     </li>
                     <li id="exp_elem_2" role="option">
-                      {{ "HOME_PAGE.tabs.input" | translate }}
+                     {{ 'ADD_PAGES.tab2' | translate }}
                     </li>
                     <li id="exp_elem_3" role="option">
-                      {{ "HOME_PAGE.tabs.file" | translate }}
+                      {{ 'ADD_PAGES.tab3' | translate }}
+                    </li>
+                    <li id="exp_elem_4" role="option">
+                      {{ 'ADD_PAGES.tab4' | translate }}
                     </li>
                   </ul>
                 </div>
@@ -111,6 +117,15 @@
             class="is-hidden"
           >
             <p>file</p>
+          </div>
+                    <div
+            tabindex="-1"
+            role="tabpanel"
+            id="obs_tab"
+            aria-labelledby="tab_file"
+            class="is-hidden"
+          >
+            <p>obs</p>
           </div>
         </div>
       </div>
