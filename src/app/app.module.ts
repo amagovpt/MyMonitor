@@ -48,6 +48,7 @@ import { TopFiveBestPracticesComponent } from './pages/website/top-five-best-pra
 import { AccessibilityPlotComponent } from './pages/website/accessibility-plot/accessibility-plot.component';
 import { CrawlerResultsDialogComponent } from './dialogs/crawler-results-dialog/crawler-results-dialog.component';
 import { CorrectionDistributionDialogComponent } from './dialogs/correction-distribution-dialog/correction-distribution-dialog.component';
+import { NewWebsiteAddPagesComponent } from './pages/website/new-website-add-pages/new-website-add-pages.component';
 
 const appRoutes: Routes = [
   { path: '', component: LoginComponent, canActivate: [NoAuthGuard] },
@@ -99,7 +100,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     TopFiveBestPracticesComponent,
     AccessibilityPlotComponent,
     CrawlerResultsDialogComponent,
-    CorrectionDistributionDialogComponent
+    CorrectionDistributionDialogComponent,
+    NewWebsiteAddPagesComponent
   ],
   imports: [
     RouterModule.forRoot(

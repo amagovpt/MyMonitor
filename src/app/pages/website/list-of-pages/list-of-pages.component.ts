@@ -193,8 +193,16 @@ export class ListOfPagesComponent implements OnInit {
   }
 
   deletePages(): void {
-    const pagesId = this.selection.selected.map((page: any) => page.PageId);
+    const pagesId = this.getSelectedPagesId();
     this.removePages.next(pagesId);
+  }
+  getSelectedPagesId(){
+    const pagesId = [];
+    for (const page of this.pages) {
+      if (this.selection[page.Uri])
+        pagesId.push(page.PageId)
+    }
+    return pagesId;
   }
 
   reEvaluate(): void {
@@ -204,7 +212,7 @@ export class ListOfPagesComponent implements OnInit {
   applyFilter(filterValue: string): void {
     filterValue = filterValue.trim();
     filterValue = filterValue.toLowerCase();
-   // this.dataSource.filter = filterValue;
+    // this.dataSource.filter = filterValue;
   }
 
   getUriRoute(uri: string): Array<string> {
@@ -221,7 +229,7 @@ export class ListOfPagesComponent implements OnInit {
   /** Whether the number of selected elements matches the total number of rows. */
   isAllSelected() {
     const values = Object.values(this.selection);
-    return values.reduce((prev,curr)=>{return prev && curr},true);
+    return values.reduce((prev, curr) => { return prev && curr }, true);
   }
 
   /** Selects all rows if they are not all selected; otherwise clear selection. */

@@ -27,6 +27,7 @@
 
   <div *ngIf="!loading && !error">
     <app-website-add-pages [website]="website" (addPages)="addWebsitePages($event)"></app-website-add-pages>
+    <app-new-website-add-pages [website]="website" (addPages)="addWebsitePages($event)"></app-new-website-add-pages>
     <br>
     <app-website-statistics *ngIf="pages.length > 0" [data]="websiteObject" [pages]="pages"></app-website-statistics>
     <app-top-five-errors [data]="websiteObject.errors"></app-top-five-errors>

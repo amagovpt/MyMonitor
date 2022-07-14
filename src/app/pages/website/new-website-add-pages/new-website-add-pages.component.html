@@ -1,0 +1,119 @@
+<section
+  id="main"
+  fxLayout="column"
+  fxLayoutAlign="center center"
+  ngClass.gt-sm="padded"
+  ngClass.lt-md="unpadded"
+>
+  <div
+    class="content"
+    fxLayout="row"
+    gdColumns.gt-md="55% 45%"
+    ngClass.lt-md="noTopMargin"
+  >
+    <div fxLayout="column" fxLayoutAlign="start">
+      <div class="tabs03">
+        <div class="tabs">
+          <div role="tablist" fxLayout="row" gdColumns.gt-sm="33% 33% 33%">
+            <button
+              type="button"
+              role="tab"
+              aria-selected="true"
+              aria-controls="url_tab"
+              id="tab_url"
+              fxHide.lt-md
+            >
+              {{ "HOME_PAGE.tabs.url" | translate }}
+            </button>
+            <button
+              type="button"
+              role="tab"
+              aria-selected="false"
+              aria-controls="input_tab"
+              id="tab_input"
+              tabindex="-1"
+              fxHide.lt-md
+            >
+              {{ "HOME_PAGE.tabs.input" | translate }}
+            </button>
+            <button
+              type="button"
+              role="tab"
+              aria-selected="false"
+              aria-controls="file_tab"
+              id="tab_file"
+              tabindex="-1"
+              fxHide.lt-md
+            >
+              {{ "HOME_PAGE.tabs.file" | translate }}
+            </button>
+            <div class="listbox-area" fxHide.gt-sm fxFlex="100%" fxLayout="row">
+              <div class="left-area">
+                <div id="exp_wrapper">
+                  <button
+                    type="button"
+                    aria-haspopup="listbox"
+                    aria-labelledby="exp_elem exp_button"
+                    id="exp_button"
+                    fxFlexFill
+                  >
+                    {{ "HOME_PAGE.tabs.url" | translate }}
+                  </button>
+                  <ul
+                    id="exp_elem_list"
+                    tabindex="-1"
+                    role="listbox"
+                    aria-labelledby="exp_elem"
+                    class="hidden"
+                    aria-activedescendant="exp_elem_1"
+                  >
+                    <li
+                      id="exp_elem_1"
+                      role="option"
+                      aria-selected="true"
+                      class="focused"
+                    >
+                      {{ "HOME_PAGE.tabs.url" | translate }}
+                    </li>
+                    <li id="exp_elem_2" role="option">
+                      {{ "HOME_PAGE.tabs.input" | translate }}
+                    </li>
+                    <li id="exp_elem_3" role="option">
+                      {{ "HOME_PAGE.tabs.file" | translate }}
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            tabindex="-1"
+            role="tabpanel"
+            id="url_tab"
+            aria-labelledby="tab_url"
+          >
+            <p>url</p>
+          </div>
+          <div
+            tabindex="-1"
+            role="tabpanel"
+            id="input_tab"
+            aria-labelledby="tab_input"
+            class="is-hidden"
+          >
+            <p>input</p>
+          </div>
+          <div
+            tabindex="-1"
+            role="tabpanel"
+            id="file_tab"
+            aria-labelledby="tab_file"
+            class="is-hidden"
+          >
+            <p>file</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

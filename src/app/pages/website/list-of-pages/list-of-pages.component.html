@@ -16,25 +16,24 @@
       </mat-form-field>
     </div>
 
-    <div>
-      <button
-        mat-flat-button
-        color="warn"
-        (click)="deletePages()">
-        {{ "PAGES.remove_button" | translate }}
-      </button>
-      <span fxFlex></span>
-
-      <button mat-flat-button color="primary" (click)="reEvaluate()">
-        {{ "PAGES.re_evaluate" | translate }}
-      </button>
-    </div>
     <section fxLayout="row" fxLayoutAlign="center center">
       <div class="table-wrapper">
-        <h3>{{ "PAGES.table.title" | translate }}</h3>
-        <h4>
-          {{ "PAGES.table.subtitle" | translate }}
-        </h4>
+        <div class="button-wrapper">
+          <div>
+            <h3>{{ "PAGES.table.title" | translate }}</h3>
+            <h4>
+              {{ "PAGES.table.subtitle" | translate }}
+            </h4>
+          </div>
+          <div>
+            <button (click)="deletePages()" class="btn-remove">
+              {{ "PAGES.remove_button" | translate }}
+            </button>
+            <button (click)="reEvaluate()" class="btn-add">
+              {{ "PAGES.re_evaluate" | translate }}
+            </button>
+          </div>
+        </div>
         <table
           matSort
           matSortActive="rank"
@@ -48,7 +47,7 @@
           </caption>
           <thead>
             <tr>
-              <th><mat-checkbox  (change)="masterToggle()"></mat-checkbox></th>
+              <th><mat-checkbox (change)="masterToggle()"></mat-checkbox></th>
               <th mat-sort-header="uri">
                 {{ "PAGES.table.page" | translate }}
               </th>
@@ -79,7 +78,10 @@
           <tbody>
             <tr *ngFor="let page of sortedData">
               <td>
-                <mat-checkbox  (change)="onChkChange($event,page)" [checked]="selection[page.Uri]">
+                <mat-checkbox
+                  (change)="onChkChange($event, page)"
+                  [checked]="selection[page.Uri]"
+                >
                 </mat-checkbox>
               </td>
               <td class="name">

@@ -73,10 +73,34 @@ a:hover {
   align-items: center;
 }
 
+.button-wrapper{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .btn-add{
   @extend %btn;
   font-size: 16px;
   padding: 0.5em 1em;
+  background-color: green;
+  border-color: transparent;
+  svg{
+        margin-left: 0.5em;
+  }}
+
+  :host {
+  width: 87%;
+  background-color: var(--statistics-background);
+}
+
+.btn-remove{
+  @extend %btn;
+  font-size: 16px;
+  padding: 0.5em 1em;
+  margin-right: 0.6em;
+  background-color: red;
+  border-color: transparent;
   svg{
         margin-left: 0.5em;
   }}
