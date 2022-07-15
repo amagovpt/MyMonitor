@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {
   FormControl,
   FormGroupDirective,
@@ -29,6 +29,7 @@ export class UrlStateMatcher implements ErrorStateMatcher {
 })
 
 export class NewWebsiteAddPagesComponent implements OnInit {
+  @Input("website") website: string;
   url: FormControl;
   urlMatcher: any;
 

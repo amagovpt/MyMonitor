@@ -49,6 +49,10 @@ import { AccessibilityPlotComponent } from './pages/website/accessibility-plot/a
 import { CrawlerResultsDialogComponent } from './dialogs/crawler-results-dialog/crawler-results-dialog.component';
 import { CorrectionDistributionDialogComponent } from './dialogs/correction-distribution-dialog/correction-distribution-dialog.component';
 import { NewWebsiteAddPagesComponent } from './pages/website/new-website-add-pages/new-website-add-pages.component';
+import { ManuallyAddPagesComponent } from './pages/website/new-website-add-pages/manually-add-pages/manually-add-pages.component';
+import { SitemapAddComponent } from './pages/website/new-website-add-pages/sitemap-add/sitemap-add.component';
+import { CrawlWebsiteComponent } from './pages/website/new-website-add-pages/crawl-website/crawl-website.component';
+import { AddObservatoryComponent } from './pages/website/new-website-add-pages/add-observatory/add-observatory.component';
 
 const appRoutes: Routes = [
   { path: '', component: LoginComponent, canActivate: [NoAuthGuard] },
@@ -101,7 +105,11 @@ export function HttpLoaderFactory(http: HttpClient) {
     AccessibilityPlotComponent,
     CrawlerResultsDialogComponent,
     CorrectionDistributionDialogComponent,
-    NewWebsiteAddPagesComponent
+    NewWebsiteAddPagesComponent,
+    ManuallyAddPagesComponent,
+    SitemapAddComponent,
+    CrawlWebsiteComponent,
+    AddObservatoryComponent
   ],
   imports: [
     RouterModule.forRoot(

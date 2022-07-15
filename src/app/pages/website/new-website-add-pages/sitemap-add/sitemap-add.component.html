@@ -1,0 +1,24 @@
+        <div class="sitemap-container" fxLayout="row" fxLayoutAlign="start center">
+          <input type="file" accept="text/xml, text/plain" (change)="handleFileInput($event.target.files)" >
+          <span fxFlex="5"></span>
+          <button mat-flat-button color="primary" (click)="addFilePages()" [disabled]="fileErrorMessage || urisFromFile.length === 0">
+            {{ "ADD_PAGES.button" | translate }}
+          </button>
+        </div>
+        <div class="sitemap-container" fxLayout="row" fxLayoutAlign="start center">
+          <span class="sitemap-error" *ngIf="fileErrorMessage === 'invalidDomain'">
+            {{ "ADD_PAGES.sitemap.uris_invalid" | translate }}
+          </span>
+          <span class="sitemap-error" *ngIf="fileErrorMessage === 'invalidType'">
+            {{ "ADD_PAGES.sitemap.type_invalid" | translate }}
+          </span>
+        </div>
+        <div fxLayout="row">
+          <a href="/assets/sitemap/example_sitemap.txt" target="_blank">
+            {{ "ADD_PAGES.sitemap.txt_example" | translate }}
+          </a>
+          <span fxFlex="5"></span>
+          <a href="/assets/sitemap/example_sitemap.xml" target="_blank">
+            {{ "ADD_PAGES.sitemap.xml_example" | translate }}
+          </a>
+        </div>

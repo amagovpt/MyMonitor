@@ -1,8 +1,5 @@
-<section
-  id="main">
-  <div
-    class="content"
-  >
+<section id="main">
+  <div class="content">
     <div fxLayout="column" fxLayoutAlign="start">
       <div class="tabs03">
         <div class="tabs">
@@ -15,7 +12,7 @@
               id="tab_url"
               fxHide.lt-md
             >
-            {{ 'ADD_PAGES.tab1' | translate }}
+              {{ "ADD_PAGES.tab1" | translate }}
             </button>
             <button
               type="button"
@@ -26,7 +23,7 @@
               tabindex="-1"
               fxHide.lt-md
             >
-              {{ 'ADD_PAGES.tab2' | translate }}
+              {{ "ADD_PAGES.tab2" | translate }}
             </button>
             <button
               type="button"
@@ -37,7 +34,7 @@
               tabindex="-1"
               fxHide.lt-md
             >
-              {{ 'ADD_PAGES.tab3' | translate }}
+              {{ "ADD_PAGES.tab3" | translate }}
             </button>
             <button
               type="button"
@@ -48,7 +45,7 @@
               tabindex="-1"
               fxHide.lt-md
             >
-              {{ 'ADD_PAGES.tab4' | translate }}
+              {{ "ADD_PAGES.tab4" | translate }}
             </button>
             <div class="listbox-area" fxHide.gt-sm fxFlex="100%" fxLayout="row">
               <div class="left-area">
@@ -76,16 +73,16 @@
                       aria-selected="true"
                       class="focused"
                     >
-                      {{ 'ADD_PAGES.tab1' | translate }}
+                      {{ "ADD_PAGES.tab1" | translate }}
                     </li>
                     <li id="exp_elem_2" role="option">
-                     {{ 'ADD_PAGES.tab2' | translate }}
+                      {{ "ADD_PAGES.tab2" | translate }}
                     </li>
                     <li id="exp_elem_3" role="option">
-                      {{ 'ADD_PAGES.tab3' | translate }}
+                      {{ "ADD_PAGES.tab3" | translate }}
                     </li>
                     <li id="exp_elem_4" role="option">
-                      {{ 'ADD_PAGES.tab4' | translate }}
+                      {{ "ADD_PAGES.tab4" | translate }}
                     </li>
                   </ul>
                 </div>
@@ -118,14 +115,16 @@
           >
             <p>file</p>
           </div>
-                    <div
+          <div
             tabindex="-1"
             role="tabpanel"
             id="obs_tab"
             aria-labelledby="tab_file"
             class="is-hidden"
           >
-            <p>obs</p>
+            <app-add-observatory
+              [website]="website"
+            ></app-add-observatory>
           </div>
         </div>
       </div>
