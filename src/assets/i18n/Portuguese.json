@@ -234,6 +234,7 @@
     "button": "Adicionar páginas",
     "error_message": "Ocorreu um erro ao tentar adicionar as páginas",
     "success_message": "Páginas adicionadas com sucesso",
+    "file_name_label": "Escolher ficheiro",
     "error_dialog": {
       "title": "Erros",
       "message": "Ocorreram alguns erros ao tentar adicionar as seguintes páginas:"
@@ -265,8 +266,8 @@
       "warning": "Os ficheiros sitemap necessitam que a sua primeira página seja igual ao domínio do sítio web",
       "uris_invalid": "Um dos uris no ficheiro inserido é inválido",
       "type_invalid": "O ficheiro inserido não é do tipo .xml ou .txt",
-      "txt_example": "Exemplo em txt do mapa do sitio web",
-      "xml_example": "Exemplo em xml do mapa do sitio web"
+      "txt_example": "em formato txt",
+      "xml_example": "em formato xml"
     },
     "transfer": {
       "message": "Transfira do Observatório as páginas que ainda não tem",

@@ -1,0 +1,77 @@
+@import '../../../../global/sccss/button.scss';
+.file-button + div {
+  height: 50px;
+  border-left: none;
+  padding-left: 1em;
+  width: 86%;
+  font-size: 1em;
+  font-weight: 400;
+  font-family: "Lato";
+ 
+
+  input {
+    margin-top: 0 !important;
+  }
+}
+
+input[type=text]{
+   height: 50px;
+   width: 100%;
+
+}
+
+
+.file-button {
+  @extend %btn;
+   position: absolute;
+  font-size: 1em;
+  font-weight: 700;
+  font-family: "Lato";
+  align-content: center;
+}
+
+.file_error {
+  border-color: red !important;
+}
+
+
+.hidden-file-input {
+  display: none;
+}
+
+#input_file_name {
+    border: none;
+    margin-left: 7em;
+    text-align: center;
+    border: 2px solid  var(--home-tabs-button-background);
+    border-left: none;
+
+}
+
+.btn-add{
+  @extend %btn;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0.5em;
+  svg{
+        margin-left: 1em;
+  }
+}
+
+.insert_file{
+    display: flex;
+    width: 100%;
+}
+.input_field{
+    width: 100%;
+}
+
+#input_text_container{
+    width: 90%;
+    padding-left: 1em;
+
+
+
+
+}

@@ -234,6 +234,7 @@
     "button": "Add pages",
     "error_message": "There was an error while trying to add pages",
     "success_message": "Pages added successfully",
+    "file_name_label": "Choose file",
     "error_dialog": {
       "title": "Errors",
       "message": "Some errors ocurred while trying to add the following pages:"

@@ -6,6 +6,7 @@ import {
   EventEmitter,
   ChangeDetectorRef,
 } from "@angular/core";
+import { FormControl } from "@angular/forms";
 import clone from "lodash.clone";
 import { MonitorService } from "src/app/services/monitor.service";
 
@@ -24,6 +25,10 @@ export class SitemapAddComponent implements OnInit {
   urisFromFileString: string;
   fileErrorMessage: string;
   startingUrl: string;
+  
+  fileInput: FormControl;
+  file: File;
+  validFile: boolean;
 
 
   constructor(

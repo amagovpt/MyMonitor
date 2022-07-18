@@ -1,0 +1,13 @@
+@import '../../../../global/sccss/button.scss';
+
+button{
+  @extend %btn;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0.5em;
+}
+
+.transfer-container{
+    align-items: center;
+}
