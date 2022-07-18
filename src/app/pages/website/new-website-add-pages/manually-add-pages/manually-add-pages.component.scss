@@ -1,0 +1,31 @@
+@import '../../../../global/sccss/button.scss';
+textarea {
+  border: 2px solid var(--home-tabs-button-background);
+  width: 100%;
+  font-size: 1em;
+  padding-left: 1em;
+  line-height: 3em;
+  margin-top: 0 !important;
+  font-weight: 400;
+  font-family: "Red Hat Display";
+  margin-bottom: 0.5em
+}
+label{
+  font-weight: 700;
+  font-family: "Lato";
+}
+
+.information{
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5em
+}
+
+.btn-add{
+  @extend %btn;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0.5em
+
+}

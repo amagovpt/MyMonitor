@@ -1,1 +1,15 @@
-<p>crawl-website works!</p>
+       <div class="crawler-container" fxLayout="row" fxLayoutAlign="start center">
+          <span>{{ "ADD_PAGES.crawler.status" | translate }}: <span class="status {{ crawlStatus }}">{{ "ADD_PAGES.crawler." + crawlStatus | translate }}</span></span>
+          <span fxFlex="5"></span>
+          <button mat-flat-button color="primary" (click)="crawlWebsite()" [disabled]="crawlButtonDisable">
+            {{ "ADD_PAGES.crawler.crawl_button" | translate }}
+          </button>
+          <span fxFlex="5"></span>
+          <button mat-flat-button class="check-results" (click)="openCrawlingResultsDialog()" [disabled]="crawlResultsDisabled">
+            {{ "ADD_PAGES.crawler.results_button" | translate }}
+          </button>
+          <span fxFlex="5"></span>
+          <button mat-flat-button color="warn" (click)="deleteCrawlingResults()" [disabled]="crawlResultsDisabled">
+            {{ "ADD_PAGES.crawler.delete_button" | translate }}
+          </button>
+        </div>
