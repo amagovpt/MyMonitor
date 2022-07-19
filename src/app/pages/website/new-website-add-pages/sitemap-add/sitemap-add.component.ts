@@ -26,7 +26,8 @@ export class SitemapAddComponent implements OnInit {
   fileErrorMessage: string;
   startingUrl: string;
   
-  fileInput: FormControl;
+ // fileInput: FormControl;          [formControl]="fileInput"
+
   file: File;
   validFile: boolean;
 

@@ -263,11 +263,13 @@
       }
     },
     "sitemap": {
+      "warning_text": "Check sitemap examples in",
+      "and": "and",
       "warning": "Sitemaps files need to have the first page equal to website's domain",
       "uris_invalid": "One of the given uris is invalid",
       "type_invalid": "Given file's extension is not .xml or .txt",
-      "txt_example": "Sitemap txt example",
-      "xml_example": "Sitemap xml example"
+      "txt_example": "txt format",
+      "xml_example": "xml format"
     },
     "transfer": {
       "message": "Transfer the Observatory pages that you don't have",
@@ -297,6 +299,7 @@
   "PAGES": {
     "title": "List of pages",
     "remove_button": "Remove",
+    "add_button": "Add",
     "remove_success_message": "Pages removed successfully",
     "remove_error_message": "There was an error while trying to remove the selected pages",
     "re_evaluate": "Re-evaluate all pages",
@@ -328,7 +331,7 @@
       "A": "A*",
       "AA": "AA*",
       "AAA": "AAA*",
-      "levels":"",
+      "levels": "",
       "date": "Date",
       "see_tooltip": "See page",
       "note": "* Number of errors for each conform level"

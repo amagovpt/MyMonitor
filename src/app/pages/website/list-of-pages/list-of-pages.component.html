@@ -1,22 +1,6 @@
 <mat-card class="mat-typography">
-  <mat-card-header>
-    <mat-card-title>
-      <h1>{{ "PAGES.title" | translate }}</h1>
-    </mat-card-title>
-  </mat-card-header>
   <mat-card-content>
-    <div class="page-table-header">
-      <mat-form-field appearance="outline">
-        <label for="pages_filter">{{ "PAGES.table.filter" | translate }}</label>
-        <input
-          id="pages_filter"
-          matInput
-          (keyup)="applyFilter($event.target.value)"
-        />
-      </mat-form-field>
-    </div>
-
-    <section fxLayout="row" fxLayoutAlign="center center">
+   <section fxLayout="row" fxLayoutAlign="center center">
       <div class="table-wrapper">
         <div class="button-wrapper">
           <div>
@@ -29,7 +13,10 @@
             <button (click)="deletePages()" class="btn-remove">
               {{ "PAGES.remove_button" | translate }}
             </button>
-            <button (click)="reEvaluate()" class="btn-add">
+            <button (click)="openAddPages()" class="btn-add">
+              {{ "PAGES.add_button" | translate }}
+            </button>
+            <button (click)="reEvaluate()" class="btn-reevaluate">
               {{ "PAGES.re_evaluate" | translate }}
             </button>
           </div>

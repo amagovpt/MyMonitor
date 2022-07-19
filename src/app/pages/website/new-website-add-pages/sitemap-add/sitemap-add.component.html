@@ -18,19 +18,20 @@
         Inserir mapa do sítio web
       </label>
       <div class="insert_file">
-          <button
-            class="file-button"
-            color="primary"
-            (click)="fileInputField.click()"
-            type="button"
-          >
-            {{ "ADD_PAGES.file_name_label" | translate }}
-          </button>
+        <button
+          class="file-button"
+          color="primary"
+          (click)="fileInputField.click()"
+          type="button"
+        >
+          {{ "ADD_PAGES.file_name_label" | translate }}
+        </button>
         <div
-          id='input_text_container'class="{{ fileErrorMessage === 'invalidType' ? 'file_error' : '' }}">
+          id="input_text_container"
+          class="{{ fileErrorMessage === 'invalidType' ? 'file_error' : '' }}"
+        >
           <input
             id="input_file_name"
-            [formControl]="fileInput"
             type="text"
             placeholder="Nome do ficheiro"
           />
@@ -40,11 +41,11 @@
   </div>
   <div fxLayout="row">
     <span>
-      Ver exemplos de mapa de sítio web
+      {{ "ADD_PAGES.sitemap.warning_text" | translate }}
       <a href="/assets/sitemap/example_sitemap.txt" target="_blank">
         {{ "ADD_PAGES.sitemap.txt_example" | translate }}
       </a>
-      e
+      {{ "ADD_PAGES.sitemap.and" | translate }}
       <a href="/assets/sitemap/example_sitemap.xml" target="_blank">
         {{ "ADD_PAGES.sitemap.xml_example" | translate }}
       </a>

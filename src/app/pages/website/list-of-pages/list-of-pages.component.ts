@@ -14,6 +14,8 @@ import {
   Location
 } from '@angular/common';
 import { MatCheckboxChange } from '@angular/material/checkbox';
+import { NewWebsiteAddPagesComponent } from '../new-website-add-pages/new-website-add-pages.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-list-of-pages',
@@ -23,6 +25,7 @@ import { MatCheckboxChange } from '@angular/material/checkbox';
 export class ListOfPagesComponent implements OnInit {
 
   @Input('pages') pages: Array<any>;
+  @Input("website") website: string;
 
   @Output('removePages') removePages = new EventEmitter<Array<number>>();
 
@@ -43,6 +46,7 @@ export class ListOfPagesComponent implements OnInit {
   constructor(
     private cd: ChangeDetectorRef,
     private location: Location,
+    private readonly dialog: MatDialog,
 
   ) {
     this.loading = true;
@@ -248,5 +252,14 @@ export class ListOfPagesComponent implements OnInit {
 
   onChkChange(ob: MatCheckboxChange, page: any) {
     this.selection[page.Uri] = ob.checked;
+  }
+
+  openAddPages(){
+    console.log("open dialog")
+    this.dialog.open(NewWebsiteAddPagesComponent, {
+      data: {},
+      width: "60vw",
+    });
+
   }
 }

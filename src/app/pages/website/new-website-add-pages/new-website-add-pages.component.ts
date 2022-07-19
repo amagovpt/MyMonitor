@@ -1,12 +1,12 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 import {
   FormControl,
   FormGroupDirective,
   NgForm,
   Validators,
 } from "@angular/forms";
-import { Router } from "@angular/router";
 import { ErrorStateMatcher } from "@angular/material/core";
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 export class UrlStateMatcher implements ErrorStateMatcher {
   isErrorState(
@@ -29,7 +29,7 @@ export class UrlStateMatcher implements ErrorStateMatcher {
 })
 
 export class NewWebsiteAddPagesComponent implements OnInit {
-  @Input("website") website: string;
+  website: string;
   url: FormControl;
   urlMatcher: any;
 
@@ -46,8 +46,9 @@ export class NewWebsiteAddPagesComponent implements OnInit {
   keys;
   direction;
 
-  constructor(private readonly router: Router) {
-    this.url = new FormControl("", [urlValidator]);
+  constructor() {// @Inject(MAT_DIALOG_DATA) public data: any,
+     //this.website = data.website;
+     this.url = new FormControl("", [urlValidator]);
 
     this.htmlInput = new FormControl("", [Validators.required]);
     this.fileInput = new FormControl({ value: "", disabled: true }, [
@@ -91,48 +92,6 @@ export class NewWebsiteAddPagesComponent implements OnInit {
       this.activateTab(this.tabs[1], true);
     } else if (location.pathname.includes("/upload-html")) {
       this.activateTab(this.tabs[2], true);
-    }
-  }
-
-  validateURL(): void {
-    this.router.navigateByUrl("/results/" + encodeURIComponent(this.url.value));
-  }
-
-  validateHTML(): void {
-    const html = this.htmlInput.value;
-    sessionStorage.setItem("html-validate", this.getDOM(html));
-    this.router.navigateByUrl("/results/html");
-  }
-
-  validateFile(): void {
-    const reader = new FileReader();
-    reader.onload = (event) => {
-      sessionStorage.setItem(
-        "html-validate",
-        this.getDOM(event.target["result"].toString())
-      );
-      this.router.navigateByUrl("/results/html");
-    };
-    reader.onerror = (error) => console.log(error);
-    reader.readAsText(this.file);
-  }
-
-  getDOM(content: string): string {
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(content, "text/html");
-    return doc.documentElement.outerHTML;
-  }
-
-  onFileChanged(e): void {
-    this.file = e.target.files[0];
-    this.fileInput.setValue(this.file.name);
-
-    if (this.file.type !== "text/html") {
-      this.validFile = false;
-      this.fileInput.setErrors({ invalidType: true });
-    } else {
-      this.validFile = true;
-      this.fileInput.setErrors(null);
     }
   }
 

@@ -263,6 +263,8 @@
       }
     },
     "sitemap": {
+      "warning_text":"Ver exemplos de mapa de sítio web",
+      "and":"e",
       "warning": "Os ficheiros sitemap necessitam que a sua primeira página seja igual ao domínio do sítio web",
       "uris_invalid": "Um dos uris no ficheiro inserido é inválido",
       "type_invalid": "O ficheiro inserido não é do tipo .xml ou .txt",
@@ -298,6 +300,7 @@
   "PAGES": {
     "title": "Lista de páginas",
     "remove_button": "Remover",
+    "add_button": "Adicionar",
     "remove_success_message": "Páginas removidas com successo",
     "remove_error_message": "Ocorreu um erro ao tentar remover as páginas selecionadas",
     "re_evaluate": "Re-avaliar todas as páginas",

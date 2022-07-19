@@ -83,6 +83,7 @@ a:hover {
   @extend %btn;
   font-size: 16px;
   padding: 0.5em 1em;
+  margin-right: 0.6em;
   background-color: green;
   border-color: transparent;
   svg{
@@ -104,6 +105,15 @@ a:hover {
   svg{
         margin-left: 0.5em;
   }}
+
+  .btn-reevaluate{
+    @extend %btn;
+    padding: 0.5em 1em;
+    font-size: 16px;
+    svg{
+        margin-left: 0.5em;
+  }
+  }
 
   :host {
   width: 87%;
