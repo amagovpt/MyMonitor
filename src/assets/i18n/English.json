@@ -122,6 +122,9 @@
   "DIALOGS": {
     "chart_title": "Chart",
     "table_title": "Table",
+    "add":{
+      "title": "Add pages"
+    },
     "scores": {
       "title": "Score distribution",
       "frequency": "Frequency (nº of pages)",

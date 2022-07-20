@@ -1,4 +1,4 @@
-import { Component, Inject, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
 import {
   FormControl,
   FormGroupDirective,
@@ -29,7 +29,9 @@ export class UrlStateMatcher implements ErrorStateMatcher {
 })
 
 export class NewWebsiteAddPagesComponent implements OnInit {
-  website: string;
+  @Input("website") website: string;
+  @Output("addPages") addWebsitePages = new EventEmitter<any>();
+  
   url: FormControl;
   urlMatcher: any;
 
@@ -46,8 +48,7 @@ export class NewWebsiteAddPagesComponent implements OnInit {
   keys;
   direction;
 
-  constructor() {// @Inject(MAT_DIALOG_DATA) public data: any,
-     //this.website = data.website;
+  constructor() {
      this.url = new FormControl("", [urlValidator]);
 
     this.htmlInput = new FormControl("", [Validators.required]);

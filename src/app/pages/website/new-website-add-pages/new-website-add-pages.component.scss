@@ -1,8 +1,4 @@
 
-section:nth-child(1) {
-  width: 87%;
-}
-
 section:nth-child(1) nav {
   padding-top: 3em;
   padding-bottom: 3em;
@@ -29,9 +25,6 @@ nav a {
   text-decoration: underline;
 }
 
-.padded {
-  width: 87%;
-}
 
 .unpadded {
   width: 100%;
@@ -41,10 +34,6 @@ nav a {
   width: 100%;
   border-radius: 0;
   box-shadow: none !important;
-  padding-left: 60px;
-  padding-right: 60px;
-  padding-top: 62px;
-  padding-bottom: 62px;
   background-color: var(--home-content-background);
 }
 
@@ -394,6 +383,7 @@ button[type="submit"]:disabled {
 }
 
 [role="tabpanel"] {
+  margin-top: 0.5em;
   border: none;
 }
 

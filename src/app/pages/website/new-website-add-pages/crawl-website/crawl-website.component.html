@@ -5,11 +5,11 @@
             {{ "ADD_PAGES.crawler.crawl_button" | translate }}
           </button>
           <span fxFlex="5"></span>
-          <button  class="check-results" (click)="openCrawlingResultsDialog()" [disabled]="crawlResultsDisabled">
+          <button class="add" (click)="openCrawlingResultsDialog()" [disabled]="crawlResultsDisabled">
             {{ "ADD_PAGES.crawler.results_button" | translate }}
           </button>
           <span fxFlex="5"></span>
-          <button (click)="deleteCrawlingResults()" [disabled]="crawlResultsDisabled">
+          <button class="delete"  (click)="deleteCrawlingResults()" [disabled]="crawlResultsDisabled">
             {{ "ADD_PAGES.crawler.delete_button" | translate }}
           </button>
         </div>

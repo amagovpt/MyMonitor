@@ -53,6 +53,7 @@ import { ManuallyAddPagesComponent } from './pages/website/new-website-add-pages
 import { SitemapAddComponent } from './pages/website/new-website-add-pages/sitemap-add/sitemap-add.component';
 import { CrawlWebsiteComponent } from './pages/website/new-website-add-pages/crawl-website/crawl-website.component';
 import { AddObservatoryComponent } from './pages/website/new-website-add-pages/add-observatory/add-observatory.component';
+import { AddPageDialogComponent } from './dialogs/add-page-dialog/add-page-dialog.component';
 
 const appRoutes: Routes = [
   { path: '', component: LoginComponent, canActivate: [NoAuthGuard] },
@@ -109,7 +110,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     ManuallyAddPagesComponent,
     SitemapAddComponent,
     CrawlWebsiteComponent,
-    AddObservatoryComponent
+    AddObservatoryComponent,
+    AddPageDialogComponent
   ],
   imports: [
     RouterModule.forRoot(

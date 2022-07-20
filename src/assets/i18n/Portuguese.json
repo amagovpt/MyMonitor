@@ -122,6 +122,9 @@
   "DIALOGS": {
     "chart_title": "Gráfico",
     "table_title": "Tabela",
+    "add": {
+      "title": "Adicionar páginas"
+    },
     "scores": {
       "title": "Distribuição de pontuações",
       "frequency": "Frequência (nº de páginas)",

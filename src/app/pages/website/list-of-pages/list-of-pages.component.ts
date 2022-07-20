@@ -14,8 +14,8 @@ import {
   Location
 } from '@angular/common';
 import { MatCheckboxChange } from '@angular/material/checkbox';
-import { NewWebsiteAddPagesComponent } from '../new-website-add-pages/new-website-add-pages.component';
 import { MatDialog } from '@angular/material/dialog';
+import { AddPageDialogComponent } from 'src/app/dialogs/add-page-dialog/add-page-dialog.component';
 
 @Component({
   selector: 'app-list-of-pages',
@@ -256,8 +256,8 @@ export class ListOfPagesComponent implements OnInit {
 
   openAddPages(){
     console.log("open dialog")
-    this.dialog.open(NewWebsiteAddPagesComponent, {
-      data: {},
+    this.dialog.open(AddPageDialogComponent, {
+      data: {website:this.website},
       width: "60vw",
     });
 
