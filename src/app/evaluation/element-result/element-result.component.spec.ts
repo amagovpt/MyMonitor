@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
-import { EvaluationResultsComponent } from './evaluation-results.component';
+import { ElementResultPageComponent } from './element-result.component';
 
-describe('EvaluationResultsComponent', () => {
-  let component: EvaluationResultsComponent;
-  let fixture: ComponentFixture<EvaluationResultsComponent>;
+describe('ElementResultPageComponent', () => {
+  let component: ElementResultPageComponent;
+  let fixture: ComponentFixture<ElementResultPageComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ EvaluationResultsComponent ]
+      declarations: [ ElementResultPageComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(EvaluationResultsComponent);
+    fixture = TestBed.createComponent(ElementResultPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

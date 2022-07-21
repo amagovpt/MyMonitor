@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
-import { WebpageCodeComponent } from './webpage-code.component';
+import { WebpageCodePageComponent } from './webpage-code.component';
 
-describe('WebpageCodeComponent', () => {
-  let component: WebpageCodeComponent;
-  let fixture: ComponentFixture<WebpageCodeComponent>;
+describe('WebpageCodePageComponent', () => {
+  let component: WebpageCodePageComponent;
+  let fixture: ComponentFixture<WebpageCodePageComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ WebpageCodeComponent ]
+      declarations: [ WebpageCodePageComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(WebpageCodeComponent);
+    fixture = TestBed.createComponent(WebpageCodePageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

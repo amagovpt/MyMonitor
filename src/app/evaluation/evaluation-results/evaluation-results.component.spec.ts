@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
-import { SettingsComponent } from './settings.component';
+import { EvaluationResultsPageComponent } from './evaluation-results.component';
 
-describe('SettingsComponent', () => {
-  let component: SettingsComponent;
-  let fixture: ComponentFixture<SettingsComponent>;
+describe('EvaluationResultsPageComponent', () => {
+  let component: EvaluationResultsPageComponent;
+  let fixture: ComponentFixture<EvaluationResultsPageComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ SettingsComponent ]
+      declarations: [ EvaluationResultsPageComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SettingsComponent);
+    fixture = TestBed.createComponent(EvaluationResultsPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

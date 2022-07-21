@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { DomSanitizer } from '@angular/platform-browser';
 import { saveAs } from 'file-saver';
 import { html } from 'js-beautify';
 
@@ -10,11 +9,10 @@ import { html } from 'js-beautify';
   templateUrl: './webpage-code.component.html',
   styleUrls: ['./webpage-code.component.scss']
 })
-export class WebpageCodeComponent implements OnInit, OnDestroy {
+export class WebpageCodePageComponent implements OnInit, OnDestroy {
 
   sub: Subscription;
 
-  website: string;
   url: string;
   encodedUrl: string;
 
@@ -22,17 +20,15 @@ export class WebpageCodeComponent implements OnInit, OnDestroy {
   downloadHTML: any;
 
   constructor(
-    private activatedRoute: ActivatedRoute,
-    private sanitizer: DomSanitizer
+    private activatedRoute: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
     this.sub = this.activatedRoute.params.subscribe(params => {
-      this.website = params.website;
-      this.url = params.page;
+      if (params.url !== 'html') {
+        this.url = params.url;
+      }
       this.pagecode = html(JSON.parse(sessionStorage.getItem('evaluation')).pagecode, { indent_size: 2 });
-      const blob = new Blob([this.pagecode], { type: 'text/html' });
-      this.downloadHTML = this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(blob));
     });
   }
 
