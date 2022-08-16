@@ -39,11 +39,6 @@ export class EvaluationResultsPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    const button = document.getElementById("exp_button2");
-    const exListbox = new Listbox(document.getElementById("exp_elem_list2"));
-    const listboxButton = new ListboxButton(button, exListbox);
-    listboxButton.setHandleFocusChange(this.listboxFocusChange.bind(this));
-
     this.paramsSub = this.route.params.subscribe((params) => {
       this.website = params.website;
       this.url = params.url;
@@ -372,7 +367,7 @@ function openAllMenu(): void {
     .querySelector(".see_all_button + .dropdown-content")
     .classList.toggle("show_dropdown");
 }
-
+/*
 class Listbox {
   listboxNode: HTMLElement;
   activeDescendant: string;
@@ -717,4 +712,4 @@ class ListboxButton {
       element.className
     );
   }
-}
+}*/

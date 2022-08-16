@@ -1,3 +1,5 @@
+@import '../../../app/global/sccss/button.scss';
+
 section {
   width: 87%;
 }
@@ -8,19 +10,6 @@ section:nth-child(1) nav {
 
   span:last-child {
     color: var(--results-breadcrumbs-text);
-  }
-}
-
-section:nth-child(1) div {
-  padding-top: 2em;
-  padding-bottom: 3em;
-
-  .breadcrumbHeader {
-    opacity: 0.8;
-    color: var(--results-breadcrumbs-header);
-    font-family: Lato;
-    font-size: 0.875em;
-    letter-spacing: 0;
   }
 }
 
@@ -91,22 +80,10 @@ nav a {
 }
 
 .action {
+    @extend %btn;
   font-size: 1em;
+  padding: 0.4em 1em;
   line-height: 1.5em;
-  color: var(--results-action-button-text);
-  font-weight: 700;
-  font-family: "Lato";
-  border-radius: 25px;
-  text-align: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  height: 40px;
-  border: none;
-  background-color: var(--results-action-button-background);
-  padding-left: 1em;
-  padding-right: 1em;
 }
 
 .actionS {

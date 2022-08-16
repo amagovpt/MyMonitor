@@ -1,52 +1,5 @@
 <main fxLayout="column" fxLayoutAlign="start center">
-  <section>
-    <nav fxLayout="row" fxHide.lt-md>
-      <a href="https://www.acessibilidade.gov.pt/">Acessibilidade.gov.pt</a>
-      <span>></span>
-      <a routerLink="/">Access Monitor</a>
-      <span>></span>
-      <span>{{ url }}</span>
-    </nav>
-    <div fxHide.gt-sm fxLayout="column">
-      <span class="breadcrumbHeader" id="exp_elem">{{
-        "RESULTS.navHeader" | translate
-}}</span>
-      <div class="listbox-area" fxFlex="100%" fxLayout="row">
-        <div id="exp_wrapper">
-          <button
-            type="button"
-            aria-haspopup="listbox"
-            aria-labelledby="exp_elem exp_button2"
-            id="exp_button2"
-            fxFlexFill
-          >
-            {{ url }}
-          </button>
-          <ul
-            id="exp_elem_list2"
-            tabindex="-1"
-            role="listbox"
-            aria-labelledby="exp_elem"
-            class="hidden"
-          >
-            <li id="exp_elem_1" role="option">
-              <a href="https://www.acessibilidade.gov.pt/"
-                >Acessibilidade.gov.pt</a
-              >
-            </li>
-            <li id="exp_elem_2" role="option">
-              <a routerLink="/">Access Monitor</a>
-            </li>
-            <li id="exp_elem_3" role="option">
-              <a [routerLink]="['/', 'results', url]">{{ url }}</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
   <section class="info" ngClass.gt-sm="bottomL" ngClass.lt-md="bottomS">
-    <div class="accessMonitor">AccessMonitor</div>
     <h1>{{ url }}</h1>
     <h2>{{ "RESULTS.title" | translate }}</h2>
     <div *ngIf="!loading && !error" fxLayout="row">
@@ -66,6 +19,7 @@
             style="fill: none"
           />
           <path
+            fill="currentColor"
             d="M14.57,7.15a.89.89,0,0,0-.92-.84.88.88,0,0,0-.84.92,5.28,5.28,0,0,1-.31,2l-.06.15a5.28,5.28,0,0,1-5.73,3.3H6.65a5.27,5.27,0,0,1-.93-.24l-.1,0a5.27,5.27,0,0,1-.84-.4l-.08-.06A5.38,5.38,0,0,1,4,11.39l-.14-.14a5.37,5.37,0,0,1-.53-.59c-.08-.11-.15-.22-.22-.33a5.28,5.28,0,0,1-.29-.49,5.33,5.33,0,0,1-.21-.5c-.05-.14-.11-.28-.15-.42a5.31,5.31,0,0,1-.13-.6c0-.13,0-.27-.06-.4a5.27,5.27,0,0,1,0-.69c0-.1,0-.21,0-.31a5.3,5.3,0,0,1,.16-.85l0-.15A5.3,5.3,0,0,1,2.81,5l0-.07a5.26,5.26,0,0,1,.55-.82l0,0a5.31,5.31,0,0,1,7-1.1,1.91,1.91,0,0,0-.79.25.88.88,0,0,0,.66,1.48l2.41,0a.88.88,0,0,0,.82-.63.87.87,0,0,0,0-.27l-.06-2.11c-.1-.64-.12-1-.29-1.15a.87.87,0,0,0-.63-.24h0c-.49,0-.84.56-.84,1.44v0A7.12,7.12,0,0,0,9.51.69,7,7,0,0,0,7,.43H7l-.13,0a7,7,0,0,0-1,.16L5.45.72A7.12,7.12,0,0,0,4.7,1c-.19.08-.37.17-.56.27l-.27.16A6.89,6.89,0,0,0,3,2q-.26.21-.49.44c-.08.08-.17.14-.24.22s-.12.17-.19.25a7,7,0,0,0-.5.67c-.1.15-.19.31-.28.47A7,7,0,0,0,1,4.82C.9,5,.84,5.16.78,5.33l-.05.15a7.13,7.13,0,0,0-.17.71c0,.14,0,.28-.06.42a7,7,0,0,0-.06,1s0,.07,0,.11,0,.12,0,.18A7,7,0,0,0,.63,9c0,.08,0,.17.07.25a7.11,7.11,0,0,0,.37,1.07l.09.18a7.11,7.11,0,0,0,.63,1.06l0,0A7.06,7.06,0,0,0,14.3,9.47l.07-.26A7,7,0,0,0,14.57,7.15Z"
           />
         </svg>
@@ -82,12 +36,15 @@
           >
             <title>monitor_icons_tools_code</title>
             <path
+              fill="currentColor"
               d="M2.47,6.94l1-1,.85-.85L5.84,3.6A1,1,0,1,0,4.52,2l-.14.14-2,2-2,2a1.12,1.12,0,0,0,0,1.59h0l2,2,2,2A1,1,0,1,0,6,10.53l-.14-.14L5.05,9.6,3.47,8"
             />
             <path
+              fill="currentColor"
               d="M20,7.05,19,8l-.85.85-1.52,1.53A1,1,0,1,0,18,12l.14-.14,2-2,2-2a1.12,1.12,0,0,0,0-1.59h0l-2-2-2-2a1,1,0,1,0-1.6,1.31l.14.14.79.79L19,6"
             />
             <path
+              fill="currentColor"
               d="M10,13.33,14.19,1.21A.91.91,0,1,0,12.47.61h0L8.3,12.74a.91.91,0,1,0,1.72.59Z"
             />
           </svg>
@@ -117,9 +74,11 @@
           >
             <title>monitor_icons_tools_download</title>
             <path
+              fill="currentColor"
               d="M1.59,16.07H14.41a.91.91,0,1,0,0-1.82H1.59a.91.91,0,1,0,0,1.82Z"
             />
             <path
+              fill="currentColor"
               d="M7,8.74l-.85-.85L4.61,6.37A1,1,0,1,0,3,7.69l.14.14,2,2,2,2a1.12,1.12,0,0,0,1.59,0h0l2-2,2-2a1,1,0,0,0-1.31-1.6l-.14.14-.79.79L9,8.74V4.86a1,1,0,1,0-2,0h0V8.74Z"
             />
             <circle cx="7.97" cy="1.41" r="0.99" />
@@ -154,12 +113,15 @@
             >
               <title>monitor_icons_tools_code</title>
               <path
+                fill="currentColor"
                 d="M2.47,6.94l1-1,.85-.85L5.84,3.6A1,1,0,1,0,4.52,2l-.14.14-2,2-2,2a1.12,1.12,0,0,0,0,1.59h0l2,2,2,2A1,1,0,1,0,6,10.53l-.14-.14L5.05,9.6,3.47,8"
               />
               <path
+              fill="currentColor"
                 d="M20,7.05,19,8l-.85.85-1.52,1.53A1,1,0,1,0,18,12l.14-.14,2-2,2-2a1.12,1.12,0,0,0,0-1.59h0l-2-2-2-2a1,1,0,1,0-1.6,1.31l.14.14.79.79L19,6"
               />
               <path
+              fill="currentColor"
                 d="M10,13.33,14.19,1.21A.91.91,0,1,0,12.47.61h0L8.3,12.74a.91.91,0,1,0,1.72.59Z"
               />
             </svg>
@@ -180,9 +142,11 @@
             >
               <title>monitor_icons_tools_download</title>
               <path
+              fill="currentColor"
                 d="M1.59,16.07H14.41a.91.91,0,1,0,0-1.82H1.59a.91.91,0,1,0,0,1.82Z"
               />
               <path
+              fill="currentColor"
                 d="M7,8.74l-.85-.85L4.61,6.37A1,1,0,1,0,3,7.69l.14.14,2,2,2,2a1.12,1.12,0,0,0,1.59,0h0l2-2,2-2a1,1,0,0,0-1.31-1.6l-.14.14-.79.79L9,8.74V4.86a1,1,0,1,0-2,0h0V8.74Z"
               />
               <circle cx="7.97" cy="1.41" r="0.99" />
