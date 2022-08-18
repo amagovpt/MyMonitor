@@ -1,50 +1,118 @@
-<mat-card class="mat-typography">
-  <mat-card-header>
-    <mat-card-title>
-      <h1>{{ "STATISTICS.title" | translate }}</h1>
-    </mat-card-title>
-    <mat-card-subtitle>
-      <h2>{{ "STATISTICS.subtitle" | translate }}</h2>
-    </mat-card-subtitle>
-  </mat-card-header>
-  <mat-card-content fxLayout.gt-sm="row" fxLayout="column" fxLayoutAlign="space-around center">
-    <div>
+<section fxLayout="row" fxLayoutAlign="center center">
+  <div class="statistics-wrapper">
+    <div gdRows="auto 1fr" gdColumns="300px 1fr">
+      <div class="first-row">
+        <span>{{ "WEBSITE.statistics_title" | translate }}</span>
+        <span>{{ "WEBSITE.statistics_subtitle" | translate }}</span>
+      </div>
+      <div
+        class="first-row"
+        fxAlign="row"
+        fxLayoutAlign="start center"
+        gdColumns="50% 50%"
+      >
+        <div>
+          <span>{{ "STATISTICS.oldest_page_updated" | translate }}</span>
+          <span>{{ website.oldestPage | date  }}</span>
+        </div>
+        <div>
+          <span>{{ "STATISTICS.newest_page_updated" | translate }}</span>
+          <span>{{ website.recentPage | date  }}</span>
+        </div>
+      </div>
       <ngx-gauge
-          [type]="'semi'"
-          [thick]="'10'"
-          [value]="score | toFixed"
-          [label]="'STATISTICS.gauge.label' | translate"
-          [min]="0"
-          [max]="10"
-          [duration]="2000"
-          [thresholds]="thresholdConfig">
-        </ngx-gauge>
+        class="score second-row"
+        [type]="'arch'"
+        [thick]="'10'"
+        [cap]="'round'"
+        [value]="website.getScore() | toFixed"
+        [label]="'STATISTICS.gauge.label' | translate"
+        [min]="0"
+        [max]="10"
+        [duration]="2000"
+        [thresholds]="thresholdConfig"
+      >
+      </ngx-gauge>
+      <div
+        class="metadata second-row"
+        fxLayout="column"
+        fxLayoutAlign="space-around center"
+      >
+        <div
+          fxLayout="row"
+          fxLayoutAlign="space-around center"
+          class="upper-row"
+        >
+          <div>
+            <span>{{ website.pages.length }}</span>
+            <span>{{ "STATISTICS.pages" | translate }}</span>
+          </div>
+          <div>
+            <span
+              >{{ pagesWithoutErrors }}
+              <span class="percentage">{{
+                pagesWithoutErrorsPercentage
+              }}</span></span
+            >
+            <span>{{ "STATISTICS.pages_without_errors" | translate }}</span>
+          </div>
+          <div>
+            <span
+              >{{ pagesWithErrors }}
+              <span class="percentage">{{
+                pagesWithErrorsPercentage
+              }}</span></span
+            >
+            <span>{{ "STATISTICS.pages_with_errors" | translate }}</span>
+          </div>
+        </div>
+        <div
+          fxLayout="row"
+          fxLayoutAlign="space-around center"
+          class="lower-row"
+        >
+          <div>
+            <span
+              >{{ pagesWithoutErrorsA }}
+              <span class="percentage">{{
+                pagesWithoutErrorsAPercentage
+              }}</span></span
+            >
+            <span>{{ "STATISTICS.pages_without_errors_a" | translate }}</span>
+            <span>{{
+              "STATISTICS.pages_without_errors_a_info" | translate
+            }}</span>
+          </div>
+          <div>
+            <span
+              >{{ pagesWithoutErrorsAA }}
+              <span class="percentage">{{
+                pagesWithoutErrorsAAPercentage
+              }}</span></span
+            >
+            <span>{{
+              "STATISTICS.pages_without_errors_a_aa" | translate
+            }}</span>
+            <span>{{
+              "STATISTICS.pages_without_errors_a_aa_info" | translate
+            }}</span>
+          </div>
+          <div>
+            <span
+              >{{ pagesWithoutErrorsAAA }}
+              <span class="percentage">{{
+                pagesWithoutErrorsAAAPercentage
+              }}</span></span
+            >
+            <span>{{
+              "STATISTICS.pages_without_errors_a_aa_aaa" | translate
+            }}</span>
+            <span>{{
+              "STATISTICS.pages_without_errors_a_aa_aaa_info" | translate
+            }}</span>
+          </div>
+        </div>
+      </div>
     </div>
-    <div fxLayout="column">
-      <div>
-        <span><strong>{{ "STATISTICS.pages" | translate }}:</strong> {{ pages.length }}</span>
-      </div>
-      <br>
-      <div>
-        <span><strong>{{ "STATISTICS.newest_page_updated" | translate }}:</strong> {{ newest_page | date }}</span>
-      </div>
-      <br>
-      <div>
-        <span><strong>{{ "STATISTICS.oldest_page_updated" | translate }}:</strong> {{ oldest_page | date }}</span>
-      </div>
-    </div>
-  </mat-card-content>
-  <mat-card-actions fxLayout="row" fxLayoutAlign="center center">
-    <button mat-flat-button color="primary" attr.aria-label="{{ 'STATISTICS.score_distribution' | translate }}" (click)="openScoreDistributionDialog()">
-      {{ "STATISTICS.score_distribution" | translate }}
-    </button>
-    <span fxFlex="1"></span>
-    <button mat-flat-button color="green" ngClass.lt-sm='mobile-button' (click)="openCorrectionDistributionDialog()">
-      {{ "STATISTICS.correction_distribution" | translate }}
-    </button>
-    <span fxFlex="1"></span>
-    <button mat-flat-button color="warn" attr.aria-label="{{ 'STATISTICS.error_distribution' | translate }}"  (click)="openErrorDistributionDialog()">
-      {{ "STATISTICS.error_distribution" | translate }}
-    </button>
-  </mat-card-actions>
-</mat-card>
+  </div>
+</section>

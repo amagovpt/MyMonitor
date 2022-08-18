@@ -28,6 +28,8 @@ export class WebsiteComponent implements OnInit, OnDestroy {
   websiteObject: Website;
 
   pages: Array<any>;
+  scoreDistributionData: any;
+
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -62,6 +64,11 @@ export class WebsiteComponent implements OnInit, OnDestroy {
               page.Evaluation_Date
             );
           }
+
+          this.scoreDistributionData = {
+            number: this.pages.length,
+            frequency: this.websiteObject.frequencies,
+          };
         } else {
           this.error = true;
         }

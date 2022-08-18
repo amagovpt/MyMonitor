@@ -50,6 +50,7 @@ import { CrawlWebsiteComponent } from './pages/website/new-website-add-pages/cra
 import { AddObservatoryComponent } from './pages/website/new-website-add-pages/add-observatory/add-observatory.component';
 import { AddPageDialogComponent } from './dialogs/add-page-dialog/add-page-dialog.component';
 import { PipesModule } from './pipes/pipes.module';
+import { ScoreDistributionComponent } from './pages/website/score-distribution/score-distribution.component';
 
 
 const appRoutes: Routes = [
@@ -103,7 +104,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     SitemapAddComponent,
     CrawlWebsiteComponent,
     AddObservatoryComponent,
-    AddPageDialogComponent
+    AddPageDialogComponent,
+    ScoreDistributionComponent
   ],
   imports: [
     RouterModule.forRoot(

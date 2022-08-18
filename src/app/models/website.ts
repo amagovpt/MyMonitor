@@ -7,6 +7,7 @@ export class Website {
   A: number;
   AA: number;
   AAA: number;
+  pagesWithErrors: number;
   frequencies: Array<number>;
   errors: any;
   recentPage: Date;
@@ -24,6 +25,7 @@ export class Website {
     this.errors = {};
     this.success = {};
     this.tot = {};
+    this.pagesWithErrors = 0;
   }
 
   addPage(
@@ -41,17 +43,14 @@ export class Website {
 
     this.score += parseFloat(score);
 
-    if (A === 0) {
-      if (AA === 0) {
-        if (AAA === 0) {
-          this.AAA++;
-        } else {
-          this.AA++;
-        }
-      } else {
-        this.A++;
-      }
-    }
+    if (A > 0)
+      this.pagesWithErrors++;
+    else if (AA > 0)
+      this.A++;
+    else if (AAA > 0)
+      this.AA++;
+    else
+      this.AAA++;
 
     const floor = Math.floor(parseFloat(score));
     this.frequencies[floor >= 2 ? (floor === 10 ? floor - 2 : floor - 1) : 0]++;
