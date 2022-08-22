@@ -1,5 +1,9 @@
 import { Page } from "./page";
 import tests from "../tests";
+import clone from "lodash.clonedeep";
+import orderBy from "lodash.orderby";
+
+
 
 export class Website {
   pages: Array<Page>;
@@ -187,6 +191,23 @@ export class Website {
     return errors.sort((a: any, b: any) => a.n_elems - b.n_elems).slice(0, 10);
   }
 
+  getTopTenBestPractices(): any {
+    const practices = new Array<any>();
+    for (const key in this.success || {}) {
+      practices.push({
+        key,
+        n_occurrences: this.success[key].n_occurrences,
+        n_pages: this.success[key].n_pages,
+      });
+    }
+
+    return orderBy(
+      practices,
+      ["n_occurrences", "n_pages"],
+      ["desc", "desc"]
+    ).slice(0, 10);
+  }
+
   getErrorOccurrencesByPage(test: string): Array<number> {
     const occurrences = new Array<number>();
 
@@ -197,6 +218,24 @@ export class Website {
           occurrences.push(1);
         } else {
           occurrences.push(error);
+        }
+      }
+    }
+    return occurrences;
+  }
+
+  getPassedOccurrencesByPage(test: string): Array<number> {
+    const occurrences = new Array<number>();
+    for (const page of this.pages || []) {
+      const practice = page.evaluation.tot.elems[tests[test]["test"]];
+      if (
+        page.evaluation.tot.results[test] &&
+        tests[test]["result"] === "passed"
+      ) {
+        if (!practice) {
+          occurrences.push(1);
+        } else {
+          occurrences.push(practice);
         }
       }
     }
@@ -217,5 +256,128 @@ export class Website {
       }
     }
     return occurrences;
+  }
+
+  getWebsiteSuccessDetailsTable(): any {
+    const practices = new Array<any>();
+    for (const key in this.success || {}) {
+      if (this.success[key]) {
+        practices.push({
+          key,
+          n_occurrences: this.success[key].n_occurrences,
+          n_pages: this.success[key].n_pages,
+          lvl: tests[key].level.toUpperCase(),
+          quartiles: this.calculateQuartiles(
+            this.getPassedOccurrencesByPage(key)
+          ),
+        });
+      }
+    }
+
+    const practicesData = orderBy(
+      practices,
+      ["n_pages", "n_occurrences"],
+      ["desc", "desc"]
+    );
+    const practicesKeys = Object.keys(practicesData);
+
+    return { practicesKeys, practicesData };
+  }
+
+  getWebsiteErrorsDetailsTable(): any {
+    const practices = new Array<any>();
+    for (const key in this.errors || {}) {
+      if (this.errors[key]) {
+        practices.push({
+          key,
+          n_occurrences: this.errors[key].n_occurrences,
+          n_pages: this.errors[key].n_pages,
+          lvl: tests[key].level.toUpperCase(),
+          quartiles: this.calculateQuartiles(
+            this.getErrorOccurrencesByPage(key)
+          ),
+        });
+      }
+    }
+
+    const practicesData = orderBy(
+      practices,
+      ["n_pages", "n_occurrences"],
+      ["desc", "desc"]
+    );
+    const practicesKeys = Object.keys(practicesData);
+
+    return { practicesKeys, practicesData };
+  }
+
+  calculateQuartiles(data: any): Array<any> {
+    const values = data
+      .filter((e: any) => e !== undefined)
+      .sort((a: number, b: number) => a - b);
+
+    let q1: number;
+    let q2: number;
+    let q3: number;
+    let q4: number;
+
+    q1 = values[Math.round(0.25 * (values.length + 1)) - 1];
+
+    if (values.length % 2 === 0) {
+      q2 = (values[values.length / 2 - 1] + values[values.length / 2]) / 2;
+    } else {
+      q2 = values[(values.length + 1) / 2];
+    }
+
+    q3 = values[Math.round(0.75 * (values.length + 1)) - 1];
+    q4 = values[values.length - 1];
+
+    const tmp = {
+      q1: new Array<number>(),
+      q2: new Array<number>(),
+      q3: new Array<number>(),
+      q4: new Array<number>(),
+    };
+
+    let q: string;
+    for (const v of values || []) {
+      if (v <= q1) {
+        q = "q1";
+      } else {
+        if (v <= q2) {
+          q = "q2";
+        } else {
+          if (v <= q3) {
+            q = "q3";
+          } else {
+            q = "q4";
+          }
+        }
+      }
+
+      tmp[q].push(v);
+    }
+
+    const final = new Array<any>();
+
+    for (const k in tmp) {
+      if (k) {
+        const v = tmp[k];
+        const sum = v.length;
+        if (sum > 0) {
+          const test = {
+            tot: sum,
+            por: Math.round((sum * 100) / values.length),
+            int: {
+              lower: v[0],
+              upper: v[sum - 1],
+            },
+          };
+
+          final.push(clone(test));
+        }
+      }
+    }
+
+    return final;
   }
 }

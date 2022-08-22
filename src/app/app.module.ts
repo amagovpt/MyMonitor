@@ -51,6 +51,10 @@ import { AddObservatoryComponent } from './pages/website/new-website-add-pages/a
 import { AddPageDialogComponent } from './dialogs/add-page-dialog/add-page-dialog.component';
 import { PipesModule } from './pipes/pipes.module';
 import { ScoreDistributionComponent } from './pages/website/score-distribution/score-distribution.component';
+import { PracticesDetailsComponent } from './pages/website/practices-details/practices-details.component';
+import { PracticesDetailsTableComponent } from './pages/website/practices-details-table/practices-details-table.component';
+import { PracticesDistributionComponent } from './pages/website/practices-distribution/practices-distribution.component';
+import { TopThreePracticesComponent } from './pages/website/top-three-practices/top-three-practices.component';
 
 
 const appRoutes: Routes = [
@@ -105,7 +109,11 @@ export function HttpLoaderFactory(http: HttpClient) {
     CrawlWebsiteComponent,
     AddObservatoryComponent,
     AddPageDialogComponent,
-    ScoreDistributionComponent
+    ScoreDistributionComponent,
+    PracticesDetailsComponent,
+    PracticesDetailsTableComponent,
+    PracticesDistributionComponent,
+    TopThreePracticesComponent
   ],
   imports: [
     RouterModule.forRoot(

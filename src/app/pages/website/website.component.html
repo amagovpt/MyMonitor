@@ -33,6 +33,7 @@
     <app-accessibility-plot *ngIf="pages.length > 0" [data]="websiteObject.getAllScores()"></app-accessibility-plot>
     <br>
     <app-score-distribution [data]="scoreDistributionData"></app-score-distribution>
+    <app-practices-details [website]="websiteObject"></app-practices-details>
     <app-list-of-pages *ngIf="pages.length > 0"  [website]="website"  [pages]="pages" (removePages)="removePages($event)" (reEvaluatePages)="reEvaluatePages($event)"></app-list-of-pages>
     <div *ngIf="pages.length === 0" fxLayout="row" fxLayoutAlign="center center">
       <p class="no_pages">{{ "PAGES.no_pages" | translate }}</p>
