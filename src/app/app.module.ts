@@ -62,7 +62,7 @@ const appRoutes: Routes = [
   { path: 'user', component: UserComponent, canActivate: [UserAuthGuard], children: [
     { path: '', component: WebsitesComponent, canActivate: [UserAuthGuard] },
     { path: ':website', component: WebsiteComponent, canActivate: [UserAuthGuard]},
-    { path: ':website/page', loadChildren: () => import('./evaluation/evaluation.module').then(m => m.EvaluationModule) }
+    { path: ':website', loadChildren: () => import('./evaluation/evaluation.module').then(m => m.EvaluationModule) }
     ] },
 /*  { path: ':website/:page', component: EvaluationResultsComponent, canActivate: [UserAuthGuard] },
     { path: ':website/:page/code', component: WebpageCodeComponent, canActivate: [UserAuthGuard] },

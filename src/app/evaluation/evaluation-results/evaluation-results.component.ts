@@ -346,7 +346,6 @@ export class EvaluationResultsPageComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.paramsSub.unsubscribe();
-    this.evaluationSub.unsubscribe();
   }
 }
 

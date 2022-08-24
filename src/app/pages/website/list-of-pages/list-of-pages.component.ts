@@ -16,6 +16,7 @@ import {
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatDialog } from '@angular/material/dialog';
 import { AddPageDialogComponent } from 'src/app/dialogs/add-page-dialog/add-page-dialog.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-list-of-pages',
@@ -47,6 +48,7 @@ export class ListOfPagesComponent implements OnInit {
     private cd: ChangeDetectorRef,
     private location: Location,
     private readonly dialog: MatDialog,
+    private readonly router: Router,
 
   ) {
     this.loading = true;
@@ -71,6 +73,10 @@ export class ListOfPagesComponent implements OnInit {
 
     this.loading = false;
     this.cd.detectChanges();
+  }
+
+  goToEvaluation(url:string): string {
+   return encodeURIComponent(url);
   }
 
   nextPage(): void {

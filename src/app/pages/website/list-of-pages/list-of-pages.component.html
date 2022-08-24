@@ -72,7 +72,7 @@
                 </mat-checkbox>
               </td>
               <td class="name">
-                <a href="{{ page.Uri }}">{{ page.Uri }}</a>
+                <a [routerLink]="[goToEvaluation(page.Uri)]">{{ page.Uri }}</a>
               </td>
               <td>{{ page.Score | toFixed }}</td>
               <td>{{ page.A }}</td>

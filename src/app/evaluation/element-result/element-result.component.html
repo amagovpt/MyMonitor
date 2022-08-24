@@ -1,14 +1,5 @@
 <main fxLayout="column" fxLayoutAlign="start center">
   <section fxFlex.lt-md="95" fxFlex.md="87" fxFlex.lg="87" fxFlex.gt-lg="87">
-    <nav fxLayout="row" fxHide.lt-md>
-      <a href="https://www.acessibilidade.gov.pt/">Acessibilidade.gov.pt</a>
-      <span>></span>
-      <a routerLink="/">Access Monitor</a>
-      <span>></span>
-      <a [routerLink]="['/', 'results', url]">{{ url }}</a>
-      <span>></span>
-      <span [innerHTML]="'ELEMS.' + ele | translate"></span>
-    </nav>
     <div fxHide.gt-sm fxLayout="column">
       <span class="breadcrumbHeader" id="exp_elem">{{
         "RESULTS.navHeader" | translate
