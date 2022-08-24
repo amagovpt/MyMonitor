@@ -1,17 +1,17 @@
-import { Component, OnInit, Inject, ViewChild } from "@angular/core";
-import { TranslateService } from "@ngx-translate/core";
+import { Component, Inject, OnInit, ViewChild } from "@angular/core";
 import { MAT_DIALOG_DATA } from "@angular/material/dialog";
+import { MatSort } from "@angular/material/sort";
+import { MatTableDataSource } from "@angular/material/table";
+import { TranslateService } from "@ngx-translate/core";
 import { Chart } from "chart.js";
+import * as clone from "lodash.clone";
+import * as forEach from "lodash.foreach";
+import * as includes from "lodash.includes";
+import * as size from "lodash.size";
+import * as slice from "lodash.slice";
+import * as without from "lodash.without";
 import tests from "../../tests";
 import users from "../../users";
-import { MatTableDataSource } from "@angular/material/table";
-import { MatSort } from "@angular/material/sort";
-import * as forEach from "lodash.foreach";
-import * as slice from "lodash.slice";
-import * as includes from "lodash.includes";
-import * as without from "lodash.without";
-import * as size from "lodash.size";
-import * as clone from "lodash.clone";
 
 @Component({
   selector: "app-correction-distribution-dialog",
@@ -104,7 +104,7 @@ export class CorrectionDistributionDialogComponent implements OnInit {
         }
         // description, element name
         let translations: string[] = [
-          "TEST_RESULTS." + key,
+          "ELEMS." + key,
           "TEST_ELEMENTS." + elem,
         ];
         tableData.push(this.addToTableData(key, v, translations, quartiles));
@@ -127,7 +127,7 @@ export class CorrectionDistributionDialogComponent implements OnInit {
     this.dataSource.sort = this.matSort;
 
     const translations = this.graphData.map((v, k) => {
-      return "TEST_RESULTS." + v["key"];
+      return "ELEMS." + v["test"];
     });
     translations.push("DIALOGS.corrections.n_corrections");
     translations.push("DIALOGS.corrections.tests_label");
@@ -263,7 +263,7 @@ export class CorrectionDistributionDialogComponent implements OnInit {
   ): CorrectionData {
     let descr, elemName;
     this.translate.get(translations).subscribe((res: any) => {
-      descr = res["TEST_RESULTS." + key];
+      descr = res["ELEMS." + tests[key]["test"]];
       elemName = res["TEST_ELEMENTS." + tot["elem"]];
     });
 

@@ -2,8 +2,8 @@
   <div class="statistics-wrapper">
     <div gdRows="auto 1fr" gdColumns="300px 1fr">
       <div class="first-row">
-        <span>{{ "WEBSITE.statistics_title" | translate }}</span>
-        <span>{{ "WEBSITE.statistics_subtitle" | translate }}</span>
+        <span>{{ "WEBSITES_PAGE.statistics_title" | translate }}</span>
+        <span>{{ "WEBSITES_PAGE.statistics_subtitle" | translate }}</span>
       </div>
       <div
         class="first-row"
@@ -13,11 +13,11 @@
       >
         <div>
           <span>{{ "STATISTICS.oldest_page_updated" | translate }}</span>
-          <span>{{ website.oldestPage | date  }}</span>
+          <span>{{ website.oldestPage | date }}</span>
         </div>
         <div>
           <span>{{ "STATISTICS.newest_page_updated" | translate }}</span>
-          <span>{{ website.recentPage | date  }}</span>
+          <span>{{ website.recentPage | date }}</span>
         </div>
       </div>
       <ngx-gauge

@@ -36,7 +36,6 @@ export class TopFiveErrorsComponent implements OnInit {
     this.errorsA = errors.filter((e: any) => e.lvl === "A");
     this.errorsAA = errors.filter((e: any) => e.lvl === "AA");
     this.errorsAAA = errors.filter((e: any) => e.lvl === "AAA");
-
     this.errorsA = orderBy(
       this.errorsA,
       ["n_pages", "n_elems"],

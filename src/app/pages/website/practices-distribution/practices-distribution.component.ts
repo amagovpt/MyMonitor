@@ -51,8 +51,9 @@ export class PracticesDistributionComponent implements OnInit, AfterViewInit {
     const translations = {};
 
     this.errors.map((k: any) => {
-      translations["RESULTS." + k["key"]] = this.translate.instant(
-        "RESULTS." + k["key"],
+      const test = tests[k["key"]].test;
+      translations["ELEMS." + test] = this.translate.instant(
+        "ELEMS." + test,
         { value: k["n_occurrences"] }
       );
     });

@@ -1,18 +1,18 @@
-import { Component, OnInit, Inject, ViewChild } from "@angular/core";
-import { TranslateService } from "@ngx-translate/core";
+import { Component, Inject, OnInit, ViewChild } from "@angular/core";
 import { MAT_DIALOG_DATA } from "@angular/material/dialog";
-import { Chart } from "chart.js";
-import tests from "../../tests";
-import users from "../../users";
-import { MatTableDataSource } from "@angular/material/table";
-import { CorrectionData } from "../correction-distribution-dialog/correction-distribution-dialog.component";
 import { MatSort } from "@angular/material/sort";
-import * as includes from "lodash.includes";
+import { MatTableDataSource } from "@angular/material/table";
+import { TranslateService } from "@ngx-translate/core";
+import { Chart } from "chart.js";
+import * as clone from "lodash.clone";
 import * as forEach from "lodash.foreach";
+import * as includes from "lodash.includes";
+import * as size from "lodash.size";
 import * as slice from "lodash.slice";
 import * as without from "lodash.without";
-import * as size from "lodash.size";
-import * as clone from "lodash.clone";
+import tests from "../../tests";
+import users from "../../users";
+import { CorrectionData } from "../correction-distribution-dialog/correction-distribution-dialog.component";
 
 @Component({
   selector: "app-error-distribution-dialog",
@@ -107,7 +107,7 @@ export class ErrorDistributionDialogComponent implements OnInit {
         }
         // description, element name
         let translations: string[] = [
-          "TEST_RESULTS." + k,
+          "ELEMS." + k,
           "TEST_ELEMENTS." + elem,
         ];
         tableData.push(this.addToTableData(k, v, translations, quartiles));
@@ -129,7 +129,7 @@ export class ErrorDistributionDialogComponent implements OnInit {
   ngOnInit(): void {
     this.dataSource.sort = this.matSort;
     const translations = this.graphData.map((key: any) => {
-      return "TEST_RESULTS." + key["key"];
+      return "ELEMS." + key["test"];
     });
     translations.push("DIALOGS.errors.common_errors");
     translations.push("DIALOGS.errors.tests_label");
@@ -273,7 +273,7 @@ export class ErrorDistributionDialogComponent implements OnInit {
   ): ErrorData {
     let descr, elemName;
     this.translate.get(translations).subscribe((res: any) => {
-      descr = res["TEST_RESULTS." + key];
+      descr = res["ELEMS." + tests[key]["test"]];
       elemName = res["TEST_ELEMENTS." + tot["elem"]];
     });
 

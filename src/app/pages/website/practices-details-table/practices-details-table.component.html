@@ -1,72 +1,156 @@
 <table>
   <thead>
     <tr>
-      <th>{{ "WEBSITE.table.practice_label" | translate }}</th>
-      <th>{{ "WEBSITE.table.details_practice_label" | translate }}</th>
-      <th>{{ "WEBSITE.table.n_pages_label" | translate }}</th>
-      <th>{{ "WEBSITE.table.n_errors_label" | translate }}</th>
-      <th>{{ "WEBSITE.table.lvl_label" | translate }}</th>
+      <th>
+        {{ "WEBSITES_PAGE.table_best_practices.practice_label" | translate }}
+      </th>
+      <th>
+        {{
+          "WEBSITES_PAGE.table_best_practices.details_practice_label"
+            | translate
+        }}
+      </th>
+      <th>
+        {{ "WEBSITES_PAGE.table_best_practices.n_pages_label" | translate }}
+      </th>
+      <th>
+        {{ "WEBSITES_PAGE.table_best_practices.n_errors_label" | translate }}
+      </th>
+      <th>{{ "WEBSITES_PAGE.table_best_practices.lvl_label" | translate }}</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let e of practices">
-      <td innerHTML="{{ 'RESULTS.' + e['key'] | translate:{ value: e.n_occurrences } | html }}"></td>
+      <td
+        [innerHTML]="'ELEMS.' + e['test'] | translate: { value: e.n_occurrences } | html"
+      ></td>
       <td>
         <span *ngFor="let q of e.quartiles" fxLayout="column">
-          <span *ngIf="q.int.lower === q.int.upper && q.int.lower === 1 && q.tot === 1 && nPages === q.tot">
+          <span
+            *ngIf="
+              q.int.lower === q.int.upper &&
+              q.int.lower === 1 &&
+              q.tot === 1 &&
+              nPages === q.tot
+            "
+          >
             {{ q.int.lower }}
-            {{ "WEBSITE.table.details.single_practice" | translate }}
-            {{ "WEBSITE.table.details.all_pages" | translate }}
+            {{
+              "WEBSITES_PAGE.table_best_practices.details.single_practice"
+                | translate
+            }}
+            {{
+              "WEBSITES_PAGE.table_best_practices.details.all_pages" | translate
+            }}
           </span>
-          <span *ngIf="q.int.lower === q.int.upper && q.int.lower === 1 && q.tot !== nPages">
+          <span
+            *ngIf="
+              q.int.lower === q.int.upper &&
+              q.int.lower === 1 &&
+              q.tot !== nPages
+            "
+          >
             {{ q.int.lower }}
-            {{ "WEBSITE.table.details.single_practice" | translate }}
+            {{
+              "WEBSITES_PAGE.table_best_practices.details.single_practice"
+                | translate
+            }}
             {{ q.tot }}
-            {{ "WEBSITE.table.details.from" | translate }}
+            {{ "WEBSITES_PAGE.table_best_practices.details.from" | translate }}
             <!--{{ nPages }}-->
-            {{ "WEBSITE.table.details.multi_page" | translate }}
+            {{
+              "WEBSITES_PAGE.table_best_practices.details.multi_page"
+                | translate
+            }}
           </span>
-          <span *ngIf="q.int.lower === q.int.upper && q.int.lower === 1 && q.tot > 1 && q.tot === nPages">
+          <span
+            *ngIf="
+              q.int.lower === q.int.upper &&
+              q.int.lower === 1 &&
+              q.tot > 1 &&
+              q.tot === nPages
+            "
+          >
             {{ q.int.lower }}
-            {{ "WEBSITE.table.details.single_practice" | translate }}
-            {{ "WEBSITE.table.details.all_pages" | translate }}
+            {{
+              "WEBSITES_PAGE.table_best_practices.details.single_practice"
+                | translate
+            }}
+            {{
+              "WEBSITES_PAGE.table_best_practices.details.all_pages" | translate
+            }}
           </span>
-          
-          <span *ngIf="q.int.lower === q.int.upper && q.int.lower !== 1 && q.tot === nPages">
+
+          <span
+            *ngIf="
+              q.int.lower === q.int.upper &&
+              q.int.lower !== 1 &&
+              q.tot === nPages
+            "
+          >
             {{ q.int.lower }}
-            {{ "WEBSITE.table.details.multi_practices" | translate }}
-            {{ "WEBSITE.table.details.all_pages" | translate }}
+            {{
+              "WEBSITES_PAGE.table_best_practices.details.multi_practices"
+                | translate
+            }}
+            {{
+              "WEBSITES_PAGE.table_best_practices.details.all_pages" | translate
+            }}
           </span>
-          <span *ngIf="q.int.lower === q.int.upper && q.int.lower !== 1 && q.tot !== nPages">
+          <span
+            *ngIf="
+              q.int.lower === q.int.upper &&
+              q.int.lower !== 1 &&
+              q.tot !== nPages
+            "
+          >
             {{ q.int.lower }}
-            {{ "WEBSITE.table.details.multi_practices" | translate }}
+            {{
+              "WEBSITES_PAGE.table_best_practices.details.multi_practices"
+                | translate
+            }}
             {{ q.tot }}
-            {{ "WEBSITE.table.details.from" | translate }}
+            {{ "WEBSITES_PAGE.table_best_practices.details.from" | translate }}
             <!--{{ nPages }}-->
-            {{ "WEBSITE.table.details.multi_page" | translate }}
+            {{
+              "WEBSITES_PAGE.table_best_practices.details.multi_page"
+                | translate
+            }}
           </span>
 
           <span *ngIf="q.int.lower !== q.int.upper && q.tot === 1">
-            {{ "WEBSITE.table.details.from" | translate }}
+            {{ "WEBSITES_PAGE.table_best_practices.details.from" | translate }}
             {{ q.int.lower }}
-            {{ "WEBSITE.table.details.to" | translate }}
+            {{ "WEBSITES_PAGE.table_best_practices.details.to" | translate }}
             {{ q.int.upper }}
-            {{ "WEBSITE.table.details.multi_practices" | translate }}
+            {{
+              "WEBSITES_PAGE.table_best_practices.details.multi_practices"
+                | translate
+            }}
             {{ q.tot }}
-            {{ "WEBSITE.table.details.from" | translate }}
+            {{ "WEBSITES_PAGE.table_best_practices.details.from" | translate }}
             <!--{{ nPages }}-->
-            {{ "WEBSITE.table.details.multi_page" | translate }}
+            {{
+              "WEBSITES_PAGE.table_best_practices.details.multi_page"
+                | translate
+            }}
           </span>
           <span *ngIf="q.int.lower !== q.int.upper && q.tot > 1">
-            {{ "WEBSITE.table.details.from" | translate }}
+            {{ "WEBSITES_PAGE.table_best_practices.details.from" | translate }}
             {{ q.int.lower }}
-            {{ "WEBSITE.table.details.to" | translate }}
+            {{ "WEBSITES_PAGE.table_best_practices.details.to" | translate }}
             {{ q.int.upper }}
-            {{ "WEBSITE.table.details.multi_practices" | translate }}
+            {{
+              "WEBSITES_PAGE.table_best_practices.details.multi_practices"
+                | translate
+            }}
             {{ q.tot }}
-            {{ "WEBSITE.table.details.from" | translate }}
+            {{ "WEBSITES_PAGE.table_best_practices.details.from" | translate }}
             <!--{{ nPages }}-->
-            {{ "WEBSITE.table.details.multi_page" | translate }}
+            {{
+              "WEBSITES_PAGE.table_best_practices.details.multi_page"
+                | translate
+            }}
           </span>
         </span>
       </td>

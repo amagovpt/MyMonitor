@@ -184,6 +184,7 @@ export class Website {
           key,
           n_elems: this.errors[key].n_elems,
           n_pages: this.errors[key].n_pages,
+          test: tests[key].test
         });
       }
     }
@@ -198,6 +199,7 @@ export class Website {
         key,
         n_occurrences: this.success[key].n_occurrences,
         n_pages: this.success[key].n_pages,
+        test: tests[key].test
       });
     }
 
@@ -264,6 +266,7 @@ export class Website {
       if (this.success[key]) {
         practices.push({
           key,
+          test: tests[key].test,
           n_occurrences: this.success[key].n_occurrences,
           n_pages: this.success[key].n_pages,
           lvl: tests[key].level.toUpperCase(),
@@ -290,6 +293,7 @@ export class Website {
       if (this.errors[key]) {
         practices.push({
           key,
+          test: tests[key].test,
           n_occurrences: this.errors[key].n_occurrences,
           n_pages: this.errors[key].n_pages,
           lvl: tests[key].level.toUpperCase(),

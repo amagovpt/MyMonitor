@@ -32,6 +32,7 @@ export class TopThreePracticesComponent implements OnInit {
           n_occurrences: this.data[key].n_occurrences,
           n_pages: this.data[key].n_pages,
           lvl: tests[key].level.toUpperCase(),
+          test:tests[key].test
         });
       }
     }

@@ -1,4 +1,4 @@
-<br *ngIf="success && success.length > 0">
+<br *ngIf="success && success.length > 0" />
 <mat-card class="mat-typography" *ngIf="success && success.length > 0">
   <mat-card-header>
     <mat-card-title>
@@ -7,12 +7,26 @@
   </mat-card-header>
   <mat-card-content>
     <mat-list>
-      <mat-list-item *ngFor="let s of success; let i = index;">
+      <mat-list-item *ngFor="let s of success; let i = index">
         <p>
-          {{ i+1 }}.
-          <span *ngIf="s.n_pages > 1" innerHTML="{{ 'PAGES.top_5_best_practices.message.p' | translate:{ value: s.n_pages } }}"></span>
-          <span *ngIf="s.n_pages === 1" innerHTML="{{ 'PAGES.top_5_best_practices.message.s' | translate:{ value: s.n_pages } }}"></span>
-          <span innerHTML="{{ 'TEST_RESULTS.' + s['key'] | translate | html:true }}"></span>
+          {{ i + 1 }}.
+          <span
+            *ngIf="s.n_pages > 1"
+            innerHTML="{{
+              'PAGES.top_5_best_practices.message.p'
+                | translate: { value: s.n_pages }
+            }}"
+          ></span>
+          <span
+            *ngIf="s.n_pages === 1"
+            innerHTML="{{
+              'PAGES.top_5_best_practices.message.s'
+                | translate: { value: s.n_pages }
+            }}"
+          ></span>
+          <span
+            innerHTML="{{ 'ELEMS.' + s['test'] | translate | html: true }}"
+          ></span>
         </p>
       </mat-list-item>
     </mat-list>
