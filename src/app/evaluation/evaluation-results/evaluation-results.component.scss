@@ -1,7 +1,7 @@
 @import '../../../app/global/sccss/button.scss';
 
 section {
-  width: 87%;
+  width: 100%;
 }
 
 section:nth-child(1) nav {
@@ -80,10 +80,12 @@ nav a {
 }
 
 .action {
-    @extend %btn;
+    @extend %btn_reverse;
   font-size: 1em;
   padding: 0.4em 1em;
   line-height: 1.5em;
+
+
 }
 
 .actionS {
@@ -262,7 +264,7 @@ td {
 }
 
 .summary-section {
-  background-color: var(--results-summary-background);
+  background-color: var(--statistics-background);
   padding-bottom: 60px;
   margin-bottom: 2em;
 }
@@ -420,7 +422,7 @@ td {
     width: 100%;
 
     .pp_bottomrow {
-      border-top: 1px solid var(--results-summary-background);
+      border-top: 1px solid var(--statistics-background);
       padding-top: 16px;
       padding-bottom: 16px;
       padding-right: 28px;
@@ -605,7 +607,7 @@ td {
 }
 
 .evaluation-section {
-  background-color: var(--results-evaluation-background);
+  background-color: var(--statistics-background);
 }
 
 .evaluation-section-wrapper {
