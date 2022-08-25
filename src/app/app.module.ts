@@ -141,6 +141,7 @@ export function HttpLoaderFactory(http: HttpClient) {
   ],
   entryComponents: [
     ScoreDistributionDialogComponent,
+    AddPageDialogComponent,
     ErrorDistributionDialogComponent,
     RemovePagesConfirmationDialogComponent,
     UserAuthErrorDialogComponent,

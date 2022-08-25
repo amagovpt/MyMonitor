@@ -35,3 +35,9 @@ body {
   border-color: var(--table-directory-name); 
 }
 
+.cdk-global-scrollblock{
+      position: static !important;
+      width: initial !important;
+      overflow-y: inherit !important;
+    }
+

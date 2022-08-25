@@ -18,8 +18,11 @@ export class Website {
   oldestPage: Date;
   success: any;
   tot: any;
+  startingUrl: string;
+  name: string;
 
-  constructor() {
+
+  constructor(name: string,startingUrl: string,) {
     this.pages = new Array<Page>();
     this.score = 0;
     this.A = 0;
@@ -30,6 +33,8 @@ export class Website {
     this.success = {};
     this.tot = {};
     this.pagesWithErrors = 0;
+    this.name = name;
+    this.startingUrl = startingUrl;
   }
 
   addPage(

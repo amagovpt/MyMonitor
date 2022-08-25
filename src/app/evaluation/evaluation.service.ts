@@ -6,13 +6,8 @@ import { HttpClient } from "@angular/common/http";
 import { map, catchError, retry } from "rxjs/operators";
 import { saveAs } from "file-saver";
 import clone from "lodash.clone";
-import { Parser } from "htmlparser2";
-import DomHandler from "domhandler";
-import * as DomUtils from "domutils";
-import * as CSSselect from "css-select";
 
 import tests from "./lib/tests";
-import xpath from "./lib/xpath";
 import tests_colors from "./lib/tests_colors";
 import scs from "./lib/scs";
 import { ConfigService } from "../services/config.service";
@@ -134,47 +129,6 @@ export class EvaluationService {
     }
   }
 
-  evaluateHtml(html: string): Observable<any> {
-    return this.http
-      .post<any>(
-        this.config.getServer("/amp/eval/html"),
-        { html },
-        { observe: "response" }
-      )
-      .pipe(
-        map((res) => {
-          const response = res.body;
-
-          if (
-            !res.body ||
-            (res.status !== 200 && res.status !== 201) ||
-            response.success !== 1
-          ) {
-            throw new Error();
-          }
-
-          this.evaluation = response.result;
-          this.evaluation.processed = this.processData();
-
-          try {
-            sessionStorage.removeItem("url");
-            sessionStorage.setItem(
-              "evaluation",
-              JSON.stringify(this.evaluation)
-            );
-          } catch (err) {
-            console.log(err);
-          }
-
-          return this.evaluation.processed;
-        }),
-        catchError((err) => {
-          console.log(err);
-          return of(null);
-        })
-      );
-  }
-
   getTestResults(test: string): any {
     if (!this.url || !this.evaluation) {
       this.url = sessionStorage.getItem("url");
@@ -283,62 +237,6 @@ export class EvaluationService {
     return results;*/
 
     return this.getElements(allNodes, ele);
-  }
-
-  private getCSSList(ele: string, paths: any): any {
-    /*const handler = new DomHandler(() => {}, { withStartIndices: true, withEndIndices: true });
-    const parser = new Parser(handler);
-
-    parser.write(this.evaluation.pagecode.replace(/(\r\n|\n|\r|\t)/gm, ''));
-    parser.end();
-
-    const elements = new Array();
-    let result = 'G';
-    let i = 0;
-    const dom = handler.dom;
-    for (const path of paths.split(',') || []) {
-      const nodes = CSSselect.selectAll(path, dom);
-
-      let key = '';
-      const results = this.evaluation.processed.results.map(r => r.msg);
-      for (const test in tests || {}) {
-        const _test = tests[test];
-        if (_test.test === ele && results.includes(test)) {
-          result = tests_colors[test];
-          key = test;
-          break;
-        }
-      }
-
-      for (const node of nodes || []) {
-        let attrs = undefined;
-        if (node['tagName'].toLowerCase() !== 'style') {
-          for (const attr of Object.keys(node['attribs']) || []) {
-            const value = node['attribs'][attr];
-            
-            if (value && attr === 'style') {
-              attrs = attr + '="' + value + '" ';
-            }
-          }
-        }
-
-        elements.push({
-          ele: node['tagName'].toLowerCase(),
-          attr: attrs,
-          showCode: this.evaluation.data.tot.results[key][i],
-        });
-        i++;
-      }
-    }*/
-    const elements = new Array();
-
-    return {
-      type: "css",
-      elements,
-      result: "ola",
-      size: elements.length,
-      finalUrl: clone(this.evaluation.processed.metadata.url),
-    };
   }
 
   downloadCSV(): void {

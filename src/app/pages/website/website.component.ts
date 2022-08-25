@@ -47,34 +47,35 @@ export class WebsiteComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.sub = this.activatedRoute.params.subscribe((params) => {
       this.website = params.website;
+      this.monitor.getWebsiteStartingUrl(this.website).subscribe((url) => {
+        this.monitor.getUserWebsitePages(this.website).subscribe((pages) => {
+          if (pages !== null) {
+            this.pages = pages;
 
-      this.monitor.getUserWebsitePages(this.website).subscribe((pages) => {
-        if (pages !== null) {
-          this.pages = pages;
+            this.websiteObject = new Website(this.website, url);
+            for (const page of this.pages || []) {
+              this.websiteObject.addPage(
+                page.Score,
+                page.Errors,
+                page.Tot,
+                page.A,
+                page.AA,
+                page.AAA,
+                page.Evaluation_Date
+              );
+            }
 
-          this.websiteObject = new Website();
-          for (const page of this.pages || []) {
-            this.websiteObject.addPage(
-              page.Score,
-              page.Errors,
-              page.Tot,
-              page.A,
-              page.AA,
-              page.AAA,
-              page.Evaluation_Date
-            );
+            this.scoreDistributionData = {
+              number: this.pages.length,
+              frequency: this.websiteObject.frequencies,
+            };
+          } else {
+            this.error = true;
           }
 
-          this.scoreDistributionData = {
-            number: this.pages.length,
-            frequency: this.websiteObject.frequencies,
-          };
-        } else {
-          this.error = true;
-        }
-
-        this.loading = false;
-        this.cd.detectChanges();
+          this.loading = false;
+          this.cd.detectChanges();
+        })
       });
     });
   }

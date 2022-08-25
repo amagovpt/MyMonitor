@@ -41,7 +41,7 @@ export class EvaluationResultsPageComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.paramsSub = this.route.params.subscribe((params) => {
       this.website = params.website;
-      this.url = params.url;
+      this.url = decodeURIComponent(params.url);
       console.log(params);
       this.evaluation.getEvaluation(this.website, this.url)
         .subscribe(data => {

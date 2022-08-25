@@ -1,33 +1,9 @@
+  <section id="main" class="info">
+    <h2>{{ websiteObject.name }}</h2>
+    <h3><a href="{{ websiteObject.startingUrl }}" target="_blank">{{ websiteObject.startingUrl }}</a></h3>
+  </section>
 <section>
-  <mat-card class="mat-typography">
-    <mat-card-header fxLayout="row" fxLayoutAlign="center center">
-      <mat-card-title>
-        <h1>Website: {{ website }}</h1>
-      </mat-card-title>
-    </mat-card-header>
-    <mat-card-actions>
-      <a mat-icon-button class="tools" [routerLink]="['/user']" matTooltip="{{ 'RESULTS.actions.back' | translate }}">
-         <mat-icon aria-label="'RESULTS.actions.back' | translate">arrow_back</mat-icon>
-      </a>
-      <span fxFlex></span>
-      <button mat-icon-button class="tools" [matMenuTriggerFor]="menu" matTooltip="{{ 'RESULTS.actions.download' | translate }}">
-        <mat-icon aria-label="'RESULTS.actions.download' | translate">file_download</mat-icon>
-      </button>
-      <mat-menu #menu="matMenu">
-        <button mat-menu-item (click)="downloadCSV()">
-          <a download="eval.csv">CSV</a>
-        </button>
-        <button mat-menu-item (click)="downloadEARL()">
-          <a download="eval.json">EARL</a>
-        </button>
-      </mat-menu>
-    </mat-card-actions>
-  </mat-card>
-  <br>
-
   <div *ngIf="!loading && !error">
-    <app-website-add-pages [website]="website" (addPages)="addWebsitePages($event)"></app-website-add-pages>
-    <br>
     <app-website-statistics *ngIf="pages.length > 0" [website]="websiteObject" [pages]="pages"></app-website-statistics>
     <br>
     <app-accessibility-plot *ngIf="pages.length > 0" [data]="websiteObject.getAllScores()"></app-accessibility-plot>
