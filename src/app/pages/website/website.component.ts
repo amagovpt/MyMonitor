@@ -11,6 +11,7 @@ import { RemovePagesConfirmationDialogComponent } from "../../dialogs/remove-pag
 import { BackgroundEvaluationsInformationDialogComponent } from "../../dialogs/background-evaluations-information-dialog/background-evaluations-information-dialog.component";
 
 import { Website } from "../../models/website";
+import { WebsiteListService } from "src/app/services/website-list.service";
 
 @Component({
   selector: "app-website",
@@ -34,6 +35,7 @@ export class WebsiteComponent implements OnInit, OnDestroy {
   constructor(
     private activatedRoute: ActivatedRoute,
     private monitor: MonitorService,
+    private websiteList: WebsiteListService,
     private message: MessageService,
     private evaluation: EvaluationService,
     private dialog: MatDialog,
@@ -47,37 +49,17 @@ export class WebsiteComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.sub = this.activatedRoute.params.subscribe((params) => {
       this.website = params.website;
-      this.monitor.getWebsiteStartingUrl(this.website).subscribe((url) => {
-        this.monitor.getUserWebsitePages(this.website).subscribe((pages) => {
-          if (pages !== null) {
-            this.pages = pages;
+      this.websiteObject = this.websiteList.getWebsiteByName(this.website);
+      this.pages = this.websiteObject.pages;
+      this.scoreDistributionData = {
+        number: this.pages.length,
+        frequency: this.websiteObject.frequencies,
+      };
 
-            this.websiteObject = new Website(this.website, url);
-            for (const page of this.pages || []) {
-              this.websiteObject.addPage(
-                page.Score,
-                page.Errors,
-                page.Tot,
-                page.A,
-                page.AA,
-                page.AAA,
-                page.Evaluation_Date
-              );
-            }
-
-            this.scoreDistributionData = {
-              number: this.pages.length,
-              frequency: this.websiteObject.frequencies,
-            };
-          } else {
-            this.error = true;
-          }
-
-          this.loading = false;
-          this.cd.detectChanges();
-        })
-      });
+      this.loading = false;
+      this.cd.detectChanges();
     });
+
   }
 
   ngOnDestroy(): void {

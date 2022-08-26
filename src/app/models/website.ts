@@ -6,8 +6,10 @@ import orderBy from "lodash.orderby";
 
 
 export class Website {
+  id: number;
   pages: Array<Page>;
   score: number;
+  totalPoints:number;
   A: number;
   AA: number;
   AAA: number;
@@ -20,11 +22,21 @@ export class Website {
   tot: any;
   startingUrl: string;
   name: string;
+  declaration: number | null;
+  declarationDate: Date | null;
+  stamp: number | null;
+  stampDate: Date | null;
 
 
-  constructor(name: string,startingUrl: string,) {
+  constructor(startingUrl: string, name: string, declaration: number | null,
+    declarationDate: Date | null,
+    stamp: number | null,
+    stampDate: Date | null,
+    id: number,
+  ) {
+    this.id = id;
     this.pages = new Array<Page>();
-    this.score = 0;
+    this.totalPoints = 0;
     this.A = 0;
     this.AA = 0;
     this.AAA = 0;
@@ -35,6 +47,10 @@ export class Website {
     this.pagesWithErrors = 0;
     this.name = name;
     this.startingUrl = startingUrl;
+    this.declaration = declaration;
+    this.declarationDate = declarationDate ? new Date(declarationDate) : null;
+    this.stamp = stamp;
+    this.stampDate = stampDate ? new Date(stampDate) : null;
   }
 
   addPage(
@@ -50,8 +66,9 @@ export class Website {
     page.addEvaluation(score, errors, tot, A, AA, AAA, evaluationDate);
     this.pages.push(page);
 
-    this.score += parseFloat(score);
-
+    this.totalPoints += parseFloat(score);
+    this.score = this.totalPoints/this.pages.length;
+    
     if (A > 0)
       this.pagesWithErrors++;
     else if (AA > 0)
@@ -171,10 +188,6 @@ export class Website {
     } else if (evaluationDate < this.oldestPage) {
       this.oldestPage = evaluationDate;
     }
-  }
-
-  getScore(): number {
-    return this.score / this.pages.length;
   }
 
   getAllScores(): Array<number> {

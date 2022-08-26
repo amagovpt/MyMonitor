@@ -5,6 +5,7 @@ import { Website } from "../../models/website";
 
 import orderBy from "lodash.orderby";
 import { MonitorService } from "src/app/services/monitor.service";
+import { WebsiteListService } from "src/app/services/website-list.service";
 
 @Component({
   selector: "app-websites",
@@ -28,7 +29,7 @@ export class WebsitesComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(
-    private monitor: MonitorService,
+    private websiteList: WebsiteListService,
     private cd: ChangeDetectorRef
   ) {
     this.loading = true;
@@ -36,25 +37,19 @@ export class WebsitesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.monitor.getUserWebsites()
-      .subscribe(websites => {
-        if (websites !== null) {
-          this.websites = websites;
-          console.log(websites);
-          this.pageSize = 50;
-          this.sortedData = this.websites.slice(0, this.pageSize);
-          this.indicator1 = 1;
-          this.indicator2 =
-            this.websites.length > this.pageSize
-              ? this.pageSize
-              : this.websites.length;
-        } else {
-          this.error = true;
-        }
+    this.websites = this.websiteList.getWebsiteList();
+    console.log(this.websites);
+    this.pageSize = 50;
+    this.sortedData = this.websites.slice(0, this.pageSize);
+    this.indicator1 = 1;
+    this.indicator2 =
+      this.websites.length > this.pageSize
+        ? this.pageSize
+        : this.websites.length;
 
-        this.loading = false;
-        this.cd.detectChanges();
-      });
+    this.loading = false;
+    this.cd.detectChanges();
+
   }
 
   nextPage(): void {
@@ -113,36 +108,43 @@ export class WebsitesComponent implements OnInit {
   }
 
   sortData(sort: Sort): void {
-    if (sort.active === "rank" || sort.active === "score") {
+    if (sort.active === "rank"){
       if (sort.direction === "asc") {
-        this.websites = this.websites.sort((a, b) => a.rank - b.rank).slice();
+        this.websites = this.websites.sort((a, b) => a.id - b.id).slice();
       } else {
-        this.websites = this.websites.sort((a, b) => b.rank - a.rank).slice();
+        this.websites = this.websites.sort((a, b) => b.id - a.id).slice();
+      }
+    }
+    if(sort.active === "score") {
+      if (sort.direction === "asc") {
+        this.websites = this.websites.sort((a, b) => a.score - b.score).slice();
+      } else {
+        this.websites = this.websites.sort((a, b) => b.score - a.score).slice();
       }
     } else if (sort.active === "declaration") {
       if (sort.direction === "asc") {
         this.websites = this.websites
-          .sort((a, b) => a.Declaration - b. Declaration)
+          .sort((a, b) => a.declaration - b.declaration)
           .slice();
       } else {
         this.websites = this.websites
-          .sort((a, b) => b.Declaration - a.Declaration)
+          .sort((a, b) => b.declaration - a.declaration)
           .slice();
       }
     } else if (sort.active === "stamp") {
       if (sort.direction === "asc") {
-        this.websites = this.websites.sort((a, b) => a.Stamp - b.Stamp).slice();
+        this.websites = this.websites.sort((a, b) => a.stamp - b.stamp).slice();
       } else {
-        this.websites = this.websites.sort((a, b) => b.Stamp - a.Stamp).slice();
+        this.websites = this.websites.sort((a, b) => b.stamp - a.stamp).slice();
       }
     } else if (sort.active === "pages") {
       if (sort.direction === "asc") {
         this.websites = this.websites
-          .sort((a, b) => a.Pages - b.Pages)
+          .sort((a, b) => a.pages.length - b.pages.length)
           .slice();
       } else {
         this.websites = this.websites
-          .sort((a, b) => b.Pages - a.Pages)
+          .sort((a, b) => b.pages.length - a.pages.length)
           .slice();
       }
     } else if (sort.active === "A") {
@@ -166,9 +168,9 @@ export class WebsitesComponent implements OnInit {
     } else if (sort.active === "name") {
       if (sort.direction === "asc") {
         this.websites = this.websites.sort((a, b) => {
-          if (a.Name.toLowerCase() < b.Name.toLowerCase()) {
+          if (a.name.toLowerCase() < b.name.toLowerCase()) {
             return -1;
-          } else if (a.Name.toLowerCase() > b.Name.toLowerCase()) {
+          } else if (a.name.toLowerCase() > b.name.toLowerCase()) {
             return 1;
           }
 
@@ -176,9 +178,9 @@ export class WebsitesComponent implements OnInit {
         });
       } else {
         this.websites = this.websites.sort((a, b) => {
-          if (a.Name.toLowerCase() < b.Name.toLowerCase()) {
+          if (a.name.toLowerCase() < b.name.toLowerCase()) {
             return 1;
-          } else if (a.Name.toLowerCase() > b.Name.toLowerCase()) {
+          } else if (a.name.toLowerCase() > b.name.toLowerCase()) {
             return -1;
           }
 

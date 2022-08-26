@@ -128,26 +128,26 @@
             </thead>
             <tbody>
               <tr *ngFor="let website of sortedData">
-                <td>{{ website.WebsiteId }}</td>
+                <td>{{ website.id }}</td>
                 <td class="name">
                   <a
                     *ngIf="website.entity"
-                    [routerLink]="[website.Name]"
+                    [routerLink]="[website.name]"
                     matTooltip="{{ 'WEBSITE_TABLE.table.entity' | translate }} {{
                       website.entity
                     }}"
                     matTooltipClass="tooltip-stamp-declaration"
                     [matTooltipPosition]="'right'"
-                    >{{ website.Name }}</a
+                    >{{ website.name }}</a
                   >
-                  <a *ngIf="!website.entity" [routerLink]="[website.Name]"
+                  <a *ngIf="!website.entity" [routerLink]="[website.name]"
 >{{
-                    website.Name
+                    website.name
                   }}</a>
                 </td>
-                <td *ngIf="!website.Declaration"></td>
+                <td *ngIf="!website.declaration"></td>
                 <td
-                  *ngIf="website.Declaration === 1"
+                  *ngIf="website.declaration === 1"
                   matTooltip="{{
                     'WEBSITE_TABLE.table.declaration_not_conform' | translate
                   }}"
@@ -202,7 +202,7 @@
                   </svg>
                 </td>
                 <td
-                  *ngIf="website.Declaration === 2"
+                  *ngIf="website.declaration === 2"
                   matTooltip="{{
                     'WEBSITE_TABLE.table.declaration_partial_conform' | translate
                   }}"
@@ -257,7 +257,7 @@
                   </svg>
                 </td>
                 <td
-                  *ngIf="website.Declaration === 3"
+                  *ngIf="website.declaration === 3"
                   matTooltip="{{
                     'WEBSITE_TABLE.table.declaration_conform' | translate
                   }}"
@@ -311,9 +311,9 @@
                     />
                   </svg>
                 </td>
-                <td *ngIf="!website.Stamp"></td>
+                <td *ngIf="!website.stamp"></td>
                 <td
-                  *ngIf="website.Stamp === 1"
+                  *ngIf="website.stamp === 1"
                   matTooltip="{{ 'WEBSITE_TABLE.table.stamp_bronze' | translate }}"
                   matTooltipClass="tooltip-stamp-declaration"
                   [matTooltipPosition]="'above'"
@@ -358,7 +358,7 @@
                   </svg>
                 </td>
                 <td
-                  *ngIf="website.Stamp === 2"
+                  *ngIf="website.stamp === 2"
                   matTooltip="{{ 'WEBSITE_TABLE.table.stamp_silver' | translate }}"
                   matTooltipClass="tooltip-stamp-declaration"
                   [matTooltipPosition]="'above'"
@@ -403,7 +403,7 @@
                   </svg>
                 </td>
                 <td
-                  *ngIf="website.Stamp === 3"
+                  *ngIf="website.stamp === 3"
                   matTooltip="{{ 'WEBSITE_TABLE.table.stamp_gold' | translate }}"
                   matTooltipClass="tooltip-stamp-declaration"
                   [matTooltipPosition]="'above'"
@@ -448,7 +448,7 @@
                   </svg>
                 </td>
                 <td>{{ website.score | toFixed }}</td>
-                <td>{{ website.Pages }}</td>
+                <td>{{ website.pages.length }}</td>
                 <td>{{ website.A }}</td>
                 <td>{{ website.AA }}</td>
                 <td>{{ website.AAA }}</td>
