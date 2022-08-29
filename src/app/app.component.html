@@ -1,78 +1,24 @@
-<a class="skip-to-main" href="#main" title="{{ 'MISC.skip_to_main' | translate }}">{{ "MISC.skip_to_main" | translate }}</a>
-<mat-sidenav-container>
-  <mat-sidenav #sidenav>
-    <div fxLayout="column" fxLayoutAlign="space-between start">
-      <mat-nav-list *ngIf="user.isUserLoggedIn()">
-        <h3 mat-subheader>Menu</h3>
-        <mat-list-item routerLink="/user" (click)="sidenav.close()">
-          <mat-icon mat-list-icon>home</mat-icon>
-          <h4 mat-line>{{ "SIDEBAR.websites" | translate }}</h4>
-        </mat-list-item>
-
-        <mat-list-item *ngIf="website" [routerLink]="['/user', website]" (click)="sidenav.close()">
-          <mat-icon mat-list-icon>language</mat-icon>
-          <h4 mat-line>{{website}}</h4>
-        </mat-list-item>
-
-        <mat-list-item *ngIf="page" [routerLink]="['/user', website, page]" (click)="sidenav.close()">
-          <mat-icon mat-list-icon>web</mat-icon>
-          <h4 mat-line>{{page}}</h4>
-        </mat-list-item>
-
-        <mat-list-item *ngIf="code" [routerLink]="['/user', website, page, 'code']" (click)="sidenav.close()">
-          <mat-icon mat-list-icon>code</mat-icon>
-          <h4 mat-line>{{ "HEADER.NAV.code" | translate }}</h4>
-        </mat-list-item>
-
-        <mat-list-item *ngIf="ele" [routerLink]="['/user', website, page,ele]" (click)="sidenav.close()">
-          <mat-icon mat-list-icon>code</mat-icon>
-          <h4 mat-line [innerHtml]="'ELEMS.' + ele | translate"></h4>
-        </mat-list-item>
-
-        <mat-divider></mat-divider>
-
-        <mat-list-item routerLink="/user/settings" (click)="sidenav.close()">
-          <mat-icon mat-list-icon>settings</mat-icon>
-          <h4 mat-line>{{ "HEADER.settings" | translate }}</h4>
-        </mat-list-item>
-
-        <mat-list-item (click)="user.logout();sidenav.close()">
-          <mat-icon mat-list-icon>cancel</mat-icon>
-          <h4 mat-line>{{ "LOGIN.logout" | translate }}</h4>
-        </mat-list-item>
-      </mat-nav-list>
-      <br>
-      <mat-list fxLayout="row" fxLayoutAlign="center center">
-        <mat-list-item>
-          <mat-form-field>
-            <label for="sidenav-language">{{ 'FOOTER.language' | translate }}</label>
-            <mat-select id="sidenav-language" [(value)]="selectedLang" (selectionChange)="changeLanguage()">
-              <mat-option *ngFor="let lang of translate.getLangs()" [value]="lang">
-                {{ "LANGUAGES."+lang | translate }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </mat-list-item>
-      </mat-list>
-    </div>
-  </mat-sidenav>
-
-  <mat-sidenav-content (scroll)="onScroll($event)">
-
-    <div id="main" class="main">
-      <app-header [sidenav]="sidenav"></app-header>
-      <router-outlet></router-outlet>
-    </div>
-    <br>
-    <div class="footer">
-      <app-footer></app-footer>
-    </div>
-
-    <button class="go_to_top" *ngIf="showGoToTop" fxHide.lt-md mat-fab color="accent" matTooltip="{{ 'MISC.go_to_top' | translate }}" (click)="goToTop()">
-      <mat-icon aria-label="'MISC.go_to_top' | translate">arrow_upward</mat-icon>
-    </button>
-    <button class="go_to_top_mini" *ngIf="showGoToTop" fxHide.gt-sm mat-mini-fab color="accent" matTooltip="{{ 'MISC.go_to_top' | translate }}" (click)="goToTop()">
-      <mat-icon aria-label="'MISC.go_to_top' | translate">arrow_upward</mat-icon>
-    </button>
-  </mat-sidenav-content>
-</mat-sidenav-container>
+<div class="main">
+    <a class="skip-to-main" [routerLink]="[]" fragment="main">{{ "MISC.skip_to_main" | translate }}</a>
+  <app-header [sidenav]="sidenav"></app-header>
+  <router-outlet></router-outlet>
+</div>
+<br />
+<button type="button" class="go-to-top" (click)="goToTop()">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 16 16"
+  >
+    <title>monitor_icons_tools_back-to-top</title>
+    <path
+      d="M9,3.93l.84.84,1.51,1.5A1,1,0,1,0,12.93,5l-.14-.14-2-2-2-2a1.11,1.11,0,0,0-1.57,0h0l-2,2-2,2A1,1,0,1,0,4.5,6.41l.14-.14.78-.78L7,3.93V7.78a1,1,0,1,0,2,0H9V3.93Z"
+    />
+    <circle cx="8.03" cy="11.19" r="0.98" />
+    <circle cx="8.03" cy="14.52" r="0.98" />
+  </svg>
+</button>
+<div class="footer">
+  <app-footer></app-footer>
+</div>

@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject, ChangeDetectorRef } from "@angular/core";
+import { MatCheckboxChange } from "@angular/material/checkbox";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
-import { MatTableDataSource } from "@angular/material/table";
-import { SelectionModel } from "@angular/cdk/collections";
+
 
 import { MonitorService } from "../../services/monitor.service";
 
@@ -14,8 +14,8 @@ export class CrawlerResultsDialogComponent implements OnInit {
   displayedColumns = ["Uri", "import"];
 
   pages: Array<any>;
-  dataSource: MatTableDataSource<any>;
-  selectionImport: any;
+  selection: any = {};//url-> selected
+
 
   error = false;
   loading = false;
@@ -26,42 +26,65 @@ export class CrawlerResultsDialogComponent implements OnInit {
     private monitor: MonitorService,
     private cd: ChangeDetectorRef
   ) {
-    this.selectionImport = new SelectionModel<any>(true, []);
     this.loading = true;
     this.error = false;
   }
 
   ngOnInit(): void {
     this.monitor.getCrawlerResults(this.data.startingUrl).subscribe((pages) => {
-      if (pages) {
-        this.dataSource = new MatTableDataSource(pages);
-      } else {
+      if (!pages) {
         this.error = true;
+      } else {
+        this.pages = pages;
+        this.pages.map((page) => {
+          this.selection[page.Uri] = false;
+        });
       }
+
 
       this.loading = false;
       this.cd.detectChanges();
     });
   }
+  getSelectedPagesUrl() {
+    const pagesUri = [];
+    for (const page of this.pages) {
+      if (this.selection[page.Uri])
+        pagesUri.push(page.Uri)
+    }
+    return pagesUri;
+  }
 
   choosePages(e: any): void {
     e.preventDefault();
-    this.dialog.close(this.selectionImport.selected.map((p) => p.Uri));
+    this.dialog.close(this.getSelectedPagesUrl());
   }
 
-  /** Whether the number of selected elements matches the total number of rows. */
-  isAllSelectedImport() {
-    const numSelected = this.selectionImport.selected.length;
-    const numRows = this.dataSource.data.length;
-    return numSelected === numRows;
+  masterToggle() {
+    this.isAllSelected() ?
+      this.changeAll(false) :
+      this.changeAll(true);
   }
 
-  /** Selects all rows if they are not all selected; otherwise clear selection. */
-  masterToggleImport() {
-    this.isAllSelectedImport()
-      ? this.dataSource.data.forEach((row) => {
-          this.selectionImport.deselect(row);
-        })
-      : this.dataSource.data.forEach((row) => this.selectionImport.select(row));
+  changeAll(value: boolean) {
+    const keys = Object.keys(this.selection);
+    for (const key of keys) {
+      this.selection[key] = value
+    }
+  }
+  numberSelected() {
+    const values = Object.values(this.selection);
+    return values.reduce((prev:number, curr) => {
+      if (curr)
+        prev++;
+      return prev;
+    }, 0);
+  }
+  isAllSelected() {
+    const values = Object.values(this.selection);
+    return values.reduce((prev, curr) => { return prev && curr }, true);
+  }
+  onChkChange(ob: MatCheckboxChange, page: any) {
+    this.selection[page.Uri] = ob.checked;
   }
 }

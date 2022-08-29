@@ -83,12 +83,14 @@ export class CrawlWebsiteComponent implements OnInit {
   openCrawlingResultsDialog(): void {
     const dialog = this.dialog.open(CrawlerResultsDialogComponent, {
       width: "60vw",
+      maxHeight:"40vw",
       data: {
         startingUrl: this.startingUrl,
       },
     });
 
     dialog.afterClosed().subscribe((data) => {
+      console.log(data);
       if (data) {
         this.addWebsitePages.next({
           startingUrl: this.startingUrl,

@@ -271,6 +271,7 @@ export class WebsiteAddPagesComponent implements OnInit {
     });
 
     dialog.afterClosed().subscribe((data) => {
+      console.log(data);
       if (data) {
         this.addWebsitePages.next({
           startingUrl: this.startingUrl,

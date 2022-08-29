@@ -390,7 +390,13 @@
       "date": "Data",
       "levels": "Erros por nível de conformidade",
       "see_tooltip": "Ver páginas",
-      "note": "* Número de erros por nível de conformidade"
+      "note": "* Número de erros por nível de conformidade",
+      "paginator": {
+        "of": "de",
+        "items": "itens",
+        "see": "Ver",
+        "per_page": "itens por página"
+      }
     },
     "dialog": {
       "title": "Remover páginas",

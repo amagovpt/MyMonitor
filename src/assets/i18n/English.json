@@ -387,7 +387,13 @@
       "levels": "",
       "date": "Date",
       "see_tooltip": "See page",
-      "note": "* Number of errors for each conform level"
+      "note": "* Number of errors for each conform level",
+        "paginator": {
+        "of": "of",
+        "items": "items",
+        "see": "Show",
+        "per_page": "items per page"
+      }
     },
     "dialog": {
       "title": "Remove pages",
