@@ -36,8 +36,8 @@ export class WebsitesComponent implements OnInit {
     this.error = false;
   }
 
-  ngOnInit(): void {
-    this.websites = this.websiteList.getWebsiteList();
+  async ngOnInit(): Promise<void> {
+    this.websites = await this.websiteList.getAllWebsites();
     console.log(this.websites);
     this.pageSize = 50;
     this.sortedData = this.websites.slice(0, this.pageSize);

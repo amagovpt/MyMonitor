@@ -1,6 +1,8 @@
 import { Component, OnInit, OnDestroy, ChangeDetectorRef } from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
 import { ActivatedRoute } from "@angular/router";
 import { Subscription } from "rxjs";
+import { BackgroundEvaluationsInformationDialogComponent } from "src/app/dialogs/background-evaluations-information-dialog/background-evaluations-information-dialog.component";
 
 import { EvaluationService } from "../evaluation.service";
 
@@ -25,7 +27,9 @@ export class EvaluationResultsPageComponent implements OnInit, OnDestroy {
   constructor(
     private evaluation: EvaluationService,
     private route: ActivatedRoute,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
+    private dialog: MatDialog,
+
   ) {
     this.thresholdConfig = {
       "0": { color: "red" },
@@ -62,49 +66,18 @@ export class EvaluationResultsPageComponent implements OnInit, OnDestroy {
   }
 
   evaluate(force: boolean): void {
-    this.loading = true;
-
-    if (this.evaluationSub && !this.evaluationSub.closed) {
-      this.evaluationSub.unsubscribe();
-    }
-
-    this.evaluationSub = this.evaluation
+  this.evaluation
       .evaluateUrl(this.url, force)
       .subscribe((data) => {
+        console.log(data);
         if (!data) {
           this.error = true;
-        } else {
-          this.eval = data;
+        } else{
+          
+            this.dialog.open(BackgroundEvaluationsInformationDialogComponent, {
+              width: "40vw",
+            });
         }
-
-        window.onclick = function (event) {
-          const dropdowns = document.getElementsByClassName("dropdown-content");
-          for (let i = 0; i < dropdowns.length; i++) {
-            if (dropdowns[i].classList.contains("show_dropdown")) {
-              dropdowns[i].classList.remove("show_dropdown");
-            }
-          }
-
-          if (
-            event.target.matches(
-              ".download_data_button, .download_data_button *"
-            )
-          ) {
-            openDownloadData();
-          }
-
-          if (event.target.matches(".see_page_button, .see_page_button *")) {
-            openSeePage();
-          }
-
-          if (event.target.matches(".see_all_button, .see_all_button *")) {
-            openAllMenu();
-          }
-        };
-
-        this.loading = false;
-        this.cd.detectChanges();
-        this.fillTable();
       });
   }
 

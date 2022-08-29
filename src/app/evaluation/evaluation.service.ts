@@ -82,43 +82,19 @@ export class EvaluationService {
     }
   }
   evaluateUrl(url: string, force: boolean = false): Observable<any> {
-    if (this.url && this.url === url && this.evaluation && !force) {
-      return of(this.evaluation.processed);
-    } else {
-      const _url = sessionStorage.getItem("url");
-      if (_url && _url === url && !force) {
-        this.url = _url;
-        this.evaluation = JSON.parse(sessionStorage.getItem("evaluation"));
-        return of(this.evaluation.processed);
-      } else {
-        return this.http
-          .get<any>(
-            this.config.getServer("/amp/eval/" + encodeURIComponent(url)),
+    return this.http
+          .post<any>(
+            this.config.getServer("/page/myMonitor/evaluate"),
+            { url: encodeURIComponent(url) },
             { observe: "response" }
           )
           .pipe(
             map((res) => {
               const response = res.body;
-
-              if (!res.body || res.status !== 200 || response.success !== 1) {
+              if (!res.body || response.success !== 1) {
                 throw new Error();
               }
-
-              this.url = url;
-              this.evaluation = response.result;
-              this.evaluation.processed = this.processData();
-
-              try {
-                sessionStorage.setItem("url", url);
-                sessionStorage.setItem(
-                  "evaluation",
-                  JSON.stringify(this.evaluation)
-                );
-              } catch (err) {
-                console.log(err);
-              }
-
-              return this.evaluation.processed;
+              return response;
             }),
             catchError((err) => {
               console.log(err);
@@ -126,9 +102,7 @@ export class EvaluationService {
             })
           );
       }
-    }
-  }
-
+   
   getTestResults(test: string): any {
     if (!this.url || !this.evaluation) {
       this.url = sessionStorage.getItem("url");

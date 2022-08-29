@@ -30,7 +30,7 @@ export class ListOfPagesComponent implements OnInit {
 
   @Output('removePages') removePages = new EventEmitter<Array<number>>();
 
-  @Output('reEvaluatePages') reEvaluatePages = new EventEmitter<void>();
+  @Output('reEvaluatePages') reEvaluatePages = new EventEmitter<Array<number>>();
 
   selection: any = {};//url-> selected
 
@@ -56,8 +56,9 @@ export class ListOfPagesComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log(this.pages)
     this.pages.map((page) => {
-      this.selection[page.Uri] = false;
+      this.selection[page.uri] = false;
     });
     if (this.pages !== null) {
       this.pageSize = 50;
@@ -137,17 +138,17 @@ export class ListOfPagesComponent implements OnInit {
   sortData(sort: Sort): void {
     if (sort.active === "score") {
       if (sort.direction === "asc") {
-        this.pages = this.pages.sort((a, b) => a.Score - b.Score).slice();
+        this.pages = this.pages.sort((a, b) => a.evaluation.score - b.evaluation.score).slice();
       } else {
-        this.pages = this.pages.sort((a, b) => b.Score - a.Score).slice();
+        this.pages = this.pages.sort((a, b) => b.evaluation.score - a.evaluation.score).slice();
       }
     } else if (sort.active === "uri") {
       if (sort.direction === "asc") {
         this.pages = this.pages
           .sort((a, b) => {
-            if (a.Uri.toLowerCase() < b.Uri.toLowerCase()) {
+            if (a.uri.toLowerCase() < b.uri.toLowerCase()) {
               return -1;
-            } else if (a.Uri.toLowerCase() > b.Uri.toLowerCase()) {
+            } else if (a.uri.toLowerCase() > b.uri.toLowerCase()) {
               return 1;
             }
             return 0;
@@ -156,9 +157,9 @@ export class ListOfPagesComponent implements OnInit {
       } else {
         this.pages = this.pages
           .sort((a, b) => {
-            if (a.Uri.toLowerCase() < b.Uri.toLowerCase()) {
+            if (a.uri.toLowerCase() < b.uri.toLowerCase()) {
               return 1;
-            } else if (a.Uri.toLowerCase() > b.Uri.toLowerCase()) {
+            } else if (a.uri.toLowerCase() > b.uri.toLowerCase()) {
               return -1;
             }
             return 0;
@@ -167,27 +168,27 @@ export class ListOfPagesComponent implements OnInit {
       }
     } else if (sort.active === "date") {
       if (sort.direction === "asc") {
-        this.pages = this.pages.sort((a, b) => a.Creation_Date - b.Creation_Date).slice();
+        this.pages = this.pages.sort((a, b) => a.evaluation.evaluationDate - b.evaluation.evaluationDate).slice();
       } else {
-        this.pages = this.pages.sort((a, b) => b.Creation_Date - a.Creation_Date).slice();
+        this.pages = this.pages.sort((a, b) => b.evaluation.evaluationDate - a.evaluation.evaluationDate).slice();
       }
     } else if (sort.active === "A") {
       if (sort.direction === "asc") {
-        this.pages = this.pages.sort((a, b) => a.A - b.A).slice();
+        this.pages = this.pages.sort((a, b) => a.evaluation.A - b.evaluation.A).slice();
       } else {
-        this.pages = this.pages.sort((a, b) => b.A - a.A).slice();
+        this.pages = this.pages.sort((a, b) => b.evaluation.A - a.evaluation.A).slice();
       }
     } else if (sort.active === "AA") {
       if (sort.direction === "asc") {
-        this.pages = this.pages.sort((a, b) => a.AA - b.AA).slice();
+        this.pages = this.pages.sort((a, b) => a.evaluation.AA - b.evaluation.AA).slice();
       } else {
-        this.pages = this.pages.sort((a, b) => b.AA - a.AA).slice();
+        this.pages = this.pages.sort((a, b) => b.evaluation.AA - a.evaluation.AA).slice();
       }
     } else if (sort.active === "AAA") {
       if (sort.direction === "asc") {
-        this.pages = this.pages.sort((a, b) => a.AAA - b.AAA).slice();
+        this.pages = this.pages.sort((a, b) => a.evaluation.AAA - b.evaluation.AAA).slice();
       } else {
-        this.pages = this.pages.sort((a, b) => b.AAA - a.AAA).slice();
+        this.pages = this.pages.sort((a, b) => b.evaluation.AAA - a.evaluation.AAA).slice();
       }
     }
 
@@ -209,14 +210,24 @@ export class ListOfPagesComponent implements OnInit {
   getSelectedPagesId(){
     const pagesId = [];
     for (const page of this.pages) {
-      if (this.selection[page.Uri])
-        pagesId.push(page.PageId)
+      if (this.selection[page.uri])
+        pagesId.push(page.id)
     }
     return pagesId;
   }
 
+  getSelectedPagesUrl() {
+    const pagesUri = [];
+    for (const page of this.pages) {
+      if (this.selection[page.uri])
+        pagesUri.push(page.uri)
+    }
+    return pagesUri;
+  }
+
   reEvaluate(): void {
-    this.reEvaluatePages.next();
+    const pagesId = this.getSelectedPagesUrl();
+    this.reEvaluatePages.next(pagesId);
   }
 
   applyFilter(filterValue: string): void {
@@ -225,7 +236,7 @@ export class ListOfPagesComponent implements OnInit {
     // this.dataSource.filter = filterValue;
   }
 
-  getUriRoute(uri: string): Array<string> {
+  geturiRoute(uri: string): Array<string> {
     const path = this.location.path();
     let segments = path.split('/');
     segments[0] = '/user';
@@ -257,7 +268,7 @@ export class ListOfPagesComponent implements OnInit {
   }
 
   onChkChange(ob: MatCheckboxChange, page: any) {
-    this.selection[page.Uri] = ob.checked;
+    this.selection[page.uri] = ob.checked;
   }
 
   openAddPages(){

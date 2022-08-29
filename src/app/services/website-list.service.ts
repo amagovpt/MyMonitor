@@ -11,42 +11,49 @@ export class WebsiteListService {
 
   constructor(private monitor: MonitorService,) {
     this.websiteMap = new Map<string, Website>();
+  }
+  async getAllWebsites(): Promise<Website[]>{
+  this.websiteMap = new Map<string, Website>();
+  return new Promise((resolve, reject) => {
     this.monitor.getUserWebsites()
-      .subscribe(websites => {
-        websites.map((website) => {
-          this.addWebsite(website)
-          console.log(website)
-
-        })
-
-      });
-  }
-
-  addWebsite(websiteData: any) {
-    const websiteName = websiteData.Name;
-    this.monitor.getUserWebsitePages(websiteName).subscribe((pages) => {
-      const website = new Website(websiteData.url, websiteName, websiteData.Declaration, websiteData.DeclarationDate, websiteData.Stamp, websiteData.Stamp_Update_Date, websiteData.WebsiteId);
-      for (const page of pages || []) {
-        website.addPage(
-          page.Score,
-          page.Errors,
-          page.Tot,
-          page.A,
-          page.AA,
-          page.AAA,
-          page.Evaluation_Date
-        );
-      }
-      this.websiteMap.set(websiteName, website);
+    .subscribe(async websites => {
+      await Promise.all(websites.map(async (website) => {
+        await this.addWebsite(website);
+      }))
+      resolve(this.getWebsiteList())
     })
-  }
+  });
 
-  getWebsiteList() {
-    console.log(this.websiteMap);
-    return [...this.websiteMap.values()];
-  }
+}
 
-  getWebsiteByName(name: string) {
-    return this.websiteMap.get(name);
-  }
+addWebsite(websiteData: any):Promise<Website> {
+  const websiteName = websiteData.Name;
+  return new Promise((resolve, reject) => {this.monitor.getUserWebsitePages(websiteName).subscribe((pages) => {
+    const website = new Website(websiteData.url, websiteName, websiteData.Declaration, websiteData.DeclarationDate, websiteData.Stamp, websiteData.Stamp_Update_Date, websiteData.WebsiteId);
+    for (const page of pages || []) {
+      console.log(page)
+      website.addPage(
+        page.Score,
+        page.Errors,
+        page.Tot,
+        page.A,
+        page.AA,
+        page.AAA,
+        page.Evaluation_Date,
+        page.Uri,
+        page.PageId
+      );
+    }
+    this.websiteMap.set(websiteName, website);
+    resolve(website);
+  })});
+}
+
+getWebsiteList() {
+  return [...this.websiteMap.values()];
+}
+
+getWebsiteByName(name: string) {
+  return this.websiteMap.get(name);
+}
 }

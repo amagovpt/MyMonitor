@@ -67,18 +67,18 @@
               <td>
                 <mat-checkbox
                   (change)="onChkChange($event, page)"
-                  [checked]="selection[page.Uri]"
+                  [checked]="selection[page.uri]"
                 >
                 </mat-checkbox>
               </td>
               <td class="name">
-                <a [routerLink]="[goToEvaluation(page.Uri)]">{{ page.Uri }}</a>
+                <a [routerLink]="[goToEvaluation(page.uri)]">{{ page.uri }}</a>
               </td>
-              <td>{{ page.Score | toFixed }}</td>
-              <td>{{ page.A }}</td>
-              <td>{{ page.AA }}</td>
-              <td>{{ page.AAA }}</td>
-              <td>{{ page.Creation_Date | date }}</td>
+              <td>{{ page.evaluation.score | toFixed }}</td>
+              <td>{{ page.evaluation.A }}</td>
+              <td>{{ page.evaluation.AA }}</td>
+              <td>{{ page.evaluation.AAA }}</td>
+              <td>{{ page.evaluation.evaluationDate | date }}</td>
             </tr>
           </tbody>
         </table>

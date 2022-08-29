@@ -60,9 +60,11 @@ export class Website {
     A: number,
     AA: number,
     AAA: number,
-    evaluationDate: Date
+    evaluationDate: Date,
+    uri:string,
+    id:number
   ): void {
-    const page = new Page();
+    const page = new Page(uri,id);
     page.addEvaluation(score, errors, tot, A, AA, AAA, evaluationDate);
     this.pages.push(page);
 

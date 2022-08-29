@@ -18,7 +18,7 @@ import { WebsiteListService } from "src/app/services/website-list.service";
   templateUrl: "./website.component.html",
   styleUrls: ["./website.component.scss"],
 })
-export class WebsiteComponent implements OnInit, OnDestroy {
+export class WebsiteComponent implements OnInit {
   loading: boolean;
   error: boolean;
 
@@ -33,7 +33,6 @@ export class WebsiteComponent implements OnInit, OnDestroy {
 
 
   constructor(
-    private activatedRoute: ActivatedRoute,
     private monitor: MonitorService,
     private websiteList: WebsiteListService,
     private message: MessageService,
@@ -46,24 +45,26 @@ export class WebsiteComponent implements OnInit, OnDestroy {
     this.website = "";
   }
 
-  ngOnInit(): void {
-    this.sub = this.activatedRoute.params.subscribe((params) => {
-      this.website = params.website;
-      this.websiteObject = this.websiteList.getWebsiteByName(this.website);
-      this.pages = this.websiteObject.pages;
-      this.scoreDistributionData = {
-        number: this.pages.length,
-        frequency: this.websiteObject.frequencies,
-      };
+  async ngOnInit(): Promise<void> {
+    await this.websiteList.getAllWebsites();
+    this.website = this.getWebsiteName();
+    this.websiteObject = this.websiteList.getWebsiteByName(this.website);
+    console.log(this.websiteObject)
+    this.pages = this.websiteObject.pages;
+    console.log(this.pages)
+    this.scoreDistributionData = {
+      number: this.pages.length,
+      frequency: this.websiteObject.frequencies,
+    };
 
-      this.loading = false;
-      this.cd.detectChanges();
-    });
+    this.loading = false;
+    this.cd.detectChanges();
 
   }
 
-  ngOnDestroy(): void {
-    this.sub.unsubscribe();
+  getWebsiteName() {
+    const name = window.location.pathname.replace("/user/", "");
+    return decodeURIComponent(name);
   }
 
   addWebsitePages(data): void {
@@ -114,16 +115,22 @@ export class WebsiteComponent implements OnInit, OnDestroy {
     });
   }
 
-  reEvaluatePages(): void {
-    this.monitor.reEvaluatePages(this.website).subscribe((result) => {
-      if (result) {
-        this.dialog.open(BackgroundEvaluationsInformationDialogComponent, {
-          width: "40vw",
-        });
-      } else {
-        alert("Error");
-      }
-    });
+  reEvaluatePages(uriList: []): void {
+    let dialog = false;
+    uriList.map((uri) => {
+      console.log(uri);
+      this.evaluation.evaluateUrl(uri).subscribe((result) => {
+        if (result && !dialog) {
+          this.dialog.open(BackgroundEvaluationsInformationDialogComponent, {
+            width: "40vw",
+          });
+          dialog = true;
+        } else {
+          alert("Error");
+        }
+      });
+    })
+
   }
 
   downloadCSV(): void {
