@@ -356,7 +356,7 @@
     "add_button": "Adicionar",
     "remove_success_message": "Páginas removidas com successo",
     "remove_error_message": "Ocorreu um erro ao tentar remover as páginas selecionadas",
-    "re_evaluate": "Re-avaliar todas as páginas",
+    "re_evaluate": "Re-avaliar páginas",
     "top_5_errors": {
       "title": "Top 5 de erros mais comuns por cada uma das 3 prioridades das WCAG 2.1 (Nº de páginas)",
       "errorA_title": "O top dos 5 erros de prioridade \"A\" que afetam mais páginas",

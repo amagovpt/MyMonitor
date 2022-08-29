@@ -333,7 +333,7 @@
         "to": "to"
       },
       "lvl_label": "Level"
-    }
+    },
     "table": {
       "title": "List of websites",
       "button": "Add",
@@ -355,7 +355,7 @@
     "add_button": "Add",
     "remove_success_message": "Pages removed successfully",
     "remove_error_message": "There was an error while trying to remove the selected pages",
-    "re_evaluate": "Re-evaluate all pages",
+    "re_evaluate": "Re-evaluate pages",
     "top_5_errors": {
       "title": "Top 5 common errors for each of the 3 WCAG 2.1 levels (nº of pages)",
       "errorA_title": "Top 5 errors from level \"A\"",
