@@ -102,7 +102,7 @@
             role="tabpanel"
             id="input_tab"
             aria-labelledby="tab_input"
-            class="is-hidden"
+            class="is-hidden-dialog"
           >
            <app-sitemap-add [website]="website" (addPages)="addWebsitePages($event)"></app-sitemap-add>
           </div>
@@ -111,7 +111,7 @@
             role="tabpanel"
             id="file_tab"
             aria-labelledby="tab_file"
-            class="is-hidden"
+            class="is-hidden-dialog"
           >
             <app-crawl-website [website]="website" (addPages)="addWebsitePages($event)"></app-crawl-website>
           </div>
@@ -120,7 +120,7 @@
             role="tabpanel"
             id="obs_tab"
             aria-labelledby="tab_file"
-            class="is-hidden"
+            class="is-hidden-dialog"
           >
             <app-add-observatory [website]="website"></app-add-observatory>
           </div>

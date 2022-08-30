@@ -11,7 +11,7 @@ export class Page {
     this.id = id;
   }
 
-  addEvaluation(score: string, errors: any, tot: any, A: number, AA: number, AAA: number, evaluationDate: Date): void {
+  addEvaluation(score: number, errors: any, tot: any, A: number, AA: number, AAA: number, evaluationDate: Date): void {
     this.evaluation = new Evaluation(score, errors, tot, A, AA, AAA, evaluationDate);
   }
 }

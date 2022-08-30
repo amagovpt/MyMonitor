@@ -7,8 +7,8 @@ export class Evaluation {
   AAA: number;
   evaluationDate: Date;
 
-  constructor(score: string, errors: any, tot: any, A: number, AA: number, AAA: number, evaluationDate: Date) {
-    this.score = parseFloat(score);
+  constructor(score: number, errors: any, tot: any, A: number, AA: number, AAA: number, evaluationDate: Date) {
+    this.score = score;
     this.errors = JSON.parse(atob(errors));
     this.tot = JSON.parse(atob(tot));
     this.A = A;

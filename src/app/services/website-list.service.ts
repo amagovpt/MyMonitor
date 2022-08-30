@@ -33,7 +33,7 @@ addWebsite(websiteData: any):Promise<Website> {
     for (const page of pages || []) {
       console.log(page)
       website.addPage(
-        page.Score,
+        parseFloat(page.Score),
         page.Errors,
         page.Tot,
         page.A,

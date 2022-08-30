@@ -236,8 +236,8 @@ export class NewWebsiteAddPagesComponent implements OnInit {
     // Get the value of aria-controls (which is an ID)
     const controls = tab.getAttribute("aria-controls");
 
-    // Remove is-hidden class from tab panel to make it visible
-    document.getElementById(controls).classList.remove("is-hidden");
+    // Remove is-hidden-dialog class from tab panel to make it visible
+    document.getElementById(controls).classList.remove("is-hidden-dialog");
 
     // Set focus when required
     if (setFocus) {
@@ -253,7 +253,7 @@ export class NewWebsiteAddPagesComponent implements OnInit {
     }
 
     for (const panel of this.panels) {
-      panel.classList.add("is-hidden");
+      panel.classList.add("is-hidden-dialog");
     }
   }
 
