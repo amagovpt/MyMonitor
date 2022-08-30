@@ -95,7 +95,7 @@
             id="url_tab"
             aria-labelledby="tab_url"
           >
-            <app-manually-add-pages [website]="website"></app-manually-add-pages>
+            <app-manually-add-pages [website]="website" (addPages)="addWebsitePages($event)"></app-manually-add-pages>
           </div>
           <div
             tabindex="-1"
@@ -104,7 +104,7 @@
             aria-labelledby="tab_input"
             class="is-hidden"
           >
-           <app-sitemap-add [website]="website"></app-sitemap-add>
+           <app-sitemap-add [website]="website" (addPages)="addWebsitePages($event)"></app-sitemap-add>
           </div>
           <div
             tabindex="-1"
@@ -113,7 +113,7 @@
             aria-labelledby="tab_file"
             class="is-hidden"
           >
-            <app-crawl-website [website]="website"></app-crawl-website>
+            <app-crawl-website [website]="website" (addPages)="addWebsitePages($event)"></app-crawl-website>
           </div>
           <div
             tabindex="-1"

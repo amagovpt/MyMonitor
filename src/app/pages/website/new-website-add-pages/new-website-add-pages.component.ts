@@ -6,7 +6,9 @@ import {
   Validators,
 } from "@angular/forms";
 import { ErrorStateMatcher } from "@angular/material/core";
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { BackgroundEvaluationsInformationDialogComponent } from 'src/app/dialogs/background-evaluations-information-dialog/background-evaluations-information-dialog.component';
+import { MonitorService } from 'src/app/services/monitor.service';
 
 export class UrlStateMatcher implements ErrorStateMatcher {
   isErrorState(
@@ -30,8 +32,7 @@ export class UrlStateMatcher implements ErrorStateMatcher {
 
 export class NewWebsiteAddPagesComponent implements OnInit {
   @Input("website") website: string;
-  @Output("addPages") addWebsitePages = new EventEmitter<any>();
-  
+
   url: FormControl;
   urlMatcher: any;
 
@@ -48,8 +49,11 @@ export class NewWebsiteAddPagesComponent implements OnInit {
   keys;
   direction;
 
-  constructor() {
-     this.url = new FormControl("", [urlValidator]);
+  constructor(private dialog: MatDialog,
+    private monitor: MonitorService,
+
+  ) {
+    this.url = new FormControl("", [urlValidator]);
 
     this.htmlInput = new FormControl("", [Validators.required]);
     this.fileInput = new FormControl({ value: "", disabled: true }, [
@@ -94,6 +98,30 @@ export class NewWebsiteAddPagesComponent implements OnInit {
     } else if (location.pathname.includes("/upload-html")) {
       this.activateTab(this.tabs[2], true);
     }
+  }
+
+  addWebsitePages(data): void {
+    /*this.loading = true;
+    this.monitor.addWebsitePages(this.website, data.domain, data.urls)
+      .subscribe(pages => {
+        if (pages) {
+          this.message.show('ADD_PAGES.success_message');
+          this.pages = pages;
+        }
+        this.loading = false;
+        this.cd.detectChanges();
+      });*/
+    this.monitor
+      .addWebsitePages(this.website, data.startingUrl, data.urls)
+      .subscribe((result) => {
+        if (result) {
+          this.dialog.open(BackgroundEvaluationsInformationDialogComponent, {
+            width: "40vw",
+          });
+        } else {
+          alert("Error");
+        }
+      });
   }
 
   generateArrays() {
