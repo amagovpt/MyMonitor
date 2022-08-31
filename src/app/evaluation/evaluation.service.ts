@@ -40,7 +40,7 @@ export class EvaluationService {
         return this.http
           .get<any>(
             this.config.getServer(
-              `/evaluation/myMonitor/${website}/${url}`
+              `/evaluation/myMonitor/${website}/${encodeURIComponent(url)}`
             ),
             { observe: "response" }
           )
