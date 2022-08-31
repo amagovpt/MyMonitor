@@ -1,15 +1,24 @@
-<div fxLayout="row">
-  <h1 class="mat-display-1" mat-dialog-title>{{ "ADD_PAGES.evaluations_dialog.title" | translate }}</h1>
-  <span fxFlex></span>
-  <button mat-icon-button aria-label="Close dialog" mat-dialog-close>
-    <mat-icon aria-hidden="false">close</mat-icon>
-  </button>
+<div class="diag_wrapper">
+  <div
+    class="dialog-title"
+    fxLayout="row"
+    fxLayoutAlign="start center"
+    gdColumns="86% 7% 7%"
+  >
+    <h2 mat-dialog-title>{{ "DIALOGS.add.title" | translate }}</h2>
+    <span>{{ "DIALOGS.close" | translate }}</span>
+    <div class="flexContainer">
+    <button
+      class="close"
+      type="button"
+      mat-dialog-close
+      fxLayout="row"
+      fxLayoutAlign="center center"
+      aria-label="{{ 'DIALOGS.close_dialog' | translate }}"
+    >
+      X
+    </button>
+    </div>
+  </div>
+    <p>{{ "ADD_PAGES.evaluations_dialog.message" | translate }}</p>
 </div>
-<mat-dialog-content fxLayout="row" fxLayoutAlign="center center">
-  <p>{{ "ADD_PAGES.evaluations_dialog.message" | translate }}</p>
-</mat-dialog-content>
-<mat-dialog-actions fxLayout="row" fxLayoutAlign="center center">
-  <button mat-flat-button color="warn" type="button" mat-dialog-close>
-    {{ "ADD_PAGES.evaluations_dialog.close" | translate }}
-  </button>
-</mat-dialog-actions>
