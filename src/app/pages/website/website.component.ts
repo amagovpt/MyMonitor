@@ -38,7 +38,8 @@ export class WebsiteComponent implements OnInit {
     private message: MessageService,
     private evaluation: EvaluationService,
     private dialog: MatDialog,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
+    private activatedRoute: ActivatedRoute,
   ) {
     this.loading = true;
     this.error = false;
@@ -47,18 +48,20 @@ export class WebsiteComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     await this.websiteList.getAllWebsites();
-    this.website = this.getWebsiteName();
-    this.websiteObject = this.websiteList.getWebsiteByName(this.website);
-    console.log(this.websiteObject)
-    this.pages = this.websiteObject.pages;
-    console.log(this.pages)
-    this.scoreDistributionData = {
-      number: this.pages.length,
-      frequency: this.websiteObject.frequencies,
-    };
+    this.sub = this.activatedRoute.params.subscribe((params) => {
+      this.website = params.website;
+      this.websiteObject = this.websiteList.getWebsiteByName(this.website);
+      console.log(this.websiteObject)
+      this.pages = this.websiteObject.pages;
+      console.log(this.pages)
+      this.scoreDistributionData = {
+        number: this.pages.length,
+        frequency: this.websiteObject.frequencies,
+      };
 
-    this.loading = false;
-    this.cd.detectChanges();
+      this.loading = false;
+      this.cd.detectChanges();
+    })
 
   }
 
