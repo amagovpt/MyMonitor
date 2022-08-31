@@ -312,11 +312,7 @@ caption {
   visibility: hidden;
 }
 
-::ng-deep .tooltip-stamp-declaration {
-  font-family: Lato;
-  font-size: 16px;
-  font-weight: bold;
-  letter-spacing: 0;
-  line-height: 22px;
-  color: var(--table-header-text);
+::ng-deep .mat-checkbox-frame {
+  border-color: var(--table-directory-name) !important;
+  background-color: white !important;
 }

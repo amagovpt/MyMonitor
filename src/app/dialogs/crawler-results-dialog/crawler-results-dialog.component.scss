@@ -148,3 +148,8 @@ table tbody tr:hover {
     }
   }
 }
+
+::ng-deep .mat-checkbox-frame {
+  border-color: var(--table-directory-name) !important;
+  background-color: white !important;
+}
