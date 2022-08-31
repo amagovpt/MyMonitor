@@ -77,7 +77,7 @@ export class ListOfPagesComponent implements OnInit {
   }
 
   goToEvaluation(url:string): string {
-   return encodeURIComponent(url);
+    return encodeURIComponent(url);
   }
 
   nextPage(): void {

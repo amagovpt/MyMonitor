@@ -57,6 +57,7 @@ export class EvaluationResultsPageComponent implements OnInit, OnDestroy {
 
           this.loading = false;
           this.cd.detectChanges();
+          this.fillTable();
         });
     });
   }
@@ -107,7 +108,7 @@ export class EvaluationResultsPageComponent implements OnInit, OnDestroy {
     const practicesProgress = <HTMLCollectionOf<HTMLElement>>(
       document.getElementsByClassName("practices_progress")
     );
-
+    
     practicesProgress[0].style.background = `-webkit-linear-gradient(left, #bce1bc, #bce1bc ${
       (totalOk / totalPractices) * 100
     }%, var(--results-summary-table-background) ${

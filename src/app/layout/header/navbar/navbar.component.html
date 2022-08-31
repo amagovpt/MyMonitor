@@ -1,27 +1,53 @@
 <div>
-<section>
-<nav fxLayout="row">
-  <a href="/">{{ "HEADER.NAV.ecosystem" | translate }}</a>
+  <section>
+    <nav fxLayout="row">
+      <a href="/">{{ "HEADER.NAV.ecosystem" | translate }}</a>
 
-  <mat-icon>keyboard_arrow_right</mat-icon>
-  <a routerLink="/user" routerLinkActive="active">{{ "HEADER.NAV.home" | translate }}</a>
+      <span>></span>
+      <a routerLink="/user" routerLinkActive="active">{{
+        "HEADER.NAV.home" | translate
+      }}</a>
 
-  <mat-icon *ngIf="settings">keyboard_arrow_right</mat-icon>
-  <a *ngIf="settings" routerLink="/user/settings" routerLinkActive="active">{{ "HEADER.settings" | translate }}</a>
+      <span *ngIf="settings">></span>
+      <a
+        *ngIf="settings"
+        routerLink="/user/settings"
+        routerLinkActive="active"
+        >{{ "HEADER.settings" | translate }}</a
+      >
 
-  <mat-icon *ngIf="website">keyboard_arrow_right</mat-icon>
-  <a *ngIf="website" [routerLink]="['/user', website]" routerLinkActive="active">{{ website }}</a>
+      <span *ngIf="website">></span>
+      <a
+        *ngIf="website"
+        [routerLink]="['/user', website]"
+        routerLinkActive="active"
+        >{{ website }}</a
+      >
 
-  <mat-icon *ngIf="page">keyboard_arrow_right</mat-icon>
-  <a *ngIf="page" [routerLink]="['/user', website, page]" routerLinkActive="active">{{ page }}</a>
+      <span *ngIf="page">></span>
+      <a
+        *ngIf="page"
+        [routerLink]="['/user', website, page]"
+        routerLinkActive="active"
+        >{{ page }}</a
+      >
 
-  <mat-icon *ngIf="code">keyboard_arrow_right</mat-icon>
-  <a *ngIf="code" [routerLink]="['/user', website, page, 'code']" routerLinkActive="active">
-    {{ "HEADER.NAV.code" | translate }}
-  </a>
+      <span *ngIf="code">></span>
+      <a
+        *ngIf="code"
+        [routerLink]="['/user', website, page, 'code']"
+        routerLinkActive="active"
+      >
+        {{ "HEADER.NAV.code" | translate }}
+      </a>
 
-  <mat-icon *ngIf="ele">keyboard_arrow_right</mat-icon>
-  <a *ngIf="ele" [routerLink]="['/user', website, page, ele]" routerLinkActive="active" [innerHtml]="'ELEMS.' + ele | translate"></a>
-</nav>
-</section>
+      <span *ngIf="ele">></span>
+      <a
+        *ngIf="ele"
+        [routerLink]="['/user', website, page, ele]"
+        routerLinkActive="active"
+        [innerHtml]="'ELEMS.' + ele | translate"
+      ></a>
+    </nav>
+  </section>
 </div>

@@ -467,7 +467,7 @@
     "subtitle": "Test:",
     "elements_tab": "Elements",
     "page_tab": "Page",
-    "total_elements": "Number of elements:",
+    "total_elements": "elements found",
     "inline_css_tab": "Inline CSS",
     "embedded_css_tab": "Embedded CSS",
     "result": {

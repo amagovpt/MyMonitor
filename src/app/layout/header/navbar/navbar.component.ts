@@ -49,7 +49,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
               this.ele = decodeURIComponent(segments[4]);
             }
           case 4:
-            this.page = decodeURIComponent(segments[3]);
+            this.page = decodeURIComponent(decodeURIComponent(segments[3]));
 
           case 3:
             if (segments[2] === 'settings') {
@@ -59,6 +59,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
             }
             break;
         }
+
+        
       }
     });
   }

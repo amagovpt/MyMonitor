@@ -58,7 +58,7 @@ export class ElementResultPageComponent
     listboxButton2.setHandleFocusChange(this.listboxFocusChange2.bind(this));
 
     this.sub = this.router.params.subscribe((params) => {
-      this.url = params.url;
+      this.url = decodeURIComponent(params.url);
       this.ele = params.ele;
 
       this.data = this.evaluation.getTestResults(this.ele);

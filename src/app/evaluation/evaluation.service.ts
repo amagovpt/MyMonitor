@@ -40,7 +40,7 @@ export class EvaluationService {
         return this.http
           .get<any>(
             this.config.getServer(
-              `/evaluation/myMonitor/${website}/${encodeURIComponent(url)}`
+              `/evaluation/myMonitor/${website}/${url}`
             ),
             { observe: "response" }
           )
@@ -85,7 +85,7 @@ export class EvaluationService {
     return this.http
           .post<any>(
             this.config.getServer("/page/myMonitor/evaluate"),
-            { url: encodeURIComponent(url) },
+            { url: url },
             { observe: "response" }
           )
           .pipe(
@@ -757,7 +757,7 @@ export class EvaluationService {
     if (ele === "w3cValidatorErrors") {
       item["html_validator"] = true;
       item["ele"] =
-        "https://validator.w3.org/nu/?doc=" + encodeURIComponent(this.url);
+        "https://validator.w3.org/nu/?doc=" + this.url;
     } else if (tot || tot > 0) {
       item["ele"] = ele;
 
