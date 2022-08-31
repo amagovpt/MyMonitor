@@ -4,9 +4,7 @@
     <h2>{{ "WEBSITES_PAGE.subtitle" | translate }}</h2>
   </section>
   <br />
-  <mat-card *ngIf="!loading && !error">
-    <mat-card-content *ngIf="websites.length > 0">
-      <section fxLayout="row" fxLayoutAlign="center center">
+      <section class="table-section"  *ngIf="!loading && !error && websites.length > 0" fxLayout="row" fxLayoutAlign="center center">
         <div class="table-wrapper">
           <h3>{{ "WEBSITE_TABLE.table.title" | translate }}</h3>
           <h4>
@@ -528,8 +526,6 @@
           </span>
         </div>
       </section>
-    </mat-card-content>
-  </mat-card>
   <app-loading *ngIf="loading"></app-loading>
   <app-error *ngIf="error"></app-error>
 </main>

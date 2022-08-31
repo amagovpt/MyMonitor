@@ -1,15 +1,13 @@
 
 .header_wrapper_1 {
   width: 100%;
-  background-color: var(--background);
+  background-color: var(--top-header-background);
 }
 
 .header_wrapper {
   width: 100%;
-  background-color: var(--background);
-  div{
-	 background-color: white;
-  }
+  background-color: var(--header-background);
+
 }
 
 .top_row {
@@ -24,6 +22,7 @@
     height: 35px;
     font-size: 1em;
     color: var(--home-header-text-2);
+	background-color: var(--top-header-background);
     font-weight: 400;
     font-family: "Lato";
 
@@ -42,7 +41,7 @@
 
     .switch {
       border: none;
-      background-color: transparent;
+      background-color: var(--top-header-background);
       color: var(--top-header-icon-color);
       font-size: 1em;
       font-weight: 400;
@@ -136,7 +135,7 @@
   display: none;
   position: absolute;
   z-index: 100;
-  background-color:  var(--header-background);
+  background-color: var(--home-header-background);
   width: 100%;
   top: 55px;
   min-height: calc(100vh - 55px);

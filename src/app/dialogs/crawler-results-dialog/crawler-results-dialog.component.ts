@@ -60,6 +60,10 @@ export class CrawlerResultsDialogComponent implements OnInit {
     this.dialog.close(this.getSelectedPagesUrl());
   }
 
+  close(): void {
+    this.dialog.close();
+  }
+
   masterToggle() {
     this.isAllSelected() ?
       this.changeAll(false) :

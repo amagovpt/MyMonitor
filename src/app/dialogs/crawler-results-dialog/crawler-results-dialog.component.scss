@@ -1,6 +1,11 @@
 h1{
   font-size: 1.5em;
   font-family: "Lato";
+    color: var(--table-text);
+
+}
+span{
+    color: var(--table-text);
 }
 .selected{
   margin-right: 1em;
