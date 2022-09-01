@@ -7,7 +7,7 @@
     "email_error": "Introduza um email válido. <strong>Ex.: nome@serviço.com</strong>",
     "show_password": "Carregue aqui para mostrar a palavra-chave",
     "hide_password": "Carregue aqui para esconder a palavra-chave",
-    "submit": "Iniciar sessão",
+    "submit": "AUTENTICAÇÃO.GOV",
     "logout": "Sair",
     "messages": {
       "password_match": "Utilizador ou palavra-chave incorretos",
@@ -25,7 +25,7 @@
       "part1": "My Monitor",
       "part2": ""
     },
-    "text": "O Observatório público das práticas de acessibilidade e usabilidade em sítios Web e aplicações móveis.",
+    "text": "Ferramenta que permite monitorar um sítio Web completo.",
     "NAV": {
       "location": "Você está em",
       "ecosystem": "Ecosistema",
