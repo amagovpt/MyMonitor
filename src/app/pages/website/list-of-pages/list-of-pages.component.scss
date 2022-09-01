@@ -4,8 +4,8 @@
 }
 
 .table-section {
-  background-color: var(--statistics-background);}
-
+  background-color: var(--statistics-background);
+}
 
 .mat-form-field {
   width: 100%;
@@ -19,7 +19,7 @@ a:hover {
   text-decoration: underline;
 }
 
-@import '../../../global/sccss/button.scss';
+@import "../../../global/sccss/button.scss";
 .table-filter,
 .table-filter mat-form-field,
 .table-filter input {
@@ -68,7 +68,7 @@ a:hover {
   align-items: center;
   justify-content: center;
 }
-.table-title{
+.table-title {
   font-family: Lato;
   font-size: 22px;
   display: flex;
@@ -76,49 +76,57 @@ a:hover {
   align-items: center;
 }
 
-.button-wrapper{
+.button-wrapper {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.btn-add{
+.btn-add {
   @extend %btn;
   font-size: 16px;
   padding: 0.5em 1em;
   margin-right: 0.6em;
   background-color: green;
   border-color: transparent;
-  svg{
-        margin-left: 0.5em;
-  }}
+  color: var(--statistics-button-text);
 
-  :host {
+  svg {
+    margin-left: 0.5em;
+  }
+}
+
+:host {
   width: 87%;
   background-color: var(--statistics-background);
 }
 
-.btn-remove{
+.btn-remove {
   @extend %btn;
   font-size: 16px;
   padding: 0.5em 1em;
   margin-right: 0.6em;
   background-color: red;
   border-color: transparent;
-  svg{
-        margin-left: 0.5em;
-  }}
-
-  .btn-reevaluate{
-    @extend %btn;
-    padding: 0.5em 1em;
-    font-size: 16px;
-    svg{
-        margin-left: 0.5em;
+  color: var(--statistics-button-text);
+  svg {
+    margin-left: 0.5em;
   }
-  }
+}
 
-  :host {
+.btn-reevaluate {
+  @extend %btn;
+  padding: 0.5em 1em;
+  font-size: 16px;
+  color: var(--statistics-button-text);
+  background-color: var(--statistics-button-background1);
+  border-color: transparent;
+  svg {
+    margin-left: 0.5em;
+  }
+}
+
+:host {
   width: 87%;
   background-color: var(--statistics-background);
 }
@@ -192,7 +200,6 @@ table tbody tr td:nth-child(4) {
   text-align: left;
 }
 
-
 table tbody tr td:nth-child(5) {
   text-align: center;
 }
@@ -256,7 +263,6 @@ table tbody tr td:nth-child(6),
 table tbody tr td:nth-child(7),
 table tbody tr td:nth-child(8),
 table tbody tr td:nth-child(9) {
-  
   padding-right: 16px;
 }
 
