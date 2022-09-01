@@ -5,8 +5,7 @@ main,  mat-card, form, .content {
 }
 
 .small-logo {
-  margin-top: 1em;
-  width: 95%;
+  width: 65%;
 }
 
 .login-width{
@@ -24,6 +23,7 @@ section{
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 0em 1em;
   svg{
         margin-left: 1em;
   }
