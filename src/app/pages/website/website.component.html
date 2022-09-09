@@ -37,15 +37,13 @@
       (reEvaluatePages)="reEvaluatePages($event)"
     ></app-list-of-pages>
     <div
+      class="add-pages"
       *ngIf="pages.length === 0"
-      fxLayout="row"
-      fxLayoutAlign="center center"
     >
       <app-new-website-add-pages
         [website]="website"
         (addPages)="addWebsitePages($event)"
       ></app-new-website-add-pages>
-      <p class="no_pages">{{ "PAGES.no_pages" | translate }}</p>
     </div>
   </div>
 

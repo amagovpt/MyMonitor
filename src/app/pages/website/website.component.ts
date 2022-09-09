@@ -71,6 +71,7 @@ export class WebsiteComponent implements OnInit {
   }
 
   addWebsitePages(data): void {
+    console.log(data);
     this.monitor
       .addWebsitePages(this.website, data.startingUrl, data.urls)
       .subscribe((result) => {
