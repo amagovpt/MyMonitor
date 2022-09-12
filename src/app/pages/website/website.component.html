@@ -1,21 +1,40 @@
-  <section id="main" class="info" *ngIf="!loading && !error">
-    <h2>{{ websiteObject.name }}</h2>
-    <h3><a href="{{ websiteObject.startingUrl }}" target="_blank">{{ websiteObject.startingUrl }}</a></h3>
-  </section>
-<section>
-  <div *ngIf="!loading && !error">
-    <app-website-statistics *ngIf="pages.length > 0" [website]="websiteObject" [pages]="pages"></app-website-statistics>
-    <br>
-    <app-accessibility-plot *ngIf="pages.length > 0" [data]="websiteObject.getAllScores()"></app-accessibility-plot>
-    <br>
-    <app-score-distribution [data]="scoreDistributionData"></app-score-distribution>
-    <br>
+<section id="main" class="info" *ngIf="!loading && !error">
+  <h2>{{ websiteObject.name }}</h2>
+  <h3>
+    <a href="{{ websiteObject.startingUrl }}" target="_blank">{{
+      websiteObject.startingUrl
+    }}</a>
+  </h3>
+</section>
+<section *ngIf="!loading && !error" >
+  <div *ngIf="pages.length > 0">
+    <app-website-statistics
+      [website]="websiteObject"
+      [pages]="pages"
+    ></app-website-statistics>
+    <br />
+    <app-accessibility-plot
+      [data]="websiteObject.getAllScores()"
+    ></app-accessibility-plot>
+    <br />
+    <app-score-distribution
+      [data]="scoreDistributionData"
+    ></app-score-distribution>
+    <br />
     <app-practices-details [website]="websiteObject"></app-practices-details>
-    <br>
-    <app-list-of-pages *ngIf="pages.length > 0"  [website]="website"  [pages]="pages" (removePages)="removePages($event)" (reEvaluatePages)="reEvaluatePages($event)"></app-list-of-pages>
-    <div *ngIf="pages.length === 0" fxLayout="row" fxLayoutAlign="center center">
-      <p class="no_pages">{{ "PAGES.no_pages" | translate }}</p>
-    </div>
+    <br />
+    <app-list-of-pages
+      [website]="website"
+      [pages]="pages"
+      (removePages)="removePages($event)"
+      (reEvaluatePages)="reEvaluatePages($event)"
+    ></app-list-of-pages>
+  </div>
+  <div class="add-pages" *ngIf="pages.length === 0">
+    <app-new-website-add-pages
+      [website]="website"
+      (addPages)="addWebsitePages($event)"
+    ></app-new-website-add-pages>
   </div>
 
   <app-loading *ngIf="loading"></app-loading>

@@ -29,6 +29,7 @@ export class CrawlWebsiteComponent implements OnInit {
   crawlButtonDisable: boolean;
   crawlResultsDisabled: boolean;
   startingUrl: string;
+  loading:boolean;
 
 
   constructor(
@@ -40,6 +41,7 @@ export class CrawlWebsiteComponent implements OnInit {
     this.crawlStatus = "not_running";
     this.crawlButtonDisable = false;
     this.crawlResultsDisabled = true;
+    this.loading = true;
 
   }
 
@@ -51,6 +53,8 @@ export class CrawlWebsiteComponent implements OnInit {
           this.startingUrl = startingUrl;
 
           this.monitor.checkCrawler(this.startingUrl).subscribe((result) => {
+            console.log(this.startingUrl);
+            console.log(result);
             if (result !== null) {
               if (result) {
                 this.crawlStatus = "complete";
@@ -62,8 +66,11 @@ export class CrawlWebsiteComponent implements OnInit {
                 this.crawlResultsDisabled = true;
               }
             }
+            this.loading = false;
+            this.cd.detectChanges();
           });
         }
+       
       });
   }
 

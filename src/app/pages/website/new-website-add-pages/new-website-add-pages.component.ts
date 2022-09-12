@@ -101,16 +101,6 @@ export class NewWebsiteAddPagesComponent implements OnInit {
   }
 
   addWebsitePages(data): void {
-    /*this.loading = true;
-    this.monitor.addWebsitePages(this.website, data.domain, data.urls)
-      .subscribe(pages => {
-        if (pages) {
-          this.message.show('ADD_PAGES.success_message');
-          this.pages = pages;
-        }
-        this.loading = false;
-        this.cd.detectChanges();
-      });*/
     this.monitor
       .addWebsitePages(this.website, data.startingUrl, data.urls)
       .subscribe((result) => {
