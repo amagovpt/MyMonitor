@@ -633,6 +633,7 @@ export class EvaluationService {
     };
 
     for (const test in tests) {
+      console.log(test)
       if (test) {
         if (tot.results[test]) {
           let tes = tests[test]["test"];
@@ -725,8 +726,7 @@ export class EvaluationService {
           } else {
             result["tech_list"] = this.testView(tes, tes, tes, color, tnum);
           }*/
-
-          result["tech_list"] = this.testView(tes, tes, tes, color, tnum);
+          result["tech_list"] = this.testView(tests[test].test, tes, tes, color, tnum);
 
           data["results"].push(result);
         }
