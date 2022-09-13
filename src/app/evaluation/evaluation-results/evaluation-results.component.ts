@@ -46,7 +46,6 @@ export class EvaluationResultsPageComponent implements OnInit, OnDestroy {
     this.paramsSub = this.route.params.subscribe((params) => {
       this.website = params.website;
       this.url = decodeURIComponent(params.url);
-      console.log(params);
       this.evaluation.getEvaluation(this.website, this.url)
         .subscribe(data => {
           if (!data) {
@@ -54,7 +53,7 @@ export class EvaluationResultsPageComponent implements OnInit, OnDestroy {
           } else {
             this.eval = data;
           }
-
+          console.log(this.eval.results);
           this.loading = false;
           this.cd.detectChanges();
           this.fillTable();

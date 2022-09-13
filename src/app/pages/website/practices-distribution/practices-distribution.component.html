@@ -50,7 +50,7 @@
         <tbody>
           <tr *ngFor="let e of errors">
             <td>{{tests[e["key"]]["level"].toUpperCase()}}</td>
-            <td [innerHTML]="'RESULTS.' + tests[e['key']].test | translate:{ value: e.n_occurrences }| html"></td>
+            <td [innerHTML]="'ELEMS.' + tests[e['key']].test | translate| html"></td>
             <td *ngIf="isCat">{{e["n_websites"]}}</td>
             <td>{{e["n_pages"]}}</td>
             <td>{{e["n_occurrences"]}}</td>
