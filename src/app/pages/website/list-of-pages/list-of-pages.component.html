@@ -8,7 +8,7 @@
         </h4>
       </div>
       <div>
-        <button (click)="deletePages()" class="btn-remove">
+        <button (click)="deletePages()" class="btn-remove" [disabled]="getSelectedPageSize() === 0">
           {{ "PAGES.remove_button" | translate }}
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -46,7 +46,7 @@
             />
           </svg>
         </button>
-        <button (click)="reEvaluate()" class="btn-reevaluate">
+        <button (click)="reEvaluate()" class="btn-reevaluate" [disabled]="getSelectedPageSize() === 0">
           {{ "PAGES.re_evaluate" | translate }}
         </button>
       </div>
