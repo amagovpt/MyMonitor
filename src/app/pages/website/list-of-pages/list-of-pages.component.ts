@@ -207,6 +207,11 @@ export class ListOfPagesComponent implements OnInit {
     const pagesId = this.getSelectedPagesId();
     this.removePages.next(pagesId);
   }
+
+  getSelectedPageSize() {
+    return this.getSelectedPagesId().length;
+  }
+
   getSelectedPagesId(){
     const pagesId = [];
     for (const page of this.pages) {
