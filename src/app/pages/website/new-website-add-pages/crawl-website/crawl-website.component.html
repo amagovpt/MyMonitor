@@ -1,5 +1,5 @@
        <div class="crawler-container" fxLayout="row" fxLayoutAlign="start center" *ngIf="!loading">
-          <span>{{ "ADD_PAGES.crawler.status" | translate }}: <span>{{ "ADD_PAGES.crawler." + crawlStatus | translate }}</span></span>
+          <span>{{ "ADD_PAGES.crawler.status" | translate }}: <span class="{{ crawlStatus }}">{{ "ADD_PAGES.crawler." + crawlStatus | translate }}</span></span>
           <span fxFlex="5"></span>
           <button (click)="crawlWebsite()" [disabled]="crawlButtonDisable">
             {{ "ADD_PAGES.crawler.crawl_button" | translate }}

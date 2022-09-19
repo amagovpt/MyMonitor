@@ -61,7 +61,7 @@ export class CrawlWebsiteComponent implements OnInit {
                 this.crawlButtonDisable = true;
                 this.crawlResultsDisabled = false;
               } else {
-                this.crawlStatus = "progress";
+                this.crawlStatus = "inProgress";
                 this.crawlButtonDisable = true;
                 this.crawlResultsDisabled = true;
               }
@@ -77,7 +77,7 @@ export class CrawlWebsiteComponent implements OnInit {
   crawlWebsite(): void {
     this.monitor.crawlWebsite(this.startingUrl).subscribe((result) => {
       if (result) {
-        this.crawlStatus = "progress";
+        this.crawlStatus = "inProgress";
         this.crawlButtonDisable = true;
       } else {
         alert("Error");
