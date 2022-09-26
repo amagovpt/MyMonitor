@@ -254,7 +254,7 @@
     "crawler": {
       "status": "Estado",
       "not_running": "parado",
-      "progress": "em progresso",
+      "inProgress": "em progresso",
       "complete": "completo",
       "crawl_button": "Crawl sítio web",
       "results_button": "Ver resultados",

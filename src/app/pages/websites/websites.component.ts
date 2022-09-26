@@ -38,7 +38,6 @@ export class WebsitesComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     this.websites = await this.websiteList.getAllWebsites();
-    console.log(this.websites);
     this.pageSize = 50;
     this.sortedData = this.websites.slice(0, this.pageSize);
     this.indicator1 = 1;
@@ -48,6 +47,7 @@ export class WebsitesComponent implements OnInit {
         : this.websites.length;
 
     this.loading = false;
+    this.sortData(({ active: 'rank', direction: 'asc' }) as Sort);
     this.cd.detectChanges();
 
   }
@@ -108,14 +108,14 @@ export class WebsitesComponent implements OnInit {
   }
 
   sortData(sort: Sort): void {
-    if (sort.active === "rank"){
+    if (sort.active === "rank") {
       if (sort.direction === "asc") {
         this.websites = this.websites.sort((a, b) => a.id - b.id).slice();
       } else {
         this.websites = this.websites.sort((a, b) => b.id - a.id).slice();
       }
     }
-    if(sort.active === "score") {
+    if (sort.active === "score") {
       if (sort.direction === "asc") {
         this.websites = this.websites.sort((a, b) => a.score - b.score).slice();
       } else {

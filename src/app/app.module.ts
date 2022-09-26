@@ -30,7 +30,6 @@ import { UserComponent } from './pages/user/user.component';
 import { NavbarComponent } from './layout/header/navbar/navbar.component';
 import { WebsiteComponent } from './pages/website/website.component';
 import { ListOfPagesComponent } from './pages/website/list-of-pages/list-of-pages.component';
-import { WebsiteAddPagesComponent } from './pages/website/website-add-pages/website-add-pages.component';
 import { WebsiteStatisticsComponent } from './pages/website/website-statistics/website-statistics.component';
 import { ErrorDistributionDialogComponent } from './dialogs/error-distribution-dialog/error-distribution-dialog.component';
 import { ScoreDistributionDialogComponent } from './dialogs/score-distribution-dialog/score-distribution-dialog.component';
@@ -90,7 +89,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     NavbarComponent,
     WebsiteComponent,
     ListOfPagesComponent,
-    WebsiteAddPagesComponent,
     WebsiteStatisticsComponent,
     ErrorDistributionDialogComponent,
     ScoreDistributionDialogComponent,

@@ -254,7 +254,7 @@
     "crawler": {
       "status": "Status",
       "not_running": "not running",
-      "progress": "in progress",
+      "inProgress": "in progress",
       "complete": "complete",
       "crawl_button": "Crawl website",
       "results_button": "Check results",
