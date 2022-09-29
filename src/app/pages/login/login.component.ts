@@ -53,7 +53,7 @@ export class LoginComponent implements OnInit {
     const username = this.loginForm.value.username;
     const password = this.loginForm.value.password;
 
-    this.user.login(username, password)
+    this.user.loginGov()
       .subscribe(() => {
         this.loginLoading = false;
         this.cd.detectChanges();

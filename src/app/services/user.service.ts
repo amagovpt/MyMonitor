@@ -21,7 +21,33 @@ export class UserService {
     private readonly message: MessageService,
     private readonly config: ConfigService
   ) { }
+  
+  loginGov(): Observable<Array<any>> {
+    return this.http
+      .get<any>(this.config.getServer("/login"), {
+        observe: "response",
+      })
+      .pipe(
+        retry(3),
+        map((res) => {
+          const response = <Response>res.body;
 
+          if (!res.body || res.status === 404) {
+            throw new MmError(404, "Service not found", "SERIOUS");
+          }
+
+          if (response.success !== 1) {
+            throw new MmError(response.success, response.message);
+          }
+
+          return <Array<any>>response.result;
+        }),
+        catchError((err) => {
+          console.log(err);
+          return of(null);
+        })
+      );
+  }
   login(username: string, password: string): Observable<boolean> {
     const type = 'monitor';
     return this.http.post<any>(this.config.getServer('/auth/login'), {username, password, type}, {observe: 'response'}).pipe(
