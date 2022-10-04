@@ -21,7 +21,7 @@ export class UserService {
     private readonly message: MessageService,
     private readonly config: ConfigService
   ) { }
-  
+
   loginGov(): Observable<Array<any>> {
     window.location.href = this.config.getServer("/auth/login");
     return /*this.http
@@ -49,9 +49,56 @@ export class UserService {
         })
       );*/
   }
+
+  redirectLoginGov(url: string): Observable<boolean> {
+    return this.http
+      .get<any>(this.config.getServer("/auth/loginRedirect" + url), {
+        observe: "response",
+      })
+      .pipe(
+        retry(3),
+        map(res => {
+          if (!res.body || res.status === 404) {
+            throw new MmError(404, 'Service not found', 'SERIOUS');
+          }
+
+          const response = new Response(res.body);
+
+          if (response.hasError()) {
+            throw new MmError(response.success, response.message);
+          }
+
+          const cookie = response.result;
+          const tomorrow = new Date();
+          tomorrow.setTime(tomorrow.getTime() + 1 * 86400000);
+
+          localStorage.setItem('MM-SSID', cookie);
+          localStorage.setItem('expires-at', tomorrow.toString());
+
+          this.router.navigateByUrl('/user');
+          return true;
+        }),
+        catchError((err: MmError) => {
+          switch (err.code) {
+            case -1: // user doesn't exist
+              this.message.show('LOGIN.messages.no_user');
+              break;
+            case -2: // error, password doesn't match
+              this.message.show('LOGIN.messages.password_match');
+              break;
+            default:
+              this.message.show('LOGIN.messages.system_error');
+              break;
+          }
+
+          console.log(err);
+          return of(false);
+        })
+      );
+  }
   login(username: string, password: string): Observable<boolean> {
     const type = 'monitor';
-    return this.http.post<any>(this.config.getServer('/auth/login'), {username, password, type}, {observe: 'response'}).pipe(
+    return this.http.post<any>(this.config.getServer('/auth/login'), { username, password, type }, { observe: 'response' }).pipe(
       retry(3),
       map(res => {
         if (!res.body || res.status === 404) {
@@ -109,7 +156,7 @@ export class UserService {
   }
 
   logout(location: string = '/'): Observable<boolean> {
-    return this.http.post<any>(this.config.getServer('/auth/logout'), {}, {observe: 'response'}).pipe(
+    return this.http.post<any>(this.config.getServer('/auth/logout'), {}, { observe: 'response' }).pipe(
       retry(3),
       map(res => {
         if (!res.body || res.status === 404) {
