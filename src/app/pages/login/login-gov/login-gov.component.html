@@ -7,7 +7,7 @@
               <span>
                 {{ "LOGIN.subtitle" | translate }}
               </span>
-              <button class="btn-login" type="submit" *ngIf="!loginLoading">
+              <button class="btn-login" type="submit" *ngIf="!loginLoading" (click) ="login()">
                 <svg
                   height="3em"
                   width="2em"
