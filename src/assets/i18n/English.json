@@ -1,13 +1,13 @@
 {
   "LOGIN": {
-    "title": "Bem-vindo ao My Monitor",
-    "subtitle": "Inicie a sua sessão:",
+    "title": "Welcome to My Monitor",
+    "subtitle": "To start session use Autenticação.Gov :",
     "username_label": "Username",
     "password_label": "Password",
     "email_error": "The e-mail is not valid. <strong>E.g. name@service.com</strong>",
     "show_password": "Click here to show the password text",
     "hide_password": "Click here to hide the password text",
-    "submit": "Login",
+    "submit": "Autenticação.Gov",
     "logout": "Logout",
     "messages": {
       "password_match": "Wrong username or password",

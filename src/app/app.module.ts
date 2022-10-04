@@ -54,10 +54,14 @@ import { PracticesDetailsComponent } from './pages/website/practices-details/pra
 import { PracticesDetailsTableComponent } from './pages/website/practices-details-table/practices-details-table.component';
 import { PracticesDistributionComponent } from './pages/website/practices-distribution/practices-distribution.component';
 import { TopThreePracticesComponent } from './pages/website/top-three-practices/top-three-practices.component';
+import { LoginGovComponent } from './pages/login/login-gov/login-gov.component';
+import { LoginGovRedirectComponent } from './pages/login/login-gov-redirect/login-gov-redirect.component';
 
 
 const appRoutes: Routes = [
   { path: '', component: LoginComponent, canActivate: [NoAuthGuard] },
+  { path: 'loginGov', component: LoginGovComponent, canActivate: [NoAuthGuard] },
+  { path: 'loginRedirect', component: LoginGovRedirectComponent, canActivate: [NoAuthGuard] },
   { path: 'user', component: UserComponent, canActivate: [UserAuthGuard], children: [
     { path: '', component: WebsitesComponent, canActivate: [UserAuthGuard] },
     { path: ':website', component: WebsiteComponent, canActivate: [UserAuthGuard]},
@@ -111,7 +115,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     PracticesDetailsComponent,
     PracticesDetailsTableComponent,
     PracticesDistributionComponent,
-    TopThreePracticesComponent
+    TopThreePracticesComponent,
+    LoginGovComponent,
+    LoginGovRedirectComponent
   ],
   imports: [
     RouterModule.forRoot(
