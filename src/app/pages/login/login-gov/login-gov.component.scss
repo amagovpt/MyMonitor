@@ -1,0 +1,53 @@
+@import '../../../global/sccss/button.scss';
+
+main,  mat-card, form, .content {
+  width: 100%;
+}
+
+.small-logo {
+  width: 100%;
+}
+
+.login-width{
+  width: 13rem;
+}
+section{
+  width: 87%;
+}
+.gov-container{
+  display: flex;
+  gap: 2em;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+.login-container{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
+    padding: 5em 5em;
+    background-color: var(--statistics-background) ;
+    color: var(--statistics-text)
+}
+h1{
+    font-size: 1.3em;
+    font-weight: 700;
+}
+span{
+    font-size: 1.3em;
+    max-width: 75%; 
+}
+
+.btn-login{
+  @extend %btn;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.4em 1em;
+  font-size: 0.8em;
+  svg{
+        margin-left: 1em;
+  }
+}

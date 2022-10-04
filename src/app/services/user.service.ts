@@ -23,8 +23,9 @@ export class UserService {
   ) { }
   
   loginGov(): Observable<Array<any>> {
-    return this.http
-      .get<any>(this.config.getServer("/login"), {
+    window.location.href = this.config.getServer("/auth/login");
+    return /*this.http
+      .get<any>(this.config.getServer("/auth/login"), {
         observe: "response",
       })
       .pipe(
@@ -46,7 +47,7 @@ export class UserService {
           console.log(err);
           return of(null);
         })
-      );
+      );*/
   }
   login(username: string, password: string): Observable<boolean> {
     const type = 'monitor';
