@@ -46,9 +46,6 @@ export class LoginGovComponent implements OnInit {
   login(): void {
     this.loginLoading = true;
 
-    const username = this.loginForm.value.username;
-    const password = this.loginForm.value.password;
-
     this.user.loginGov()
       .subscribe(() => {
         this.loginLoading = false;
