@@ -1,5 +1,5 @@
 <section class="table-section" fxLayout="row" fxLayoutAlign="center center">
-  <div class="table-wrapper">
+  <div *ngIf="!loading && !error" class="table-wrapper">
     <div class="button-wrapper">
       <div>
         <h3>{{ "PAGES.table.title" | translate }}</h3>
