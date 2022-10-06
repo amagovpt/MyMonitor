@@ -17,6 +17,7 @@ import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatDialog } from '@angular/material/dialog';
 import { AddPageDialogComponent } from 'src/app/dialogs/add-page-dialog/add-page-dialog.component';
 import { Router } from '@angular/router';
+import { WebsiteListService } from 'src/app/services/website-list.service';
 
 @Component({
   selector: 'app-list-of-pages',
@@ -49,6 +50,7 @@ export class ListOfPagesComponent implements OnInit {
     private location: Location,
     private readonly dialog: MatDialog,
     private readonly router: Router,
+    private websiteList: WebsiteListService
 
   ) {
     this.loading = true;
@@ -281,6 +283,8 @@ export class ListOfPagesComponent implements OnInit {
     this.dialog.open(AddPageDialogComponent, {
       data: {website:this.website},
       width: "60vw",
+    }).afterClosed().subscribe(async ()=>{
+      window.location.reload();
     });
 
   }

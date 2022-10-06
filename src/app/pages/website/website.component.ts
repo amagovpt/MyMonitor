@@ -98,11 +98,11 @@ export class WebsiteComponent implements OnInit {
             this.error = true;
           } else {
             this.message.show("PAGES.remove_success_message");
-            this.pages = pages;
           }
 
           this.loading = false;
           this.cd.detectChanges();
+          window.location.reload();
         });
       }
     });
