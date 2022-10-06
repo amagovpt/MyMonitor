@@ -100,8 +100,8 @@ export class WebsiteComponent implements OnInit {
             this.message.show("PAGES.remove_success_message");
           }
 
-          this.loading = false;
-          this.cd.detectChanges();
+          //this.loading = false;
+         // this.cd.detectChanges();
           window.location.reload();
         });
       }
