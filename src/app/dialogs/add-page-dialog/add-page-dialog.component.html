@@ -1,24 +1,4 @@
   <div class="diag_wrapper">
-  <div
-    class="dialog-title"
-    fxLayout="row"
-    fxLayoutAlign="start center"
-    gdColumns="87% 8% 5%"
-  >
-    <h2 mat-dialog-title>{{ "DIALOGS.add.title" | translate }}</h2>
-    <span>{{ "DIALOGS.close" | translate }}</span>
-    <div class="flexContainer">
-    <button
-      class="close"
-      type="button"
-      mat-dialog-close
-      fxLayout="row"
-      fxLayoutAlign="center center"
-      aria-label="{{ 'DIALOGS.close_dialog' | translate }}"
-    >
-      X
-    </button>
-    </div>
-  </div>
+<app-exit-dialog  [title]="'DIALOGS.add.title'"></app-exit-dialog>
 <app-new-website-add-pages [website]="website" (addPages)="addWebsitePages($event)"></app-new-website-add-pages>
 </div>

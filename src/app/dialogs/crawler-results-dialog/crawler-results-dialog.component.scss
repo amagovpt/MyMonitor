@@ -1,8 +1,9 @@
 h1{
-  font-size: 1.5em;
+  font-size: 1.5rem;
   font-family: "Lato";
     color: var(--table-text);
-
+    font-weight: bold;
+  margin-bottom: 1rem;
 }
 span{
     color: var(--table-text);
@@ -15,13 +16,19 @@ span{
   align-items: center;
 }
 @import '../../../app/global/sccss/button.scss';
-button{
+
+
+.btn-add{
   @extend %btn;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0.5em 1em;
+  margin-top: 0.5em;
+  svg{
+        margin-left: 1em;
+  }
 }
+
 .cancel{
   background-color: red;
   border: none;
@@ -34,6 +41,7 @@ table {
   width: 100%;
   border-spacing: 0;
   overflow: scroll;
+  line-height: 55px;
 
 }
 
@@ -84,10 +92,18 @@ table thead tr th:nth-child(9) {
 
 ::ng-deep .mat-sort-header-stem {
   color: var(--table-header-text);
+    height: 19px;
+  width: 19px;
 }
 
 ::ng-deep .mat-sort-header-indicator {
   color: var(--table-header-text);
+  height: 19px;
+  width: 19px;
+}
+::ng-deep .mat-checkbox-inner-container{
+  height: 19px;
+  width: 19px;
 }
 
 .name {
@@ -152,4 +168,27 @@ table tbody tr:hover {
 ::ng-deep .mat-checkbox-frame {
   border-color: var(--table-directory-name) !important;
   background-color: white !important;
+  height: 19px;
+  width: 19px;
+}
+
+.checkbox-column{
+  width: 2%;
+
+}
+h2{
+  margin-bottom: 0rem;
+  background-color: lightgray;
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 1rem;
+}
+
+.table-container{
+  height: 35rem;
+  overflow: auto;
+  margin-bottom: 1rem;
+}
+.crawler-dialog-container{
+  padding: 1rem;
 }
