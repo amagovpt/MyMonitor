@@ -60,8 +60,8 @@ import { ExitDialogComponent } from './dialogs/exit-dialog/exit-dialog.component
 
 
 const appRoutes: Routes = [
-  { path: '', component: LoginComponent, canActivate: [NoAuthGuard] },
-  { path: 'loginGov', component: LoginGovComponent, canActivate: [NoAuthGuard] },
+  //{ path: '', component: LoginComponent, canActivate: [NoAuthGuard] },
+  { path: '', component: LoginGovComponent, canActivate: [NoAuthGuard] },
   { path: 'loginRedirect', component: LoginGovRedirectComponent, canActivate: [NoAuthGuard] },
   { path: 'user', component: UserComponent, canActivate: [UserAuthGuard], children: [
     { path: '', component: WebsitesComponent, canActivate: [UserAuthGuard] },
