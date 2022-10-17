@@ -92,10 +92,18 @@ table thead tr th:nth-child(9) {
 
 ::ng-deep .mat-sort-header-stem {
   color: var(--table-header-text);
+    height: 19px;
+  width: 19px;
 }
 
 ::ng-deep .mat-sort-header-indicator {
   color: var(--table-header-text);
+  height: 19px;
+  width: 19px;
+}
+::ng-deep .mat-checkbox-inner-container{
+  height: 19px;
+  width: 19px;
 }
 
 .name {
