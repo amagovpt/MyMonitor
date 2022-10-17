@@ -1,8 +1,9 @@
 h1{
-  font-size: 1.5em;
+  font-size: 1.5rem;
   font-family: "Lato";
     color: var(--table-text);
-
+    font-weight: bold;
+  margin-bottom: 1rem;
 }
 span{
     color: var(--table-text);
@@ -170,4 +171,16 @@ table tbody tr:hover {
 h2{
   margin-bottom: 0rem;
   background-color: lightgray;
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 1rem;
+}
+
+.table-container{
+  height: 35rem;
+  overflow: auto;
+  margin-bottom: 1rem;
+}
+.crawler-dialog-container{
+  padding: 1rem;
 }

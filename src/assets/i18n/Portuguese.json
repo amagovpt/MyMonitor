@@ -260,13 +260,17 @@
       "results_button": "Ver resultados",
       "delete_button": "Apagar resultados",
       "dialog": {
-        "title": "Escolha as páginas para importar",
+        "title":"Adicionar páginas do crawler",
+        "subtitle": "Selecione as páginas que pretende adicionar",
         "uri_label": "Páginas",
         "import": "Importar",
         "cancel": "Cancelar",
         "submit": "Importar",
         "total": "Total:",
-        "selected": "Selecionadas:"
+        "selected": "Selecionadas:",
+        "table":{
+          "caption": "Páginas recolhidas pelo crawler"
+        }
       }
     },
     "sitemap": {

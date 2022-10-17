@@ -1,17 +1,19 @@
+<div class="crawler-dialog-container">
 <h1>{{ "ADD_PAGES.crawler.dialog.title" | translate }}</h1>
 <form (submit)="choosePages($event)" novalidate>
-  <h2>{{ "ADD_PAGES.crawler.dialog.title" | translate }}</h2>
+  <h2>{{ "ADD_PAGES.crawler.dialog.subtitle" | translate }}</h2>
+  <div class="table-container">
   <table>
     <caption>
       {{
-        "PAGES.table.subtitle" | translate
+        "ADD_PAGES.crawler.dialog.table.caption" | translate
       }}
     </caption>
     <thead>
       <tr>
         <th class="checkbox-column"><mat-checkbox (change)="masterToggle()"></mat-checkbox></th>
         <th>
-          {{ "PAGES.table.page" | translate }}
+          {{  "ADD_PAGES.crawler.dialog.table.caption"  | translate }}
         </th>
       </tr>
     </thead>
@@ -31,6 +33,7 @@
       </tr>
     </tbody>
   </table>
+  </div>
   <div class="buttonContainer">
     <span class="selected" fxFlex="20"
       >Selecionadas {{ numberSelected() }} de {{ pages.length }} páginas
@@ -56,3 +59,4 @@
     </button>
   </div>
 </form>
+</div>
