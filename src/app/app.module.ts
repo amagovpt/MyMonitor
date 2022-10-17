@@ -56,6 +56,7 @@ import { PracticesDistributionComponent } from './pages/website/practices-distri
 import { TopThreePracticesComponent } from './pages/website/top-three-practices/top-three-practices.component';
 import { LoginGovComponent } from './pages/login/login-gov/login-gov.component';
 import { LoginGovRedirectComponent } from './pages/login/login-gov-redirect/login-gov-redirect.component';
+import { ExitDialogComponent } from './dialogs/exit-dialog/exit-dialog.component';
 
 
 const appRoutes: Routes = [
@@ -117,7 +118,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     PracticesDistributionComponent,
     TopThreePracticesComponent,
     LoginGovComponent,
-    LoginGovRedirectComponent
+    LoginGovRedirectComponent,
+    ExitDialogComponent
   ],
   imports: [
     RouterModule.forRoot(
