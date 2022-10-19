@@ -90,7 +90,7 @@ export class CrawlWebsiteComponent implements OnInit {
   openCrawlingResultsDialog(): void {
     const dialog = this.dialog.open(CrawlerResultsDialogComponent, {
       width: "130vw",
-      maxHeight:"45vw",
+      maxHeight:"90vh",
       data: {
         startingUrl: this.startingUrl,
       },
