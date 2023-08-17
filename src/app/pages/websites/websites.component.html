@@ -1,9 +1,17 @@
 <main ng>
-  <section id="main" class="info">
+  <section id="main" class="info"     *ngIf="!loading && !error && websites.length > 0">
     <div class="observatory">{{ "WEBSITES_PAGE.title" | translate }}</div>
     <h2>{{ "WEBSITES_PAGE.subtitle" | translate }}</h2>
   </section>
   <br />
+    <section
+    *ngIf="!loading && !error && websites.length === 0"
+    fxLayout="row"
+    fxLayoutAlign="center center"
+  >
+  <span>{{ "WEBSITE_TABLE.no_websites" | translate }}</span>
+ </section>
+
   <section
     class="table-section"
     *ngIf="!loading && !error && websites.length > 0"

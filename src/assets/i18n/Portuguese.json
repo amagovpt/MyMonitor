@@ -2,6 +2,7 @@
   "LOGIN": {
     "title": "Bem-vindo ao My Monitor",
     "subtitle": "Inicie a sua sessão autenticando-se com o Cartão de Cidadão ou Chave Móvel Digital",
+    "no_user":"O utilizador não se encontra registado.",
     "username_label": "Utilizador",
     "password_label": "Palavra-chave",
     "email_error": "Introduza um email válido. <strong>Ex.: nome@serviço.com</strong>",
@@ -28,7 +29,7 @@
     "text": "Ferramenta que permite monitorar um sítio Web completo.",
     "NAV": {
       "location": "Você está em",
-      "ecosystem": "Ecosistema",
+      "ecosystem": "Ecossistema",
       "home": "My Monitor",
       "code": "Código"
     },
@@ -62,6 +63,7 @@
     }
   },
   "WEBSITE_TABLE": {
+    "no_websites":"O utilizador não possui websites adicionados",
     "title": "Diretórios",
     "subtitle": "Diretório:",
     "statistics_title": "Estatísticas",

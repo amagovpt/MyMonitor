@@ -2,6 +2,7 @@
   "LOGIN": {
     "title": "Welcome to My Monitor",
     "subtitle": "To start session use Autenticação.Gov :",
+    "no_user": "The user is not registered",
     "username_label": "Username",
     "password_label": "Password",
     "email_error": "The e-mail is not valid. <strong>E.g. name@service.com</strong>",
@@ -62,6 +63,7 @@
     }
   },
   "WEBSITE_TABLE": {
+    "no_websites": "The user has no websites",
     "title": "Directories",
     "subtitle": "Directory:",
     "statistics_title": "Statistics",

@@ -109,15 +109,13 @@ export class WebsiteComponent implements OnInit {
   }
 
   reEvaluatePages(uriList: []): void {
-    let dialog = false;
-    uriList.map((uri) => {
+    uriList.map((uri,i) => {
       console.log(uri);
       this.evaluation.evaluateUrl(uri).subscribe((result) => {
-        if (result && !dialog) {
+        if (result && i===0) {
           this.dialog.open(BackgroundEvaluationsInformationDialogComponent, {
             width: "40vw",
           });
-          dialog = true;
         } else {
           alert("Error");
         }
