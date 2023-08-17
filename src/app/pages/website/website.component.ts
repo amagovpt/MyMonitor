@@ -116,7 +116,7 @@ export class WebsiteComponent implements OnInit {
           this.dialog.open(BackgroundEvaluationsInformationDialogComponent, {
             width: "40vw",
           });
-        } else {
+        } if(!result) {
           alert("Error");
         }
       });
