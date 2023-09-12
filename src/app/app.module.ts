@@ -82,90 +82,77 @@ export function HttpLoaderFactory(http: HttpClient) {
 }
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    ErrorComponent,
-    LoadingComponent,
-    HeaderComponent,
-    FooterComponent,
-    NotFound404Component,
-    LoginComponent,
-    WebsitesComponent,
-    UserComponent,
-    ToFixedPipe,
-    NavbarComponent,
-    WebsiteComponent,
-    ListOfPagesComponent,
-    WebsiteStatisticsComponent,
-    ErrorDistributionDialogComponent,
-    ScoreDistributionDialogComponent,
-    RemovePagesConfirmationDialogComponent,
-    UserAuthErrorDialogComponent,
-    AddPagesErrorsDialogComponent,
-    BackgroundEvaluationsInformationDialogComponent,
-    TopFiveErrorsComponent,
-    TopFiveBestPracticesComponent,
-    AccessibilityPlotComponent,
-    CrawlerResultsDialogComponent,
-    CorrectionDistributionDialogComponent,
-    NewWebsiteAddPagesComponent,
-    ManuallyAddPagesComponent,
-    SitemapAddComponent,
-    CrawlWebsiteComponent,
-    AddObservatoryComponent,
-    AddPageDialogComponent,
-    ScoreDistributionComponent,
-    PracticesDetailsComponent,
-    PracticesDetailsTableComponent,
-    PracticesDistributionComponent,
-    TopThreePracticesComponent,
-    LoginGovComponent,
-    LoginGovRedirectComponent,
-    ExitDialogComponent,
-    CriticalAspectsComponent,
-    AccordionComponent
-  ],
-  imports: [
-    RouterModule.forRoot(
-      appRoutes,
-      { enableTracing: false, relativeLinkResolution: 'legacy' }
-    ),
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClient]
-      }
-    }),
-    BrowserModule,
-    NoopAnimationsModule,
-    A11yModule,
-    FlexLayoutModule,
-    RouterModule,
-    HttpClientModule,
-    MaterialModule,
-    FormsModule,
-    ReactiveFormsModule,
-    NgxGaugeModule,
-    PipesModule
-  ],
-  entryComponents: [
-    ScoreDistributionDialogComponent,
-    AddPageDialogComponent,
-    ErrorDistributionDialogComponent,
-    RemovePagesConfirmationDialogComponent,
-    UserAuthErrorDialogComponent,
-    AddPagesErrorsDialogComponent,
-    BackgroundEvaluationsInformationDialogComponent,
-    CrawlerResultsDialogComponent
-  ],
-  providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthInterceptor,
-      multi: true
-    }
-  ],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        ErrorComponent,
+        LoadingComponent,
+        HeaderComponent,
+        FooterComponent,
+        NotFound404Component,
+        LoginComponent,
+        WebsitesComponent,
+        UserComponent,
+        ToFixedPipe,
+        NavbarComponent,
+        WebsiteComponent,
+        ListOfPagesComponent,
+        WebsiteStatisticsComponent,
+        ErrorDistributionDialogComponent,
+        ScoreDistributionDialogComponent,
+        RemovePagesConfirmationDialogComponent,
+        UserAuthErrorDialogComponent,
+        AddPagesErrorsDialogComponent,
+        BackgroundEvaluationsInformationDialogComponent,
+        TopFiveErrorsComponent,
+        TopFiveBestPracticesComponent,
+        AccessibilityPlotComponent,
+        CrawlerResultsDialogComponent,
+        CorrectionDistributionDialogComponent,
+        NewWebsiteAddPagesComponent,
+        ManuallyAddPagesComponent,
+        SitemapAddComponent,
+        CrawlWebsiteComponent,
+        AddObservatoryComponent,
+        AddPageDialogComponent,
+        ScoreDistributionComponent,
+        PracticesDetailsComponent,
+        PracticesDetailsTableComponent,
+        PracticesDistributionComponent,
+        TopThreePracticesComponent,
+        LoginGovComponent,
+        LoginGovRedirectComponent,
+        ExitDialogComponent,
+        CriticalAspectsComponent,
+        AccordionComponent
+    ],
+    imports: [
+        RouterModule.forRoot(appRoutes, { enableTracing: false, relativeLinkResolution: 'legacy' }),
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: HttpLoaderFactory,
+                deps: [HttpClient]
+            }
+        }),
+        BrowserModule,
+        NoopAnimationsModule,
+        A11yModule,
+        FlexLayoutModule,
+        RouterModule,
+        HttpClientModule,
+        MaterialModule,
+        FormsModule,
+        ReactiveFormsModule,
+        NgxGaugeModule,
+        PipesModule
+    ],
+    providers: [
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: AuthInterceptor,
+            multi: true
+        }
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }
