@@ -1,0 +1,35 @@
+.common-div{
+    box-sizing: border-box;
+    max-width: 87%;
+}
+main{
+    background-color: var(--background);
+}
+.top-div{
+    padding-bottom: 3%;
+}
+.title{
+    color : #339;
+    padding-bottom: 30px;
+}
+.h3-aspects{
+    padding-bottom: 15px;
+}
+mat-card {
+    width: 100%;
+}
+
+.header {
+    text-align: center;
+}
+
+ol{ padding-left:0; list-style-position:inside; }
+
+.ama-color-button {
+    background: #339;
+    color: white;
+}
+
+.ama-color {
+    color: #339
+}

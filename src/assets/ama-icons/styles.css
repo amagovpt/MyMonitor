@@ -178,7 +178,7 @@
 }
 .icon-xl-forms:before {
   content: "\41";
-  font-size: 80px;
+font-size: 80px;
 }
 .icon-xl-mail:before {
   content: "\42";

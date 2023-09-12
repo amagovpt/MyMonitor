@@ -1,4 +1,11 @@
-{
+{ "CRITICAL_ASPECTS_PAGE": {
+  "TOP":{
+    "title":"Portal da Justiça",
+    "subtitle": "10 aspetos críticos de acessibilidade funcional",
+    "progress_bar": "Progresso",
+    "conformity_bar":"Conformidade"
+  }
+},
   "LOGIN": {
     "title": "Bem-vindo ao My Monitor",
     "subtitle": "Inicie a sua sessão autenticando-se com o Cartão de Cidadão ou Chave Móvel Digital",

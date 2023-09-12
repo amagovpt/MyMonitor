@@ -1,0 +1,75 @@
+<main id="main" fxLayout="column" fxLayoutAlign="center center">
+  <div class="col-lg-12 col-md-12 col-sm-12 top-div common-div">
+    <div>
+      <h5 class="title">{{ "CRITICAL_ASPECTS_PAGE.TOP.title" | translate}}</h5>
+      <h3 class="h3-aspects"> {{ "CRITICAL_ASPECTS_PAGE.TOP.subtitle" | translate}}</h3>
+    </div>
+    <div>
+      <p> {{ "CRITICAL_ASPECTS_PAGE.TOP.progress_bar" | translate}} : {{progressCriteria}}/{{criteriaSize}}</p>
+      <p> {{ "CRITICAL_ASPECTS_PAGE.TOP.conformity_bar" | translate}} :{{conformCriteria}}/{{criteriaSize}}
+        ({{conformCriteria/criteriaSize *100}}%) </p>
+      <mat-progress-bar mode="determinate" value="{{conformCriteria/criteriaSize *100}}"></mat-progress-bar>
+    </div>
+  </div>
+  <div class="common-div">
+    <section fxLayout="column" fxLayoutAlign="center center">
+      <mat-card class="d-flex justify-content-between">
+        <!-- LEFT PART -->
+        <div class="col-lg-7 col-md-7 col-sm-7  ">
+          <div *ngFor="let crit of criterias">
+            <div [id]="'mySection' + crit.id" class="mt-4">
+              <h4>{{crit.id}}. {{crit.title}}</h4>
+              <div *ngFor="let sub of crit.subCriteria" class="mt-2">
+                <div>
+                  <app-accordion [title]= "sub.id + '.' + sub.title"
+                    [description]="sub.content" [id] = "sub.id" (conformityEvent)="changeConformity($event)"></app-accordion>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="mt-5 d-flex justify-content-between">
+            <div>
+              <button type="button" class="btn ama-color-button rounded-pill rounded-start">Guardar e fechar</button>
+              <button type="button" class="ml-3 btn btn-secondary rounded-pill rounded-start">Pré-visualizar</button>
+            </div>
+            <div>
+              <button type="button" class="btn btn-link ama-color rounded-pill rounded-start">Limpar campos</button>
+            </div>
+          </div>
+        </div>
+        <!-- RIGHT PART -->
+        <div class="col-lg-4 col-md-4 col-sm-4  ">
+          <div class="d-flex justify-content-between">
+            <button type="button" class="btn ama-color-button rounded-pill rounded-start">Guardar e fechar</button>
+            <button type="button" class="btn btn-link ama-color rounded-pill rounded-start">Limpar campos</button>
+          </div>
+          <aside class="mt-4 bg-light p-4">
+            <h5>Índice de conteúdos</h5>
+            <ol>
+              <li><a class="ama-color text-uppercase" href="javascript:void(0);"
+                  (click)="scrollToSection('mySection1')">menus de navegação</a></li>
+              <li><a class="ama-color text-uppercase" href="javascript:void(0);"
+                  (click)="scrollToSection('mySection2')">títulos e subtítulos</a></li>
+              <li><a class="ama-color text-uppercase" href="javascript:void(0);"
+                  (click)="scrollToSection('mySection3')">tabelas de dados</a></li>
+              <li><a class="ama-color text-uppercase" href="javascript:void(0);"
+                  (click)="scrollToSection('mySection4')">formulários</a></li>
+              <li><a class="ama-color text-uppercase" href="javascript:void(0);"
+                  (click)="scrollToSection('mySection5')">gráficos e imagens-link</a></li>
+              <li><a class="ama-color text-uppercase" href="javascript:void(0);"
+                  (click)="scrollToSection('mySection6')">contraste</a></li>
+              <li><a class="ama-color text-uppercase" href="javascript:void(0);"
+                  (click)="scrollToSection('mySection7')">players</a></li>
+              <li><a class="ama-color text-uppercase" href="javascript:void(0);"
+                  (click)="scrollToSection('mySection8')">estrutura da página</a></li>
+              <li><a class="ama-color text-uppercase" href="javascript:void(0);"
+                  (click)="scrollToSection('mySection9')">sintaxe de html</a></li>
+              <li><a class="ama-color text-uppercase" href="javascript:void(0);"
+                  (click)="scrollToSection('mySection10')">ficheiros pdf</a></li>
+            </ol>
+          </aside>
+        </div>
+      </mat-card>
+    </section>
+  </div>
+</main>

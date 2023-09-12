@@ -1,0 +1,62 @@
+<mat-accordion>
+    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+        <mat-expansion-panel-header [collapsedHeight]="'65px'">
+            <mat-panel-title>
+                <div class="d-flex align-items-center">
+                    <div class="d-flex">
+                        <div [ngClass]="{ 'circle': true, 'circle-green': selectedValue === '1' }">S</div>
+                        <div [ngClass]="{ 'circle': true, 'circle-red': selectedValue === '0' }">N</div>
+                        <div [ngClass]="{ 'circle': true, 'circle-orange': selectedValue === '2' }">N/A</div>
+                    </div>
+                    <div>
+                        {{ title }}
+                    </div>
+                </div>
+
+
+            </mat-panel-title>
+            <!-- <mat-panel-description>
+          Currently I am {{panelOpenState ? 'open' : 'closed'}}
+        </mat-panel-description> -->
+        </mat-expansion-panel-header>
+
+        <div>
+            <hr class="mt-0">
+            <p>{{description}}</p>
+
+            <div>
+                <span class="align-middle">
+                    <mat-icon>info_outline</mat-icon>
+                </span>
+                <a href="" class="align-middle ml-1 ama-color">Saiba como implementar este requisito.</a>
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <h5>O requisito está conforme?*</h5>
+            <mat-radio-group (change)="changeConformity('')" aria-label="O requisito está conforme?" [(ngModel)]="selectedValue">
+                <mat-radio-button value="1">S</mat-radio-button>
+                <mat-radio-button class="ml-2" value="0">N</mat-radio-button>
+                <mat-radio-button class="ml-2" value="2">N/A</mat-radio-button>
+            </mat-radio-group>
+        </div>
+
+        <div *ngIf="selectedValue === '1'" class="mt-4 border-left-light-gray">
+            <div class="ml-2">
+                <div>
+                    <h5>Recolha de Evidências</h5>
+                    <p>Diga-nos porque respondeu Sim. Pode justificar a sua resposta em forma de texto e/ou com imagens.
+                    </p>
+                </div>
+
+                <div>
+                    <h5>Notas*</h5>
+                    <textarea class="w-100" placeholder="Leave a comment here"></textarea>
+                </div>
+
+                <button type="button" class="mt-2 btn ama-color-button rounded-pill rounded-start"
+                    (click)="changeConformity()">Guardar</button>
+            </div>
+        </div>
+    </mat-expansion-panel>
+</mat-accordion>
