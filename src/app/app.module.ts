@@ -59,15 +59,22 @@ import { LoginGovRedirectComponent } from './pages/login/login-gov-redirect/logi
 import { ExitDialogComponent } from './dialogs/exit-dialog/exit-dialog.component';
 import { CriticalAspectsComponent } from './pages/critical-aspects/critical-aspects.component';
 import { AccordionComponent } from './pages/critical-aspects/accordion/accordion.component';
+import { EditorComponent } from './pages/critical-aspects/editor/editor.component';
+import { QuillModule } from 'ngx-quill';
+import { ContentIndexComponent } from './pages/critical-aspects/content-index/content-index.component';
+import { AccessibilityDeclarationComponent } from './pages/accessibility-declaration/accessibility-declaration.component';
+import { CriticalAspectsPrevisualizationComponent } from './pages/critical-aspects-previsualization/critical-aspects-previsualization.component';
 
 const appRoutes: Routes = [
-  { path: 'critical-aspects', component: CriticalAspectsComponent, canActivate: [NoAuthGuard] },
+  { path: 'critical-aspects/:id', component: CriticalAspectsComponent, canActivate: [NoAuthGuard] },
+  { path: 'acessibility-declaration/:id', component: AccessibilityDeclarationComponent, canActivate: [NoAuthGuard] },
+  { path: 'critical-aspects-pre-visualization', component: CriticalAspectsPrevisualizationComponent, canActivate: [NoAuthGuard] },
   { path: '', component: LoginComponent, canActivate: [NoAuthGuard] },
   //{ path: '', component: LoginGovComponent, canActivate: [NoAuthGuard] },
   { path: 'loginRedirect', component: LoginGovRedirectComponent, canActivate: [NoAuthGuard] },
-  { path: 'user', component: UserComponent, canActivate: [UserAuthGuard], children: [
-    { path: '', component: WebsitesComponent, canActivate: [UserAuthGuard] },
-    { path: ':website', component: WebsiteComponent, canActivate: [UserAuthGuard]},
+  { path: 'user', component: UserComponent, children: [
+    { path: '', component: WebsitesComponent},
+    { path: ':website', component: WebsiteComponent},
     { path: ':website', loadChildren: () => import('./evaluation/evaluation.module').then(m => m.EvaluationModule) }
     ] },
 /*  { path: ':website/:page', component: EvaluationResultsComponent, canActivate: [UserAuthGuard] },
@@ -123,7 +130,11 @@ export function HttpLoaderFactory(http: HttpClient) {
         LoginGovRedirectComponent,
         ExitDialogComponent,
         CriticalAspectsComponent,
-        AccordionComponent
+        AccordionComponent,
+        EditorComponent,
+        ContentIndexComponent,
+        CriticalAspectsPrevisualizationComponent,
+        AccessibilityDeclarationComponent
     ],
     imports: [
         RouterModule.forRoot(appRoutes, { enableTracing: false, relativeLinkResolution: 'legacy' }),
@@ -144,7 +155,8 @@ export function HttpLoaderFactory(http: HttpClient) {
         FormsModule,
         ReactiveFormsModule,
         NgxGaugeModule,
-        PipesModule
+        PipesModule,
+        QuillModule.forRoot()
     ],
     providers: [
         {

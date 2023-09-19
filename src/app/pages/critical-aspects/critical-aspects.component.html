@@ -1,75 +1,173 @@
-<main id="main" fxLayout="column" fxLayoutAlign="center center">
+<main *ngIf="!isPreview" id="1" fxLayout="column" fxLayoutAlign="center center">
   <div class="col-lg-12 col-md-12 col-sm-12 top-div common-div">
     <div>
-      <h5 class="title">{{ "CRITICAL_ASPECTS_PAGE.TOP.title" | translate}}</h5>
+      <h2 class="h5 title">{{ wsDto.Name}}</h2>
       <h3 class="h3-aspects"> {{ "CRITICAL_ASPECTS_PAGE.TOP.subtitle" | translate}}</h3>
     </div>
     <div>
       <p> {{ "CRITICAL_ASPECTS_PAGE.TOP.progress_bar" | translate}} : {{progressCriteria}}/{{criteriaSize}}</p>
       <p> {{ "CRITICAL_ASPECTS_PAGE.TOP.conformity_bar" | translate}} :{{conformCriteria}}/{{criteriaSize}}
-        ({{conformCriteria/criteriaSize *100}}%) </p>
-      <mat-progress-bar mode="determinate" value="{{conformCriteria/criteriaSize *100}}"></mat-progress-bar>
+        ({{conformityPercentage}}%) </p>
+      <mat-progress-bar aria-label='Progresso' [title]="'Progresso'" mode="determinate" value="{{conformityPercentage}}"></mat-progress-bar>
     </div>
   </div>
   <div class="common-div">
     <section fxLayout="column" fxLayoutAlign="center center">
       <mat-card class="d-flex justify-content-between">
         <!-- LEFT PART -->
-        <div class="col-lg-7 col-md-7 col-sm-7  ">
+        <div id="main" class="col-lg-7 col-md-7 col-sm-7  ">
           <div *ngFor="let crit of criterias">
             <div [id]="'mySection' + crit.id" class="mt-4">
               <h4>{{crit.id}}. {{crit.title}}</h4>
               <div *ngFor="let sub of crit.subCriteria" class="mt-2">
                 <div>
-                  <app-accordion [title]= "sub.id + '.' + sub.title"
-                    [description]="sub.content" [id] = "sub.id" (conformityEvent)="changeConformity($event)"></app-accordion>
+                  <app-accordion [isPreview]=false
+                    [selectedValue]="hashMap.get(sub.id)!? hashMap.get(sub.id).conformity.toString(): null"
+                    [title]="sub.id + '.' + sub.title" [description]="sub.content" [id]="sub.id" [editorId]="sub.id"
+                    [content]="hashMap.get(sub.id)!? hashMap.get(sub.id).note: ''"
+                    (conformityEvent)="changeConformity($event)" (saveEvent)="save()"></app-accordion>
                 </div>
               </div>
             </div>
           </div>
           <div class="mt-5 d-flex justify-content-between">
             <div>
-              <button type="button" class="btn ama-color-button rounded-pill rounded-start">Guardar e fechar</button>
-              <button type="button" class="ml-3 btn btn-secondary rounded-pill rounded-start">Pré-visualizar</button>
+              <button type="button" class="btn ama-color-button rounded-pill rounded-start"
+                (click)="saveAndExit()">Guardar e fechar</button>
+              <button type="button" (click)="isPreview = true"
+                class="ml-3 btn btn-secondary rounded-pill rounded-start">Pré-visualizar</button>
             </div>
             <div>
-              <button type="button" class="btn btn-link ama-color rounded-pill rounded-start">Limpar campos</button>
+              <button type="button" class="btn btn-link ama-color rounded-pill rounded-start" (click)="clean()">Limpar
+                campos</button>
             </div>
           </div>
         </div>
         <!-- RIGHT PART -->
-        <div class="col-lg-4 col-md-4 col-sm-4  ">
-          <div class="d-flex justify-content-between">
-            <button type="button" class="btn ama-color-button rounded-pill rounded-start">Guardar e fechar</button>
-            <button type="button" class="btn btn-link ama-color rounded-pill rounded-start">Limpar campos</button>
+        <div class="col-md-auto">
+          <div class="right-wrapper">
+            <div class="d-flex justify-content-between">
+              <button type="button" class="btn ama-color-button rounded-pill rounded-start"
+                (click)="saveAndExit()">Guardar e fechar</button>
+              <button type="button" class="btn btn-link ama-color rounded-pill rounded-start" (click)="clean()">Limpar
+                campos</button>
+            </div>
+            <div class="mt-4">
+              <app-content-index [el]="element"></app-content-index>
+            </div>
           </div>
-          <aside class="mt-4 bg-light p-4">
-            <h5>Índice de conteúdos</h5>
-            <ol>
-              <li><a class="ama-color text-uppercase" href="javascript:void(0);"
-                  (click)="scrollToSection('mySection1')">menus de navegação</a></li>
-              <li><a class="ama-color text-uppercase" href="javascript:void(0);"
-                  (click)="scrollToSection('mySection2')">títulos e subtítulos</a></li>
-              <li><a class="ama-color text-uppercase" href="javascript:void(0);"
-                  (click)="scrollToSection('mySection3')">tabelas de dados</a></li>
-              <li><a class="ama-color text-uppercase" href="javascript:void(0);"
-                  (click)="scrollToSection('mySection4')">formulários</a></li>
-              <li><a class="ama-color text-uppercase" href="javascript:void(0);"
-                  (click)="scrollToSection('mySection5')">gráficos e imagens-link</a></li>
-              <li><a class="ama-color text-uppercase" href="javascript:void(0);"
-                  (click)="scrollToSection('mySection6')">contraste</a></li>
-              <li><a class="ama-color text-uppercase" href="javascript:void(0);"
-                  (click)="scrollToSection('mySection7')">players</a></li>
-              <li><a class="ama-color text-uppercase" href="javascript:void(0);"
-                  (click)="scrollToSection('mySection8')">estrutura da página</a></li>
-              <li><a class="ama-color text-uppercase" href="javascript:void(0);"
-                  (click)="scrollToSection('mySection9')">sintaxe de html</a></li>
-              <li><a class="ama-color text-uppercase" href="javascript:void(0);"
-                  (click)="scrollToSection('mySection10')">ficheiros pdf</a></li>
-            </ol>
-          </aside>
         </div>
       </mat-card>
     </section>
   </div>
+</main>
+<main *ngIf="isPreview" fxLayoutAlign="center center">
+  <section fxFlex="87">
+    <div>
+      <p class="h4">Portal da Justiça</p>
+      <p class="h4"><strong>10 aspetos críticos de acessibilidade funcional</strong></p>
+    </div>
+
+    <div class="mt-5">
+      <mat-card>
+        <div class="row flex-wrap-reverse gap-y-1">
+          <div class="col">
+            <!-- box with the evaluation -->
+            <div>
+              <h4>Pre-visualização</h4>
+              <div class="bg-light p-3">
+                <div class="d-flex justify-content-between">
+                  <div>
+                    <p class="m-0"><strong>Resultado do teste</strong></p>
+                    <p>{{wsDto.Name}}</p>
+                  </div>
+                  <div>
+                    <p class="m-0"><strong>Avaliação mais recente</strong></p>
+                    <p>{{wsDto.Declaration_Update_Date | date : " d \'de\' MMMM \'de\' y" : '' : 'pt-BR'}}</p>
+                  </div>
+                </div>
+                <div class="p-3 bg-white">
+                  <div class="d-flex justify-content-between align-items-center flex-wrap">
+                    <div>
+                      <ngx-gauge [type]="'arch'" [thick]="'10'" [cap]="'round'" [value]="conformityPercentage"
+                        [label]="''" [min]="0" [max]="100" [thresholds]="percentageConfig">
+                      </ngx-gauge>
+                      <p class="text-center">Avaliação</p>
+                    </div>
+                    <div>
+                      <p class="m-0 h4">{{conformCriteria}}/{{criteriaSize}}</p>
+                      <p>Heurísticas em conformidade</p>
+                    </div>
+                    <div>
+                      <p class="m-0 h4">{{wsDto.Pages}}</p>
+                      <p>Página(s)</p>
+                    </div>
+                    <div>
+                      <p *ngIf="conformityPercentage >70 ; else noConform" class="h4 text-success"><strong>Estado
+                          conforme</strong>
+                      </p>
+                      <ng-template #noConform>
+                        <p class="h4 text-danger"><strong>Estado não conforme</strong></p>
+                      </ng-template>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div *ngFor="let crit of criterias">
+                <div [id]="'mySection' + crit.id" class="mt-4">
+                  <h4>{{crit.id}}. {{crit.title}}</h4>
+                  <div *ngFor="let sub of crit.subCriteria" class="mt-2">
+                    <div>
+                      <app-accordion [isPreview]=true
+                        [selectedValue]="hashMap.get(sub.id)!? hashMap.get(sub.id).conformity.toString(): null"
+                        [title]="sub.id + '.' + sub.title" [description]="sub.content" [id]="sub.id" [editorId]="sub.id"
+                        [content]="hashMap.get(sub.id)!? hashMap.get(sub.id).note: ''"
+                        (conformityEvent)="changeConformity($event)"></app-accordion>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- share and download report -->
+            <div class="mt-5">
+              <div class="d-flex flex-wrap gap-1">
+                <div class="flex-fill bg-light p-4 d-flex align-items-center">
+                  <div>
+                    <p class="h4">Link para partilha</p>
+                    <p class="bg-white p-2">www.mymonitor.com/jhdsjdhsjdh</p>
+                    <button type="button" class="btn ama-color-button rounded-pill rounded-start">Copiar</button>
+                  </div>
+                </div>
+                <div class="flex-fill bg-light p-4 d-flex flex-column justify-content-between">
+                  <p class="h4 mb">Descarregar<br> o relatório Html</p>
+                  <button type="button"
+                    class="btn ama-color-button mr-auto rounded-pill rounded-start">Download</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-auto">
+            <!-- content index -->
+            <div class="right-wrapper">
+              <app-content-index [el]="element"></app-content-index>
+            </div>
+          </div>
+
+        </div>
+
+
+        <div class="mt-5">
+          <button (click)="isPreview= false" class="btn ama-color-button rounded-pill rounded-start active"
+            role="button" aria-pressed="true">Fechar</button>
+        </div>
+
+
+      </mat-card>
+    </div>
+
+  </section>
 </main>

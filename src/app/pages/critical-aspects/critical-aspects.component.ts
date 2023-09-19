@@ -1,31 +1,68 @@
-import { Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
+import { ChangeDetectorRef, Component, ElementRef, OnInit, Pipe, PipeTransform } from '@angular/core';
 import { Criteria } from 'src/app/models/criteria';
 import { CriticalAspectsService } from 'src/app/services/critical-aspects/critical-aspects.service';
 import { conformity } from './accordion/accordion.component';
-
+import { take } from 'rxjs/operators';
+import { WebsiteService } from 'src/app/services/website/website.service';
+import { WebsiteDTO } from '../accessibility-declaration/dto/website.dto';
+import { Router } from '@angular/router';
+import { DatePipe, registerLocaleData } from '@angular/common';
+import localePT from '@angular/common/locales/pt';
+registerLocaleData(localePT);
+const round = (value: number): number => {
+  return Math.round(100 * value) / 100; // <----------
+};
 @Component({
   selector: 'app-critical-aspects',
   templateUrl: './critical-aspects.component.html',
   styleUrls: ['./critical-aspects.component.scss']
 })
 export class CriticalAspectsComponent implements OnInit {
-
-  constructor(private translate: TranslateService, private service: CriticalAspectsService,
-    private el: ElementRef, private renderer: Renderer2) { }
+  element: ElementRef;
+  constructor(private service: CriticalAspectsService,
+    private el: ElementRef, private cdr: ChangeDetectorRef,
+    private websiteService: WebsiteService, private router: Router) {
+    this.element = el;
+  }
+  website: any = { name: "Portal da Justiça", link: "https://justica.gov.pt/", date: "04 de Agosto, 2023", nrPages: 54, inAccordance: 24, totalAccordance: 24, state: true }
+  evaluation = (this.website.inAccordance / this.website.totalAccordance) * 100;
+  percentageConfig = {
+    '70': { color: 'green' },
+    '40': { color: 'orange' },
+    '0': { color: 'red' }
+  };
+  wsDto: WebsiteDTO = new WebsiteDTO();
   criteriaSize: number = 0;
+  conformCriteria: number = 0;
+  progressCriteria: number = 0;
+  conformityPercentage: number;
   criterias: Criteria[] = [];
-  conformCriteria:number = 12;
-  progressCriteria:number = 12;
   hashMap = new Map<number, conformity>();
-
+  isPreview: boolean = false;
   ngOnInit() {
-    this.service.getAll().subscribe(data => {
-      this.criterias = data;
-      for (let index = 0; index < data.length; index++) {
-        this.criteriaSize = this.criteriaSize + data[index].subCriteria!.length;
-      }
+    this.websiteService.getInfoByWebsiteId(1).pipe(take(1)).subscribe(data => { 
+      this.wsDto = data.body.result;
+      this.cdr.detectChanges(); });
+    this.service.getAll().pipe(take(1)).subscribe(data => {
+      this.criterias = data.body.result.criteria;
+      this.fillHashMap(data.body.result.notes);
+      this.fillConformity();
+      this.fillCriteriaData(data.body.result.criteria);
+      this.cdr.detectChanges();
     });
+
+  }
+  fillHashMap(conformity: conformity[]) {
+    for (let index = 0; index < conformity.length; index++) {
+      this.hashMap.set(conformity[index].subCriteriaId, conformity[index]);
+    }
+  }
+  fillCriteriaData(criterias: Criteria[]) {
+    this.criteriaSize = 0;
+    for (let index = 0; index < criterias.length; index++) {
+      this.criteriaSize = this.criteriaSize! + criterias[index].subCriteria!.length;
+      this.conformityPercentage = round(round(this.conformCriteria / this.criteriaSize) * 100);
+    }
   }
   scrollToSection(id: string) {
     const element = this.el.nativeElement.querySelector(`#${id}`);
@@ -33,8 +70,48 @@ export class CriticalAspectsComponent implements OnInit {
       element.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   }
+  fillConformity() {
+    this.conformCriteria = 0;
+    this.hashMap.forEach(i => {
+      if (i.conformity === 1 || i.conformity === 2) {
+        this.conformCriteria = this.conformCriteria + 1;
+      }
+    })
+    this.progressCriteria = this.hashMap.size;
+    this.conformityPercentage = round(round(this.conformCriteria / this.criteriaSize) * 100);
+  }
   changeConformity(item: conformity) {
-    console.log(item);
-    this.hashMap.set(item.id,item);
+    this.conformCriteria = 0;
+    if (this.hashMap.has(item.subCriteriaId)) {
+      item.id = this.hashMap.get(item.subCriteriaId).id
+
+    }
+    this.hashMap.set(item.subCriteriaId, item);
+    this.hashMap.forEach(i => {
+      if (i.conformity === 1 || i.conformity === 2) {
+        this.conformCriteria = this.conformCriteria + 1;
+
+      }
+    })
+    this.progressCriteria = this.hashMap.size;
+    this.conformityPercentage = round(round(this.conformCriteria / this.criteriaSize) * 100);
+  }
+  save() {
+    this.service.save(this.hashMap).pipe(take(1)).subscribe(() => {
+      this.service.getAll().pipe(take(1)).subscribe(data => {
+        this.criterias = data.body.result.criteria;
+        this.fillHashMap(data.body.result.notes);
+        this.fillConformity();
+        this.fillCriteriaData(data.body.result.criteria);
+        this.cdr.detectChanges();
+      });
+    });
+
+  }
+  saveAndExit() {
+    this.service.save(this.hashMap).pipe(take(1)).subscribe(() => this.router.navigateByUrl("/acessibility-declaration/1"));
+  }
+  clean() {
+    this.hashMap.clear();
   }
 }

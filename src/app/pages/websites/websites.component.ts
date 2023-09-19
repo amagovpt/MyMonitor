@@ -6,6 +6,7 @@ import { Website } from "../../models/website";
 import orderBy from "lodash.orderby";
 import { MonitorService } from "src/app/services/monitor.service";
 import { WebsiteListService } from "src/app/services/website-list.service";
+import { Route, Router } from "@angular/router";
 
 @Component({
   selector: "app-websites",
@@ -30,7 +31,7 @@ export class WebsitesComponent implements OnInit {
 
   constructor(
     private websiteList: WebsiteListService,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef, private router: Router
   ) {
     this.loading = true;
     this.error = false;
@@ -198,5 +199,8 @@ export class WebsitesComponent implements OnInit {
         this.indicator2
       );
     }
+  }
+  sendTo(websiteId:number){
+    this.router.navigateByUrl(`/acessibility-declaration/${websiteId}`);
   }
 }

@@ -118,7 +118,7 @@ export class AppComponent implements OnInit {
   }
 
   goToTop(): void {
-    document.getElementById('main').scrollIntoView();
+    document.getElementById('top').scrollIntoView();
   }
 
   onScroll(e): void {

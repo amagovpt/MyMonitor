@@ -4,9 +4,9 @@
             <mat-panel-title>
                 <div class="d-flex align-items-center">
                     <div class="d-flex">
-                        <div [ngClass]="{ 'circle': true, 'circle-green': selectedValue === '1' }">S</div>
-                        <div [ngClass]="{ 'circle': true, 'circle-red': selectedValue === '0' }">N</div>
-                        <div [ngClass]="{ 'circle': true, 'circle-orange': selectedValue === '2' }">N/A</div>
+                        <div matTooltip="Sim"[ngClass]="{ 'circle': true, 'circle-green': selectedValue === '1' }">S</div>
+                        <div matTooltip="Não"[ngClass]="{ 'circle': true, 'circle-red': selectedValue === '0' }">N</div>
+                        <div matTooltip="Não Aplicável"[ngClass]="{ 'circle': true, 'circle-orange': selectedValue === '2' }">N/A</div>
                     </div>
                     <div>
                         {{ title }}
@@ -35,9 +35,10 @@
         <div class="mt-4">
             <h5>O requisito está conforme?*</h5>
             <mat-radio-group (change)="changeConformity('')" aria-label="O requisito está conforme?" [(ngModel)]="selectedValue">
-                <mat-radio-button value="1">S</mat-radio-button>
-                <mat-radio-button class="ml-2" value="0">N</mat-radio-button>
-                <mat-radio-button class="ml-2" value="2">N/A</mat-radio-button>
+                <mat-radio-button matTooltip="Sim" value="1">S
+                </mat-radio-button>
+                <mat-radio-button matTooltip="Não" class="ml-2" value="0">N</mat-radio-button>
+                <mat-radio-button matTooltip="Não Aplicável" class="ml-2" value="2">N/A</mat-radio-button>
             </mat-radio-group>
         </div>
 
@@ -51,11 +52,11 @@
 
                 <div>
                     <h5>Notas*</h5>
-                    <textarea class="w-100" placeholder="Leave a comment here"></textarea>
+                    <app-editor [isPreview]="isPreview" [editorId]="editorId" (changeEvent)="changeConformity($event)"  [content]= content></app-editor>
                 </div>
 
                 <button type="button" class="mt-2 btn ama-color-button rounded-pill rounded-start"
-                    (click)="changeConformity()">Guardar</button>
+                    (click)="save()">Guardar</button>
             </div>
         </div>
     </mat-expansion-panel>
