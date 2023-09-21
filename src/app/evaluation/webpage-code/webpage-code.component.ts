@@ -1,10 +1,11 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs';
 import { saveAs } from 'file-saver';
 import { html } from 'js-beautify';
+import { Subscription } from 'rxjs';
 
 @Component({
+  encapsulation: ViewEncapsulation.ShadowDom,
   selector: 'app-webpage-code',
   templateUrl: './webpage-code.component.html',
   styleUrls: ['./webpage-code.component.scss']

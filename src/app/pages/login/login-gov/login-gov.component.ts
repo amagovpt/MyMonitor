@@ -1,8 +1,9 @@
-import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
+  encapsulation: ViewEncapsulation.ShadowDom,
   selector: 'app-login-gov',
   templateUrl: './login-gov.component.html',
   styleUrls: ['./login-gov.component.scss']

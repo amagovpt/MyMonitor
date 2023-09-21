@@ -1,8 +1,9 @@
-import { Component, OnInit, ViewChild, Input } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Chart } from 'chart.js';
 
 @Component({
+  encapsulation: ViewEncapsulation.ShadowDom,
   selector: 'app-accessibility-plot',
   templateUrl: './accessibility-plot.component.html',
   styleUrls: ['./accessibility-plot.component.scss']

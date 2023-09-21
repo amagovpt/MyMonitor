@@ -1,8 +1,8 @@
-import { Component, OnInit, Input } from "@angular/core";
-import clone from "lodash.clone";
+import { Component, Input, OnInit, ViewEncapsulation } from "@angular/core";
 
 
 @Component({
+  encapsulation: ViewEncapsulation.ShadowDom,
   selector: "app-practices-details-table",
   templateUrl: "./practices-details-table.component.html",
   styleUrls: ["./practices-details-table.component.scss"],
@@ -10,7 +10,7 @@ import clone from "lodash.clone";
 export class PracticesDetailsTableComponent implements OnInit {
   @Input("type") type: string;
   @Input("data") tableData: any;
-  @Input("nPages") nPages:number;
+  @Input("nPages") nPages: number;
 
   practices: any;
   practicesKeys: any;

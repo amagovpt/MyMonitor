@@ -1,6 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 
 @Component({
+  encapsulation: ViewEncapsulation.ShadowDom,
   selector: 'app-exit-dialog',
   templateUrl: './exit-dialog.component.html',
   styleUrls: ['./exit-dialog.component.scss']

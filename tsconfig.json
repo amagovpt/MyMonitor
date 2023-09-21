@@ -18,5 +18,8 @@
       "es2019",
       "dom"
     ]
-  }
+  },
+  "angularCompilerOptions": {
+   "defaultEncapsulation": 3
+  },
 }

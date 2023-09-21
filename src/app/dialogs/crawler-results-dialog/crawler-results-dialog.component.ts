@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, ChangeDetectorRef } from "@angular/core";
+import { ChangeDetectorRef, Component, Inject, OnInit, ViewEncapsulation } from "@angular/core";
 import { MatCheckboxChange } from "@angular/material/checkbox";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 
@@ -6,6 +6,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { MonitorService } from "../../services/monitor.service";
 
 @Component({
+  encapsulation: ViewEncapsulation.ShadowDom,
   selector: "app-crawler-results-dialog",
   templateUrl: "./crawler-results-dialog.component.html",
   styleUrls: ["./crawler-results-dialog.component.scss"],
@@ -78,7 +79,7 @@ export class CrawlerResultsDialogComponent implements OnInit {
   }
   numberSelected() {
     const values = Object.values(this.selection);
-    return values.reduce((prev:number, curr) => {
+    return values.reduce((prev: number, curr) => {
       if (curr)
         prev++;
       return prev;

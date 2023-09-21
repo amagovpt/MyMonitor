@@ -1,19 +1,20 @@
-import { Component, OnInit, OnDestroy, ChangeDetectorRef } from "@angular/core";
+import { ChangeDetectorRef, Component, OnInit, ViewEncapsulation } from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
 import { ActivatedRoute } from "@angular/router";
 import { Subscription } from "rxjs";
-import { MatDialog } from "@angular/material/dialog";
 
+import { EvaluationService } from "../../services/evaluation.service";
 import { MessageService } from "../../services/message.service";
 import { MonitorService } from "../../services/monitor.service";
-import { EvaluationService } from "../../services/evaluation.service";
 
-import { RemovePagesConfirmationDialogComponent } from "../../dialogs/remove-pages-confirmation-dialog/remove-pages-confirmation-dialog.component";
 import { BackgroundEvaluationsInformationDialogComponent } from "../../dialogs/background-evaluations-information-dialog/background-evaluations-information-dialog.component";
+import { RemovePagesConfirmationDialogComponent } from "../../dialogs/remove-pages-confirmation-dialog/remove-pages-confirmation-dialog.component";
 
-import { Website } from "../../models/website";
 import { WebsiteListService } from "src/app/services/website-list.service";
+import { Website } from "../../models/website";
 
 @Component({
+  encapsulation: ViewEncapsulation.ShadowDom,
   selector: "app-website",
   templateUrl: "./website.component.html",
   styleUrls: ["./website.component.scss"],
@@ -101,7 +102,7 @@ export class WebsiteComponent implements OnInit {
           }
 
           //this.loading = false;
-         // this.cd.detectChanges();
+          // this.cd.detectChanges();
           window.location.reload();
         });
       }
@@ -109,14 +110,14 @@ export class WebsiteComponent implements OnInit {
   }
 
   reEvaluatePages(uriList: []): void {
-    uriList.map((uri,i) => {
+    uriList.map((uri, i) => {
       console.log(uri);
       this.evaluation.evaluateUrl(uri).subscribe((result) => {
-        if (result && i===0) {
+        if (result && i === 0) {
           this.dialog.open(BackgroundEvaluationsInformationDialogComponent, {
             width: "40vw",
           });
-        } if(!result) {
+        } if (!result) {
           alert("Error");
         }
       });
