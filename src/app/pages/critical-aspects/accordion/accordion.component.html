@@ -15,9 +15,6 @@
 
 
             </mat-panel-title>
-            <!-- <mat-panel-description>
-          Currently I am {{panelOpenState ? 'open' : 'closed'}}
-        </mat-panel-description> -->
         </mat-expansion-panel-header>
 
         <div>
@@ -32,8 +29,8 @@
             </div>
         </div>
 
-        <div class="mt-4">
-            <h5>O requisito está conforme?*</h5>
+        <div *ngIf="!isPreview" class="mt-4">
+            <h2 class="h5">O requisito está conforme?*</h2>
             <mat-radio-group (change)="changeConformity('')" aria-label="O requisito está conforme?" [(ngModel)]="selectedValue">
                 <mat-radio-button matTooltip="Sim" value="1">S
                 </mat-radio-button>
@@ -45,17 +42,17 @@
         <div *ngIf="selectedValue === '1'" class="mt-4 border-left-light-gray">
             <div class="ml-2">
                 <div>
-                    <h5>Recolha de Evidências</h5>
+                    <h2 class="h5">Recolha de Evidências</h2>
                     <p>Diga-nos porque respondeu Sim. Pode justificar a sua resposta em forma de texto e/ou com imagens.
                     </p>
                 </div>
 
                 <div>
-                    <h5>Notas*</h5>
+                    <h2 class="h5">Notas*</h2>
                     <app-editor [isPreview]="isPreview" [editorId]="editorId" (changeEvent)="changeConformity($event)"  [content]= content></app-editor>
                 </div>
 
-                <button type="button" class="mt-2 btn ama-color-button rounded-pill rounded-start"
+                <button *ngIf="!isPreview" type="button" class="mt-2 btn ama-color-button rounded-pill rounded-start"
                     (click)="save()">Guardar</button>
             </div>
         </div>

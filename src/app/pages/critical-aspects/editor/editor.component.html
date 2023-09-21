@@ -1,4 +1,3 @@
-<html lang="pt"> 
 <quill-editor *ngIf="!isPreview" placeholder="Deixe aqui suas notas..." 
               theme="snow" [styles]="{'height': '15rem','background-color': 'white'}"
     (onContentChanged)="textSave($event)" [(ngModel)]="content">

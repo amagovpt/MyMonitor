@@ -1,0 +1,166 @@
+<main id="main" fxLayoutAlign="center center">
+  <section fxLayout="column" fxFlex="87">
+    <div>
+      <h1 class="h4">Candidatura ao Selo de usabilidade e acessibilidade</h1>
+      <p>{{wsDto.Name}}</p>
+    </div>
+
+    <!-- Summary -->
+    <div class="bg-light p-3">
+      <div class="d-flex justify-content-between">
+        <div>
+          <h2 class="h5">Sumário</h2>
+        </div>
+        <div>
+          <p class="m-0"><strong>Avaliação mais recente</strong></p>
+          <p>{{wsDto.Declaration_Update_Date | date : " d \'de\' MMMM \'de\' y" : '' : 'pt-BR'}} </p>
+        </div>
+      </div>
+
+      <div>
+        <div class="d-flex justify-content-between flex-wrap">
+          <div class="align-self-center">
+            <span class="h1">{{wsDto.Pages}}</span>
+            <span class="d-block"><strong>Páginas</strong></span>
+            <span class="d-block">Métodos de amostragem:</span>
+            <span class="d-block">Home Plus</span>
+          </div>
+
+          <div class="d-flex flex-column justify-content-between">
+            <div>
+              <ngx-gauge [type]="'arch'" [thick]="'10'" [cap]="'round'" [value]="accessibility.evaluation" [label]="''"
+                [min]="0" [max]="10" [thresholds]="thresholdConfig">
+              </ngx-gauge>
+              <span class="d-block text-center">Avaliação My Monitor</span>
+            </div>
+            <div class="text-center">
+              <a href="" role="button">Consultar</a>
+            </div>
+          </div>
+
+          <div class="d-flex flex-column justify-content-between">
+            <div>
+              <ngx-gauge [type]="'arch'" [thick]="'10'" [cap]="'round'" [value]="percentage" [label]="''" [min]="0"
+                [max]="100" [thresholds]="percentageConfig" [append]="'%'">
+              </ngx-gauge>
+              <div class="text-center">
+                <span class="d-block m-0">Checklist 10 aspetos<br> críticos funcionais</span>
+                <span
+                  class="d-block">Conformidade:<br><strong>{{accessibility.inAccordance}}/{{accessibility.totalAccordance}}
+                  </strong>
+                </span>
+              </div>
+            </div>
+            <div class="text-center">
+              <a [href]="'/critical-aspects/'+ wsDto.WebsiteId" role="button">Editar</a>
+            </div>
+          </div>
+
+          <div class="d-flex flex-column justify-content-center">
+            <div class="mb-5 bg-success p-3 text-white">
+              <span class="d-block m-0">Estado da declaração</span>
+              <span *ngIf="percentage<70" class="h5 d-block m-0"><strong>Não Conforme</strong></span>
+              <span *ngIf="percentage>70" class="h5 d-block m-0"><strong>Conforme</strong></span>
+              <span class="d-block"><a class="text-white" href="" role="button">Ver</a></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-5 d-flex justify-content-between flex-wrap gap-y-3">
+      <!-- esquerda -->
+      <div>
+        <h2 class="h5">1. Candidatura ao Selo</h2>
+        <div class="form-group m-0">
+          <label class="d-block" for="rank">1. Qual o selo a que se candidata?</label>
+          <select class="form-select" id="rank" name="rank" [(ngModel)]="selectedRank">
+            <option value=0 selected disabled hidden>Selecione uma opção</option>
+            <option value=1>Selo Bonze</option>
+            <option value=2>Selo Prata</option>
+            <option value=3>Selo Ouro</option>
+          </select>
+        </div>
+
+        <div *ngIf="selectedRank > 0" class="mt-5">
+          <h2 class="h5">2. Verificações a efetuar para selo ouro</h2>
+
+          <div *ngIf="selectedRank >= 1" class="p-3 bg-light">
+            <div class="d-flex justify-content-between">
+              <div class="d-flex align-items-center">
+                <span>Checklist Conteúdo</span>
+              </div>
+              <div class="d-flex align-items-center ml-4">
+                <button type="button" class="btn btn-ama">Preencher</button>
+              </div>
+            </div>
+          </div>
+
+          <div *ngIf="selectedRank >= 2" class="mt-4 p-3 bg-light">
+            <div class="d-flex justify-content-between">
+              <div class="d-flex align-items-center">
+                <span>Checklist Transação</span>
+              </div>
+              <div class="d-flex align-items-center ml-4">
+                <button type="button" class="btn btn-ama">Preencher</button>
+              </div>
+            </div>
+          </div>
+
+          <div *ngIf="selectedRank >= 3" class="mt-4 p-3 bg-light">
+            <div class="d-flex justify-content-between">
+              <div class="d-flex align-items-center">
+                <span>Relatório testes com utilizadores</span>
+              </div>
+              <div class="d-flex align-items-center ml-4">
+                <button type="button" class="btn btn-ama">Preencher</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-5">
+            <button type="button" class="btn btn-ama">Submeter a candidatura</button>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- direita -->
+      <div>
+        <div class="p-3 bg-light">
+          <p>Como funciona a candidatura ao selo ouro?</p>
+          <button type="button" class="btn btn-ama">Consultar</button>
+        </div>
+
+        <div class="mt-4">
+          <div class="p-3 bg-light">
+            <div>
+              <h3 class="h5">Histórico de interações</h3>
+            </div>
+            <div>
+
+              <div class="p-3 bg-white">
+                <span class="d-block">Declaração de acessibilidade</span>
+                <span>20/08/2023, 22:00:00</span>
+              </div>
+
+              <div class="mt-4 p-3 bg-white">
+                <span class="d-block">Candidatura em análise</span>
+                <span>21/08/2023, 08:00:00</span>
+              </div>
+
+              <div class="mt-4 p-3 bg-white">
+                <span class="d-block">Candidatura Aprovada</span>
+                <span>21/08/2023, 08:00:00</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+  </section>
+</main>

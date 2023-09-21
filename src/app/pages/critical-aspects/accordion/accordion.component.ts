@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 export interface conformity {
   id:number,
   subCriteriaId: number,
@@ -15,7 +16,7 @@ export class AccordionComponent implements OnInit {
   panelOpenState = false;
   @Input() content = '';
   @Input() selectedValue: string;
-  @Input() id: number
+  @Input() id: number;
   @Input() title: string = "";
   @Input() description: string = "";
   @Input() editorId: string = ""
@@ -23,7 +24,8 @@ export class AccordionComponent implements OnInit {
   @Output() conformityEvent = new EventEmitter<conformity>();
   @Output() saveEvent = new EventEmitter<void>();
 
-  constructor() { }
+  constructor(
+    private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
   }
@@ -31,7 +33,7 @@ export class AccordionComponent implements OnInit {
     this.conformityEvent.emit({
       id:null,
       subCriteriaId: this.id,
-      websiteId: 1,
+      websiteId:  Number.parseInt(this.activatedRoute.snapshot.paramMap.get('id')),
       conformity: Number.parseInt(this.selectedValue),
       note: value
     });

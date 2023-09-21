@@ -23,7 +23,6 @@ export class EditorComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    console.log(this.content);
   }
   textSave(event:any){
     this.changeEvent.emit(event.html);

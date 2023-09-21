@@ -1,8 +1,8 @@
-<main *ngIf="!isPreview" id="1" fxLayout="column" fxLayoutAlign="center center">
+<main *ngIf="!isPreview" id="main" fxLayout="column" fxLayoutAlign="center center" role="main">
   <div class="col-lg-12 col-md-12 col-sm-12 top-div common-div">
     <div>
-      <h2 class="h5 title">{{ wsDto.Name}}</h2>
-      <h3 class="h3-aspects"> {{ "CRITICAL_ASPECTS_PAGE.TOP.subtitle" | translate}}</h3>
+      <h1 class="h5 title">{{ wsDto.Name}}</h1>
+      <h2 class="h3-aspects"> {{ "CRITICAL_ASPECTS_PAGE.TOP.subtitle" | translate}}</h2>
     </div>
     <div>
       <p> {{ "CRITICAL_ASPECTS_PAGE.TOP.progress_bar" | translate}} : {{progressCriteria}}/{{criteriaSize}}</p>
@@ -15,10 +15,10 @@
     <section fxLayout="column" fxLayoutAlign="center center">
       <mat-card class="d-flex justify-content-between">
         <!-- LEFT PART -->
-        <div id="main" class="col-lg-7 col-md-7 col-sm-7  ">
+        <div class="col-lg-7 col-md-7 col-sm-7  ">
           <div *ngFor="let crit of criterias">
             <div [id]="'mySection' + crit.id" class="mt-4">
-              <h4>{{crit.id}}. {{crit.title}}</h4>
+              <h1 class="h3">{{crit.id}}. {{crit.title}}</h1>
               <div *ngFor="let sub of crit.subCriteria" class="mt-2">
                 <div>
                   <app-accordion [isPreview]=false
@@ -61,11 +61,11 @@
     </section>
   </div>
 </main>
-<main *ngIf="isPreview" fxLayoutAlign="center center">
+<main id="main" *ngIf="isPreview" fxLayoutAlign="center center"  role="main">
   <section fxFlex="87">
     <div>
-      <p class="h4">Portal da Justiça</p>
-      <p class="h4"><strong>10 aspetos críticos de acessibilidade funcional</strong></p>
+      <h1 class="h4">Portal da Justiça</h1>
+      <h2 class="h4"><strong>10 aspetos críticos de acessibilidade funcional</strong></h2>
     </div>
 
     <div class="mt-5">
@@ -74,7 +74,7 @@
           <div class="col">
             <!-- box with the evaluation -->
             <div>
-              <h4>Pre-visualização</h4>
+              <h1 class="h3">Pre-visualização</h1>
               <div class="bg-light p-3">
                 <div class="d-flex justify-content-between">
                   <div>
@@ -117,7 +117,7 @@
             <div>
               <div *ngFor="let crit of criterias">
                 <div [id]="'mySection' + crit.id" class="mt-4">
-                  <h4>{{crit.id}}. {{crit.title}}</h4>
+                  <h2 class="h3">{{crit.id}}. {{crit.title}}</h2>
                   <div *ngFor="let sub of crit.subCriteria" class="mt-2">
                     <div>
                       <app-accordion [isPreview]=true

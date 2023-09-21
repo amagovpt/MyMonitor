@@ -63,12 +63,12 @@ import { EditorComponent } from './pages/critical-aspects/editor/editor.componen
 import { QuillModule } from 'ngx-quill';
 import { ContentIndexComponent } from './pages/critical-aspects/content-index/content-index.component';
 import { AccessibilityDeclarationComponent } from './pages/accessibility-declaration/accessibility-declaration.component';
-import { CriticalAspectsPrevisualizationComponent } from './pages/critical-aspects-previsualization/critical-aspects-previsualization.component';
+import { StampApplicationComponent } from './pages/stamp-application/stamp-application.component';
 
 const appRoutes: Routes = [
+  { path: 'stamp-application/:id', component: StampApplicationComponent, canActivate: [NoAuthGuard] },
   { path: 'critical-aspects/:id', component: CriticalAspectsComponent, canActivate: [NoAuthGuard] },
   { path: 'acessibility-declaration/:id', component: AccessibilityDeclarationComponent, canActivate: [NoAuthGuard] },
-  { path: 'critical-aspects-pre-visualization', component: CriticalAspectsPrevisualizationComponent, canActivate: [NoAuthGuard] },
   { path: '', component: LoginComponent, canActivate: [NoAuthGuard] },
   //{ path: '', component: LoginGovComponent, canActivate: [NoAuthGuard] },
   { path: 'loginRedirect', component: LoginGovRedirectComponent, canActivate: [NoAuthGuard] },
@@ -85,7 +85,7 @@ const appRoutes: Routes = [
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
+    return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
 }
 
 @NgModule({
@@ -133,8 +133,8 @@ export function HttpLoaderFactory(http: HttpClient) {
         AccordionComponent,
         EditorComponent,
         ContentIndexComponent,
-        CriticalAspectsPrevisualizationComponent,
-        AccessibilityDeclarationComponent
+        AccessibilityDeclarationComponent,
+        StampApplicationComponent
     ],
     imports: [
         RouterModule.forRoot(appRoutes, { enableTracing: false, relativeLinkResolution: 'legacy' }),

@@ -2,6 +2,7 @@ import { Component, OnInit, Input, ElementRef, ChangeDetectorRef } from '@angula
 import { TranslateService } from '@ngx-translate/core';
 import { ThemeService } from 'src/app/theme.service';
 import { UserService } from '../../services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -17,7 +18,8 @@ export class HeaderComponent implements OnInit {
     private readonly theme: ThemeService,
     private readonly cd: ChangeDetectorRef,
     public readonly translate: TranslateService,
-    public readonly user: UserService
+    public readonly user: UserService,
+    private router: Router
 
   ) {
     this.selectedLang = this.translate.currentLang;
