@@ -1,7 +1,8 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
+  encapsulation: ViewEncapsulation.ShadowDom,
   selector: 'app-add-pages-errors-dialog',
   templateUrl: './add-pages-errors-dialog.component.html',
   styleUrls: ['./add-pages-errors-dialog.component.scss']

@@ -1,17 +1,18 @@
 import {
-  Component,
-  OnInit,
-  Input,
-  Output,
-  EventEmitter,
   ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ViewEncapsulation,
 } from "@angular/core";
-import { FormControl } from "@angular/forms";
 import clone from "lodash.clone";
 import { MonitorService } from "src/app/services/monitor.service";
 
 
 @Component({
+  encapsulation: ViewEncapsulation.ShadowDom,
   selector: 'app-sitemap-add',
   templateUrl: './sitemap-add.component.html',
   styleUrls: ['./sitemap-add.component.scss']
@@ -25,8 +26,8 @@ export class SitemapAddComponent implements OnInit {
   urisFromFileString: string;
   fileErrorMessage: string;
   startingUrl: string;
-  
- // fileInput: FormControl;          [formControl]="fileInput"
+
+  // fileInput: FormControl;          [formControl]="fileInput"
 
   file: File;
   validFile: boolean;

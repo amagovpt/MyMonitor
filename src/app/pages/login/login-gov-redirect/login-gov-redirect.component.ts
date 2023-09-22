@@ -1,7 +1,8 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
+  encapsulation: ViewEncapsulation.ShadowDom,
   selector: 'app-login-gov-redirect',
   templateUrl: './login-gov-redirect.component.html',
   styleUrls: ['./login-gov-redirect.component.scss']

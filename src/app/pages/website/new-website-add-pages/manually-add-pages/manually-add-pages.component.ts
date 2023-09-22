@@ -1,18 +1,19 @@
 import {
   Component,
-  OnInit,
-  Input,
-  Output,
   EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ViewEncapsulation,
 } from "@angular/core";
 import {
   AbstractControl,
+  FormBuilder,
   FormControl,
   FormGroup,
-  FormBuilder,
-  Validators,
   FormGroupDirective,
   NgForm,
+  Validators,
 } from "@angular/forms";
 import { ErrorStateMatcher } from "@angular/material/core";
 import { MonitorService } from "src/app/services/monitor.service";
@@ -64,6 +65,7 @@ class DomainUrlValidation {
   }
 }
 @Component({
+  encapsulation: ViewEncapsulation.ShadowDom,
   selector: 'app-manually-add-pages',
   templateUrl: './manually-add-pages.component.html',
   styleUrls: ['./manually-add-pages.component.scss']
@@ -120,7 +122,8 @@ export class ManuallyAddPagesComponent implements OnInit {
       });
 
     this.addWebsitePages.next({ startingUrl: this.startingUrl, urls: pages });
-  }}
+  }
+}
 
 function missingProtocol(control: FormControl) {
   const urls = control.value.split("\n").filter((a) => a !== "");

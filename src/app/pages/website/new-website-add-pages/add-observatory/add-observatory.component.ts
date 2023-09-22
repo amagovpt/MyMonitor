@@ -1,13 +1,15 @@
 import {
   Component,
-  OnInit,
   Input,
+  OnInit,
+  ViewEncapsulation,
 } from "@angular/core";
 import { MessageService } from "src/app/services/message.service";
 import { MonitorService } from "src/app/services/monitor.service";
 
 
 @Component({
+  encapsulation: ViewEncapsulation.ShadowDom,
   selector: 'app-add-observatory',
   templateUrl: './add-observatory.component.html',
   styleUrls: ['./add-observatory.component.scss']

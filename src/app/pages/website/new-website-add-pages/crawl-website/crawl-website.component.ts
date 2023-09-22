@@ -1,21 +1,22 @@
 import {
-  Component,
-  OnInit,
-  Input,
-  Output,
-  EventEmitter,
   ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ViewEncapsulation,
 } from "@angular/core";
 
 import { MatDialog } from "@angular/material/dialog";
 import { CrawlerResultsDialogComponent } from 'src/app/dialogs/crawler-results-dialog/crawler-results-dialog.component';
-import { MessageService } from 'src/app/services/message.service';
 import { MonitorService } from 'src/app/services/monitor.service';
 
 
 
 
 @Component({
+  encapsulation: ViewEncapsulation.ShadowDom,
   selector: 'app-crawl-website',
   templateUrl: './crawl-website.component.html',
   styleUrls: ['./crawl-website.component.scss']
@@ -29,7 +30,7 @@ export class CrawlWebsiteComponent implements OnInit {
   crawlButtonDisable: boolean;
   crawlResultsDisabled: boolean;
   startingUrl: string;
-  loading:boolean;
+  loading: boolean;
 
 
   constructor(
@@ -70,7 +71,7 @@ export class CrawlWebsiteComponent implements OnInit {
             this.cd.detectChanges();
           });
         }
-       
+
       });
   }
 
@@ -90,7 +91,7 @@ export class CrawlWebsiteComponent implements OnInit {
   openCrawlingResultsDialog(): void {
     const dialog = this.dialog.open(CrawlerResultsDialogComponent, {
       width: "130vw",
-      maxHeight:"90vh",
+      maxHeight: "90vh",
       data: {
         startingUrl: this.startingUrl,
       },

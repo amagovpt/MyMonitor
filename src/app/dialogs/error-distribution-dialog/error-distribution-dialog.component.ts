@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit, ViewChild } from "@angular/core";
+import { Component, Inject, OnInit, ViewChild, ViewEncapsulation } from "@angular/core";
 import { MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { MatSort } from "@angular/material/sort";
 import { MatTableDataSource } from "@angular/material/table";
@@ -15,6 +15,7 @@ import users from "../../users";
 import { CorrectionData } from "../correction-distribution-dialog/correction-distribution-dialog.component";
 
 @Component({
+  encapsulation: ViewEncapsulation.ShadowDom,
   selector: "app-error-distribution-dialog",
   templateUrl: "./error-distribution-dialog.component.html",
   styleUrls: ["./error-distribution-dialog.component.scss"],
