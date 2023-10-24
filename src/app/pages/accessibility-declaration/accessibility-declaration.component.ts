@@ -26,24 +26,33 @@ export class AccessibilityDeclarationComponent implements OnInit {
     '0': { color: 'red' }
   };
 
+  websiteName: string = '';
+  isConform = false;
+
+  example: string[] = ['a','b','c','d','e'];
+
   constructor(private websiteService: WebsiteService, private criticalAspectsService: CriticalAspectsService,
     private cdr: ChangeDetectorRef, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
-    const id : number = Number.parseInt(this.activatedRoute.snapshot.paramMap.get('id'));
-    this.websiteService.getInfoByWebsiteId(id).pipe(take(1))
+    this.websiteName = this.activatedRoute.snapshot.paramMap.get('websiteName');
+    
+    this.websiteService.getInfoByWebsiteName(this.websiteName).pipe(take(1))
       .subscribe(data => {
         this.wsDto = data.body.result;
-        this.cdr.detectChanges();
+        this.countConformDeclaration(data.body.result.id);
       });
 
-    this.criticalAspectsService.countConformDeclaration(id).pipe(take(1))
-      .subscribe(data => {
-        this.accessibility.inAccordance = data.body.result;
-        this.percentage = Math.round(data.body.result / this.accessibility.totalAccordance * 100);
-        this.cdr.detectChanges();
-      });
+    
 
   }
-
+  countConformDeclaration(id:number){
+    this.criticalAspectsService.countConformDeclaration(id).pipe(take(1))
+    .subscribe(data => {
+      this.accessibility.inAccordance = data.body.result;
+      this.percentage = Math.round(data.body.result / this.accessibility.totalAccordance * 100);
+      this.cdr.detectChanges();
+    });
+  }
+  
 }

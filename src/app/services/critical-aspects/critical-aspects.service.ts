@@ -5,7 +5,7 @@ import { MmError } from "src/app/models/error";
 import { ConfigService } from "../config.service";
 import { Response } from "../../models/response";
 import { Criteria } from "src/app/models/criteria";
-import { conformity } from "src/app/pages/critical-aspects/accordion/accordion.component";
+import { conformity } from "src/app/components/checklist/accordion/accordion.component";
 @Injectable({
     providedIn: 'root'
 })

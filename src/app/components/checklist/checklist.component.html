@@ -1,0 +1,191 @@
+<main *ngIf="!isPreview" id="main" fxLayoutAlign="center center" role="main">
+  <section *ngIf="jsonLoaded && hashMapLoaded" fxFlex="87">
+    <div>
+      <a href="#" title="Ligação" target="_blank" class="h2 text-ama d-flex flex-row justify-content-start align-items-center gap-1">
+        {{wsDto.Name}}
+          <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+            class="bi bi-arrow-up-right" viewBox="0 0 16 16">
+            <path fill-rule="evenodd"
+              d="M14 2.5a.5.5 0 0 0-.5-.5h-6a.5.5 0 0 0 0 1h4.793L2.146 13.146a.5.5 0 0 0 .708.708L13 3.707V8.5a.5.5 0 0 0 1 0v-6z" />
+          </svg>
+
+      </a>
+       <h1 class="mb-5"><strong>{{jsonData.top.title}}</strong></h1>
+    </div>
+    <div>
+      <p class="m-0">{{ "CHECKLIST_COMMONS.progress" | translate}}: <strong>{{progressCriteria}}/{{criteriaSize}}</strong></p>
+      <p>{{ "CHECKLIST_COMMONS.conformity" | translate}}: <strong>{{conformCriteria}}/{{criteriaSize}} ({{conformityPercentage}}%)</strong></p>
+      <mat-progress-bar aria-label='Progresso' [title]="'Progresso'" mode="determinate"
+        value="{{conformityPercentage}}"></mat-progress-bar>
+    </div>
+
+    <section class="bg-white p-5 mt-5">
+      <div class="row justify-content-around">
+        <div class="col-lg-8">
+          <div *ngFor="let crit of criterias" class="checklist-group">
+            <div [id]="'mySection' + crit.count">
+              <h2 class="mb-4 h4"><strong>{{crit.count}}. {{crit.title}}</strong></h2>
+              <div *ngFor="let sub of crit.content" class="mt-3">
+                <app-accordion [isPreview]=false [selectedValue]="getSelectedValue(sub.id)" [title]="sub.count + '. ' + sub.title"
+                  [description]="sub.content" [id]="sub.id" [editorId]="sub.id" [content]="getNote(sub.id)"
+                  (conformityEvent)="changeConformity($event)" (saveEvent)="saveAccordion()">
+                </app-accordion>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-5 d-flex justify-content-between flex-wrap-reverse gap-1">
+            <div class="d-flex justify-content-star gap-1 flex-wrap">
+              <button type="button" class="ama-btn-primary"
+                (click)="saveAndExit()">{{ "CHECKLIST_COMMONS.save_and_exit" | translate}}</button>
+              <button type="button" (click)="isPreview = true"
+                class="ama-btn-secondary">{{ "CHECKLIST_COMMONS.previsualization" | translate}}</button>
+            </div>
+            <div>
+              <button type="button" class="btn btn-link ama-color rounded-pill rounded-start" (click)="clean()">{{ "CHECKLIST_COMMONS.clear_fields" | translate}}</button>
+            </div>
+          </div>
+
+        </div>
+        <div class="col-lg-3">
+          <!-- content index -->
+          <aside class="right-wrapper">
+            <div class="d-flex justify-content-end">
+              <button type="button" class="ama-btn-primary"
+                (click)="saveAndExit()">{{ "CHECKLIST_COMMONS.save_and_exit" | translate}}</button>
+              <button type="button" class="btn btn-link ama-color rounded-pill rounded-start" (click)="clean()">{{ "CHECKLIST_COMMONS.clear_fields" | translate}}</button>
+            </div>
+
+            <div class="bg-light p-4 mt-4" aria-label="Menu de Navegação" role="navigation">
+              <h2 class="h5 mb-4"><strong>{{ "CHECKLIST_COMMONS.content_index" | translate}}</strong></h2>
+              <ol class="m-0">
+                <li *ngFor="let criteria of criterias; let index = index" class="list-item-with-border"
+                    (click)="selectCurrentIndexItem(index)" [class.current]="index === currentIndexItem">
+                  <a role="button" class="ama-color"
+                    (click)="scrollToSection('mySection'+ (index + 1))">{{criteria.title}}</a>
+                </li>
+              </ol>
+            </div>
+
+          </aside>
+        </div>
+      </div>
+    </section>
+
+  </section>
+</main>
+
+
+<main id="main" *ngIf="isPreview" fxLayoutAlign="center center" role="main">
+  <section fxFlex="87">
+
+    <div>
+      <h2><i class="icon-website"><strong class="sr-only">Sítio Web: </strong></i>{{wsDto.Name}}</h2>
+      <h1 class="mb-3">{{jsonData.top.title}}</h1>
+    </div>
+
+    <div class="mt-5">
+      <div class="bg-white p-5">
+        <div class="row flex-wrap-reverse gx-5">
+          <div class="col">
+            <!-- box with the evaluation -->
+            <div>
+              <h2>{{ "CHECKLIST_COMMONS.previsualization" | translate}}</h2>
+              <div class="bg-light p-3">
+                <div class="d-flex justify-content-between">
+                  <div>
+                    <p class="m-0"><strong>{{ "CHECKLIST_COMMONS.test_result" | translate}}</strong></p>
+                    <p>{{wsDto.Name}}</p>
+                  </div>
+                  <div>
+                    <p class="m-0"><strong>{{ "CHECKLIST_COMMONS.heuristic" | translate}}</strong></p>
+                    <p>{{wsDto.Declaration_Update_Date | date : " d \'de\' MMMM \'de\' y" : '' : 'pt-BR'}}</p>
+                  </div>
+                </div>
+                <div class="p-3 bg-white">
+                  <div class="d-flex justify-content-between align-items-center flex-wrap">
+                    <div>
+                      <ngx-gauge [type]="'arch'" [thick]="'10'" [cap]="'round'" [value]="conformityPercentage"
+                        [label]="''" [min]="0" [max]="100" [thresholds]="percentageConfig">
+                      </ngx-gauge>
+                      <p class="text-center">Avaliação</p>
+                    </div>
+                    <div>
+                      <p class="m-0 h4">{{conformCriteria}}/{{criteriaSize}}</p>
+                      <p>{{ "CHECKLIST_COMMONS.heuristic" | translate}}</p>
+                    </div>
+                    <div>
+                      <p class="m-0 h4">{{wsDto.Pages}}</p>
+                      <p>{{ "CHECKLIST_COMMONS.pages" | translate}}</p>
+                    </div>
+                    <div>
+                      <p *ngIf="conformityPercentage >= 75 ; else noConform" class="h4 text-success"><strong>Estado
+                          conforme</strong>
+                      </p>
+                      <ng-template #noConform>
+                        <p class="h4 text-danger"><strong>Estado não conforme</strong></p>
+                      </ng-template>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div *ngFor="let crit of criterias">
+                <div [id]="'mySection' + crit.count" class="mt-4">
+                  <h3>{{crit.count}}. {{crit.title}}</h3>
+                  <div *ngFor="let sub of crit.content" class="mt-2">
+                    <app-accordion [isPreview]=true [selectedValue]="getSelectedValue(sub.id)" [title]="sub.count + '. ' + sub.title"
+                      [description]="sub.content" [id]="sub.id" [editorId]="sub.id" [content]="getNote(sub.id)"
+                      (conformityEvent)="changeConformity($event)" (saveEvent)="saveAccordion()">
+                    </app-accordion>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- share and download report -->
+            <div class="mt-5 here">
+              <div class="d-flex flex-wrap gap-1">
+                <div class="flex-fill bg-light p-4 d-flex align-items-center">
+                  <div>
+                    <p class="h4">{{ "CHECKLIST_COMMONS.share" | translate}}</p>
+                    <p class="bg-white p-2">www.mymonitor.com/jhdsjdhsjdh</p>
+                    <button type="button" class="btn ama-color-button rounded-pill rounded-start">{{ "CHECKLIST_COMMONS.copy" | translate}}</button>
+                  </div>
+                </div>
+                <div class="flex-fill bg-light p-4 d-flex flex-column justify-content-between">
+                  <p class="h4 mb">{{ "CHECKLIST_COMMONS.download_report" | translate}}</p>
+                  <button type="button"
+                    class="btn ama-color-button mr-auto rounded-pill rounded-start">{{ "CHECKLIST_COMMONS.download" | translate}}</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-auto">
+            <!-- content index -->
+            <div class="right-wrapper">
+              <div class="bg-light p-4" aria-label="Menu de Navegação" role="navigation">
+                <h2>{{ "CHECKLIST_COMMONS.content_index" | translate}}</h2>
+                <ol class="m-0">
+                  <li *ngFor="let criteria of criterias; let index = index">
+                    <a role="button" class="ama-color"
+                      (click)="scrollToSection('mySection'+ (index + 1))">{{criteria.title}}</a>
+                  </li>
+                </ol>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-5">
+          <button (click)="isPreview= false" class="btn ama-color-button rounded-pill rounded-start active"
+            role="button" aria-pressed="true">{{ "CHECKLIST_COMMONS.close" | translate}}</button>
+        </div>
+
+      </div>
+    </div>
+
+  </section>
+</main>

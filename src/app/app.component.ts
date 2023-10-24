@@ -69,9 +69,10 @@ export class AppComponent implements OnInit {
   
   goToMain(event :Event){
     event.preventDefault();
-    document.getElementById('main').scrollIntoView();
     if(!this.router.url.includes("#main")) {
       window.location.href = this.router.url + "#main";
+    } else {
+      window.location.href = this.router.url.split('#')[0] + "#main";
     }
   }
 

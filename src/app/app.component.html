@@ -1,9 +1,8 @@
-<div class="main">
+<div class="main main-padding">
   <a class="skip-to-main" href="#main" (click)="goToMain($event)">{{ "MISC.skip_to_main" | translate }}</a>
   <app-header [sidenav]="sidenav"></app-header>
   <router-outlet></router-outlet>
 </div>
-<br />
 <button type="button" class="go-to-top" (click)="goToTop()">
   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 16 16">
     <title>monitor_icons_tools_back-to-top</title>

@@ -1,13 +1,15 @@
 <main id="main" fxLayoutAlign="center center">
   <section fxLayout="column" fxFlex="87">
     <div>
-      <h1 class="h4">Gerar a declaração de acessibilidade</h1>
-      <p>{{wsDto.Name}}</p>
-    </div>
-    <div class="bg-light p-3">
-      <div class="d-flex justify-content-between">
+      <lib-page-name-title [pageName]="wsDto.Name" [pageTitle]="'Gerar a declaração de acessibilidade'"></lib-page-name-title>
+      </div>
+
+    <div class="mt-5 bg-white p-5">
+      <div class="d-flex justify-content-between flex-wrap">
         <div>
-          <h2 class="h5">Sumário da declaração de acessibilidade</h2>
+          <h2>Sumário da declaração de acessibilidade</h2>
+          <p>Com os dados que recolhemos a sua declaração encontra-se: <strong *ngIf="!isConform">Não
+              Conforme</strong><strong *ngIf="isConform">Conforme</strong></p>
         </div>
         <div>
           <p class="m-0"><strong>Avaliação mais recente</strong></p>
@@ -15,125 +17,109 @@
         </div>
       </div>
 
-      <div>
-        <div class="d-flex justify-content-between flex-wrap">
-          <div class="align-self-center">
-            <span class="h1">{{wsDto.Pages}}</span>
-            <span class="d-block"><strong>Páginas</strong></span>
-            <span class="d-block">Métodos de amostragem:</span>
-            <span class="d-block">Home Plus</span>
+      <div class="row justify-content-start align-items-center gap-y-1">
+        <div class="col-md-4 text-center">
+          <div class="ama-text-success d-flex justify-content-center align-items-center">
+            <div data-icon="d" class="icon icon-size"></div>
+            <span class="ml-2">Verificação automática efetuada</span>
           </div>
-
-          <div class="d-flex flex-column justify-content-between">
-            <div>
-              <ngx-gauge [type]="'arch'" [thick]="'10'" [cap]="'round'" [value]="accessibility.evaluation" [label]="''"
-                [min]="0" [max]="10" [thresholds]="thresholdConfig">
-              </ngx-gauge>
-              <span class="d-block text-center">Avaliação My Monitor</span>
-            </div>
-            <div class="text-center">
-              <a href="" role="button">Consultar</a>
-            </div>
+          <div class="mt-4">
+            <ngx-gauge [type]="'arch'" [thick]="'15'" [cap]="'round'" [value]="accessibility.evaluation" [label]="''"
+              [min]="0" [max]="10" [thresholds]="thresholdConfig">
+            </ngx-gauge>
+            <p class="m-0">Pontuação média MyMonitor</p>
+            <p class="m-0"><strong>Páginas da amostra: {{wsDto.Pages}}</strong></p>
           </div>
-
-          <div class="d-flex flex-column justify-content-between">
-            <div>
-              <ngx-gauge [type]="'arch'" [thick]="'10'" [cap]="'round'" [value]="percentage" [label]="''" [min]="0"
-                [max]="100" [thresholds]="percentageConfig" [append]="'%'" >
-              </ngx-gauge>
-              <div class="text-center">
-                <span class="d-block m-0">Checklist 10 aspetos<br> críticos funcionais</span>
-                <span
-                  class="d-block">Conformidade:<br><strong>{{accessibility.inAccordance}}/{{accessibility.totalAccordance}}
-                  </strong>
-                </span>
-              </div>
-            </div>
-            <div class="text-center">
-              <a [href]="'/critical-aspects/'+ wsDto.WebsiteId" role="button">Adicionar</a>
-            </div>
-          </div>
-
-          <div class="d-flex flex-column justify-content-between">
-            <div></div> <!-- this is a work around -->
-            <div class="mb-5">
-              <span class="d-block m-0">Estado da declaração</span>
-              <span *ngIf="percentage<70" class="h5"><strong>Não Conforme</strong></span>
-              <span *ngIf="percentage>70" class="h5"><strong>Conforme</strong></span>
-            </div>
-            <div class="text-center">
-              <a href="" role="button">Validar</a>
-            </div>
+          <div class="mt-5">
+            <lib-blue-button [reference]="'#'" [insideText]="'Consultar'"></lib-blue-button>
           </div>
         </div>
+
+        <div class="col-md-4 text-center border-left border p-4">
+          <div class="d-flex justify-content-center align-items-center">
+            <i data-icon="a" class="icon icon-size rotate-90"></i>
+            <span class="ml-2">Próximo passo</span>
+          </div>
+          <div class="mt-4">
+            <ngx-gauge [type]="'arch'" [thick]="'15'" [cap]="'round'" [value]="percentage" [label]="''" [min]="0"
+              [max]="100" [thresholds]="percentageConfig" [append]="'%'">
+            </ngx-gauge>
+            <p class="m-0">Checklist 10 aspetos críticos funcionais</p>
+            <p class="m-0"><strong>Conformidade:
+                {{accessibility.inAccordance}}/{{accessibility.totalAccordance}}</strong></p>
+          </div>
+          <div class="mt-5">
+            <lib-green-button [reference]="'/checklist/Aspeto Crítico/' + websiteName" [insideText]="'Adicionar'"></lib-green-button>
+          </div>
+        </div>
+
+        <div *ngIf="isConform" class="col text-white">
+          <div class="ama-bg-sucess p-4">
+            <p class="m-0">Estado da declaracão</p>
+            <p class="m-0"><strong>Plenamente Conforme</strong></p>
+            <a class="text-white" [href]="'/stamp-application/' + id">Ver</a>
+          </div>
+
+          <div class="mt-4 ama-bg-darkgrey p-4">
+            <p class="m-0">Continuar para Selo?</p>
+            <a class="text-white" href="">Efetuar candidatura</a>
+          </div>
+        </div>
+
       </div>
     </div>
 
-    <!-- About accessibility declaration -->
-    <div class="mt-5 d-flex justify-content-between">
-      <div class="w-75">
-        <h2 class="h5">Sobre a declaração de acessibilidade</h2>
-        <p>A partir de 23 de setembro de 2020 todos os sítios Web da Administração Pública passaram a estar obrigados a
-          ter uma Declaração de Acessibilidade Web publicada.
-          A avaliação, de acordo com o Decreto-lei n.º 83/2018, deve ser feita a uma amostra de páginas composta, no
-          mínimo, pela página de entrada + todas as páginas hiperligadas à página de entrada. Todas elas pertencentes ao
-          domínio em análise</p>
-      </div>
-      <div class="ml-4 w-25">
-        <div class="bg-light p-3">
-          <span class="d-block m-0">Clique para consultar mais informação</span>
-          <ul class="list-unstyled m-0">
-            <li><a href="" role="button">3 passos para publicar a Declaração de Acessibilidade</a></li>
-          </ul>
+    <div class="mt-5 bg-white p-5">
+      <!-- About accessibility declaration -->
+      <div class="row justify-content-between">
+        <div class="col">
+          <h2>Sobre a Declaração de Acessibilidade</h2>
+          <p>Como posso declarar que o meu sítio Web satisfaz os requisitos de acessibilidade? Através da Declaração
+            de
+            Acessibilidade. Desde setembro de 2020, todos os sítios Web da Administraçãoo Pública estão obrigados a
+            publicar
+            uma Declaração de Acessibilidade.</p>
+        </div>
+        <div class="col-md-3 p-4 ama-bg-grey">
+          <p class="m-0">Para mais informações, consulte a página:</p>
+          <p><strong>3 passos para publicar a Declaração de Acessibilidade</strong></p>
+          <a class="btn rounded-pill ama-btn-primary" href="#" role="button">Ler mais</a>
         </div>
       </div>
-    </div>
 
-    <!-- Conformity levels -->
-    <div class="mt-5">
-      <div>
-        <h2 class="h5">Níveis de conformidade</h2>
-        <p>A declaracão de acessibilidade divide-se em 3 niveis de conformidade:</p>
-        <ul>
+      <!-- Conformity levels -->
+      <div class="mt-5">
+        <h2>Níveis de conformidade</h2>
+        <p>A Declaração de Acessibilidade tem 3 estados possíveis:</p>
+        <ul class="my-ul">
           <li>Plenamente conforme</li>
           <li>Parcialmente conforme</li>
           <li>Não conforme</li>
         </ul>
+        <p>A declaração encontra-se <strong>plenamente conforme</strong> quando:</p>
+        <ol class="custom-counter">
+          <li>A avaliação automatica indica que todas as páginas da amostra têm uma pontuação entre 9 e
+            10 na escala do validador AccessMonitor, e;</li>
+          <li>A avaliação manual indica que, no mínimo, 75% dos requisitos constantes da lista de verificação "10
+            aspetos críticos de acessibilidade funcional" estão satisfeitos."</li>
+        </ol>
+
+        <p>A declaracão encontra-se <strong>parcialmente conforme</strong> quando:</p>
+        <ol class="custom-counter">
+          <li>A avaliacão automática indica que todas as páginas da amostra têm uma pontuação inferior a
+            9 mas superior a 8 na escala do validador AccessMonitor, e;</li>
+          <li>A avaliação manual indica que, no mínimo, entre 50% a 75% dos requisitos constantes da lista
+            de verificação "10 aspetos críticos de acessibilidade funcional" estão satisfeitos."</li>
+        </ol>
+
+        <p>A declaracão apresenta-se <strong>não conforme</strong> quando:</p>
+        <ol class="custom-counter">
+          <li>A avaliação automática indica que todas as página da amostra têm uma pontuação inferior a 8
+            na escala do validador AccessMonitor, e;</li>
+          <li>A avaliação manual indica que violamos mais de 50% do requisitos da lista de verificação "10
+            aspetos críticos de acessibilidade funcional".</li>
+        </ol>
       </div>
-
-      <div>
-        <p>A declaração encontra-se plenamente conforme quando:</p>
-        <div class="my-border-left">
-          <ol>
-            <li>A avaliação automatica indica que todas as páginas da amostra têm uma pontuação entre 9 e
-              10 na escala do validador AccessMonitor, e;</li>
-            <li>A avaliação manual indica que, no mínimo, 75% dos requisitos constantes da lista de verificação "10
-              aspetos críticos de acessibilidade funcional" estão satisfeitos."</li>
-          </ol>
-        </div>
-
-        <p>A declaracão encontra-se parcialmente conforme quando:</p>
-        <div class="my-border-left">
-          <ol>
-            <li>A avaliacão automática indica que todas as páginas da amostra têm uma pontuação inferior a
-              9 mas superior a 8 na escala do validador AccessMonitor, e;</li>
-            <li>A avaliação manual indica que, no mínimo, entre 50% a 75% dos requisitos constantes da lista
-              de verificação "10 aspetos críticos de acessibilidade funcional" estão satisfeitos."</li>
-          </ol>
-        </div>
-
-        <p>A declaracão apresenta-se não conforme quando:</p>
-        <div class="my-border-left">
-          <ol>
-            <li>A avaliação automática indica que todas as página da amostra têm uma pontuação inferior a 8
-              na escala do validador AccessMonitor, e;</li>
-            <li>A avaliação manual indica que violamos mais de 50% do requisitos da lista de verificação "10
-              aspetos críticos de acessibilidade funcional".</li>
-          </ol>
-        </div>
-
-      </div>
-
     </div>
 
   </section>

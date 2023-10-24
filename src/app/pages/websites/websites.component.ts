@@ -200,7 +200,7 @@ export class WebsitesComponent implements OnInit {
       );
     }
   }
-  sendTo(websiteId:number){
-    this.router.navigateByUrl(`/acessibility-declaration/${websiteId}`);
+  sendTo(websiteName:number){
+    this.router.navigateByUrl(`/acessibility-declaration/${websiteName}`);
   }
 }

@@ -4,18 +4,18 @@
     "baseUrl": "./",
     "downlevelIteration": true,
     "importHelpers": true,
-    "module": "es2020",
+    "module": "ESNext",
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
     "moduleResolution": "node",
     "experimentalDecorators": true,
-    "target": "es2019",
+    "target": "ESNext",
     "typeRoots": [
       "node_modules/@types"
     ],
     "lib": [
-      "es2019",
+      "ESNext",
       "dom"
     ]
   }

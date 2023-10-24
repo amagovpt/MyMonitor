@@ -5,6 +5,29 @@
       <p>{{wsDto.Name}}</p>
     </div>
 
+    <!-- application under review -->
+    <div *ngIf="showStamp" class="bg-light p-3 mb-5">
+      <h2 class="h5">A sua candidatura já se encontra em análise</h2>
+      <p>Poderá inserir uma das seguintes versões do logótipo no seu sítio web</p>
+      <div>
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle"
+          viewBox="0 0 16 16">
+          <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+          <path
+            d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
+        </svg>
+        <span class="ml-1"><a href="" role="button">Saiba como inserir o short code.</a></span>
+      </div>
+      <div class="mt-4 d-flex justify-content-start flex-wrap gap">
+        <div class="bg-warning p-5">Imagem do selo</div>
+        <div class="d-flex align-items-center">
+          <div class="bg-white p-2 border">[Selo_1_AMA_oficial]</div>
+          <button type="button" class="btn rounded-0 btn-ama">Copiar</button>
+        </div>
+
+      </div>
+    </div>
+
     <!-- Summary -->
     <div class="bg-light p-3">
       <div class="d-flex justify-content-between">
@@ -39,28 +62,27 @@
           </div>
 
           <div class="d-flex flex-column justify-content-between">
-            <div>
+            <div class="text-center">
               <ngx-gauge [type]="'arch'" [thick]="'10'" [cap]="'round'" [value]="percentage" [label]="''" [min]="0"
                 [max]="100" [thresholds]="percentageConfig" [append]="'%'">
               </ngx-gauge>
               <div class="text-center">
-                <span class="d-block m-0">Checklist 10 aspetos<br> críticos funcionais</span>
+                <span class="d-block m-0">Checklist 10 aspetos críticos funcionais</span>
                 <span
-                  class="d-block">Conformidade:<br><strong>{{accessibility.inAccordance}}/{{accessibility.totalAccordance}}
+                  class="d-block">Conformidade: <strong>{{accessibility.inAccordance}}/{{accessibility.totalAccordance}}
                   </strong>
                 </span>
               </div>
             </div>
             <div class="text-center">
-              <a [href]="'/critical-aspects/'+ wsDto.WebsiteId" role="button">Editar</a>
+              <a [href]="'/checklist/1/'+ websiteId" role="button">Editar</a>
             </div>
           </div>
 
-          <div class="d-flex flex-column justify-content-center">
-            <div class="mb-5 bg-success p-3 text-white">
+          <div class="d-flex flex-column justify-content-center mb-5">
+            <div class="bg-success p-3 text-white">
               <span class="d-block m-0">Estado da declaração</span>
-              <span *ngIf="percentage<70" class="h5 d-block m-0"><strong>Não Conforme</strong></span>
-              <span *ngIf="percentage>70" class="h5 d-block m-0"><strong>Conforme</strong></span>
+              <span class="d-block m-0"><strong>Plenamente Conforme</strong></span>
               <span class="d-block"><a class="text-white" href="" role="button">Ver</a></span>
             </div>
           </div>
@@ -83,43 +105,120 @@
         </div>
 
         <div *ngIf="selectedRank > 0" class="mt-5">
-          <h2 class="h5">2. Verificações a efetuar para selo ouro</h2>
+          <div class="my-border-left">
+            <h2 class="h5">2. Verificações a efetuar para selo ouro</h2>
 
-          <div *ngIf="selectedRank >= 1" class="p-3 bg-light">
-            <div class="d-flex justify-content-between">
-              <div class="d-flex align-items-center">
-                <span>Checklist Conteúdo</span>
-              </div>
-              <div class="d-flex align-items-center ml-4">
-                <button type="button" class="btn btn-ama">Preencher</button>
+            <!-- Content checklist -->
+            <!-- still ave to fill -->
+            <div *ngIf="!hasContent && selectedRank >= 1" class="p-3 bg-light">
+              <div class="d-flex justify-content-between">
+                <div class="d-flex align-items-center">
+                  <span>Checklist Conteúdo</span>
+                </div>
+                <div class="d-flex align-items-center ml-4">
+                  <a class="btn btn-ama" [href]="'/checklist/2/' + websiteId" role="button">Preencher</a>
+                </div>
               </div>
             </div>
-          </div>
-
-          <div *ngIf="selectedRank >= 2" class="mt-4 p-3 bg-light">
-            <div class="d-flex justify-content-between">
-              <div class="d-flex align-items-center">
-                <span>Checklist Transação</span>
-              </div>
-              <div class="d-flex align-items-center ml-4">
-                <button type="button" class="btn btn-ama">Preencher</button>
+            <!-- has content -->
+            <div *ngIf="hasContent && selectedRank >= 1" class="p-3 bg-light">
+              <div class="d-flex justify-content-between flex-wrap">
+                <div class="d-flex align-items-center">
+                  <div class="d-flex">
+                    <div class="d-flex align-items-center">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor"
+                        class="bi bi-check-circle" viewBox="0 0 16 16">
+                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                        <path
+                          d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z" />
+                      </svg>
+                    </div>
+                    <div class="ml-2">
+                      <span class="d-block">Checklist Conteúdo</span>
+                      <span>Conformidade: 10/10 (100%)</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="d-flex align-items-center ml-4">
+                  <button type="button" class="btn btn-ama" (click)="setBoolean(1)">Consultar/Editar</button>
+                </div>
               </div>
             </div>
-          </div>
 
-          <div *ngIf="selectedRank >= 3" class="mt-4 p-3 bg-light">
-            <div class="d-flex justify-content-between">
-              <div class="d-flex align-items-center">
-                <span>Relatório testes com utilizadores</span>
-              </div>
-              <div class="d-flex align-items-center ml-4">
-                <button type="button" class="btn btn-ama">Preencher</button>
+            <div *ngIf="!hasTransaction && selectedRank >= 2" class="mt-4 p-3 bg-light">
+              <div class="d-flex justify-content-between">
+                <div class="d-flex align-items-center">
+                  <span>Checklist Transação</span>
+                </div>
+                <div class="d-flex align-items-center ml-4">
+                  <a class="btn btn-ama" [href]="'/checklist/3/' + websiteId" role="button">Preencher</a>
+                </div>
               </div>
             </div>
+            <!-- has transaction -->
+            <div *ngIf="hasTransaction && selectedRank >= 2" class="mt-4 p-3 bg-light">
+              <div class="d-flex justify-content-between flex-wrap">
+                <div class="d-flex align-items-center">
+                  <div class="d-flex">
+                    <div class="d-flex align-items-center">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor"
+                        class="bi bi-check-circle" viewBox="0 0 16 16">
+                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                        <path
+                          d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z" />
+                      </svg>
+                    </div>
+                    <div class="ml-2">
+                      <span class="d-block">Checklist Transação</span>
+                      <span>Conformidade: 10/10 (100%)</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="d-flex align-items-center ml-4">
+                  <button type="button" class="btn btn-ama" (click)="setBoolean(2)">Consultar/Editar</button>
+                </div>
+              </div>
+            </div>
+
+            <div *ngIf="!hasUserTests && selectedRank >= 3" class="mt-4 p-3 bg-light">
+              <div class="d-flex justify-content-between">
+                <div class="d-flex align-items-center">
+                  <span>Relatório testes com utilizadores</span>
+                </div>
+                <div class="d-flex align-items-center ml-4">
+                  <button type="button" class="btn btn-ama" (click)="setBoolean(3)">Preencher</button>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="hasUserTests && selectedRank >= 3" class="mt-4 p-3 bg-light">
+              <div class="d-flex justify-content-between flex-wrap">
+                <div class="d-flex align-items-center">
+                  <div class="d-flex">
+                    <div class="d-flex align-items-center">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor"
+                        class="bi bi-check-circle" viewBox="0 0 16 16">
+                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                        <path
+                          d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z" />
+                      </svg>
+                    </div>
+                    <div class="ml-2">
+                      <span class="d-block">Relatório testes com utilizadores</span>
+                      <span>Conformidade: 10/10 (100%)</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="d-flex align-items-center ml-4">
+                  <button type="button" class="btn btn-ama" (click)="setBoolean(3)">Consultar/Editar</button>
+                </div>
+              </div>
+            </div>
+
           </div>
+
 
           <div class="mt-5">
-            <button type="button" class="btn btn-ama">Submeter a candidatura</button>
+            <button type="button" class="btn btn-ama" (click)="submit()">Submeter a candidatura</button>
           </div>
 
         </div>

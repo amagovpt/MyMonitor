@@ -57,30 +57,36 @@ import { TopThreePracticesComponent } from './pages/website/top-three-practices/
 import { LoginGovComponent } from './pages/login/login-gov/login-gov.component';
 import { LoginGovRedirectComponent } from './pages/login/login-gov-redirect/login-gov-redirect.component';
 import { ExitDialogComponent } from './dialogs/exit-dialog/exit-dialog.component';
-import { CriticalAspectsComponent } from './pages/critical-aspects/critical-aspects.component';
-import { AccordionComponent } from './pages/critical-aspects/accordion/accordion.component';
-import { EditorComponent } from './pages/critical-aspects/editor/editor.component';
+import { AccordionComponent } from './components/checklist/accordion/accordion.component';
 import { QuillModule } from 'ngx-quill';
-import { ContentIndexComponent } from './pages/critical-aspects/content-index/content-index.component';
 import { AccessibilityDeclarationComponent } from './pages/accessibility-declaration/accessibility-declaration.component';
 import { StampApplicationComponent } from './pages/stamp-application/stamp-application.component';
-
+import { ChecklistComponent } from './components/checklist/checklist.component';
+import { EvaluationCircleComponent } from './components/evaluation-circle/evaluation-circle.component';
+import { PageNameTitleModule } from 'page-name-title';
+import { BlueButtonModule } from 'blue-button';
+import { GreenButtonModule } from 'green-button';
+import { AmaEditorModule } from 'ama-editor';
+import { SharedChecklistComponent } from './pages/shared-checklist/shared-checklist.component';
 const appRoutes: Routes = [
-  { path: 'stamp-application/:id', component: StampApplicationComponent, canActivate: [NoAuthGuard] },
-  { path: 'critical-aspects/:id', component: CriticalAspectsComponent, canActivate: [NoAuthGuard] },
-  { path: 'acessibility-declaration/:id', component: AccessibilityDeclarationComponent, canActivate: [NoAuthGuard] },
-  { path: '', component: LoginComponent, canActivate: [NoAuthGuard] },
-  //{ path: '', component: LoginGovComponent, canActivate: [NoAuthGuard] },
-  { path: 'loginRedirect', component: LoginGovRedirectComponent, canActivate: [NoAuthGuard] },
-  { path: 'user', component: UserComponent, children: [
-    { path: '', component: WebsitesComponent},
-    { path: ':website', component: WebsiteComponent},
-    { path: ':website', loadChildren: () => import('./evaluation/evaluation.module').then(m => m.EvaluationModule) }
-    ] },
-/*  { path: ':website/:page', component: EvaluationResultsComponent, canActivate: [UserAuthGuard] },
-    { path: ':website/:page/code', component: WebpageCodeComponent, canActivate: [UserAuthGuard] },
-    { path: ':website/:page/:ele', component: ElementResultComponent, canActivate: [UserAuthGuard] }*/
-  { path: '**', component: NotFound404Component }
+    { path: 'checklist/:checklistName/:websiteName', component: ChecklistComponent, canActivate: [UserAuthGuard] },
+    { path: 'shared-checklist/:checklistName/:websiteName/:shareCode', component: SharedChecklistComponent, canActivate: [NoAuthGuard] },
+    { path: 'stamp-application/:id', component: StampApplicationComponent, canActivate: [UserAuthGuard] },
+    { path: 'acessibility-declaration/:websiteName', component: AccessibilityDeclarationComponent, canActivate: [UserAuthGuard] },
+    { path: '', component: LoginComponent, canActivate: [NoAuthGuard] },
+    //{ path: '', component: LoginGovComponent, canActivate: [NoAuthGuard] },
+    { path: 'loginRedirect', component: LoginGovRedirectComponent, canActivate: [NoAuthGuard] },
+    {
+        path: 'user', component: UserComponent, canActivate: [UserAuthGuard], children: [
+            { path: '', component: WebsitesComponent, canActivate: [UserAuthGuard], },
+            { path: ':website', component: WebsiteComponent, canActivate: [UserAuthGuard], },
+            { path: ':website', loadChildren: () => import('./evaluation/evaluation.module').then(m => m.EvaluationModule) }
+        ]
+    },
+    /*  { path: ':website/:page', component: EvaluationResultsComponent, canActivate: [UserAuthGuard] },
+        { path: ':website/:page/code', component: WebpageCodeComponent, canActivate: [UserAuthGuard] },
+        { path: ':website/:page/:ele', component: ElementResultComponent, canActivate: [UserAuthGuard] }*/
+    { path: '**', component: NotFound404Component }
 ];
 
 // AoT requires an exported function for factories
@@ -129,15 +135,16 @@ export function HttpLoaderFactory(http: HttpClient) {
         LoginGovComponent,
         LoginGovRedirectComponent,
         ExitDialogComponent,
-        CriticalAspectsComponent,
         AccordionComponent,
-        EditorComponent,
-        ContentIndexComponent,
         AccessibilityDeclarationComponent,
-        StampApplicationComponent
+        StampApplicationComponent,
+        ChecklistComponent,
+        EvaluationCircleComponent,
+        AccordionComponent,
+        SharedChecklistComponent
     ],
     imports: [
-        RouterModule.forRoot(appRoutes, { enableTracing: false, relativeLinkResolution: 'legacy' }),
+        RouterModule.forRoot(appRoutes, { enableTracing: false}),
         TranslateModule.forRoot({
             loader: {
                 provide: TranslateLoader,
@@ -156,7 +163,11 @@ export function HttpLoaderFactory(http: HttpClient) {
         ReactiveFormsModule,
         NgxGaugeModule,
         PipesModule,
-        QuillModule.forRoot()
+        QuillModule.forRoot(),
+        PageNameTitleModule,
+        BlueButtonModule,
+        GreenButtonModule,
+        AmaEditorModule
     ],
     providers: [
         {
