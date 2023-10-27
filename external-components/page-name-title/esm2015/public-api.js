@@ -1,7 +1,0 @@
-/*
- * Public API Surface of page-name-title
- */
-export * from './lib/page-name-title.service';
-export * from './lib/page-name-title.component';
-export * from './lib/page-name-title.module';
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicHVibGljLWFwaS5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uLy4uL3Byb2plY3RzL3BhZ2UtbmFtZS10aXRsZS9zcmMvcHVibGljLWFwaS50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTs7R0FFRztBQUVILGNBQWMsK0JBQStCLENBQUM7QUFDOUMsY0FBYyxpQ0FBaUMsQ0FBQztBQUNoRCxjQUFjLDhCQUE4QixDQUFDIiwic291cmNlc0NvbnRlbnQiOlsiLypcbiAqIFB1YmxpYyBBUEkgU3VyZmFjZSBvZiBwYWdlLW5hbWUtdGl0bGVcbiAqL1xuXG5leHBvcnQgKiBmcm9tICcuL2xpYi9wYWdlLW5hbWUtdGl0bGUuc2VydmljZSc7XG5leHBvcnQgKiBmcm9tICcuL2xpYi9wYWdlLW5hbWUtdGl0bGUuY29tcG9uZW50JztcbmV4cG9ydCAqIGZyb20gJy4vbGliL3BhZ2UtbmFtZS10aXRsZS5tb2R1bGUnO1xuIl19

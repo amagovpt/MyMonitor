@@ -1,32 +1,24 @@
-import { ChangeDetectorRef, Component, ElementRef, Input, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ChangeDetectorRef, Component, ElementRef, OnInit, QueryList,ViewChildren } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { JsonDataService } from './services/json-data.service';
 import { take } from 'rxjs/operators';
 import { WebsiteDTO } from 'src/app/pages/accessibility-declaration/dto/website.dto';
 import { ChecklistService } from './services/checklist.service';
 import { WebsiteService } from 'src/app/services/website/website.service';
-
+import { environment } from 'src/environments/environment';
 import { registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
+import { AccordionComponent} from './accordion/accordion.component';
+import { ChecklistItem } from './utils/checklist-item';
+import { round } from './utils/consts';
+import { conformity } from './utils/conformity.interface';
+import { ShareCodeDto } from './utils/share-code.dto';
 registerLocaleData(localePt);
 
-export interface conformity {
-  id: number,
-  subCriteriaId: number,
-  websiteId: number,
-  checklistId: number,
-  conformity: number,
-  note: string
-}
-
-const round = (value: number): number => {
-  return Math.round(100 * value) / 100;
-};
-
-let checklists = new Map<string, {id:number,name:string}>([
-  ["Aspeto Crítico", {id:1, name:"CHECKLIST_CRITICAL_ASPECTS"}],
-  ["Conteúdo", {id:2, name:"CHECKLIST_CONTENT"}],
-  ["Transação", {id:3, name:"CHECKLIST_TRANSACTION"}]
+export let checklists = new Map<string, { id: number, name: string }>([
+  ["Aspeto Crítico", { id: 1, name: "CHECKLIST_CRITICAL_ASPECTS" }],
+  ["Conteúdo", { id: 2, name: "CHECKLIST_CONTENT" }],
+  ["Transação", { id: 3, name: "CHECKLIST_TRANSACTION" }]
 ]);
 
 @Component({
@@ -35,24 +27,26 @@ let checklists = new Map<string, {id:number,name:string}>([
   styleUrls: ['./checklist.component.scss']
 })
 export class ChecklistComponent implements OnInit {
+  @ViewChildren(AccordionComponent) accordions: QueryList<AccordionComponent>;
+  //data
   checklistName!: string;
   websiteName!: string;
+  criterias: ChecklistItem[] = [];
+  path!: string;
+  hashMap = new Map<number, conformity>();
+  wsDto: WebsiteDTO = new WebsiteDTO();
+  
+  //visual
   jsonData: any = {};
   jsonLoaded: boolean = false;
   hashMapLoaded: boolean = false;
-
-  criterias: any[] = [];
   conformCriteria: number = 0;
   criteriaSize: number = 0;
-  hashMap = new Map<number, conformity>();
   progressCriteria: number = 0;
   conformityPercentage: number = 0;
-
   isPreview: boolean = false;
-
   currentIndexItem: number = 0;
 
-  wsDto: WebsiteDTO = new WebsiteDTO();
   percentageConfig = {
     '70': { color: 'green' },
     '40': { color: 'orange' },
@@ -60,18 +54,19 @@ export class ChecklistComponent implements OnInit {
   };
 
   constructor(private activatedRoute: ActivatedRoute,
-    private jsonDataService: JsonDataService,
-    private cdr: ChangeDetectorRef,
-    public element: ElementRef,
-    private checklistService: ChecklistService,
-    private websiteService: WebsiteService) { }
+    private jsonDataService: JsonDataService, private cdr: ChangeDetectorRef,
+    public element: ElementRef, private checklistService: ChecklistService,
+    private websiteService: WebsiteService, public router: Router,) { }
 
   ngOnInit(): void {
     this.checklistName = this.activatedRoute.snapshot.paramMap.get('checklistName');
     this.websiteName = this.activatedRoute.snapshot.paramMap.get('websiteName');
     this.getJsonData();
     this.getWebsiteInfoByName();
+    this.path =  `${environment.path}/shared-checklist/${this.checklistName}/${this.websiteName}/`;
+    console.log(this.path);
   }
+
   getJsonData() {
     this.jsonDataService.getJsonData('../../../assets/i18n/Portuguese.json').pipe(take(1)).subscribe((data) => {
       this.jsonData = data[checklists.get(this.checklistName).name];
@@ -82,6 +77,15 @@ export class ChecklistComponent implements OnInit {
     });
   }
 
+  getWebsiteInfoByName() {
+    this.websiteService.getInfoByWebsiteName(this.websiteName)
+      .pipe(take(1))
+      .subscribe(data => {
+        this.wsDto = data.body.result;
+        this.getBdData(data.body.result.WebsiteId)
+      });
+  }
+
   getBdData(websiteId: number) {
     this.checklistService.getAllNotes(checklists.get(this.checklistName).id, websiteId)
       .pipe(take(1))
@@ -89,15 +93,6 @@ export class ChecklistComponent implements OnInit {
         this.fillHashMap(data.body.result);
         this.fillConformity();
         this.cdr.detectChanges();
-      });
-  }
-
-  getWebsiteInfoByName() {
-    this.websiteService.getInfoByWebsiteName(this.websiteName)
-      .pipe(take(1))
-      .subscribe(data => {
-        this.wsDto = data.body.result;
-        this.getBdData(data.body.result.WebsiteId)
       });
   }
 
@@ -121,7 +116,7 @@ export class ChecklistComponent implements OnInit {
     const data = JSON.stringify(Object.fromEntries(this.hashMap));
     this.checklistService.saveNotes(data)
       .pipe(take(1))
-      .subscribe(data => {
+      .subscribe(() => {
         alert("data saved")
       });
   }
@@ -174,4 +169,41 @@ export class ChecklistComponent implements OnInit {
     this.currentIndexItem = index;
   }
 
+  previewAction() {
+    this.isPreview = true;
+    this.generateShareCode();
+  }
+
+  generateShareCode() {
+    this.checklistService.generateShareCode(new ShareCodeDto(this.wsDto.WebsiteId,checklists.get(this.checklistName).id,null))
+      .pipe(take(1))
+      .subscribe(code => {
+        console.log(code);
+        this.path = this.path + code.result.shareCode;
+        this.cdr.detectChanges();
+      });
+  }
+
+  openAllPanels() {
+    this.accordions.forEach((accordion) => {
+      accordion.open();
+    });
+  }
+
+  closeAllPanels() {
+    this.accordions.forEach((accordion) => {
+      accordion.close();
+    });}
+
+  downloadPageAsHTML() {
+    this.openAllPanels();
+    setTimeout(() => {
+      const htmlContent = document.documentElement.outerHTML;
+      const a = document.createElement('a');
+      a.href = 'data:text/html;charset=utf-8,' + encodeURIComponent(htmlContent);
+      a.download = 'pagina.html';
+      a.click();
+      this.closeAllPanels();
+    }, 1000); 
+  }
 }

@@ -63,14 +63,13 @@ import { AccessibilityDeclarationComponent } from './pages/accessibility-declara
 import { StampApplicationComponent } from './pages/stamp-application/stamp-application.component';
 import { ChecklistComponent } from './components/checklist/checklist.component';
 import { EvaluationCircleComponent } from './components/evaluation-circle/evaluation-circle.component';
-import { PageNameTitleModule } from 'page-name-title';
-import { BlueButtonModule } from 'blue-button';
-import { GreenButtonModule } from 'green-button';
-import { AmaEditorModule } from 'ama-editor';
+import { AmaCommonModule } from 'ama-common';
 import { SharedChecklistComponent } from './pages/shared-checklist/shared-checklist.component';
+import { ClipboardModule } from 'ngx-clipboard';
+import { SharedCodeAuthGuard } from './guards/shared-code-auth.guard';
 const appRoutes: Routes = [
     { path: 'checklist/:checklistName/:websiteName', component: ChecklistComponent, canActivate: [UserAuthGuard] },
-    { path: 'shared-checklist/:checklistName/:websiteName/:shareCode', component: SharedChecklistComponent, canActivate: [NoAuthGuard] },
+    { path: 'shared-checklist/:checklistName/:websiteName/:shareCode', component: SharedChecklistComponent, canActivate: [SharedCodeAuthGuard] },
     { path: 'stamp-application/:id', component: StampApplicationComponent, canActivate: [UserAuthGuard] },
     { path: 'acessibility-declaration/:websiteName', component: AccessibilityDeclarationComponent, canActivate: [UserAuthGuard] },
     { path: '', component: LoginComponent, canActivate: [NoAuthGuard] },
@@ -162,12 +161,10 @@ export function HttpLoaderFactory(http: HttpClient) {
         FormsModule,
         ReactiveFormsModule,
         NgxGaugeModule,
+        ClipboardModule,
         PipesModule,
         QuillModule.forRoot(),
-        PageNameTitleModule,
-        BlueButtonModule,
-        GreenButtonModule,
-        AmaEditorModule
+        AmaCommonModule
     ],
     providers: [
         {

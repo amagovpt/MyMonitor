@@ -38,7 +38,7 @@
             <div class="d-flex justify-content-star gap-1 flex-wrap">
               <button type="button" class="ama-btn-primary"
                 (click)="saveAndExit()">{{ "CHECKLIST_COMMONS.save_and_exit" | translate}}</button>
-              <button type="button" (click)="isPreview = true"
+              <button type="button" (click)="previewAction()"
                 class="ama-btn-secondary">{{ "CHECKLIST_COMMONS.previsualization" | translate}}</button>
             </div>
             <div>
@@ -84,7 +84,7 @@
       <h1 class="mb-3">{{jsonData.top.title}}</h1>
     </div>
 
-    <div class="mt-5">
+    <div #downloadable class="mt-5">
       <div class="bg-white p-5">
         <div class="row flex-wrap-reverse gx-5">
           <div class="col">
@@ -150,13 +150,13 @@
                 <div class="flex-fill bg-light p-4 d-flex align-items-center">
                   <div>
                     <p class="h4">{{ "CHECKLIST_COMMONS.share" | translate}}</p>
-                    <p class="bg-white p-2">www.mymonitor.com/jhdsjdhsjdh</p>
-                    <button type="button" class="btn ama-color-button rounded-pill rounded-start">{{ "CHECKLIST_COMMONS.copy" | translate}}</button>
+                    <p class="bg-white p-2">{{path}}</p>
+                    <button type="button" ngxClipboard [cbContent]="this.path"  class="btn ama-color-button rounded-pill rounded-start">{{ "CHECKLIST_COMMONS.copy" | translate}}</button>
                   </div>
                 </div>
                 <div class="flex-fill bg-light p-4 d-flex flex-column justify-content-between">
                   <p class="h4 mb">{{ "CHECKLIST_COMMONS.download_report" | translate}}</p>
-                  <button type="button"
+                  <button type="button" (click)="downloadPageAsHTML()"
                     class="btn ama-color-button mr-auto rounded-pill rounded-start">{{ "CHECKLIST_COMMONS.download" | translate}}</button>
                 </div>
               </div>

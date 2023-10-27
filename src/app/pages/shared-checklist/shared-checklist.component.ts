@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, ElementRef, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, Input, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { take } from 'rxjs/operators';
 import { WebsiteDTO } from 'src/app/pages/accessibility-declaration/dto/website.dto';
@@ -8,26 +8,11 @@ import { registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
 import { ChecklistService } from 'src/app/components/checklist/services/checklist.service';
 import { JsonDataService } from 'src/app/components/checklist/services/json-data.service';
+import { checklists } from 'src/app/components/checklist/checklist.component';
+import { conformity } from 'src/app/components/checklist/utils/conformity.interface';
+import { round } from 'src/app/components/checklist/utils/consts';
+import { AccordionComponent } from 'src/app/components/checklist/accordion/accordion.component';
 registerLocaleData(localePt);
-
-export interface conformity {
-  id: number,
-  subCriteriaId: number,
-  websiteId: number,
-  checklistId: number,
-  conformity: number,
-  note: string
-}
-
-const round = (value: number): number => {
-  return Math.round(100 * value) / 100;
-};
-
-let checklists = new Map<string, number>([
-  ["CHECKLIST_CRITICAL_ASPECTS", 1],
-  ["CHECKLIST_CONTENT", 2],
-  ["CHECKLIST_TRANSACTION", 3]
-]);
 
 @Component({
   selector: 'app-checklist',
@@ -35,6 +20,7 @@ let checklists = new Map<string, number>([
   styleUrls: ['../../components/checklist/checklist.component.scss']
 })
 export class SharedChecklistComponent implements OnInit {
+  @ViewChildren(AccordionComponent) accordions: QueryList<AccordionComponent>;
   checklistName!: string;
   websiteName!: string;
   jsonData: any = {};
@@ -50,13 +36,15 @@ export class SharedChecklistComponent implements OnInit {
 
   isPreview: boolean = false;
 
+  currentIndexItem: number = 0;
+
   wsDto: WebsiteDTO = new WebsiteDTO();
   percentageConfig = {
     '70': { color: 'green' },
     '40': { color: 'orange' },
     '0': { color: 'red' }
   };
-  currentIndexItem: number = 0;
+
   constructor(private activatedRoute: ActivatedRoute,
     private jsonDataService: JsonDataService,
     private cdr: ChangeDetectorRef,
@@ -66,14 +54,13 @@ export class SharedChecklistComponent implements OnInit {
 
   ngOnInit(): void {
     this.checklistName = this.activatedRoute.snapshot.paramMap.get('checklistName');
+    this.websiteName = this.activatedRoute.snapshot.paramMap.get('websiteName');
     this.getJsonData();
-      this.getWebsiteInfoByName();
-
+    this.getWebsiteInfoByName();
   }
-
   getJsonData() {
     this.jsonDataService.getJsonData('../../../assets/i18n/Portuguese.json').pipe(take(1)).subscribe((data) => {
-      this.jsonData = data[this.checklistName];
+      this.jsonData = data[checklists.get(this.checklistName).name];
       this.criterias = this.jsonData.main.content;
       this.criteriaSize = this.jsonData.top.total;
       this.jsonLoaded = true;
@@ -82,7 +69,7 @@ export class SharedChecklistComponent implements OnInit {
   }
 
   getBdData(websiteId: number) {
-    this.checklistService.getAllNotes(checklists.get(this.checklistName), websiteId)
+    this.checklistService.getAllNotes(checklists.get(this.checklistName).id, websiteId)
       .pipe(take(1))
       .subscribe(data => {
         this.fillHashMap(data.body.result);
@@ -116,6 +103,7 @@ export class SharedChecklistComponent implements OnInit {
     return this.hashMap.get(subId) != null ? this.hashMap.get(subId).note : "";
   }
 
+
   scrollToSection(id: string) {
     const element = this.element.nativeElement.querySelector(`#${id}`);
     if (element) {
@@ -137,8 +125,43 @@ export class SharedChecklistComponent implements OnInit {
     this.cdr.detectChanges();
   }
 
+  changeConformity(item: conformity) {
+    item.checklistId = checklists.get(this.checklistName).id;
+    item.websiteId = this.wsDto.WebsiteId;
+    if (this.hashMap.has(item.subCriteriaId)) {
+      item.id = this.hashMap.get(item.subCriteriaId).id
+    }
+    this.hashMap.set(item.subCriteriaId, item);
+    this.fillConformity();
+  }
+
+  clean() {
+    this.hashMap.clear();
+    this.fillConformity();
+  }
+
   selectCurrentIndexItem(index: number) {
     this.currentIndexItem = index;
   }
+  openAllPanels() {
+    this.accordions.forEach((accordion) => {
+      accordion.open();
+    });
+  }
 
+  closeAllPanels() {
+    this.accordions.forEach((accordion) => {
+      accordion.close();
+    });}
+  downloadPageAsHTML() {
+    this.openAllPanels();
+    setTimeout(() => {
+      const htmlContent = document.documentElement.outerHTML;
+      const a = document.createElement('a');
+      a.href = 'data:text/html;charset=utf-8,' + encodeURIComponent(htmlContent);
+      a.download = 'pagina.html';
+      a.click();
+      this.closeAllPanels();
+    }, 1000); 
+  }
 }

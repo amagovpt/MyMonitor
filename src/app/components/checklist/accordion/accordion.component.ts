@@ -1,19 +1,16 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { MatExpansionPanel } from '@angular/material/expansion';
 import { ActivatedRoute } from '@angular/router';
-export interface conformity {
-  id: number,
-  subCriteriaId: number,
-  websiteId: number,
-  conformity: number,
-  note: string
-}
+import { conformity } from '../utils/conformity.interface';
+
 @Component({
   selector: 'app-accordion',
   templateUrl: './accordion.component.html',
   styleUrls: ['./accordion.component.scss']
 })
 export class AccordionComponent implements OnInit {
-  panelOpenState = false;
+  @ViewChild(MatExpansionPanel) componenteFilho: MatExpansionPanel;
+  @Input() panelOpenState = false;
   @Input() content:string = '';
   @Input() selectedValue: string;
   @Input() id: number;
@@ -23,7 +20,6 @@ export class AccordionComponent implements OnInit {
   @Input() isPreview: boolean = false;
   @Output() conformityEvent = new EventEmitter<conformity>();
   @Output() saveEvent = new EventEmitter<void>();
-
   constructor(
     private activatedRoute: ActivatedRoute) { }
 
@@ -33,6 +29,7 @@ export class AccordionComponent implements OnInit {
     this.conformityEvent.emit({
       id: null,
       subCriteriaId: this.id,
+      checklistId:null,
       websiteId: Number.parseInt(this.activatedRoute.snapshot.paramMap.get('id')),
       conformity: Number.parseInt(this.selectedValue),
       note: value
@@ -40,5 +37,11 @@ export class AccordionComponent implements OnInit {
   }
   save() {
     this.saveEvent.emit();
+  }
+  open(){
+    this.componenteFilho.open();
+  }
+  close(){
+    this.componenteFilho.close();
   }
 }

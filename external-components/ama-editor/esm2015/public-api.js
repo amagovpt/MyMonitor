@@ -1,7 +1,0 @@
-/*
- * Public API Surface of ama-editor
- */
-export * from './lib/ama-editor.service';
-export * from './lib/editor/ama-editor.component';
-export * from './lib/ama-editor.module';
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicHVibGljLWFwaS5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uLy4uL3Byb2plY3RzL2FtYS1lZGl0b3Ivc3JjL3B1YmxpYy1hcGkudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7O0dBRUc7QUFFSCxjQUFjLDBCQUEwQixDQUFDO0FBQ3pDLGNBQWMsbUNBQW1DLENBQUM7QUFDbEQsY0FBYyx5QkFBeUIsQ0FBQyIsInNvdXJjZXNDb250ZW50IjpbIi8qXG4gKiBQdWJsaWMgQVBJIFN1cmZhY2Ugb2YgYW1hLWVkaXRvclxuICovXG5cbmV4cG9ydCAqIGZyb20gJy4vbGliL2FtYS1lZGl0b3Iuc2VydmljZSc7XG5leHBvcnQgKiBmcm9tICcuL2xpYi9lZGl0b3IvYW1hLWVkaXRvci5jb21wb25lbnQnO1xuZXhwb3J0ICogZnJvbSAnLi9saWIvYW1hLWVkaXRvci5tb2R1bGUnO1xuIl19
