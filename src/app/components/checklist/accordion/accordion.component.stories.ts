@@ -2,7 +2,9 @@ import { moduleMetadata, type Meta, type StoryObj } from '@storybook/angular';
 import { AccordionComponent } from './accordion.component';
 import { ActivatedRoute } from '@angular/router';
 import { ActivatedRouteMock } from './activated-route-mock';
-import '../../../../../node_modules/@angular/material/';
+
+import { MaterialModule } from 'src/app/material/material.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 const meta: Meta<AccordionComponent> = {
   title: 'Accordion',
   component: AccordionComponent,
@@ -14,10 +16,10 @@ const meta: Meta<AccordionComponent> = {
   }),
   decorators: [
     moduleMetadata({
-      declarations: [AccordionComponent],
       providers: [
         { provide: ActivatedRoute, useClass: ActivatedRouteMock },
       ],
+      imports:[MaterialModule,BrowserAnimationsModule]
     }),
   ]
 };
