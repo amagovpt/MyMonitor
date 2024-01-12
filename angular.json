@@ -134,5 +134,8 @@
 			}
 		}
 	},
-	"defaultProject": "my-monitor"
+  "defaultProject": "my-monitor",
+  "cli": {
+    "analytics": false
+  }
 }
