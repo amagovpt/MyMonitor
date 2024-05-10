@@ -1,25 +1,27 @@
 import {
-  Component,
-  OnInit,
-  Input,
-  Output,
-  EventEmitter,
-  ViewChild,
-  ElementRef,
-  ChangeDetectorRef
-} from '@angular/core';
-import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
-import { MatSort, Sort } from '@angular/material/sort';
-import {
   Location
 } from '@angular/common';
+import {
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ViewChild,
+  ViewEncapsulation
+} from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatDialog } from '@angular/material/dialog';
-import { AddPageDialogComponent } from 'src/app/dialogs/add-page-dialog/add-page-dialog.component';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort, Sort } from '@angular/material/sort';
 import { Router } from '@angular/router';
+import { AddPageDialogComponent } from 'src/app/dialogs/add-page-dialog/add-page-dialog.component';
 import { WebsiteListService } from 'src/app/services/website-list.service';
 
 @Component({
+  encapsulation: ViewEncapsulation.ShadowDom,
   selector: 'app-list-of-pages',
   templateUrl: './list-of-pages.component.html',
   styleUrls: ['./list-of-pages.component.scss']
@@ -77,7 +79,7 @@ export class ListOfPagesComponent implements OnInit {
     this.cd.detectChanges();
   }
 
-  goToEvaluation(url:string): string {
+  goToEvaluation(url: string): string {
     return encodeURIComponent(url);
   }
 
@@ -213,7 +215,7 @@ export class ListOfPagesComponent implements OnInit {
     return this.getSelectedPagesId().length;
   }
 
-  getSelectedPagesId(){
+  getSelectedPagesId() {
     const pagesId = [];
     for (const page of this.pages) {
       if (this.selection[page.uri])
@@ -279,9 +281,9 @@ export class ListOfPagesComponent implements OnInit {
 
   openAddPages(){
     this.dialog.open(AddPageDialogComponent, {
-      data: {website:this.website},
+      data: { website: this.website },
       width: "60vw",
-    }).afterClosed().subscribe(async ()=>{
+    }).afterClosed().subscribe(async () => {
       window.location.reload();
     });
 

@@ -18,5 +18,8 @@
       "ESNext",
       "dom"
     ]
-  }
+  },
+  "angularCompilerOptions": {
+   "defaultEncapsulation": 3
+  },
 }

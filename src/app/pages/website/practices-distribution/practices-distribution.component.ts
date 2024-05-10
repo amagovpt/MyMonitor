@@ -1,15 +1,17 @@
 import {
-  Component,
-  OnInit,
   AfterViewInit,
+  Component,
   Input,
+  OnInit,
   ViewChild,
+  ViewEncapsulation,
 } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
 import { Chart } from "chart.js";
 import tests from "src/app/tests";
 
 @Component({
+  encapsulation: ViewEncapsulation.ShadowDom,
   selector: "app-practices-distribution",
   templateUrl: "./practices-distribution.component.html",
   styleUrls: ["./practices-distribution.component.scss"],

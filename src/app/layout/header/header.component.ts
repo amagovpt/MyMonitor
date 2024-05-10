@@ -1,10 +1,11 @@
-import { Component, OnInit, Input, ElementRef, ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { ThemeService } from 'src/app/theme.service';
 import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
 
 @Component({
+  encapsulation: ViewEncapsulation.ShadowDom,
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']

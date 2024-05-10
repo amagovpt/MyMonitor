@@ -18,5 +18,5 @@ export class ConfigService {
   }
 
   getServer(service: string): string {
-    return "http://localhost:3000" + service;  }
+    return this.server + service;  }
 }

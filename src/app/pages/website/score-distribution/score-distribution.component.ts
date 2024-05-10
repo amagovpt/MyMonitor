@@ -1,8 +1,9 @@
-import { Component, OnInit, Input, ViewChild } from "@angular/core";
+import { Component, Input, OnInit, ViewChild, ViewEncapsulation } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
 import { Chart } from "chart.js";
 
 @Component({
+  encapsulation: ViewEncapsulation.ShadowDom,
   selector: "app-score-distribution",
   templateUrl: "./score-distribution.component.html",
   styleUrls: ["./score-distribution.component.scss"],

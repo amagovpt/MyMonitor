@@ -166,6 +166,16 @@ export function HttpLoaderFactory(http: HttpClient) {
         QuillModule.forRoot(),
         AmaCommonModule
     ],
+  entryComponents: [
+    ScoreDistributionDialogComponent,
+    AddPageDialogComponent,
+    ErrorDistributionDialogComponent,
+    RemovePagesConfirmationDialogComponent,
+    UserAuthErrorDialogComponent,
+    AddPagesErrorsDialogComponent,
+    BackgroundEvaluationsInformationDialogComponent,
+    CrawlerResultsDialogComponent
+  ],
     providers: [
         {
             provide: HTTP_INTERCEPTORS,

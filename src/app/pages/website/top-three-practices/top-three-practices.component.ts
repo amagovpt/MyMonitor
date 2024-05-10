@@ -1,8 +1,9 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, Input, OnInit, ViewEncapsulation } from "@angular/core";
 import orderBy from "lodash.orderby";
 import tests from "src/app/tests";
 
 @Component({
+  encapsulation: ViewEncapsulation.ShadowDom,
   selector: "app-top-three-practices",
   templateUrl: "./top-three-practices.component.html",
   styleUrls: ["./top-three-practices.component.scss"],
@@ -30,7 +31,7 @@ export class TopThreePracticesComponent implements OnInit {
           n_occurrences: this.data[key].n_occurrences,
           n_pages: this.data[key].n_pages,
           lvl: tests[key].level.toUpperCase(),
-          test:tests[key].test
+          test: tests[key].test
         });
       }
     }
