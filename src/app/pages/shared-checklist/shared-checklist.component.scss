@@ -1,0 +1,175 @@
+.top-div {
+    padding-bottom: 3%;
+}
+
+.title {
+    color: #339;
+    padding-bottom: 30px;
+}
+
+.h3-aspects {
+    padding-bottom: 15px;
+}
+
+ol {
+    padding-left: 0;
+    list-style-position: inside;
+}
+
+.ama-color-button {
+    background: #339;
+    color: white;
+}
+
+.ama-color {
+    color: #339
+}
+
+.right-wrapper {
+    position: sticky;
+    top: 1rem;
+}
+
+.gap-y-1 {
+    gap: 1rem 0rem;
+}
+
+.gap-1 {
+    gap: 1rem;
+}
+
+.list-item-with-border {
+    border-left: 3px solid lightgrey;
+    /* Adjust the border color and width as needed */
+    padding-left: 10px;
+    margin-bottom: 10px;
+    /* Adjust the left padding as needed */
+}
+
+.bg-ama {
+    background-color: #333399;
+}
+
+.text-ama {
+    color: #333399;
+}
+
+.bg-green-ama {
+    background-color: #008002;
+}
+
+.ama-btn-white {
+    color: #333399;
+    background-color: white;
+    border: solid 2px #333399;
+}
+
+.ama-btn-secondary {
+    color: #333399;
+    background-color: white;
+    border: solid 2px #333399;
+}
+
+.ama-btn-secondary:hover {
+    color: white;
+    background-color: #333399;
+    border: solid 2px #333399;
+}
+
+.ama-btn-sucess {
+    color: white;
+    background-color: #3A8241;
+    border: solid 2px #3A8241;
+}
+
+.ama-btn-sucess:hover {
+    color: #3A8241;
+    background-color: white;
+    border: solid 2px #3A8241;
+}
+
+.ama-btn-primary {
+    color: white;
+    background-color: #333399;
+    border: solid 2px #333399;
+}
+
+.ama-btn-primary:hover {
+    color: #333399;
+    background-color: white;
+    border: solid 2px #333399;
+}
+
+.my-ul {
+    // margin: 0;
+    padding-left: 16px;
+}
+
+.my-ul li::before {
+    color: #333399;
+    content: "\2022";
+    font-weight: bold;
+    display: inline-block;
+    margin-left: -17px;
+    width: 16px;
+}
+
+.ama-bg-grey {
+    background-color: #E4E4E4;
+}
+
+.ama-bg-darkgrey {
+    background-color: #565656;
+}
+
+.gap-y-1 {
+    gap: 1rem 0rem;
+}
+
+.ama-bg-sucess {
+    background-color: #008002;
+}
+
+:host ::ng-deep mat-progress-bar {
+    height: 10px;
+}
+
+:host ::ng-deep mat-progress-bar .mdc-linear-progress__bar-inner {
+    border-top-width: 10px;
+}
+
+::ng-deep .mat-progress-bar-fill::after {
+    background-color: green!important;
+}
+.padding-bottom{
+    padding-bottom: 20rem;
+}
+
+.ama-btn-primary {
+  padding: .5rem 1.5rem;
+  background-color: #333399;
+  border: 2px solid #333399;
+  transition: all 250ms ease-in-out;
+  border-radius: 50px;
+}
+
+.ama-btn-primary:hover {
+  color: #333399;
+  background-color: #FFF;
+}
+
+.checklist-group:not(:first-child) {
+  margin-top: 3rem;
+}
+
+.gap-1 {
+  gap: 1rem;
+}
+
+.ng-star-inserted.current {
+  border-left: 3px solid #333399!important;
+}
+
+.ng-star-inserted.current a {
+  color: #000;
+}

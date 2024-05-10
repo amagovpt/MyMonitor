@@ -3,6 +3,7 @@ import { MatSort, Sort } from "@angular/material/sort";
 
 
 import { WebsiteListService } from "src/app/services/website-list.service";
+import { Route, Router } from "@angular/router";
 
 @Component({
   encapsulation: ViewEncapsulation.ShadowDom,
@@ -28,7 +29,7 @@ export class WebsitesComponent implements OnInit {
 
   constructor(
     private websiteList: WebsiteListService,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef, private router: Router
   ) {
     this.loading = true;
     this.error = false;
@@ -196,5 +197,8 @@ export class WebsitesComponent implements OnInit {
         this.indicator2
       );
     }
+  }
+  sendTo(websiteName:number){
+    this.router.navigateByUrl(`/acessibility-declaration/${websiteName}`);
   }
 }

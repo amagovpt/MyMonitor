@@ -1,0 +1,11 @@
+/*
+ * Public API Surface of ama-common
+ */
+export * from './lib/ama-common.service';
+export * from './lib/ama-common.component';
+export * from './lib/ama-editor/ama-editor.component';
+export * from './lib/green-button/green-button.component';
+export * from './lib/blue-button/blue-button.component';
+export * from './lib/page-name-title/page-name-title.component';
+export * from './lib/ama-common.module';
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicHVibGljLWFwaS5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uLy4uL3Byb2plY3RzL2FtYS1jb21tb24vc3JjL3B1YmxpYy1hcGkudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7O0dBRUc7QUFFSCxjQUFjLDBCQUEwQixDQUFDO0FBQ3pDLGNBQWMsNEJBQTRCLENBQUM7QUFDM0MsY0FBYyx1Q0FBdUMsQ0FBQTtBQUNyRCxjQUFjLDJDQUEyQyxDQUFBO0FBQ3pELGNBQWMseUNBQXlDLENBQUE7QUFDdkQsY0FBYyxpREFBaUQsQ0FBQTtBQUMvRCxjQUFjLHlCQUF5QixDQUFDIiwic291cmNlc0NvbnRlbnQiOlsiLypcbiAqIFB1YmxpYyBBUEkgU3VyZmFjZSBvZiBhbWEtY29tbW9uXG4gKi9cblxuZXhwb3J0ICogZnJvbSAnLi9saWIvYW1hLWNvbW1vbi5zZXJ2aWNlJztcbmV4cG9ydCAqIGZyb20gJy4vbGliL2FtYS1jb21tb24uY29tcG9uZW50JztcbmV4cG9ydCAqIGZyb20gJy4vbGliL2FtYS1lZGl0b3IvYW1hLWVkaXRvci5jb21wb25lbnQnXG5leHBvcnQgKiBmcm9tICcuL2xpYi9ncmVlbi1idXR0b24vZ3JlZW4tYnV0dG9uLmNvbXBvbmVudCdcbmV4cG9ydCAqIGZyb20gJy4vbGliL2JsdWUtYnV0dG9uL2JsdWUtYnV0dG9uLmNvbXBvbmVudCdcbmV4cG9ydCAqIGZyb20gJy4vbGliL3BhZ2UtbmFtZS10aXRsZS9wYWdlLW5hbWUtdGl0bGUuY29tcG9uZW50J1xuZXhwb3J0ICogZnJvbSAnLi9saWIvYW1hLWNvbW1vbi5tb2R1bGUnO1xuIl19

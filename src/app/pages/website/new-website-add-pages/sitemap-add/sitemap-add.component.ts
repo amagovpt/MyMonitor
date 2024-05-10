@@ -122,7 +122,7 @@ export class SitemapAddComponent implements OnInit {
       this.fileErrorMessage = "invalidDomain";
       return;
     }
-    if (uris !== undefined ) {
+    if (uris !== undefined || uris.length !== 0) {
       for (let url of uris) {
         if (!url.startsWith(startingUrl)) {
           this.fileErrorMessage = "invalidDomain";

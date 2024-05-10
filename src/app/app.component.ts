@@ -1,7 +1,7 @@
-import { Location } from '@angular/common';
-import { ChangeDetectionStrategy, Component, ElementRef, Injectable, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
+import { OnInit, Component, Injectable, ViewChild, ElementRef, ChangeDetectionStrategy, AfterViewInit, DoCheck, AfterContentInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { Location } from '@angular/common';
+import { NavigationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 import { UserService } from './services/user.service';
@@ -39,10 +39,12 @@ export class AppComponent implements OnInit {
 
   showGoToTop: boolean;
 
+  @ViewChild('skipToMainLink') skipToMainLink: ElementRef;
+
   constructor(
     public el: ElementRef,
     public user: UserService,
-    private router: Router,
+    public router: Router,
     private location: Location,
     public translate: TranslateService
   ) {
@@ -65,8 +67,19 @@ export class AppComponent implements OnInit {
 
     this.showGoToTop = false;
   }
+  
+  goToMain(event :Event){
+    event.preventDefault();
+    if(!this.router.url.includes("#main")) {
+      window.location.href = this.router.url + "#main";
+    } else {
+      window.location.href = this.router.url.split('#')[0] + "#main";
+    }
+  }
 
   ngOnInit(): void {
+    // this.skipToMainLink.nativeElement.focus();                     
+
     this.translate.onLangChange.subscribe(() => {
       this.updateLanguage();
     });
@@ -98,7 +111,7 @@ export class AppComponent implements OnInit {
             break;
         }
 
-        document.getElementById('main').scrollIntoView();
+        // document.getElementById('main').scrollIntoView();    
       }
     });
   }

@@ -1,0 +1,49 @@
+.custom-counter {
+    margin: 0;
+    padding: 0;
+    padding-bottom: 16px;
+    list-style-type: none;
+}
+
+.custom-counter li {
+    counter-increment: step-counter;
+    margin-bottom: 5px;
+}
+
+.custom-counter li::before {
+    content: counter(step-counter);
+    margin-right: 10px;
+    font-size: 80%;
+    background-color: lightgrey;
+    color: grey;
+    font-weight: bold;
+    padding: 3px 8px;
+    border-radius: 11px;
+}
+
+.my-ul {
+    // margin: 0;
+    padding-left: 16px;
+    list-style: none;
+}
+
+.my-ul li::before {
+    color: #333399;
+    content: "\2022";
+    font-weight: bold;
+    display: inline-block;
+    margin-left: -1em;
+    width: 16px;
+}
+
+.gap-y-1 {
+    gap: 1rem 0rem;
+}
+
+.rotate-90 {
+    transform: rotate(90deg);
+}
+
+.icon-size {
+    font-size: 30px;
+}

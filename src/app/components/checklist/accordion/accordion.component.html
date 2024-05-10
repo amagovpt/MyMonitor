@@ -1,0 +1,64 @@
+<mat-accordion>
+    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" class="ama no-border no-shadow">
+        <mat-expansion-panel-header class="external-background-color panel-padding" [collapsedHeight]="'75px'">
+            <mat-panel-title>
+                <div class="d-flex align-items-center">
+                    <div class="d-flex semaforo-wrapper">
+                        <div matTooltip="Sim"[ngClass]="{ 'circle': true, 'circle-green': selectedValue === '1', 'semaforo': true }">
+                          <b>S</b>
+                        </div>
+                        <div matTooltip="Não"[ngClass]="{ 'circle': true, 'circle-red': selectedValue === '0', 'semaforo': true }">
+                          <b>N</b>
+                        </div>
+                        <div matTooltip="Não Aplicável"[ngClass]="{ 'circle': true, 'circle-orange': selectedValue === '2', 'semaforo': true }">
+                          <b>N/A</b>
+                        </div>
+                    </div>
+                    <!--<div class="title">
+                        <b>{{ title }}</b>
+                    </div>-->
+                  <h3 class="h6 mb-0 ml-3"><strong>{{title}}</strong></h3>
+                </div>
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="checklist-content">
+        <div>
+            <p class="normal-text">{{description}}</p>
+            <div>
+                <span class="align-middle">
+                    <mat-icon>info_outline</mat-icon>
+                </span>
+                <a href="" class="align-middle ml-1 ama-color">Saiba como implementar este requisito.</a>
+            </div>
+        </div>
+
+        <div *ngIf="!isPreview" class="mt-4">
+            <h2 class="h5"><b>O requisito está conforme?*</b></h2>
+            <mat-radio-group (change)="changeConformity('')" aria-label="O requisito está conforme?" [(ngModel)]="selectedValue">
+                <mat-radio-button matTooltip="Sim" value="1">Sim
+                </mat-radio-button>
+                <mat-radio-button matTooltip="Não" class="ml-2 sphere" value="0">Não</mat-radio-button>
+                <mat-radio-button matTooltip="Não Aplicável" class="ml-2 sphere" value="2">Não Aplicável</mat-radio-button>
+            </mat-radio-group>
+        </div>
+
+        <div *ngIf="selectedValue === '1'" class="mt-4 border-left-light-gray">
+            <div class="ml-2">
+                <div>
+                    <h2 class="h5"><b>Recolha de Evidências</b></h2>
+                    <p>Diga-nos porque respondeu Sim. Pode justificar a sua resposta em forma de texto e/ou com imagens.
+                    </p>
+                </div>
+
+                <div>
+                    <h2 class="h5">Notas*</h2>
+                    <ama-editor [isPreview]="isPreview" [editorId]="editorId" (changeEvent)="changeConformity($event)"  [content]= content></ama-editor>
+                </div>
+
+                <button *ngIf="!isPreview" type="button" class="mt-2 btn ama-color-button rounded-pill rounded-start"
+                    (click)="save()">Guardar</button>
+            </div>
+        </div>
+    </div>
+    </mat-expansion-panel>
+</mat-accordion>
