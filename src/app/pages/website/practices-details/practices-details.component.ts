@@ -1,7 +1,6 @@
-import { Component, Input, OnInit, ViewEncapsulation } from "@angular/core";
+import { Component, OnInit, Input } from "@angular/core";
 
 @Component({
-  encapsulation: ViewEncapsulation.ShadowDom,
   selector: "app-practices-details",
   templateUrl: "./practices-details.component.html",
   styleUrls: ["./practices-details.component.scss"],
@@ -19,9 +18,10 @@ export class PracticesDetailsComponent implements OnInit {
   keys: any;
   direction: any;
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit(): void {
+    console.log(this.website);
     this.errorDistributionData = {
       errors: this.website.getTopTenErrors(),
       isCat: false,

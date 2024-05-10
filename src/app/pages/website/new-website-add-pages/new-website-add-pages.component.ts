@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
 import {
   FormControl,
   FormGroupDirective,
@@ -6,7 +6,7 @@ import {
   Validators,
 } from "@angular/forms";
 import { ErrorStateMatcher } from "@angular/material/core";
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { BackgroundEvaluationsInformationDialogComponent } from 'src/app/dialogs/background-evaluations-information-dialog/background-evaluations-information-dialog.component';
 import { MonitorService } from 'src/app/services/monitor.service';
 
@@ -25,7 +25,6 @@ export class UrlStateMatcher implements ErrorStateMatcher {
 }
 
 @Component({
-  encapsulation: ViewEncapsulation.ShadowDom,
   selector: 'app-new-website-add-pages',
   templateUrl: './new-website-add-pages.component.html',
   styleUrls: ['./new-website-add-pages.component.scss']

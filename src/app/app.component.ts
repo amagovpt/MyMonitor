@@ -1,18 +1,17 @@
-import { OnInit, Component, Injectable, ViewChild, ElementRef, ChangeDetectionStrategy, AfterViewInit, DoCheck, AfterContentInit } from '@angular/core';
+import { OnInit, Component, Injectable, ViewChild, ElementRef, ChangeDetectionStrategy } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Location } from '@angular/common';
-import { NavigationEnd, Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 import { UserService } from './services/user.service';
 
 @Injectable()
 @Component({
-  encapsulation: ViewEncapsulation.ShadowDom,
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent implements OnInit {
 
@@ -39,12 +38,10 @@ export class AppComponent implements OnInit {
 
   showGoToTop: boolean;
 
-  @ViewChild('skipToMainLink') skipToMainLink: ElementRef;
-
   constructor(
     public el: ElementRef,
     public user: UserService,
-    public router: Router,
+    private router: Router,
     private location: Location,
     public translate: TranslateService
   ) {
@@ -67,19 +64,8 @@ export class AppComponent implements OnInit {
 
     this.showGoToTop = false;
   }
-  
-  goToMain(event :Event){
-    event.preventDefault();
-    if(!this.router.url.includes("#main")) {
-      window.location.href = this.router.url + "#main";
-    } else {
-      window.location.href = this.router.url.split('#')[0] + "#main";
-    }
-  }
 
   ngOnInit(): void {
-    // this.skipToMainLink.nativeElement.focus();                     
-
     this.translate.onLangChange.subscribe(() => {
       this.updateLanguage();
     });
@@ -111,7 +97,7 @@ export class AppComponent implements OnInit {
             break;
         }
 
-        // document.getElementById('main').scrollIntoView();    
+        document.getElementById('main').scrollIntoView();
       }
     });
   }

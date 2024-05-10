@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
-import { WebsiteComponent } from './website.component';
+import { CriticalAspectsComponent } from './critical-aspects.component';
 
-describe('WebsiteComponent', () => {
-  let component: WebsiteComponent;
-  let fixture: ComponentFixture<WebsiteComponent>;
+describe('CriticalAspects', () => {
+  let component: CriticalAspectsComponent;
+  let fixture: ComponentFixture<CriticalAspectsComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ WebsiteComponent ]
+      declarations: [ CriticalAspectsComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(WebsiteComponent);
+    fixture = TestBed.createComponent(CriticalAspectsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

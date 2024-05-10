@@ -1,7 +1,6 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
-  encapsulation: ViewEncapsulation.ShadowDom,
   selector: 'app-remove-pages-confirmation-dialog',
   templateUrl: './remove-pages-confirmation-dialog.component.html',
   styleUrls: ['./remove-pages-confirmation-dialog.component.scss']

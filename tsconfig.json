@@ -4,22 +4,19 @@
     "baseUrl": "./",
     "downlevelIteration": true,
     "importHelpers": true,
-    "module": "ESNext",
+    "module": "es2020",
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
     "moduleResolution": "node",
     "experimentalDecorators": true,
-    "target": "ESNext",
+    "target": "es2019",
     "typeRoots": [
       "node_modules/@types"
     ],
     "lib": [
-      "ESNext",
+      "es2019",
       "dom"
     ]
-  },
-  "angularCompilerOptions": {
-   "defaultEncapsulation": 3
-  },
+  }
 }

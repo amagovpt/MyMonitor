@@ -1,9 +1,8 @@
-import { Component, Input, OnInit, ViewEncapsulation } from "@angular/core";
+import { Component, OnInit, Input } from "@angular/core";
 import orderBy from "lodash.orderby";
 import _tests from "../../../tests";
 
 @Component({
-  encapsulation: ViewEncapsulation.ShadowDom,
   selector: "app-top-five-best-practices",
   templateUrl: "./top-five-best-practices.component.html",
   styleUrls: ["./top-five-best-practices.component.scss"],

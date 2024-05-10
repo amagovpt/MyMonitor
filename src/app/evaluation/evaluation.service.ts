@@ -633,6 +633,7 @@ export class EvaluationService {
     };
 
     for (const test in tests) {
+      console.log(test)
       if (test) {
         if (tot.results[test]) {
           let tes = tests[test]["test"];

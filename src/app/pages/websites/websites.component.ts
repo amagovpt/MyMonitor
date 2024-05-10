@@ -1,12 +1,13 @@
-import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild, ViewEncapsulation } from "@angular/core";
+import { Component, OnInit, Input, ChangeDetectorRef, ElementRef, ViewChild } from "@angular/core";
 import { MatSort, Sort } from "@angular/material/sort";
 
+import { Website } from "../../models/website";
 
+import orderBy from "lodash.orderby";
+import { MonitorService } from "src/app/services/monitor.service";
 import { WebsiteListService } from "src/app/services/website-list.service";
-import { Route, Router } from "@angular/router";
 
 @Component({
-  encapsulation: ViewEncapsulation.ShadowDom,
   selector: "app-websites",
   templateUrl: "./websites.component.html",
   styleUrls: ["./websites.component.scss"],
@@ -29,7 +30,7 @@ export class WebsitesComponent implements OnInit {
 
   constructor(
     private websiteList: WebsiteListService,
-    private cd: ChangeDetectorRef, private router: Router
+    private cd: ChangeDetectorRef
   ) {
     this.loading = true;
     this.error = false;
@@ -197,8 +198,5 @@ export class WebsitesComponent implements OnInit {
         this.indicator2
       );
     }
-  }
-  sendTo(websiteName:number){
-    this.router.navigateByUrl(`/acessibility-declaration/${websiteName}`);
   }
 }

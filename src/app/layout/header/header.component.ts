@@ -1,11 +1,9 @@
-import { ChangeDetectorRef, Component, ElementRef, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, Input, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { ThemeService } from 'src/app/theme.service';
 import { UserService } from '../../services/user.service';
-import { Router } from '@angular/router';
 
 @Component({
-  encapsulation: ViewEncapsulation.ShadowDom,
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
@@ -19,8 +17,7 @@ export class HeaderComponent implements OnInit {
     private readonly theme: ThemeService,
     private readonly cd: ChangeDetectorRef,
     public readonly translate: TranslateService,
-    public readonly user: UserService,
-    private router: Router
+    public readonly user: UserService
 
   ) {
     this.selectedLang = this.translate.currentLang;

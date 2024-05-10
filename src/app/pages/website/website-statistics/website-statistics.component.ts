@@ -1,8 +1,7 @@
-import { Component, Input, OnInit, ViewEncapsulation } from "@angular/core";
+import { Component, OnInit, Input } from "@angular/core";
 import { Website } from "src/app/models/website";
 
 @Component({
-  encapsulation: ViewEncapsulation.ShadowDom,
   selector: "app-website-statistics",
   templateUrl: "./website-statistics.component.html",
   styleUrls: ["./website-statistics.component.scss"],
@@ -38,6 +37,7 @@ export class WebsiteStatisticsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log(this.website)
     const size = this.website.pages.length;
 
     this.pagesWithErrors = this.website.pagesWithErrors;
