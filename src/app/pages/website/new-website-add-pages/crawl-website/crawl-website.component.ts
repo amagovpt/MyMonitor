@@ -53,8 +53,6 @@ export class CrawlWebsiteComponent implements OnInit {
           this.startingUrl = startingUrl;
 
           this.monitor.checkCrawler(this.startingUrl).subscribe((result) => {
-            console.log(this.startingUrl);
-            console.log(result);
             if (result !== null) {
               if (result) {
                 this.crawlStatus = "complete";
@@ -97,7 +95,6 @@ export class CrawlWebsiteComponent implements OnInit {
     });
 
     dialog.afterClosed().subscribe((data) => {
-      console.log(data);
       if (data) {
         this.addWebsitePages.next({
           startingUrl: this.startingUrl,

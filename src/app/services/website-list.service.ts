@@ -17,7 +17,6 @@ export class WebsiteListService {
   return new Promise((resolve, reject) => {
     this.monitor.getUserWebsites()
     .subscribe(async websites => {
-      console.log(websites);
       await Promise.all(websites.map(async (website,index) => {
         await this.addWebsite(website,index+1);
       }))

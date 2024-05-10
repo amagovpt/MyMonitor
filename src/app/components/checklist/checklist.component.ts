@@ -64,7 +64,6 @@ export class ChecklistComponent implements OnInit {
     this.getJsonData();
     this.getWebsiteInfoByName();
     this.path =  `${environment.path}/shared-checklist/${this.checklistName}/${this.websiteName}/`;
-    console.log(this.path);
   }
 
   getJsonData() {
@@ -178,7 +177,6 @@ export class ChecklistComponent implements OnInit {
     this.checklistService.generateShareCode(new ShareCodeDto(this.wsDto.WebsiteId,checklists.get(this.checklistName).id,null))
       .pipe(take(1))
       .subscribe(code => {
-        console.log(code);
         this.path = this.path + code.result.shareCode;
         this.cdr.detectChanges();
       });

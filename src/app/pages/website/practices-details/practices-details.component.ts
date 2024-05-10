@@ -21,7 +21,6 @@ export class PracticesDetailsComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    console.log(this.website);
     this.errorDistributionData = {
       errors: this.website.getTopTenErrors(),
       isCat: false,

@@ -51,9 +51,7 @@ export class WebsiteComponent implements OnInit {
     this.sub = this.activatedRoute.params.subscribe((params) => {
       this.website = params.website;
       this.websiteObject = this.websiteList.getWebsiteByName(this.website);
-      console.log(this.websiteObject)
       this.pages = this.websiteObject.pages;
-      console.log(this.pages)
       this.scoreDistributionData = {
         number: this.pages.length,
         frequency: this.websiteObject.frequencies,
@@ -71,7 +69,6 @@ export class WebsiteComponent implements OnInit {
   }
 
   addWebsitePages(data): void {
-    console.log(data);
     this.monitor
       .addWebsitePages(this.website, data.startingUrl, data.urls)
       .subscribe((result) => {
@@ -110,7 +107,6 @@ export class WebsiteComponent implements OnInit {
 
   reEvaluatePages(uriList: []): void {
     uriList.map((uri,i) => {
-      console.log(uri);
       this.evaluation.evaluateUrl(uri).subscribe((result) => {
         if (result && i===0) {
           this.dialog.open(BackgroundEvaluationsInformationDialogComponent, {

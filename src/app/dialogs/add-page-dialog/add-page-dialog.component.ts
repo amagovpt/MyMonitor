@@ -12,7 +12,6 @@ export class AddPageDialogComponent implements OnInit {
   website: string;
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
     private monitor: MonitorService, private dialog: MatDialog,) {
-    console.log(this.data);
      }
 
   ngOnInit(): void {
