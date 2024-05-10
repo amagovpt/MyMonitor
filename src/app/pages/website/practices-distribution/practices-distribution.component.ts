@@ -1,17 +1,15 @@
 import {
-  AfterViewInit,
   Component,
-  Input,
   OnInit,
+  AfterViewInit,
+  Input,
   ViewChild,
-  ViewEncapsulation,
 } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
 import { Chart } from "chart.js";
 import tests from "src/app/tests";
 
 @Component({
-  encapsulation: ViewEncapsulation.ShadowDom,
   selector: "app-practices-distribution",
   templateUrl: "./practices-distribution.component.html",
   styleUrls: ["./practices-distribution.component.scss"],
@@ -39,6 +37,10 @@ export class PracticesDistributionComponent implements OnInit, AfterViewInit {
   direction: any;
 
   constructor(private translate: TranslateService) {
+    console.log(this.type)
+    console.log(this.color)
+    console.log(this.website)
+    console.log(this.data)
     this.tests = tests;
   }
 

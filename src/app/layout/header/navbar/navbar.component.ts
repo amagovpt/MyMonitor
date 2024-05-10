@@ -1,10 +1,9 @@
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Location } from '@angular/common';
-import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 @Component({
-  encapsulation: ViewEncapsulation.ShadowDom,
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss']
@@ -61,7 +60,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
             break;
         }
 
-
+        
       }
     });
   }

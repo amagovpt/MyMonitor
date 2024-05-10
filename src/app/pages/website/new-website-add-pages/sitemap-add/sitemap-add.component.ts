@@ -1,18 +1,17 @@
 import {
-  ChangeDetectorRef,
   Component,
-  EventEmitter,
-  Input,
   OnInit,
+  Input,
   Output,
-  ViewEncapsulation,
+  EventEmitter,
+  ChangeDetectorRef,
 } from "@angular/core";
+import { FormControl } from "@angular/forms";
 import clone from "lodash.clone";
 import { MonitorService } from "src/app/services/monitor.service";
 
 
 @Component({
-  encapsulation: ViewEncapsulation.ShadowDom,
   selector: 'app-sitemap-add',
   templateUrl: './sitemap-add.component.html',
   styleUrls: ['./sitemap-add.component.scss']
@@ -26,8 +25,8 @@ export class SitemapAddComponent implements OnInit {
   urisFromFileString: string;
   fileErrorMessage: string;
   startingUrl: string;
-
-  // fileInput: FormControl;          [formControl]="fileInput"
+  
+ // fileInput: FormControl;          [formControl]="fileInput"
 
   file: File;
   validFile: boolean;
@@ -122,7 +121,7 @@ export class SitemapAddComponent implements OnInit {
       this.fileErrorMessage = "invalidDomain";
       return;
     }
-    if (uris !== undefined || uris.length !== 0) {
+    if (uris !== undefined || uris !== []) {
       for (let url of uris) {
         if (!url.startsWith(startingUrl)) {
           this.fileErrorMessage = "invalidDomain";

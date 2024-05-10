@@ -1,26 +1,26 @@
 import {
-  AfterViewInit,
   Component,
-  ElementRef,
-  OnDestroy,
   OnInit,
+  AfterViewInit,
+  OnDestroy,
   ViewChild,
-  ViewEncapsulation,
+  ElementRef,
 } from "@angular/core";
-import { DomSanitizer } from "@angular/platform-browser";
 import { ActivatedRoute } from "@angular/router";
+import { DomSanitizer } from "@angular/platform-browser";
 import { Subscription } from "rxjs";
+import clone from "lodash.clone";
 
 import { EvaluationService } from "../evaluation.service";
 
 @Component({
-  encapsulation: ViewEncapsulation.ShadowDom,
   selector: "app-element-result",
   templateUrl: "./element-result.component.html",
   styleUrls: ["./element-result.component.scss"],
 })
 export class ElementResultPageComponent
-  implements OnInit, AfterViewInit, OnDestroy {
+  implements OnInit, AfterViewInit, OnDestroy
+{
   @ViewChild("iframe") iframe: ElementRef;
 
   sub: Subscription;
@@ -316,9 +316,9 @@ class Listbox {
     this.registerEvents();
   }
 
-  handleFocusChange(element) { }
+  handleFocusChange(element) {}
 
-  handleItemChange(event, items) { }
+  handleItemChange(event, items) {}
 
   registerEvents() {
     this.listboxNode.addEventListener("focus", this.setupFocus.bind(this));
@@ -562,7 +562,7 @@ class ListboxButton {
     this.listbox.setHandleFocusChange(this.onFocusChange.bind(this));
   }
 
-  handleFocusChange(tabId) { }
+  handleFocusChange(tabId) {}
 
   setHandleFocusChange(focusChangeHandler) {
     this.handleFocusChange = focusChangeHandler;
@@ -661,9 +661,9 @@ class Listbox2 {
     this.registerEvents();
   }
 
-  handleFocusChange(element) { }
+  handleFocusChange(element) {}
 
-  handleItemChange(event, items) { }
+  handleItemChange(event, items) {}
 
   registerEvents() {
     this.listboxNode.addEventListener("focus", this.setupFocus.bind(this));
@@ -899,7 +899,7 @@ class ListboxButton2 {
     this.listbox.setHandleFocusChange(this.onFocusChange.bind(this));
   }
 
-  handleFocusChange(tabId) { }
+  handleFocusChange(tabId) {}
 
   setHandleFocusChange(focusChangeHandler) {
     this.handleFocusChange = focusChangeHandler;

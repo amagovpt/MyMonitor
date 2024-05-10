@@ -22,6 +22,7 @@ export class MessageService {
           duration: duration,
         });
         snack.onAction().subscribe(() => {
+          console.log(button.path);
           this.router.navigateByUrl(button.path);
         });
       });

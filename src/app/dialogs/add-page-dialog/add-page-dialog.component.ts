@@ -1,10 +1,9 @@
-import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MonitorService } from 'src/app/services/monitor.service';
 import { BackgroundEvaluationsInformationDialogComponent } from '../background-evaluations-information-dialog/background-evaluations-information-dialog.component';
 
 @Component({
-  encapsulation: ViewEncapsulation.ShadowDom,
   selector: 'app-add-page-dialog',
   templateUrl: './add-page-dialog.component.html',
   styleUrls: ['./add-page-dialog.component.scss']
@@ -13,7 +12,8 @@ export class AddPageDialogComponent implements OnInit {
   website: string;
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
     private monitor: MonitorService, private dialog: MatDialog,) {
-  }
+    console.log(this.data);
+     }
 
   ngOnInit(): void {
     this.website = this.data.website;

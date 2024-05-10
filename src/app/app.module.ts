@@ -57,115 +57,96 @@ import { TopThreePracticesComponent } from './pages/website/top-three-practices/
 import { LoginGovComponent } from './pages/login/login-gov/login-gov.component';
 import { LoginGovRedirectComponent } from './pages/login/login-gov-redirect/login-gov-redirect.component';
 import { ExitDialogComponent } from './dialogs/exit-dialog/exit-dialog.component';
-import { AccordionComponent } from './components/checklist/accordion/accordion.component';
-import { QuillModule } from 'ngx-quill';
-import { AccessibilityDeclarationComponent } from './pages/accessibility-declaration/accessibility-declaration.component';
-import { StampApplicationComponent } from './pages/stamp-application/stamp-application.component';
-import { ChecklistComponent } from './components/checklist/checklist.component';
-import { EvaluationCircleComponent } from './components/evaluation-circle/evaluation-circle.component';
-import { AmaCommonModule } from 'ama-common';
-import { SharedChecklistComponent } from './pages/shared-checklist/shared-checklist.component';
-import { ClipboardModule } from 'ngx-clipboard';
-import { SharedCodeAuthGuard } from './guards/shared-code-auth.guard';
+import { CriticalAspectsComponent } from './pages/critical-aspects/critical-aspects.component';
+
 const appRoutes: Routes = [
-    { path: 'checklist/:checklistName/:websiteName', component: ChecklistComponent, canActivate: [UserAuthGuard] },
-    { path: 'shared-checklist/:checklistName/:websiteName/:shareCode', component: SharedChecklistComponent, canActivate: [SharedCodeAuthGuard] },
-    { path: 'stamp-application/:id', component: StampApplicationComponent, canActivate: [UserAuthGuard] },
-    { path: 'acessibility-declaration/:websiteName', component: AccessibilityDeclarationComponent, canActivate: [UserAuthGuard] },
-    { path: '', component: LoginComponent, canActivate: [NoAuthGuard] },
-    //{ path: '', component: LoginGovComponent, canActivate: [NoAuthGuard] },
-    { path: 'loginRedirect', component: LoginGovRedirectComponent, canActivate: [NoAuthGuard] },
-    {
-        path: 'user', component: UserComponent, canActivate: [UserAuthGuard], children: [
-            { path: '', component: WebsitesComponent, canActivate: [UserAuthGuard], },
-            { path: ':website', component: WebsiteComponent, canActivate: [UserAuthGuard], },
-            { path: ':website', loadChildren: () => import('./evaluation/evaluation.module').then(m => m.EvaluationModule) }
-        ]
-    },
-    /*  { path: ':website/:page', component: EvaluationResultsComponent, canActivate: [UserAuthGuard] },
-        { path: ':website/:page/code', component: WebpageCodeComponent, canActivate: [UserAuthGuard] },
-        { path: ':website/:page/:ele', component: ElementResultComponent, canActivate: [UserAuthGuard] }*/
-    { path: '**', component: NotFound404Component }
+  { path: 'critical-aspects', component: CriticalAspectsComponent, canActivate: [NoAuthGuard] },
+  { path: '', component: LoginComponent, canActivate: [NoAuthGuard] },
+  //{ path: '', component: LoginGovComponent, canActivate: [NoAuthGuard] },
+  { path: 'loginRedirect', component: LoginGovRedirectComponent, canActivate: [NoAuthGuard] },
+  { path: 'user', component: UserComponent, canActivate: [UserAuthGuard], children: [
+    { path: '', component: WebsitesComponent, canActivate: [UserAuthGuard] },
+    { path: ':website', component: WebsiteComponent, canActivate: [UserAuthGuard]},
+    { path: ':website', loadChildren: () => import('./evaluation/evaluation.module').then(m => m.EvaluationModule) }
+    ] },
+/*  { path: ':website/:page', component: EvaluationResultsComponent, canActivate: [UserAuthGuard] },
+    { path: ':website/:page/code', component: WebpageCodeComponent, canActivate: [UserAuthGuard] },
+    { path: ':website/:page/:ele', component: ElementResultComponent, canActivate: [UserAuthGuard] }*/
+  { path: '**', component: NotFound404Component }
 ];
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
-    return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
+  return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
 }
 
 @NgModule({
-    declarations: [
-        AppComponent,
-        ErrorComponent,
-        LoadingComponent,
-        HeaderComponent,
-        FooterComponent,
-        NotFound404Component,
-        LoginComponent,
-        WebsitesComponent,
-        UserComponent,
-        ToFixedPipe,
-        NavbarComponent,
-        WebsiteComponent,
-        ListOfPagesComponent,
-        WebsiteStatisticsComponent,
-        ErrorDistributionDialogComponent,
-        ScoreDistributionDialogComponent,
-        RemovePagesConfirmationDialogComponent,
-        UserAuthErrorDialogComponent,
-        AddPagesErrorsDialogComponent,
-        BackgroundEvaluationsInformationDialogComponent,
-        TopFiveErrorsComponent,
-        TopFiveBestPracticesComponent,
-        AccessibilityPlotComponent,
-        CrawlerResultsDialogComponent,
-        CorrectionDistributionDialogComponent,
-        NewWebsiteAddPagesComponent,
-        ManuallyAddPagesComponent,
-        SitemapAddComponent,
-        CrawlWebsiteComponent,
-        AddObservatoryComponent,
-        AddPageDialogComponent,
-        ScoreDistributionComponent,
-        PracticesDetailsComponent,
-        PracticesDetailsTableComponent,
-        PracticesDistributionComponent,
-        TopThreePracticesComponent,
-        LoginGovComponent,
-        LoginGovRedirectComponent,
-        ExitDialogComponent,
-        AccordionComponent,
-        AccessibilityDeclarationComponent,
-        StampApplicationComponent,
-        ChecklistComponent,
-        EvaluationCircleComponent,
-        AccordionComponent,
-        SharedChecklistComponent
-    ],
-    imports: [
-        RouterModule.forRoot(appRoutes, { enableTracing: false}),
-        TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useFactory: HttpLoaderFactory,
-                deps: [HttpClient]
-            }
-        }),
-        BrowserModule,
-        NoopAnimationsModule,
-        A11yModule,
-        FlexLayoutModule,
-        RouterModule,
-        HttpClientModule,
-        MaterialModule,
-        FormsModule,
-        ReactiveFormsModule,
-        NgxGaugeModule,
-        ClipboardModule,
-        PipesModule,
-        QuillModule.forRoot(),
-        AmaCommonModule
-    ],
+  declarations: [
+    AppComponent,
+    ErrorComponent,
+    LoadingComponent,
+    HeaderComponent,
+    FooterComponent,
+    NotFound404Component,
+    LoginComponent,
+    WebsitesComponent,
+    UserComponent,
+    ToFixedPipe,
+    NavbarComponent,
+    WebsiteComponent,
+    ListOfPagesComponent,
+    WebsiteStatisticsComponent,
+    ErrorDistributionDialogComponent,
+    ScoreDistributionDialogComponent,
+    RemovePagesConfirmationDialogComponent,
+    UserAuthErrorDialogComponent,
+    AddPagesErrorsDialogComponent,
+    BackgroundEvaluationsInformationDialogComponent,
+    TopFiveErrorsComponent,
+    TopFiveBestPracticesComponent,
+    AccessibilityPlotComponent,
+    CrawlerResultsDialogComponent,
+    CorrectionDistributionDialogComponent,
+    NewWebsiteAddPagesComponent,
+    ManuallyAddPagesComponent,
+    SitemapAddComponent,
+    CrawlWebsiteComponent,
+    AddObservatoryComponent,
+    AddPageDialogComponent,
+    ScoreDistributionComponent,
+    PracticesDetailsComponent,
+    PracticesDetailsTableComponent,
+    PracticesDistributionComponent,
+    TopThreePracticesComponent,
+    LoginGovComponent,
+    LoginGovRedirectComponent,
+    ExitDialogComponent,
+    CriticalAspectsComponent
+  ],
+  imports: [
+    RouterModule.forRoot(
+      appRoutes,
+      { enableTracing: false, relativeLinkResolution: 'legacy' }
+    ),
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    }),
+    BrowserModule,
+    NoopAnimationsModule,
+    A11yModule,
+    FlexLayoutModule,
+    RouterModule,
+    HttpClientModule,
+    MaterialModule,
+    FormsModule,
+    ReactiveFormsModule,
+    NgxGaugeModule,
+    PipesModule,
+  ],
   entryComponents: [
     ScoreDistributionDialogComponent,
     AddPageDialogComponent,
@@ -176,13 +157,13 @@ export function HttpLoaderFactory(http: HttpClient) {
     BackgroundEvaluationsInformationDialogComponent,
     CrawlerResultsDialogComponent
   ],
-    providers: [
-        {
-            provide: HTTP_INTERCEPTORS,
-            useClass: AuthInterceptor,
-            multi: true
-        }
-    ],
-    bootstrap: [AppComponent]
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
+  ],
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

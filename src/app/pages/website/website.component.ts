@@ -1,20 +1,19 @@
-import { ChangeDetectorRef, Component, OnInit, ViewEncapsulation } from "@angular/core";
-import { MatDialog } from "@angular/material/dialog";
+import { Component, OnInit, OnDestroy, ChangeDetectorRef } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { Subscription } from "rxjs";
+import { MatDialog } from "@angular/material/dialog";
 
-import { EvaluationService } from "../../services/evaluation.service";
 import { MessageService } from "../../services/message.service";
 import { MonitorService } from "../../services/monitor.service";
+import { EvaluationService } from "../../services/evaluation.service";
 
-import { BackgroundEvaluationsInformationDialogComponent } from "../../dialogs/background-evaluations-information-dialog/background-evaluations-information-dialog.component";
 import { RemovePagesConfirmationDialogComponent } from "../../dialogs/remove-pages-confirmation-dialog/remove-pages-confirmation-dialog.component";
+import { BackgroundEvaluationsInformationDialogComponent } from "../../dialogs/background-evaluations-information-dialog/background-evaluations-information-dialog.component";
 
-import { WebsiteListService } from "src/app/services/website-list.service";
 import { Website } from "../../models/website";
+import { WebsiteListService } from "src/app/services/website-list.service";
 
 @Component({
-  encapsulation: ViewEncapsulation.ShadowDom,
   selector: "app-website",
   templateUrl: "./website.component.html",
   styleUrls: ["./website.component.scss"],
@@ -52,7 +51,9 @@ export class WebsiteComponent implements OnInit {
     this.sub = this.activatedRoute.params.subscribe((params) => {
       this.website = params.website;
       this.websiteObject = this.websiteList.getWebsiteByName(this.website);
+      console.log(this.websiteObject)
       this.pages = this.websiteObject.pages;
+      console.log(this.pages)
       this.scoreDistributionData = {
         number: this.pages.length,
         frequency: this.websiteObject.frequencies,
@@ -70,6 +71,7 @@ export class WebsiteComponent implements OnInit {
   }
 
   addWebsitePages(data): void {
+    console.log(data);
     this.monitor
       .addWebsitePages(this.website, data.startingUrl, data.urls)
       .subscribe((result) => {
@@ -99,7 +101,7 @@ export class WebsiteComponent implements OnInit {
           }
 
           //this.loading = false;
-          // this.cd.detectChanges();
+         // this.cd.detectChanges();
           window.location.reload();
         });
       }
@@ -107,13 +109,14 @@ export class WebsiteComponent implements OnInit {
   }
 
   reEvaluatePages(uriList: []): void {
-    uriList.map((uri,i) => {
+    uriList.map((uri) => {
+      console.log(uri);
       this.evaluation.evaluateUrl(uri).subscribe((result) => {
-        if (result && i === 0) {
+        if (result) {
           this.dialog.open(BackgroundEvaluationsInformationDialogComponent, {
             width: "40vw",
           });
-        } if (!result) {
+        } else {
           alert("Error");
         }
       });

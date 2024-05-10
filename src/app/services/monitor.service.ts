@@ -120,7 +120,7 @@ export class MonitorService {
     return this.http
       .post<any>(
         this.config.getServer("/page/myMonitor/create"),
-        { website, startingUrl, pages },
+        { website, startingUrl, pages: JSON.stringify(pages) },
         { observe: "response" }
       )
       .pipe(
@@ -328,7 +328,7 @@ export class MonitorService {
     return this.http
       .post<any>(
         this.config.getServer("/page/myMonitor/remove"),
-        { website,pagesId },
+        { website, pagesId: JSON.stringify(pagesId) },
         { observe: "response" }
       )
       .pipe(

@@ -82,8 +82,6 @@
       </div>
     </div>
   </section>
-
-  <!-- dropdown -->
   <section
     id="experience_menu"
     cdkTrapFocus
@@ -97,11 +95,11 @@
         fxLayoutAlign.lt-md="start start"
       >
         <div id="experience_menu_title" fxFlex="50">
-          <h2 class="h1">
+          <h1>
             {{ "HEADER.DROPDOWN.ecosystem" | translate }}<br /><span
               >acessibilidade</span
             >.gov.pt
-          </h2>
+          </h1>
         </div>
         <div id="experience_menu_desc">
           <p fxFlex="65">{{ "HEADER.DROPDOWN.text" | translate }}</p>
@@ -425,10 +423,8 @@
       </div>
     </div>
   </section>
-
-  <!-- :) -->
   <section
-    *ngIf="!user.isUserLoggedIn()"
+    *ngIf="user.isUserLoggedIn()"
     fxLayout="column"
     fxLayoutAlign="center center"
   >
@@ -445,17 +441,10 @@
           fxLayout="row"
           fxLayoutAlign="space-between center"
         >
-          <h1 *ngIf="router.url === '/'; else notInTheHomePage" class="title" fxLayout="column">
+          <h1 class="title" fxLayout="column">
             <span>{{ "HEADER.title.part1" | translate }}</span>
             <span>{{ "HEADER.title.part2" | translate }}</span>
           </h1>
-          <ng-template #notInTheHomePage>
-            <a href="/" class="title" fxLayout="column">
-              <span>{{ "HEADER.title.part1" | translate }}</span>
-              <span>{{ "HEADER.title.part2" | translate }}</span>
-            </a>
-          </ng-template>
-
           <button class="logout" (click)="logout()">
             {{ "LOGIN.logout" | translate }}
             <svg
@@ -480,10 +469,8 @@
       </div>
     </div>
   </section>
-
-  <!-- esta secção e a secção de cima tem a condição trocada de proposito. no futuro, quando a autenticação estiver a funcionar é para esr trocado -->
   <section
-    *ngIf="user.isUserLoggedIn()"
+    *ngIf="!user.isUserLoggedIn()"
     fxLayout="column"
     fxLayoutAlign="center center"
   >
