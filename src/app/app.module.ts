@@ -61,8 +61,8 @@ import { CriticalAspectsComponent } from './pages/critical-aspects/critical-aspe
 
 const appRoutes: Routes = [
   { path: 'critical-aspects', component: CriticalAspectsComponent, canActivate: [NoAuthGuard] },
-  { path: '', component: LoginComponent, canActivate: [NoAuthGuard] },
-  //{ path: '', component: LoginGovComponent, canActivate: [NoAuthGuard] },
+  // { path: '', component: LoginComponent, canActivate: [NoAuthGuard] },
+  { path: '', component: LoginGovComponent, canActivate: [NoAuthGuard] },
   { path: 'loginRedirect', component: LoginGovRedirectComponent, canActivate: [NoAuthGuard] },
   { path: 'user', component: UserComponent, canActivate: [UserAuthGuard], children: [
     { path: '', component: WebsitesComponent, canActivate: [UserAuthGuard] },
