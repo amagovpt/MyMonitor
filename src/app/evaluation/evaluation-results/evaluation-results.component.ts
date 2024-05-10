@@ -53,7 +53,6 @@ export class EvaluationResultsPageComponent implements OnInit, OnDestroy {
           } else {
             this.eval = data;
           }
-          console.log(this.eval.results);
           this.loading = false;
           this.cd.detectChanges();
           this.fillTable();
@@ -69,7 +68,6 @@ export class EvaluationResultsPageComponent implements OnInit, OnDestroy {
   this.evaluation
       .evaluateUrl(this.url, force)
       .subscribe((data) => {
-        console.log(data);
         if (!data) {
           this.error = true;
         } else{

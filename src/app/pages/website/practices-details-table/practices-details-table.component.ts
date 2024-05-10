@@ -20,8 +20,6 @@ export class PracticesDetailsTableComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.type);
-    console.log(this.tableData);
     const iterable = this.tableData;
     this.practices = iterable.practicesData;
     this.practicesKeys = iterable.practicesKeys;
