@@ -106,17 +106,16 @@ export class WebsiteComponent implements OnInit {
   }
 
   reEvaluatePages(uriList: []): void {
-    uriList.map((uri) => {
-      this.evaluation.evaluateUrl(uri).subscribe((result) => {
-        if (result) {
-          this.dialog.open(BackgroundEvaluationsInformationDialogComponent, {
-            width: "40vw",
-          });
-        } else {
-          alert("Error");
-        }
+    const dialogRef = this.dialog.open(BackgroundEvaluationsInformationDialogComponent, {
+      width: "40vw",
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+      uriList.map((uri) => {
+        this.evaluation.evaluateUrl(uri).subscribe(() => {
+        });
       });
-    })
+    });
 
   }
 

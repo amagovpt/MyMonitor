@@ -129,6 +129,9 @@
     "add": {
       "title": "Adicionar páginas"
     },
+    "evaluate": {
+      "title": "Avaliação de páginas em curso"
+    },
     "scores": {
       "title": "Distribuição de pontuações",
       "chart_title": "Gráfico",

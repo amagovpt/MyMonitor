@@ -129,6 +129,9 @@
     "add": {
       "title": "Add pages"
     },
+    "evaluate": {
+      "title": "Page evaluation ongoing"
+    },
     "scores": {
       "title": "Score distribution",
       "chart_title": "Graph",
