@@ -1,0 +1,28 @@
+.observatorio {
+    color: var(--ama-color-background-white);
+    background-color: var(--ama-color-brand-primary);
+    height: fit-content;
+    width: fit-content;
+    text-align: center;
+}
+
+.container {
+    width: 87% !important;
+    max-width: none !important;
+}
+
+.main {
+    height: auto;
+    background-color: var(--ama-color-background-light-darker);
+    position: relative;
+    padding-bottom: 4rem;
+}
+
+.section_container {
+    width: 100%;
+}
+
+.main_dark .observatorio {
+    color: var(--ama-color-text-gray);
+    background-color: var(--ama-color-text-blue);
+}

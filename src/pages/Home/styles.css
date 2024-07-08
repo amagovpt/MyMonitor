@@ -1,0 +1,31 @@
+.login button i {
+    transform: rotate(90deg);
+}
+
+.right_container i {
+    font-size: 250px;
+}
+
+.gov_logo {
+    width: 2em;
+    height: 2em;
+}
+
+.login button:hover .gov_logo {
+    background-color: var(--ama-color-brand-primary);
+}
+
+/* Dark Theme */
+.home_dark section {
+    background-color: var(--ama-color-background-dark-lighter) !important;
+    color: var(--ama-color-background-white);
+}
+
+.home_dark .right_container i,
+.home_dark .login button:hover i {
+    color: var(--ama-color-text-blue);
+}
+
+.home_dark .login button i {
+    color: var(--ama-color-text-gray);
+}

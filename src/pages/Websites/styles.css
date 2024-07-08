@@ -1,0 +1,9 @@
+/* Dark Theme */
+.websites_dark section {
+    background-color: var(--ama-color-background-dark-lighter) !important;
+    color: var(--ama-color-background-white);
+}
+
+.websites_dark h2 {
+    color: var(--ama-color-background-white);
+}
