@@ -2,8 +2,10 @@ import "./styles.css";
 import { useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-import { Breadcrumb, LoadingComponent, SortingTable } from "ama-design-system";
+import { Breadcrumb, LoadingComponent, SortingTable, Button, Icon } from "ama-design-system";
 import { ThemeContext } from "../../context/ThemeContext";
+
+import { pathURL } from "../../App";
 
 // Extra Data / Functions
 import { getDirectoryTable } from "./utils"
@@ -69,7 +71,7 @@ export default function Websites() {
     {
       title: t("HEADER.NAV.ecosystem"),
       href: "",
-      onClick: () => navigate("/")
+      onClick: () => navigate(`${pathURL}`)
     },
     {
       title: t("HEADER.NAV.home")
@@ -79,15 +81,23 @@ export default function Websites() {
   return (
     <>
       <div className={`container ${homeDark}`}>
-        <div className="link_breadcrumb_container">
+        <div className="link_breadcrumb_container d-flex flex-row justify-content-between align-items-center">
           <Breadcrumb data={breadcrumbs} darkTheme={theme} />
+          <Button
+            darkTheme={theme}
+            className={"align-self-center logout"}
+            variant={"ghost"}
+            text={t("LOGIN.logout")}
+            iconRight={<Icon name={"AMA-Exit-Line"} />} 
+            onClick={() => navigate(`${pathURL}`)}
+          />
         </div>
 
         <div>
             <div className="ama-typography-body-large bold observatorio px-3">
               {t("WEBSITES_PAGE.title")}
             </div>
-            <h2 className="bold my-2">{t("WEBSITES_PAGE.subtitle")}</h2>
+            <h1 className="bold my-2">{t("WEBSITES_PAGE.subtitle")}</h1>
         </div>
         {!loading ?
           <>
@@ -95,7 +105,7 @@ export default function Websites() {
               <>
                 {directoriesList && directoriesList.length > 0 ?
                   <section className={`bg-white px-5 py-2 mt-5 d-flex flex-row justify-content-between`}>
-                    <div className="d-flex flex-column py-4 w-100">
+                    <div className="d-flex flex-column py-4 w-100 directories_table">
                       <h3 className="bold m-0">{t("WEBSITE_TABLE.table.title")}</h3>
                       <p className="ama-typography-body pb-4">{t("WEBSITE_TABLE.table.subtitle")}</p>
                       {directoriesList && <SortingTable
@@ -112,6 +122,7 @@ export default function Websites() {
                         itemsPaginationTexts={itemsPaginationText}
                         nItemsPerPageTexts={nItemsPerPageText}
                         paginationButtonsTexts={paginationButtonsTexts}
+                        project={`${pathURL}`}
                       />}
                       <div className="ama-typography-body mt-4">{t("WEBSITE_TABLE.table.note")}</div>
                     </div>

@@ -321,8 +321,8 @@
         "page": "page"
       },
       "table_best_practices": {
-        "best_title": "Detailed best practices distribution",
-        "bad_title": "Detailed error distribution",
+        "top_3_best_practices": "Detailed best practices distribution",
+        "top_3_bad_practices": "Detailed error distribution",
         "practice_label": "Practice",
         "error_label": "Error",
         "n_errors_label": "Occurrences",
@@ -338,7 +338,10 @@
           "multi_page": "pages",
           "all_pages": "all pages",
           "from": "",
-          "to": "to"
+          "to": "to",
+          "multiDetailsTogether": "{{lower}} to {{upper}} occurrences in {{nPages}} pages",
+          "oneDetailAllPagesTogether": "{{lower}} occurrences in all pages",
+          "sameDetailTogether": "{{lower}} occurrences in {{nPages}} pages"
         },
         "lvl_label": "Level"
       },

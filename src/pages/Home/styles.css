@@ -1,4 +1,8 @@
-.login button i {
+.login_container {
+    width: 60%;
+}
+
+.login .submit i {
     transform: rotate(90deg);
 }
 
@@ -7,12 +11,11 @@
 }
 
 .gov_logo {
-    width: 2em;
-    height: 2em;
+    fill: var(--ama-color-background-white);
 }
 
 .login button:hover .gov_logo {
-    background-color: var(--ama-color-brand-primary);
+    fill: var(--ama-color-brand-primary);
 }
 
 /* Dark Theme */
@@ -28,4 +31,16 @@
 
 .home_dark .login button i {
     color: var(--ama-color-text-gray);
+}
+
+.home_dark .gov_logo {
+    fill: var(--ama-color-text-gray);
+}
+
+.home_dark .login button:hover .gov_logo {
+    fill: var(--ama-color-text-blue);
+}
+
+.home_dark button:focus {
+    border: 3px solid var(--ama-color-yellow-400) !important;
 }

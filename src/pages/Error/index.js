@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { ThemeContext } from "../../context/ThemeContext";
 import { Icon } from "ama-design-system";
 import "./styles.css";
+import { pathURL } from "../../App";
 
 export default function Resume() {
   const { t } = useTranslation();
@@ -14,7 +15,7 @@ export default function Resume() {
     <div className={`container_error ${themeClass}`}>
       <h1>{t("MISC._404.title")}</h1>
       <p className="ama-typography-body">{t("MISC._404.description")}</p>
-      <a href="/" className="d-flex align-items-center ama-typography-action p-3">
+      <a href={`${pathURL}`} className="d-flex align-items-center ama-typography-action p-3">
         <span className="pe-2">{t("MISC._404.homepage")}</span>
         <Icon name="AMA-Entrar-Line" darkTheme={theme} />
       </a>

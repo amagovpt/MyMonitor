@@ -1,3 +1,5 @@
+import { pathURL } from "../../App";
+
 // Function to get additional Arrays
 // t -> the translation function
 // RETURNS
@@ -27,7 +29,7 @@ export function getDirectoryTable (t, navigate) {
     let columnsOptions = {
       id: { type: "Skip", center: false, bold: false, decimalPlace: false },
       rank: { type: "Number", center: true, bold: false, decimalPlace: false },
-      name: { type: "Link", center: false, bold: false, decimalPlace: false, href: () => navigate('/name') },
+      name: { type: "Link", center: false, bold: false, decimalPlace: false, href: (row) => navigate(`${pathURL}user/${row['name']}`) },
       entity: { type: "Skip", center: false, bold: false, decimalPlace: false },
       declaration: { type: "Declaration", center: true, bold: false, decimalPlace: false },
       stamp: { type: "Stamp", center: true, bold: false, decimalPlace: false },

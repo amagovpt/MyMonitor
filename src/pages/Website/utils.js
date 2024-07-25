@@ -234,3 +234,160 @@ export function getBarLineTable (t) {
 
   return { dataHeaders,  columnsOptions }
 }
+
+
+// Function to get data for GoodBad General Tables
+// t -> the translation
+// goodOrBad -> differentiate between good tab or bad tab
+// RETURNS
+// dataTableHeadersA/AA/AAA -> Headers for the tables of each type of practice
+// columnsOptionsAAs -> Type of render to execute p/ attribute
+// detailsTableHeaders -> Headers for the table of all practice
+// columnsOptionsDetails -> Type of render to execute p/ attribute
+export function getGoodBadTabTables (t, goodOrBad) {
+  const dataTableHeadersA = [
+      {icon: false, name: t(`WEBSITES_PAGE.${goodOrBad}.message`, {value: "A"}), nCol: 3}
+  ]
+  
+  const dataTableHeadersAA = [
+      {icon: false, name: t(`WEBSITES_PAGE.${goodOrBad}.message`, {value: "AA"}), nCol: 3}
+  ]
+  
+  const dataTableHeadersAAA = [
+      {icon: false, name: t(`WEBSITES_PAGE.${goodOrBad}.message`, {value: "AAA"}), nCol: 3}
+  ]
+
+  let columnsOptionsAAs = {
+      number: { type: "Text", center: true, bold: true, decimalPlace: false },
+      name: { type: "DangerousHTML", center: false, bold: false, decimalPlace: false },
+      nPages: { type: "DoubleText", center: true, bold: false, decimalPlace: false },
+  }
+
+  const detailsTableHeaders = [
+      {icon: false, bigWidth: "50%", name: t("WEBSITES_PAGE.table_best_practices.practice_label")},
+      {icon: false, bigWidth: "30%", name: t("WEBSITES_PAGE.table_best_practices.details_practice_label"), justifyCenter: true},
+      {icon: false, name: t("WEBSITES_PAGE.table_best_practices.n_pages_label"), justifyCenter: true},
+      {icon: false, name: t("WEBSITES_PAGE.table_best_practices.n_errors_label"), justifyCenter: true},
+      {icon: false, name: t("WEBSITES_PAGE.table_best_practices.lvl_label"), justifyCenter: true},
+  ]
+  
+  let columnsOptionsDetails = {
+      name: { type: "DangerousHTML", center: false, bold: false, decimalPlace: false },
+      practices: { type: "MultiText", center: true, bold: false, decimalPlace: false },
+      pages: { type: "Number", center: true, bold: false, decimalPlace: false },
+      occurences: { type: "Number", center: true, bold: false, decimalPlace: false },
+      lvl: { type: "Text", center: true, bold: false, decimalPlace: false },
+  }
+
+  return { dataTableHeadersA, dataTableHeadersAA, dataTableHeadersAAA, columnsOptionsAAs, detailsTableHeaders, columnsOptionsDetails }
+}
+
+
+// Function to get data for Top Ten for each Good or Bad table
+// t -> the translation
+// theme -> Dark/Light theme
+// labelsForHorizontal -> labels for the Horizontal Bar Graph
+// dataForHorizontal -> data for the Horizontal Bar Graph
+// color -> Background color for the Bar graph
+// RETURNS
+// dataHeaders -> Headers for Table
+// columnsOptions -> Type of render for Table
+// optionsHorizontalBar -> Options for Bar Graph
+// horizontalData -> Data for Bar Graph
+export function getTopTenGraphTable (t, theme, labelsForHorizontal, dataForHorizontal, color) {
+  const dataHeaders = [
+      {icon: false, name: t("DIALOGS.errors.level"), justifyCenter: true},
+      {icon: false, bigWidth: "50%", name: t("DIALOGS.errors.description")},
+      {icon: false, name: t("DIALOGS.errors.pages"), justifyCenter: true},
+      {icon: false, name: t("DIALOGS.errors.situations"), justifyCenter: true}
+  ]
+  
+  let columnsOptions = {
+      lvl: { type: "Text", center: true, bold: false, decimalPlace: false },
+      name: { type: "DangerousHTML", center: false, bold: false, decimalPlace: false },
+      nPages: { type: "Number", center: true, bold: false, decimalPlace: false },
+      nOccurrences: { type: "Number", center: true, bold: false, decimalPlace: false },
+  }
+  
+  const optionsHorizontalBar = {
+      indexAxis: 'y', // This makes the bar chart horizontal
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          position: 'top',
+          labels: {
+            color: theme === "light" ? 'rgba(0,0,0, 1)' : 'white', // Color of the legend text
+          }
+        },
+      },
+      scales: {
+        x: {
+          title: {
+            display: true,
+            text: t("DIALOGS.corrections.situations_label"),
+            color: theme === "light" ? 'rgba(0,0,0, 1)' : 'white', // Color of Title on X axis
+            font: {
+              size: 14
+            }
+          },
+          ticks: {
+              color: theme === "light" ? 'rgba(0,0,0, 1)' : 'white' // Color of Text on X axis
+          },
+          grid: {
+              color: theme === "light" ? 'rgba(0,0,0, 0.1)' : 'rgba(255, 255, 255, 0.2)' // Color of Dividers vertically
+          }
+        },
+        y: {
+          title: {
+            display: true,
+            text: t("DIALOGS.corrections.tests_label"),
+            color: theme === "light" ? 'rgba(0,0,0, 1)' : 'white', // Color of Title on Y axis
+            font: {
+              size: 14
+            }
+          },
+          ticks: {
+              color: theme === "light" ? 'rgba(0,0,0, 1)' : 'white', // Color of Text on Y axis
+              callback: function (value, index) {
+                  // Fetch the label using the index
+                  const label = labelsForHorizontal[index];
+                  // Word-wrap the label into multiple lines
+                  const words = label.split(' ');
+                  const maxLength = 20; // Set the max length for each line
+                  let result = '';
+                  let line = '';
+                  words.forEach((word) => {
+                      if (line.length + word.length < maxLength) {
+                      line += word + ' ';
+                      } else {
+                      result += line.trim() + '\n';
+                      line = word + ' ';
+                      }
+                  });
+                  result += line.trim();
+                  return result;
+              }
+            },
+          grid: {
+              color: theme === "light" ? 'rgba(0,0,0, 0.1)' : 'rgba(255, 255, 255, 0.2)' // Color of Dividers horizontaly
+          }
+        }
+      }
+  };
+  
+  const horizontalData = {
+      labels: labelsForHorizontal,
+      datasets: [
+        {
+          type: 'bar',
+          label: t("DIALOGS.corrections.situations_label"),
+          data: dataForHorizontal,
+          backgroundColor: color,
+          borderWidth: 0,
+        }
+      ]
+  };
+
+  return { dataHeaders, columnsOptions, optionsHorizontalBar, horizontalData }
+}

@@ -26,3 +26,38 @@
     color: var(--ama-color-text-gray);
     background-color: var(--ama-color-text-blue);
 }
+
+.link_breadcrumb_container .breadcrumb .breadcrumb-item:not(:first-child) {
+    background-image: url("/public/img/chevron-right-dark.svg");
+}
+
+.link_breadcrumb_container .breadcrumbs.dark .breadcrumb .breadcrumb-item:not(:first-child) {
+    background-image: url("/public/img/chevron-right-light.svg");
+}
+
+.link_breadcrumb_container nav ol,
+.link_breadcrumb_container nav .breadcrumb {
+    margin-bottom: 0px;
+}
+
+.link_breadcrumb_container .logout {
+    border: 2px solid transparent !important;
+}
+
+.link_breadcrumb_container .logout span {
+    text-decoration: underline !important;
+}
+
+.link_breadcrumb_container .logout i {
+    margin-top: 5px;
+    font-size: 22px;
+}
+
+.link_breadcrumb_container .logout:focus {
+    color: var(--ama-color-brand-primary);
+    border: 3px solid var(--ama-color-yellow-400) !important;
+}
+
+.link_breadcrumb_container .logout:hover {
+    color: var(--ama-color-brand-primary);
+}

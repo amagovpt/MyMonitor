@@ -9,6 +9,10 @@
   padding: 3rem 0px 2rem 0px;
 }
 
+.logo {
+  margin-bottom: 0px !important;
+}
+
 /* DARK */
 
 .main_dark {

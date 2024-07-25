@@ -1,9 +1,21 @@
+.directories_table .sorting_table tbody tr:hover {
+    background-color: var(--ama-color-background-light-darker) !important;
+}
+
 /* Dark Theme */
 .websites_dark section {
     background-color: var(--ama-color-background-dark-lighter) !important;
     color: var(--ama-color-background-white);
 }
 
-.websites_dark h2 {
+.websites_dark h1 {
     color: var(--ama-color-background-white);
+}
+
+.websites_dark .link_breadcrumb_container .logout {
+    color: var(--ama-color-text-blue);
+}
+
+.websites_dark .directories_table .sorting_table tbody tr:hover {
+    background-color: var(--ama-color-background-dark-darker) !important;
 }
