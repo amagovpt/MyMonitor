@@ -27,16 +27,16 @@ export function RadarGraph({ tempData }) {
   // Radar Graph
   const [dataForRadar, setDataForRadar] = useState();
 
-  const { options } = getRadarGraph(t, theme, tempData)
+  const { options } = getRadarGraph(t, theme, tempData.accessibilityPlotData)
 
   useEffect(() => {
     let labelsForRadar = []
-    tempData.map((value) => {
+    tempData.accessibilityPlotData.map((value) => {
       labelsForRadar.push("")
       return ""
     })
 
-    const { manchaData } = getRadarGraph(t, theme, labelsForRadar, tempData)
+    const { manchaData } = getRadarGraph(t, theme, labelsForRadar, tempData.accessibilityPlotData)
     setDataForRadar(manchaData)
 
   }, [tempData, language, theme, t])

@@ -363,6 +363,11 @@
       "no_websites": {
         "message1": "Atualmente não contém nenhum sítio web",
         "message2": "Por favor contate o administrador para lhe atribuir sítios web"
+      },
+      "ariaLabels": {
+        "A": "A",
+        "AA": "duplo A",
+        "AAA": "triplo A"
       }
     },
     "PAGES": {
@@ -407,10 +412,14 @@
         "see_tooltip": "Ver páginas",
         "note": "* Número de erros por nível de conformidade",
         "paginator": {
-          "of": "de",
-          "items": "itens",
+          "of": " de ",
+          "items": " itens",
           "see": "Ver",
-          "per_page": "itens por página"
+          "per_page": "itens por página",
+          "first_page": "Primeira página",
+          "previous_page": "Página anterior",
+          "next_page": "Página seguinte",
+          "last_page": "Última página"
         }
       },
       "dialog": {
@@ -523,6 +532,7 @@
       "message_close": "Fechar",
       "unexpected_error": "Ocorreu um erro inesperado. Por favor tente aceder mais tarde.",
       "error_contact": "Se o problema persistir, contacte-nos...",
+      "wrong_login": "Utilizador ou palavra-chave errada.",
       "go_to_top": "Ir para o topo",
       "_404": {
         "title": "Erro 404",
@@ -537,7 +547,8 @@
       "messages": {
         "data_error": "Ocorreu um erro ao obter os dados",
         "data_table_error": "Ocorreu um erro ao tentar carregar a tabela de dados"
-      }
+      },
+      "empty": "Vazio"
     },
     "ELEMS": {
       "imgAlt": "Imagens com texto alternativo preenchido",

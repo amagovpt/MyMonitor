@@ -10,19 +10,19 @@ import { pathURL } from "../../App";
 export function getDirectoryTable (t, navigate) {
     const directoriesHeaders = [
       [
-        {icon: false, name: t("WEBSITE_TABLE.table.rank"), property: "rank"},
-        {icon: false, bigWidth: "50%", name: t("WEBSITE_TABLE.table.name"), property: "name"},
-        {icon: true, name: "AMA-DeclaracaoDark-Line", description: t("WEBSITE_TABLE.table.declaration"), property: "declaration"},
-        {icon: true, name: "AMA-SeloDark-Line", description: t("WEBSITE_TABLE.table.stamp"), property: "stamp"},
-        {icon: false, name: t("WEBSITE_TABLE.table.score"), property: "score", justifyCenter: true},
-        {icon: false, name: t("WEBSITE_TABLE.table.pages"), property: "nPages", justifyCenter: true},
-        {icon: false, name: t("WEBSITE_TABLE.table.levels"), property: "", justifyCenter: true, multiCol: true, nCol: 3},
+        {type: "SortingText", bigWidth: "10%", name: t("WEBSITE_TABLE.table.rank"), property: "rank"},
+        {type: "SortingText", bigWidth: "50%", name: t("WEBSITE_TABLE.table.name"), property: "name"},
+        {type: "SortingIcon", name: "AMA-DeclaracaoDark-Line", description: t("WEBSITE_TABLE.table.declaration"), property: "declaration"},
+        {type: "SortingIcon", name: "AMA-SeloDark-Line", description: t("WEBSITE_TABLE.table.stamp"), property: "stamp"},
+        {type: "SortingText", bigWidth: "10%", name: t("WEBSITE_TABLE.table.score"), property: "score", justifyCenter: true},
+        {type: "SortingText", bigWidth: "10%", name: t("WEBSITE_TABLE.table.pages"), property: "nPages", justifyCenter: true},
+        {type: "Text", name: t("WEBSITE_TABLE.table.levels"), property: "", justifyCenter: true, multiCol: true, nCol: 3},
       ],
       [
-        {icon: false, nCol: 6, name: t("MISC.empty"), multiCol: true, empty: true},
-        {icon: false, name: t("WEBSITE_TABLE.table.A"), property: "A", justifyCenter: true},
-        {icon: false, name: t("WEBSITE_TABLE.table.AA"), property: "AA", justifyCenter: true},
-        {icon: false, name: t("WEBSITE_TABLE.table.AAA"), property: "AAA", justifyCenter: true}
+        {type: "Empty", nCol: 6, name: t("MISC.empty"), multiCol: true, empty: true},
+        {type: "SortingText", bigWidth: "10%", name: t("WEBSITE_TABLE.table.A"), property: "A", justifyCenter: true},
+        {type: "SortingText", bigWidth: "10%", name: t("WEBSITE_TABLE.table.AA"), property: "AA", justifyCenter: true},
+        {type: "SortingText", bigWidth: "10%", name: t("WEBSITE_TABLE.table.AAA"), property: "AAA", justifyCenter: true}
       ]
     ]
     

@@ -1,0 +1,8 @@
+{
+    "data": {
+        "success": 1,
+        "message": "NO_ERROR",
+        "errors": null,
+        "result": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImZpbGlwZWZhdXN0aW5vIiwic3ViIjo1MywidHlwZSI6Im1vbml0b3IiLCJoYXNoIjoiNTRlMmNjYzIzM2Q0MWJiZDdiZTlmOWZiYmNiOTFkZDBmZmQ3ODNkMjkyMjRmODI4MjQ2ODFiYzg3OTljYTc3ZSIsImlhdCI6MTcyMjI0MjQ1MywiZXhwIjoxNzIyMzI4ODUzfQ.1DvcY7150mmSZIMzKtTivHjNPDYO1g4wJceHfK6HN3E"
+    }
+}

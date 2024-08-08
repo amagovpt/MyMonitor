@@ -358,6 +358,11 @@
       "no_websites": {
         "message1": "You currently don't have any websites",
         "message2": "Please contact the administrator to assign websites"
+      },
+      "ariaLabels": {
+        "A": "A",
+        "AA": "double A",
+        "AAA": "triple A"
       }
     },
     "PAGES": {
@@ -400,10 +405,14 @@
         "see_tooltip": "See page",
         "note": "* Number of errors for each conform level",
           "paginator": {
-          "of": "of",
-          "items": "items",
+          "of": " of ",
+          "items": " items",
           "see": "Show",
-          "per_page": "items per page"
+          "per_page": "items per page",
+          "first_page": "First page",
+          "previous_page": "Previous page",
+          "next_page": "Next page",
+          "last_page": "Last page"
         }
       },
       "dialog": {
@@ -515,6 +524,7 @@
       "message_close": "Close",
       "unexpected_error": "An unexpected error has ocurred. Please try again later.",
       "error_contact": "If the problem persists, please contact us...",
+      "wrong_login": "Incorrect username or password.",
       "go_to_top": "Go to top",
       "_404": {
         "title": "Error 404",
@@ -529,7 +539,8 @@
       "messages": {
         "data_error": "An error has ocurred while trying to retrieve user data",
         "data_table_error": "An error has ocurred when trying to load the data table"
-      }
+      },
+      "empty": "Empty"
     },
     "ELEMS": {
       "imgAlt": "Images with non-empty alternative text",

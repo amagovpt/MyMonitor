@@ -53,6 +53,37 @@
     font-size: 16px;
 }
 
+.modal_container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.website_modal {
+    position: absolute;
+    top: 20vh;
+    left: 6vh;
+    right: 6vh;
+    bottom: 20vh;
+    background-color: var(--ama-color-background-white);
+    border: 2px solid var(--ama-color-brand-primary);
+    padding: 1rem;
+}
+
+.close_modal span,
+.close_modal i {
+    font-size: 32px !important;
+}
+
+.website_overlay_modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(228, 228, 228, 0.7);
+}
+
 /* MOBILE */
 @media (min-width: 320px) and (max-width: 480px) {
     .radar_graphic {
@@ -66,6 +97,23 @@
 
     .overflow {
         overflow-x: auto;
+    }
+    
+    .main_dark .good_bad .nav-tabs .nav-link.active,
+    .main_dark .tabs_section .nav-tabs .nav-link.active {
+        background-color: var(--ama-color-text-blue) !important;
+        color: var(--ama-color-text-gray) !important;
+        border: 0px !important
+    }
+
+    .pages_container,
+    .pages_actions {
+        flex-direction: column !important;
+        margin-bottom: 10px;
+    }
+
+    .best_practises .table {
+        width: 700px !important;
     }
 }
 
@@ -111,4 +159,25 @@
 
 .website_dark .sorting_table tbody tr td mark {
     color: var(--ama-color-background-white) !important;
+}
+
+.website_modal_dark {
+    position: absolute;
+    top: 20vh;
+    left: 6vh;
+    right: 6vh;
+    bottom: 20vh;
+    background-color: var(--ama-color-background-dark-lighter);
+    border: 2px solid var(--ama-color-text-blue);
+    padding: 1rem;
+    color: var(--ama-color-background-white);
+}
+
+.website_overlay_modal_dark {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(228, 228, 228, 0.2);
 }

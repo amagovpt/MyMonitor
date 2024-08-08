@@ -1,14 +1,18 @@
 import "./styles.css";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { Breadcrumb, LoadingComponent, SortingTable, Button, Icon } from "ama-design-system";
 import { ThemeContext } from "../../context/ThemeContext";
 
 import { pathURL } from "../../App";
+import { api } from '../../config/api'
+
+import moment from 'moment'
 
 // Extra Data / Functions
 import { getDirectoryTable } from "./utils"
+import { getData } from "../../utils/utils";
 
 export default function Websites() {
   const { t } = useTranslation();
@@ -17,51 +21,9 @@ export default function Websites() {
   const { theme } = useContext(ThemeContext);
   const homeDark = theme === "light" ? "" : "websites_dark";
 
-  const dataRows = [
-    {
-      "id": 22,
-      "rank": 1,
-      "name": "Portal Mais Transparência",
-      "entity": "Agência para a Modernização Administrativa",
-      "declaration": 3,
-      "stamp": 3,
-      "score": 9.937837837837838,
-      "nPages": 37,
-      "A": 0,
-      "AA": 6,
-      "AAA": 31
-    },
-    {
-      "id": 23,
-      "rank": 2,
-      "name": "Instituto da Segurança Social, I.P. - Portal Seg Social",
-      "entity": "Instituto da Segurança Social, I.P.",
-      "declaration": null,
-      "stamp": null,
-      "score": 9.63908045977012,
-      "nPages": 87,
-      "A": 0,
-      "AA": 33,
-      "AAA": 22
-    },
-    {
-      "id": 31,
-      "rank": 3,
-      "name": "Portal do SNS 24",
-      "entity": "Serviços Partilhados do Ministério da Saúde, E.P.E.",
-      "declaration": null,
-      "stamp": null,
-      "score": 9.54666666666667,
-      "nPages": 30,
-      "A": 13,
-      "AA": 0,
-      "AAA": 0
-    }
-  ]
-
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState(false)
-  const [directoriesList, setDirectoriesList] = useState(dataRows);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+  const [directoriesList, setDirectoriesList] = useState();
 
   // Data and Options for the Tables on this page
   const { directoriesHeaders, columnsOptions, nameOfIcons, paginationButtonsTexts, nItemsPerPageText, itemsPaginationText } = getDirectoryTable(t, navigate)
@@ -78,6 +40,87 @@ export default function Websites() {
     }
   ];
 
+  const logoutUser = async () => {
+    setLoading(true)
+    if (api.isUserLoggedIn()) {
+      const {response, err} = await api.logout()
+      if(err && err.code && err.code === "ERR_NETWORK") {
+        setError(t("MISC.unexpected_error") + " " + t("MISC.error_contact"));
+      } else if(response && response.data.success === 1) {
+        localStorage.removeItem('MM-username');
+        localStorage.removeItem('MM-SSID');
+        localStorage.removeItem('expires-at');
+        localStorage.removeItem('websiteList')
+        localStorage.removeItem('websiteListForWebsitePage')
+        navigate(`${pathURL}`)
+      }
+    } else {
+      localStorage.removeItem('MM-username');
+      localStorage.removeItem('MM-SSID');
+      localStorage.removeItem('expires-at');
+      localStorage.removeItem('websiteList')
+      localStorage.removeItem('websiteListForWebsitePage')
+      navigate(`${pathURL}`)
+    }
+    setLoading(false)
+  }  
+
+  useEffect(() => {
+    const processData = async () => {
+      setLoading(true)
+
+      const {response, err} = await api.getUserData()
+      if(err && err.code && err.code === "ERR_NETWORK") {
+        setError(t("MISC.unexpected_error") + " " + t("MISC.error_contact"));
+      } else if (response && response.data.success === 1) {
+
+        const userWebsites = response.data.result
+        localStorage.setItem('userWebsites', JSON.stringify(userWebsites))
+
+        let websiteList = []
+        let websiteListForWebsitePage = []
+
+        await Promise.all(userWebsites.map(async (website, index) => {
+          const {response, err} = await api.getUserWebsite(website.Name);
+          if(err && err.code && err.code === "ERR_NETWORK") {
+            setError(t("MISC.unexpected_error") + " " + t("MISC.error_contact"));
+            return err;
+          } else if (response && response.data.success === 1) {
+            const pages = response.data.result
+            getData(website, pages, websiteList, websiteListForWebsitePage, moment)
+          }
+          return;
+        }));
+
+        websiteList.sort((a, b) => b.score - a.score);
+        websiteList.forEach((obj, index) => {
+          obj.rank = index + 1;
+        });
+
+        localStorage.setItem('websiteList', JSON.stringify(websiteList))
+        localStorage.setItem('websiteListForWebsitePage', JSON.stringify(websiteListForWebsitePage))
+        setDirectoriesList(websiteList)
+      }
+      setLoading(false)
+    }
+
+    if(api.isUserLoggedIn()) {
+      const websiteList = localStorage.getItem('websiteList')
+      if(!websiteList){
+        processData()
+      } else {
+        setDirectoriesList(JSON.parse(websiteList))
+      }
+    } else {
+      localStorage.removeItem('MM-username');
+      localStorage.removeItem('MM-SSID');
+      localStorage.removeItem('expires-at');
+      localStorage.removeItem('websiteList')
+      localStorage.removeItem('websiteListForWebsitePage')
+      navigate(`${pathURL}`)
+    }
+  },[])
+
   return (
     <>
       <div className={`container ${homeDark}`}>
@@ -89,7 +132,7 @@ export default function Websites() {
             variant={"ghost"}
             text={t("LOGIN.logout")}
             iconRight={<Icon name={"AMA-Exit-Line"} />} 
-            onClick={() => navigate(`${pathURL}`)}
+            onClick={() => logoutUser()}
           />
         </div>
 
@@ -104,7 +147,7 @@ export default function Websites() {
             {!error ?
               <>
                 {directoriesList && directoriesList.length > 0 ?
-                  <section className={`bg-white px-5 py-2 mt-5 d-flex flex-row justify-content-between`}>
+                  <section className={`bg-white px-3 py-2 mt-5 d-flex flex-row justify-content-between`}>
                     <div className="d-flex flex-column py-4 w-100 directories_table">
                       <h3 className="bold m-0">{t("WEBSITE_TABLE.table.title")}</h3>
                       <p className="ama-typography-body pb-4">{t("WEBSITE_TABLE.table.subtitle")}</p>

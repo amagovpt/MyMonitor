@@ -1,10 +1,3 @@
-.main {
-  height: auto;
-  background-color: var(--ama-color-background-light-darker);
-  position: relative;
-  padding-bottom: 4rem;
-}
-
 .main .link_breadcrumb_container {
   padding: 3rem 0px 2rem 0px;
 }

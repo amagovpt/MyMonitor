@@ -1,18 +1,6 @@
-export function getStatTitles (t) {
-    const websiteStats = {
-        score: (8.486663447825674).toFixed(1),
-        recentPage: "16 de outubro de 2023",
-        oldestPage: "16 de outubro de 2023",
-        statsTable: [
-          50,
-          24,
-          26,
-          20,
-          5,
-          1
-        ]
-    }
+import { pathURL } from "../../App";
 
+export function getStatTitles (t) {
     // Texts for StatisticsHeader component
     let statsTitles = [
         {subtitle: t("STATISTICS.pages"), subtitle2: ""},
@@ -23,17 +11,9 @@ export function getStatTitles (t) {
         {subtitle: t("STATISTICS.pages_without_errors_a_aa_aaa_info"), subtitle2: t("STATISTICS.pages_without_errors_a_aa_aaa")}
     ]
 
-    return { websiteStats, statsTitles }
+    return { statsTitles }
 }
 
-// Function to get data for Radar
-// t -> the translation
-// theme -> Dark/Light theme
-// labelsForRadar -> labels for the radar
-// data -> Data for the radar
-// RETURNS
-// options -> Options for the radar
-// manchaData -> Data for radar
 export function getRadarGraph (t, theme, labelsForRadar, data) {
     const options = {
       scales: {
@@ -77,16 +57,6 @@ export function getRadarGraph (t, theme, labelsForRadar, data) {
     return { options, manchaData }
 }
 
-// Function to get data for Bar/Line Graph
-// t -> the translation 
-// dataForLine -> data array for the line graph
-// dataForBar -> data array for the bar graph
-// websiteStats -> stats for StatisticHeader used to calculate the number of pages
-// theme -> dark / light theme
-// RETURNS
-// headersBarLine -> Bar graph X labels
-// dataBarLine -> Bar & Line Data
-// optionsBarLine -> Options to change the Bar & Line graph
 export function getBarLineGraph (t, dataForLine, dataForBar, websiteStats, theme) {
   const headersBarLine = ['[1 - 2[', '[2 - 3[', '[3 - 4[', '[4 - 5[', '[5 - 6[', '[6 - 7[', '[7 - 8[', '[8 - 9[', '[9 - 10[']
 
@@ -208,19 +178,14 @@ export function getBarLineGraph (t, dataForLine, dataForBar, websiteStats, theme
   return { headersBarLine, dataBarLine, optionsBarLine }
 }
 
-// Function to get data for Bar/Line Table
-// t -> the translation 
-// RETURNS
-// dataHeaders -> Bar/Line Table headers
-// columnsOptions -> Bar/Line type of render to execute p/ attribute
 export function getBarLineTable (t) {
   const dataHeaders = [
       [
-        {icon: false, name: t("DIALOGS.scores.range")},
-        {icon: false, name: t("DIALOGS.scores.frequency"), justifyCenter: true},
-        {icon: false, name: t("DIALOGS.scores.frequency")+ " (%)", justifyCenter: true},
-        {icon: false, name: t("DIALOGS.scores.cumulative"), justifyCenter: true},
-        {icon: false, name: t("DIALOGS.scores.cumulative")+ " (%)", justifyCenter: true},
+        {type: "Text", name: t("DIALOGS.scores.range")},
+        {type: "Text", name: t("DIALOGS.scores.frequency"), justifyCenter: true},
+        {type: "Text", name: t("DIALOGS.scores.frequency")+ " (%)", justifyCenter: true},
+        {type: "Text", name: t("DIALOGS.scores.cumulative"), justifyCenter: true},
+        {type: "Text", name: t("DIALOGS.scores.cumulative")+ " (%)", justifyCenter: true},
       ]
   ]
 
@@ -236,25 +201,23 @@ export function getBarLineTable (t) {
 }
 
 
-// Function to get data for GoodBad General Tables
-// t -> the translation
-// goodOrBad -> differentiate between good tab or bad tab
-// RETURNS
-// dataTableHeadersA/AA/AAA -> Headers for the tables of each type of practice
-// columnsOptionsAAs -> Type of render to execute p/ attribute
-// detailsTableHeaders -> Headers for the table of all practice
-// columnsOptionsDetails -> Type of render to execute p/ attribute
 export function getGoodBadTabTables (t, goodOrBad) {
   const dataTableHeadersA = [
-      {icon: false, name: t(`WEBSITES_PAGE.${goodOrBad}.message`, {value: "A"}), nCol: 3}
+    {type: "Text", name: "Nº", justifyCenter: true},
+    {type: "Text", name: t("DIALOGS.table.description"), justifyCenter: false},
+    {type: "Text", name: t("WEBSITES_PAGE.table_best_practices.n_errors_label"), justifyCenter: true},
   ]
   
   const dataTableHeadersAA = [
-      {icon: false, name: t(`WEBSITES_PAGE.${goodOrBad}.message`, {value: "AA"}), nCol: 3}
+    {type: "Text", name: "Nº", justifyCenter: true},
+    {type: "Text", name: t("DIALOGS.table.description"), justifyCenter: false},
+    {type: "Text", name: t("WEBSITES_PAGE.table_best_practices.n_errors_label"), justifyCenter: true},
   ]
   
   const dataTableHeadersAAA = [
-      {icon: false, name: t(`WEBSITES_PAGE.${goodOrBad}.message`, {value: "AAA"}), nCol: 3}
+    {type: "Text", name: "Nº", justifyCenter: true},
+    {type: "Text", name: t("DIALOGS.table.description"), justifyCenter: false},
+    {type: "Text", name: t("WEBSITES_PAGE.table_best_practices.n_errors_label"), justifyCenter: true},
   ]
 
   let columnsOptionsAAs = {
@@ -264,11 +227,11 @@ export function getGoodBadTabTables (t, goodOrBad) {
   }
 
   const detailsTableHeaders = [
-      {icon: false, bigWidth: "50%", name: t("WEBSITES_PAGE.table_best_practices.practice_label")},
-      {icon: false, bigWidth: "30%", name: t("WEBSITES_PAGE.table_best_practices.details_practice_label"), justifyCenter: true},
-      {icon: false, name: t("WEBSITES_PAGE.table_best_practices.n_pages_label"), justifyCenter: true},
-      {icon: false, name: t("WEBSITES_PAGE.table_best_practices.n_errors_label"), justifyCenter: true},
-      {icon: false, name: t("WEBSITES_PAGE.table_best_practices.lvl_label"), justifyCenter: true},
+      {type: "Text", bigWidth: "50%", name: t("WEBSITES_PAGE.table_best_practices.practice_label")},
+      {type: "Text", bigWidth: "30%", name: t("WEBSITES_PAGE.table_best_practices.details_practice_label"), justifyCenter: true},
+      {type: "Text", name: t("WEBSITES_PAGE.table_best_practices.n_pages_label"), justifyCenter: true},
+      {type: "Text", name: t("WEBSITES_PAGE.table_best_practices.n_errors_label"), justifyCenter: true},
+      {type: "Text", name: t("WEBSITES_PAGE.table_best_practices.lvl_label"), justifyCenter: true},
   ]
   
   let columnsOptionsDetails = {
@@ -276,34 +239,29 @@ export function getGoodBadTabTables (t, goodOrBad) {
       practices: { type: "MultiText", center: true, bold: false, decimalPlace: false },
       pages: { type: "Number", center: true, bold: false, decimalPlace: false },
       occurences: { type: "Number", center: true, bold: false, decimalPlace: false },
-      lvl: { type: "Text", center: true, bold: false, decimalPlace: false },
+      lvl: { type: "Text", center: true, bold: false, decimalPlace: false, ariaLabel: true },
   }
 
-  return { dataTableHeadersA, dataTableHeadersAA, dataTableHeadersAAA, columnsOptionsAAs, detailsTableHeaders, columnsOptionsDetails }
+  let ariaLabels = {
+    A: t("WEBSITES_PAGE.ariaLabels.A"),
+    AA: t("WEBSITES_PAGE.ariaLabels.AA"),
+    AAA: t("WEBSITES_PAGE.ariaLabels.AAA")
+  }
+
+  return { dataTableHeadersA, dataTableHeadersAA, dataTableHeadersAAA, columnsOptionsAAs, detailsTableHeaders, columnsOptionsDetails, ariaLabels }
 }
 
 
-// Function to get data for Top Ten for each Good or Bad table
-// t -> the translation
-// theme -> Dark/Light theme
-// labelsForHorizontal -> labels for the Horizontal Bar Graph
-// dataForHorizontal -> data for the Horizontal Bar Graph
-// color -> Background color for the Bar graph
-// RETURNS
-// dataHeaders -> Headers for Table
-// columnsOptions -> Type of render for Table
-// optionsHorizontalBar -> Options for Bar Graph
-// horizontalData -> Data for Bar Graph
 export function getTopTenGraphTable (t, theme, labelsForHorizontal, dataForHorizontal, color) {
   const dataHeaders = [
-      {icon: false, name: t("DIALOGS.errors.level"), justifyCenter: true},
-      {icon: false, bigWidth: "50%", name: t("DIALOGS.errors.description")},
-      {icon: false, name: t("DIALOGS.errors.pages"), justifyCenter: true},
-      {icon: false, name: t("DIALOGS.errors.situations"), justifyCenter: true}
+      {type: "Text", name: t("DIALOGS.errors.level"), justifyCenter: true},
+      {type: "Text", bigWidth: "50%", name: t("DIALOGS.errors.description")},
+      {type: "Text", name: t("DIALOGS.errors.pages"), justifyCenter: true},
+      {type: "Text", name: t("DIALOGS.errors.situations"), justifyCenter: true}
   ]
   
   let columnsOptions = {
-      lvl: { type: "Text", center: true, bold: false, decimalPlace: false },
+      lvl: { type: "Text", center: true, bold: false, decimalPlace: false, ariaLabel: true },
       name: { type: "DangerousHTML", center: false, bold: false, decimalPlace: false },
       nPages: { type: "Number", center: true, bold: false, decimalPlace: false },
       nOccurrences: { type: "Number", center: true, bold: false, decimalPlace: false },
@@ -390,4 +348,89 @@ export function getTopTenGraphTable (t, theme, labelsForHorizontal, dataForHoriz
   };
 
   return { dataHeaders, columnsOptions, optionsHorizontalBar, horizontalData }
+}
+
+export function getPagesSortingTable (t, navigate) {
+  const pagesHeaders = [
+    [
+      {type: "Checkbox", name: "", property: ""},
+      {type: "SortingText", bigWidth: "50%", name: t("PAGES.table.page"), property: "Uri"},
+      {type: "SortingText", name: t("PAGES.table.score"), property: "Score", justifyCenter: true},
+      {type: "Text", name: t("PAGES.table.levels"), property: "", justifyCenter: true, multiCol: true, nCol: 3},
+      {type: "SortingText", bigWidth: "10%", name: t("PAGES.table.date"), property: "Evaluation_Date", justifyCenter: true},
+    ],
+    [
+      {type: "Empty", nCol: 3, multiCol: true, empty: true},
+      {type: "SortingText", bigWidth: "10%", name: t("PAGES.table.A"), property: "A", justifyCenter: true},
+      {type: "SortingText", bigWidth: "10%", name: t("PAGES.table.AA"), property: "AA", justifyCenter: true},
+      {type: "SortingText", bigWidth: "10%", name: t("PAGES.table.AAA"), property: "AAA", justifyCenter: true},
+      {type: "Empty", nCol: 1, multiCol: true, empty: true}
+    ]
+  ]
+  
+  // Alterar isto para dar match com os nomes corretos
+  let columnsOptions = {
+    id: { type: "Checkbox", center: true, bold: false, decimalPlace: false },
+    Uri: { type: "Link", center: true, bold: false, decimalPlace: false, href: (row) => console.log(row) },
+    Show_In: { type: "Skip", center: false, bold: false, decimalPlace: false },
+    Creation_Date: { type: "Skip", center: false, bold: false, decimalPlace: false },
+    Score: { type: "Number", center: true, bold: false, decimalPlace: false },
+    A: { type: "Number", center: true, bold: false, decimalPlace: false },
+    AA: { type: "Number", center: true, bold: false, decimalPlace: false },
+    AAA: { type: "Number", center: true, bold: false, decimalPlace: false },
+    Tot: { type: "Skip", center: false, bold: false, decimalPlace: false },
+    Errors: { type: "Skip", center: false, bold: false, decimalPlace: false },
+    Evaluation_Date: { type: "Text", center: true, bold: false, decimalPlace: false },
+  }
+
+  let paginationButtonsTexts = [
+    t("PAGES.table.paginator.first_page"),
+    t("PAGES.table.paginator.previous_page"),
+    t("PAGES.table.paginator.next_page"),
+    t("PAGES.table.paginator.last_page")
+  ]
+
+  let nItemsPerPageText=[
+    t("PAGES.table.paginator.see"),
+    t("PAGES.table.paginator.per_page")
+  ]
+
+  let itemsPaginationText = [
+    t("PAGES.table.paginator.of"),
+    t("PAGES.table.paginator.items")
+  ]
+
+  return { pagesHeaders, columnsOptions, paginationButtonsTexts, nItemsPerPageText, itemsPaginationText }
+}
+
+export function pagesListTable(pages, moment) {
+  let pagesTable = []
+  pages.map((page) => {
+    const pageObject = {
+      ...page,
+      Evaluation_Date: moment(page.Evaluation_Date).format("LL"),
+    }
+    pagesTable.push(pageObject)
+  })
+
+  return pagesTable;
+}
+
+export function removeCertainPages(parsedData, name, newPages) {
+  localStorage.removeItem('websiteListForWebsitePage')
+  const obj = parsedData.find(item => item.name === name);
+
+  if (obj) {
+    obj.pages = newPages.map(page => {
+      let newPage
+      if (page.hasOwnProperty('PageId')) {
+        newPage = { id: page.PageId, ...page }
+        delete newPage.PageId;
+      }
+      return newPage;
+    });
+    localStorage.setItem('websiteListForWebsitePage', JSON.stringify(parsedData))
+  }
+
+  return parsedData;
 }

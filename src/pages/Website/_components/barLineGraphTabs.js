@@ -75,7 +75,7 @@ export function BarLineGraphTabs({ tempData, websiteStats }) {
     let tempDataForBar = []
     let tempDataForLine = []
     let dataTableFrequency = []
-    tempData.scoreDistributionFrequency.map((value, index) => {
+    tempData && tempData.scoreDistributionFrequency.length > 0 && tempData.scoreDistributionFrequency.map((value, index) => {
       const percentage = (value*100/tempData.nPages).toFixed(1)
       tempDataForBar.push(percentage)
 
@@ -107,7 +107,7 @@ export function BarLineGraphTabs({ tempData, websiteStats }) {
 
   return (
     <div className="BarLine_section tabs_section">
-      <Tabs tabs={tabs} defaultActiveKey="tab1" vertical={false} darkTheme={theme} />
+      <Tabs tabs={tabs} defaultActiveKey="tab1" vertical={false} />
     </div>
   );
 }

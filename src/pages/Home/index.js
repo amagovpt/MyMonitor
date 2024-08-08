@@ -1,10 +1,11 @@
 import "./styles.css";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { Breadcrumb, Button, Icon, Input, LoadingComponent } from "ama-design-system";
 import { ThemeContext } from "../../context/ThemeContext";
 import { pathURL } from "../../App";
+import { api } from '../../config/api'
 
 export default function Home() {
   const { t } = useTranslation();
@@ -14,9 +15,10 @@ export default function Home() {
   const homeDark = theme === "light" ? "" : "home_dark";
 
   const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(false)
 
-  const [username, setUsername] = useState()
-  const [password, setPassword] = useState()
+  const [username, setUsername] = useState("")
+  const [password, setPassword] = useState("")
 
   // Navigation options
   const breadcrumbs = [
@@ -29,6 +31,37 @@ export default function Home() {
       title: t("HEADER.NAV.home")
     }
   ];
+
+  const loginUser = async () => {
+    setError();
+    setLoading(true)
+    const {response, err} = await api.login(username, password)
+    console.log('10', response, err)
+    if(err && err.code && err.code === "ERR_NETWORK") {
+      console.log('1')
+      setError(t("MISC.unexpected_error") + " " + t("MISC.error_contact"));
+    } else if (err && err.code && err.code === "ERR_BAD_REQUEST") {
+      console.log('2')
+      setError(t("MISC.wrong_login"));
+    } else if(response && response.data.success === 1) {
+      console.log('3')
+      const cookie = response?.data?.result;
+      const tomorrow = new Date();
+      tomorrow.setTime(tomorrow.getTime() + 1 * 86400000);
+
+      sessionStorage.setItem('MM-username', username);
+      localStorage.setItem('MM-SSID', cookie);
+      localStorage.setItem('expires-at', tomorrow.toString());
+      navigate(`${pathURL}user`)
+    }
+    setLoading(false)
+  }
+
+  useEffect(() => {
+    if (api.isUserLoggedIn()) {
+      navigate(`${pathURL}user`)
+    }
+  }, [])
 
   return (
     <>
@@ -48,6 +81,7 @@ export default function Home() {
             <form className="login d-flex flex-column">
               <Input darkTheme={theme} label={t("LOGIN.username_label")} type={"text"} className={"mb-3"} value={username} onChange={(e) => setUsername(e.target.value)} />
               <Input darkTheme={theme} label={t("LOGIN.password_label")} type={"password"} className={"mb-3"} value={password} onChange={(e) => setPassword(e.target.value)} />
+              {error && <span className="mb-3 error">{error}</span>}
               {!loading ? <Button
                 darkTheme={theme}
                 className={"align-self-center submit"}
@@ -67,7 +101,7 @@ export default function Home() {
                     </g>
                   </svg>
                 }
-                onClick={() => navigate(`${pathURL}user`)}
+                onClick={() => loginUser()}
               /> : <LoadingComponent darkTheme={theme} loadingText={t("MISC.loading")} />}
             </form>
           </div>
