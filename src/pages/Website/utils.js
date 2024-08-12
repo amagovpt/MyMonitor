@@ -350,7 +350,7 @@ export function getTopTenGraphTable (t, theme, labelsForHorizontal, dataForHoriz
   return { dataHeaders, columnsOptions, optionsHorizontalBar, horizontalData }
 }
 
-export function getPagesSortingTable (t, navigate) {
+export function getPagesSortingTable (t, navigate, name) {
   const pagesHeaders = [
     [
       {type: "Checkbox", name: "", property: ""},
@@ -371,7 +371,9 @@ export function getPagesSortingTable (t, navigate) {
   // Alterar isto para dar match com os nomes corretos
   let columnsOptions = {
     id: { type: "Checkbox", center: true, bold: false, decimalPlace: false },
-    Uri: { type: "Link", center: true, bold: false, decimalPlace: false, href: (row) => console.log(row) },
+    Uri: { type: "Link", center: true, bold: false, decimalPlace: false, href: (row) => {
+      return `${pathURL}user/${name}/${encodeURIComponent(row['Uri'])}`
+    }},
     Show_In: { type: "Skip", center: false, bold: false, decimalPlace: false },
     Creation_Date: { type: "Skip", center: false, bold: false, decimalPlace: false },
     Score: { type: "Number", center: true, bold: false, decimalPlace: false },

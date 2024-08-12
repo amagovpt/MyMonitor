@@ -67,7 +67,6 @@
     bottom: 20vh;
     background-color: var(--ama-color-background-white);
     border: 2px solid var(--ama-color-brand-primary);
-    padding: 1rem;
 }
 
 .close_modal span,
@@ -114,6 +113,20 @@
 
     .best_practises .table {
         width: 700px !important;
+    }
+
+    .website_modal {
+        top: 10vh;
+        bottom: 10vh;
+    }
+
+    .website_modal_dark {
+        top: 10vh;
+        bottom: 10vh;
+    }
+
+    .modal_container .close_modal span {
+        display: none;
     }
 }
 
@@ -169,7 +182,6 @@
     bottom: 20vh;
     background-color: var(--ama-color-background-dark-lighter);
     border: 2px solid var(--ama-color-text-blue);
-    padding: 1rem;
     color: var(--ama-color-background-white);
 }
 

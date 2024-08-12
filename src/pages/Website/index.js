@@ -25,7 +25,8 @@ export default function Website() {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const name = decodeURIComponent(location.pathname.split("/")[2]) || null
+  const splitedPath = location.pathname.split("/")
+  const name = decodeURIComponent(splitedPath[splitedPath.length-1]) || null
 
   const { theme } = useContext(ThemeContext);
   const websiteDark = theme === "light" ? "" : "website_dark";

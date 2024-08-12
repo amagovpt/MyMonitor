@@ -34,7 +34,7 @@ export function PagesTable({ data, pagesList, setPagesList, name, parsedData }) 
   const [error, setError] = useState(false)
   const [loading, setLoading] = useState(false)
 
-  const { pagesHeaders, columnsOptions, paginationButtonsTexts, nItemsPerPageText, itemsPaginationText } = getPagesSortingTable(t, navigate)
+  const { pagesHeaders, columnsOptions, paginationButtonsTexts, nItemsPerPageText, itemsPaginationText } = getPagesSortingTable(t, navigate, name)
 
   const modalRemovePages = () => {
     setShowModal(!showModal)
@@ -110,80 +110,91 @@ export function PagesTable({ data, pagesList, setPagesList, name, parsedData }) 
 
   const getRemovePagesLayout = () => {
     return (
-    <div className="modal_container d-flex flex-column justify-content-between p-4">
+      <div className="modal_container d-flex flex-column justify-content-between p-4">
         <div className="d-flex flex-row justify-content-between align-items-center">
-            <h2>{t("PAGES.dialog.title")}</h2>
-            <Button
+          <h2>{t("PAGES.dialog.title")}</h2>
+          <Button
+            darkTheme={theme}
+            variant={"secondary"}
+            className={"close_modal"}
+            aria-label={t(`ADD_PAGES.evaluations_dialog.close`)}
+            text={t(`ADD_PAGES.evaluations_dialog.close`)}
+            onClick={() => closeModal()}
+            size={"lg"}
+            iconRight={<Icon name="AMA-Erro2-Line" />}
+          />
+        </div>
+        {!error ?
+          <>
+            <div>
+              <p className="ama-typography-body-large mb-4">{t("PAGES.dialog.first_sentence")}</p>
+              <p className="ama-typography-body-large">{t("PAGES.dialog.second_sentence")}</p>
+            </div>
+            <div className="d-flex flex-row justify-content-between align-items-center">
+              <Button
                 darkTheme={theme}
-                variant={"secondary"}
-                className={"close_modal"}
-                text={t(`ADD_PAGES.evaluations_dialog.close`)}
+                variant={"success"}
+                className={""}
+                text={t(`PAGES.dialog.yes`)}
+                onClick={() => removePages()}
+                size={"lg"}
+              />
+              <Button
+                darkTheme={theme}
+                variant={"danger"}
+                className={""}
+                text={t(`PAGES.dialog.no`)}
                 onClick={() => closeModal()}
                 size={"lg"}
-                iconRight={<Icon name="AMA-Erro2-Line" />}
-            />
-        </div>
-        {!error ? <>
-          <div>
-            <p className="ama-typography-body-large mb-4">{t("PAGES.dialog.first_sentence")}</p>
-            <p className="ama-typography-body-large">{t("PAGES.dialog.second_sentence")}</p>
-          </div>
-          <div className="d-flex flex-row justify-content-between align-items-center">
-            <Button
-              darkTheme={theme}
-              variant={"success"}
-              className={"close_modal"}
-              text={t(`PAGES.dialog.yes`)}
-              onClick={() => removePages()}
-              size={"lg"}
-            />
-            <Button
-              darkTheme={theme}
-              variant={"danger"}
-              className={"close_modal"}
-              text={t(`PAGES.dialog.no`)}
-              onClick={() => closeModal()}
-              size={"lg"}
-            />
-          </div>
-        </>
-        :<p className="ama-typography-body-large h-100 mt-6">{error}</p>}
-    </div>)
+              />
+            </div>
+          </>
+        :
+          <p className="ama-typography-body-large h-100 mt-6">{error}</p>
+        }
+      </div>
+    )
   }
 
   const getAddPagesLayout = () => {
-    return (<>
-        <div className="d-flex flex-row justify-content-between mb-5 align-items-center">
-            <h2>{t("ADD_PAGES.title")}</h2>
-            <Button
-                darkTheme={theme}
-                variant={"secondary"}
-                className={"close_modal"}
-                text={t(`ADD_PAGES.evaluations_dialog.close`)}
-                onClick={() => closeModal()}
-                size={"lg"}
-                iconRight={<Icon name="AMA-Erro2-Line" />}
-            />
+    return (
+      <div className="modal_container d-flex flex-column p-4">
+        <div className="modal_container d-flex flex-row justify-content-between mb-5 align-items-center">
+          <h2>{t("ADD_PAGES.title")}</h2>
+          <Button
+            darkTheme={theme}
+            variant={"secondary"}
+            className={"close_modal"}
+            aria-label={t(`ADD_PAGES.evaluations_dialog.close`)}
+            text={t(`ADD_PAGES.evaluations_dialog.close`)}
+            onClick={() => closeModal()}
+            size={"lg"}
+            iconRight={<Icon name="AMA-Erro2-Line" />}
+          />
         </div>
-    </>)
+      </div>
+    )
   }
 
   const getReEvaluatePagesLayout = () => {
-    return (<>
-      <div className="d-flex flex-row justify-content-between mb-5 align-items-center">
-        <h2>{t("PAGES.re_evaluate")}</h2>
-        <Button
-          darkTheme={theme}
-          variant={"secondary"}
-          className={"close_modal"}
-          text={t(`ADD_PAGES.evaluations_dialog.close`)}
-          onClick={() => closeModal()}
-          size={"lg"}
-          iconRight={<Icon name="AMA-Erro2-Line" />}
-        />
+    return (
+      <div className="modal_container d-flex flex-column p-4">
+        <div className="d-flex flex-row justify-content-between mb-5 align-items-center">
+          <h2>{t("PAGES.re_evaluate")}</h2>
+          <Button
+            darkTheme={theme}
+            variant={"secondary"}
+            className={"close_modal"}
+            aria-label={t(`ADD_PAGES.evaluations_dialog.close`)}
+            text={t(`ADD_PAGES.evaluations_dialog.close`)}
+            onClick={() => closeModal()}
+            size={"lg"}
+            iconRight={<Icon name="AMA-Erro2-Line" />}
+          />
+        </div>
+        {!loading ? <p className="ama-typography-body-large">{!error ? t("ADD_PAGES.evaluations_dialog.message") : error}</p> : <LoadingComponent darkTheme={theme} loadingText={t("MISC.loading")} />}
       </div>
-      {!loading ? <p className="ama-typography-body-large">{!error ? t("ADD_PAGES.evaluations_dialog.message") : error}</p> : <LoadingComponent darkTheme={theme} loadingText={t("MISC.loading")} />}
-    </>)
+    )
   }
 
   return (

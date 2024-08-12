@@ -9,6 +9,9 @@ import { ThemeProvider } from "./context/ThemeContext";
 import Home from "./pages/Home"
 import Websites from './pages/Websites'
 import Website from './pages/Website'
+import Evaluation from './pages/Evaluation'
+// import Details from './pages/Details'
+// import PageCode from './pages/PageCode'
 import Error from "./pages/Error"
 
 //export const pathURL = process.env.REACT_APP_DEV_SERVER_URL;
@@ -24,6 +27,9 @@ export default function App() {
             <Route path={`${pathURL}`} element={<Home />} />
             <Route path={`${pathURL}user`} element={<Websites />} />
             <Route path={`${pathURL}user/:name`} element={<Website />} />
+            <Route path={`${pathURL}user/:name/:page`} element={<Evaluation />} />
+            {/* <Route path={`${pathURL}user/:name`} element={<Details />} /> */}
+            {/* <Route path={`${pathURL}user/:name`} element={<PageCode />} /> */}
 
             {/* Error page needs to be last */}
             <Route path={`${pathURL}*`} element={<Error />} />

@@ -20,7 +20,6 @@ export default function Error() {
       <Button
         darkTheme={theme}
         text={t("MISC._404.homepage")}
-        size="small"
         id="btn-url"
         onClick={() => navigate(`${pathURL}`)}
         iconRight={<Icon name="AMA-Entrar-Line" />}
