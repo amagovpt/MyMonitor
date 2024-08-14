@@ -7,7 +7,7 @@ import { pathURL } from "../../App";
 // columnsOptions -> Options to tell the type to render with which property for main table
 // statsTitles -> Titles for the StatisticsHeader component
 // nameOfIcons -> Name of icons to be showned in the table
-export function getDirectoryTable (t, navigate) {
+export function getDirectoryTable (t) {
     const directoriesHeaders = [
       [
         {type: "SortingText", bigWidth: "10%", name: t("WEBSITE_TABLE.table.rank"), property: "rank"},
@@ -27,19 +27,19 @@ export function getDirectoryTable (t, navigate) {
     ]
     
     let columnsOptions = {
-      id: { type: "Skip", center: false, bold: false, decimalPlace: false },
-      rank: { type: "Number", center: true, bold: false, decimalPlace: false },
-      name: { type: "Link", center: false, bold: false, decimalPlace: false, href: (row) => {
+      id: { type: "Skip", center: false, bold: false, decimalPlace: false, headers: '' },
+      rank: { type: "Number", center: true, bold: false, decimalPlace: false, headers: t("WEBSITE_TABLE.table.rank") },
+      name: { type: "Link", center: false, bold: false, decimalPlace: false, headers: t("WEBSITE_TABLE.table.name").replaceAll(' ', ''), href: (row) => {
         return `${pathURL}user/${row['name']}`
       }},
-      entity: { type: "Skip", center: false, bold: false, decimalPlace: false },
-      declaration: { type: "Declaration", center: true, bold: false, decimalPlace: false },
-      stamp: { type: "Stamp", center: true, bold: false, decimalPlace: false },
-      score: { type: "Number", center: true, bold: false, decimalPlace: true },
-      nPages: { type: "Number", center: true, bold: false, decimalPlace: false },
-      A: { type: "Number", center: true, bold: false, decimalPlace: false },
-      AA: { type: "Number", center: true, bold: false, decimalPlace: false },
-      AAA: { type: "Number", center: true, bold: false, decimalPlace: false },
+      entity: { type: "Skip", center: false, bold: false, decimalPlace: false, headers: '' },
+      declaration: { type: "Declaration", center: true, bold: false, decimalPlace: false, headers: "AMA-DeclaracaoDark-Line" },
+      stamp: { type: "Stamp", center: true, bold: false, decimalPlace: false, headers: "AMA-SeloDark-Line" },
+      score: { type: "Number", center: true, bold: false, decimalPlace: true, headers: t("WEBSITE_TABLE.table.score") },
+      nPages: { type: "Number", center: true, bold: false, decimalPlace: false, headers: t("WEBSITE_TABLE.table.pages").replaceAll(' ', '') },
+      A: { type: "Number", center: true, bold: false, decimalPlace: false, headers: (t("WEBSITE_TABLE.table.levels").replaceAll(' ', '') + " " + t("WEBSITE_TABLE.table.A")) },
+      AA: { type: "Number", center: true, bold: false, decimalPlace: false, headers: (t("WEBSITE_TABLE.table.levels").replaceAll(' ', '') + " " + t("WEBSITE_TABLE.table.AA")) },
+      AAA: { type: "Number", center: true, bold: false, decimalPlace: false, headers: (t("WEBSITE_TABLE.table.levels").replaceAll(' ', '') + " " + t("WEBSITE_TABLE.table.AAA")) },
     }
 
     let nameOfIcons = [

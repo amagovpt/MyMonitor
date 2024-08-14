@@ -1,0 +1,59 @@
+/* TableComponent.css */
+.table1 {
+  width: 100% !important;
+  border-collapse: collapse;
+}
+
+.table1 tbody tr {
+  border-bottom: 1px solid var(--ama-color-text-gray);
+}
+
+.table1 thead th {
+  background-color: var(--ama-color-text-gray);
+  color: var(--ama-color-background-white);
+}
+
+.table1 code {
+  text-decoration: none;
+  font-weight: normal !important;
+  color: #DC3545 !important;
+  word-break: break-all;
+  overflow-wrap: break-word;
+}
+
+.table1 thead th.th_size {
+  width: 16%;
+}
+
+.table1 thead {
+  border-color: transparent;
+}
+
+@media only screen and (max-width: 768px) {
+  .table thead th.th_size {
+    width: auto;
+  }
+}
+
+/* Dark Theme */
+.details_dark .table1 tbody tr td {
+  background-color: transparent !important;
+  color: var(--ama-color-background-white);
+}
+
+.details_dark .table1 thead th {
+  background-color: var(--ama-color-background-dark-darker) !important;
+}
+
+.details_dark .table1 tbody tr td a {
+  color: var(--ama-color-text-blue);
+}
+
+.details_dark .table1 tbody tr {
+  border-color: var(--ama-color-background-white) !important;
+}
+
+.details_dark .table1 code,
+.details_dark .textHeader code {
+  color: var(--ama-color-red-300) !important;
+}

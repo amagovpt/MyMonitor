@@ -36,15 +36,11 @@ export default function Home() {
     setError();
     setLoading(true)
     const {response, err} = await api.login(username, password)
-    console.log('10', response, err)
     if(err && err.code && err.code === "ERR_NETWORK") {
-      console.log('1')
       setError(t("MISC.unexpected_error") + " " + t("MISC.error_contact"));
     } else if (err && err.code && err.code === "ERR_BAD_REQUEST") {
-      console.log('2')
       setError(t("MISC.wrong_login"));
     } else if(response && response.data.success === 1) {
-      console.log('3')
       const cookie = response?.data?.result;
       const tomorrow = new Date();
       tomorrow.setTime(tomorrow.getTime() + 1 * 86400000);

@@ -3,22 +3,19 @@ import { useContext, useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useLocation } from "react-router-dom";
 import { ThemeContext } from "../../context/ThemeContext";
+import moment from 'moment'
 
 import { Breadcrumb, LoadingComponent, StatisticsHeader, Button, Icon, Tabs } from "ama-design-system";
-
 import { RadarGraph } from "./_components/radarGraph";
 import { BarLineGraphTabs } from "./_components/barLineGraphTabs";
 import { GoodBadTab } from "./_components/goodBadTab";
 import { PagesTable } from "./_components/pagesTable"
 
 import { getStatTitles, pagesListTable } from "./utils";
-import { getData, createStatisticsObject } from "../../utils/utils";
-import { api } from '../../config/api'
-
-// Date formatting
-import moment from 'moment'
+import { getData, createStatisticsObject, logoutUser, removeLocalStorages } from "../../utils/utils";
 
 import { pathURL } from "../../App";
+import { api } from '../../config/api'
 
 export default function Website() {
   const { t, i18n: {language} } = useTranslation();
@@ -111,31 +108,6 @@ export default function Website() {
     },
   ];
 
-  const logoutUser = async () => {
-    setLoading(true)
-    if (api.isUserLoggedIn()) {
-      const {response, err} = await api.logout()
-      if(err && err.code && err.code === "ERR_NETWORK") {
-        setError(t("MISC.unexpected_error") + " " + t("MISC.error_contact"));
-      } else if(response && response.data.success === 1) {
-        localStorage.removeItem('MM-username');
-        localStorage.removeItem('MM-SSID');
-        localStorage.removeItem('expires-at');
-        localStorage.removeItem('websiteList')
-        localStorage.removeItem('websiteListForWebsitePage')
-        navigate(`${pathURL}`)
-      }
-    } else {
-      localStorage.removeItem('MM-username');
-      localStorage.removeItem('MM-SSID');
-      localStorage.removeItem('expires-at');
-      localStorage.removeItem('websiteList')
-      localStorage.removeItem('websiteListForWebsitePage')
-      navigate(`${pathURL}`)
-    }
-    setLoading(false)
-  }
-
   useEffect(() => {
     const processData = async () => {
       setLoading(true)
@@ -172,10 +144,14 @@ export default function Website() {
         localStorage.setItem('websiteListForWebsitePage', JSON.stringify(websiteListForWebsitePage))
         setParsedData(websiteListForWebsitePage)
         const targetObject = parsedData.find(obj => obj.name === name);
-        setData(targetObject)
-        const list = pagesListTable(targetObject.pages, moment)
-        setPagesList(list)
-        setWebsiteStats(createStatisticsObject(targetObject, moment))
+        if(targetObject) {
+          setData(targetObject)
+          const list = pagesListTable(targetObject.pages, moment)
+          setPagesList(list)
+          setWebsiteStats(createStatisticsObject(targetObject, moment))
+        } else {
+          navigate(`${pathURL}user`)
+        }
       }
       setLoading(false)
     }
@@ -188,18 +164,17 @@ export default function Website() {
         const parsedData = JSON.parse(websiteListForWebsitePage)
         setParsedData(parsedData)
         const targetObject = parsedData.find(obj => obj.name === name);
-        setData(targetObject)
-        const list = pagesListTable(targetObject.pages, moment)
-        setPagesList(list)
-        setWebsiteStats(createStatisticsObject(targetObject, moment))
+        if(targetObject) {
+          setData(targetObject)
+          const list = pagesListTable(targetObject.pages, moment)
+          setPagesList(list)
+          setWebsiteStats(createStatisticsObject(targetObject, moment))
+        } else {
+          navigate(`${pathURL}user`)
+        }
       }
     } else {
-      localStorage.removeItem('MM-username');
-      localStorage.removeItem('MM-SSID');
-      localStorage.removeItem('expires-at');
-      localStorage.removeItem('websiteList')
-      localStorage.removeItem('websiteListForWebsitePage')
-      navigate(`${pathURL}`)
+      removeLocalStorages(navigate)
     }
   },[])
 
@@ -236,7 +211,7 @@ export default function Website() {
             variant={"ghost"}
             text={t("LOGIN.logout")}
             iconRight={<Icon name={"AMA-Exit-Line"} />} 
-            onClick={() => logoutUser()}
+            onClick={() => logoutUser(setLoading, setError, navigate, t)}
           />
         </div>
 
@@ -288,8 +263,7 @@ export default function Website() {
                 </section>
               </>
             : <>
-                <h3 className="text-center mt-5 bold">{t("MISC.unexpected_error")}</h3>
-                <h3 className="text-center mt-5 bold">{t("MISC.error_contact")}</h3>
+                <h3 className="text-center mt-5 bold">{error}</h3>
               </>
             }
           </>

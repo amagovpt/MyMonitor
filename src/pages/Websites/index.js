@@ -12,7 +12,7 @@ import moment from 'moment'
 
 // Extra Data / Functions
 import { getDirectoryTable } from "./utils"
-import { getData } from "../../utils/utils";
+import { getData, logoutUser, removeLocalStorages } from "../../utils/utils";
 
 export default function Websites() {
   const { t } = useTranslation();
@@ -26,7 +26,7 @@ export default function Websites() {
   const [directoriesList, setDirectoriesList] = useState();
 
   // Data and Options for the Tables on this page
-  const { directoriesHeaders, columnsOptions, nameOfIcons, paginationButtonsTexts, nItemsPerPageText, itemsPaginationText } = getDirectoryTable(t, navigate)
+  const { directoriesHeaders, columnsOptions, nameOfIcons, paginationButtonsTexts, nItemsPerPageText, itemsPaginationText } = getDirectoryTable(t)
 
   // Navigation options
   const breadcrumbs = [
@@ -39,31 +39,6 @@ export default function Websites() {
       title: t("HEADER.NAV.home")
     }
   ];
-
-  const logoutUser = async () => {
-    setLoading(true)
-    if (api.isUserLoggedIn()) {
-      const {response, err} = await api.logout()
-      if(err && err.code && err.code === "ERR_NETWORK") {
-        setError(t("MISC.unexpected_error") + " " + t("MISC.error_contact"));
-      } else if(response && response.data.success === 1) {
-        localStorage.removeItem('MM-username');
-        localStorage.removeItem('MM-SSID');
-        localStorage.removeItem('expires-at');
-        localStorage.removeItem('websiteList')
-        localStorage.removeItem('websiteListForWebsitePage')
-        navigate(`${pathURL}`)
-      }
-    } else {
-      localStorage.removeItem('MM-username');
-      localStorage.removeItem('MM-SSID');
-      localStorage.removeItem('expires-at');
-      localStorage.removeItem('websiteList')
-      localStorage.removeItem('websiteListForWebsitePage')
-      navigate(`${pathURL}`)
-    }
-    setLoading(false)
-  }  
 
   useEffect(() => {
     const processData = async () => {
@@ -112,12 +87,7 @@ export default function Websites() {
         setDirectoriesList(JSON.parse(websiteList))
       }
     } else {
-      localStorage.removeItem('MM-username');
-      localStorage.removeItem('MM-SSID');
-      localStorage.removeItem('expires-at');
-      localStorage.removeItem('websiteList')
-      localStorage.removeItem('websiteListForWebsitePage')
-      navigate(`${pathURL}`)
+      removeLocalStorages(navigate)
     }
   },[])
 
@@ -132,7 +102,7 @@ export default function Websites() {
             variant={"ghost"}
             text={t("LOGIN.logout")}
             iconRight={<Icon name={"AMA-Exit-Line"} />} 
-            onClick={() => logoutUser()}
+            onClick={() => logoutUser(setLoading, setError, navigate, t)}
           />
         </div>
 
@@ -147,7 +117,7 @@ export default function Websites() {
             {!error ?
               <>
                 {directoriesList && directoriesList.length > 0 ?
-                  <section className={`bg-white px-3 py-2 mt-5 d-flex flex-row justify-content-between`}>
+                  <section className={`bg-white px-5 py-2 mt-5 d-flex flex-row justify-content-between`}>
                     <div className="d-flex flex-column py-4 w-100 directories_table">
                       <h3 className="bold m-0">{t("WEBSITE_TABLE.table.title")}</h3>
                       <p className="ama-typography-body pb-4">{t("WEBSITE_TABLE.table.subtitle")}</p>
@@ -173,8 +143,7 @@ export default function Websites() {
                 : <h3 className="text-center mt-5 bold">{t("WEBSITE_TABLE.no_websites")}</h3>}
               </>
             : <>
-                <h3 className="text-center mt-5 bold">{t("MISC.unexpected_error")}</h3>
-                <h3 className="text-center mt-5 bold">{t("MISC.error_contact")}</h3>
+                <h3 className="text-center mt-5 bold">{error}</h3>
               </>
             }
           </>

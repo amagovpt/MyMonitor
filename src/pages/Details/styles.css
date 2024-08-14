@@ -1,0 +1,54 @@
+.textHeader code {
+    color: #DC3545 !important;
+    text-decoration: none;
+}
+
+.tabContent_container-details {
+    background: var(--ama-color-background-white);
+    overflow: auto;
+}
+
+.result_left_container {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    border-left: 1px solid var(--ama-color-background-white);
+}
+
+
+@media (max-width: 768px) {
+    .show_details-container {
+      display: flex;
+      flex-direction: column !important;
+      align-items: flex-start !important;
+    }
+  
+    .test_result {
+      font-weight: normal;
+    }
+}
+
+/* Dark Theme */
+.details_dark .link_breadcrumb_container .logout {
+    color: var(--ama-color-text-blue);
+}
+
+.details_dark .report_container_title {
+    color: var(--ama-color-background-white)
+}
+
+.details_dark .tabContent_container-details {
+    background-color: var(--ama-color-background-dark-lighter) !important;
+}
+
+.details_dark .show_details {
+    background-color: var(--ama-color-background-dark-lighter) !important;
+  }
+  
+.details_dark .show_details span {
+    color: var(--ama-color-background-white);
+}
+
+.details_dark .loading_container {
+    background-color: var(--ama-color-background-dark-lighter) !important;
+}

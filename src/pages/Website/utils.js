@@ -350,39 +350,39 @@ export function getTopTenGraphTable (t, theme, labelsForHorizontal, dataForHoriz
   return { dataHeaders, columnsOptions, optionsHorizontalBar, horizontalData }
 }
 
-export function getPagesSortingTable (t, navigate, name) {
+export function getPagesSortingTable (t, name) {
   const pagesHeaders = [
     [
-      {type: "Checkbox", name: "", property: ""},
+      {type: "Checkbox", name: t("PAGES.table.filter"), property: ""},
       {type: "SortingText", bigWidth: "50%", name: t("PAGES.table.page"), property: "Uri"},
       {type: "SortingText", name: t("PAGES.table.score"), property: "Score", justifyCenter: true},
       {type: "Text", name: t("PAGES.table.levels"), property: "", justifyCenter: true, multiCol: true, nCol: 3},
       {type: "SortingText", bigWidth: "10%", name: t("PAGES.table.date"), property: "Evaluation_Date", justifyCenter: true},
     ],
     [
-      {type: "Empty", nCol: 3, multiCol: true, empty: true},
+      {type: "Empty", name: t("MISC.empty"), nCol: 3, multiCol: true, empty: true},
       {type: "SortingText", bigWidth: "10%", name: t("PAGES.table.A"), property: "A", justifyCenter: true},
       {type: "SortingText", bigWidth: "10%", name: t("PAGES.table.AA"), property: "AA", justifyCenter: true},
       {type: "SortingText", bigWidth: "10%", name: t("PAGES.table.AAA"), property: "AAA", justifyCenter: true},
-      {type: "Empty", nCol: 1, multiCol: true, empty: true}
+      {type: "Empty", name: t("MISC.empty"), nCol: 1, multiCol: true, empty: true}
     ]
   ]
   
   // Alterar isto para dar match com os nomes corretos
   let columnsOptions = {
-    id: { type: "Checkbox", center: true, bold: false, decimalPlace: false },
-    Uri: { type: "Link", center: true, bold: false, decimalPlace: false, href: (row) => {
+    id: { type: "Checkbox", center: true, bold: false, decimalPlace: false, headers: t("PAGES.table.filter") },
+    Uri: { type: "Link", center: true, bold: false, decimalPlace: false, headers: t("PAGES.table.page"), href: (row) => {
       return `${pathURL}user/${name}/${encodeURIComponent(row['Uri'])}`
     }},
-    Show_In: { type: "Skip", center: false, bold: false, decimalPlace: false },
-    Creation_Date: { type: "Skip", center: false, bold: false, decimalPlace: false },
-    Score: { type: "Number", center: true, bold: false, decimalPlace: false },
-    A: { type: "Number", center: true, bold: false, decimalPlace: false },
-    AA: { type: "Number", center: true, bold: false, decimalPlace: false },
-    AAA: { type: "Number", center: true, bold: false, decimalPlace: false },
-    Tot: { type: "Skip", center: false, bold: false, decimalPlace: false },
-    Errors: { type: "Skip", center: false, bold: false, decimalPlace: false },
-    Evaluation_Date: { type: "Text", center: true, bold: false, decimalPlace: false },
+    Show_In: { type: "Skip", center: false, bold: false, decimalPlace: false, headers: '' },
+    Creation_Date: { type: "Skip", center: false, bold: false, decimalPlace: false, headers: '' },
+    Score: { type: "Number", center: true, bold: false, decimalPlace: false, headers: t("PAGES.table.score") },
+    A: { type: "Number", center: true, bold: false, decimalPlace: false, headers: (t("PAGES.table.levels").replaceAll(' ', '') + " " + t("PAGES.table.A")) },
+    AA: { type: "Number", center: true, bold: false, decimalPlace: false, headers: (t("PAGES.table.levels").replaceAll(' ', '') + " " + t("PAGES.table.AA")) },
+    AAA: { type: "Number", center: true, bold: false, decimalPlace: false, headers: (t("PAGES.table.levels").replaceAll(' ', '') + " " + t("PAGES.table.AAA")) },
+    Tot: { type: "Skip", center: false, bold: false, decimalPlace: false, headers: '' },
+    Errors: { type: "Skip", center: false, bold: false, decimalPlace: false, headers: '' },
+    Evaluation_Date: { type: "Text", center: true, bold: false, decimalPlace: false, headers: t("PAGES.table.date") },
   }
 
   let paginationButtonsTexts = [

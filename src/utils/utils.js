@@ -1,6 +1,10 @@
 import tests from './tests'
 import clone from "lodash.clonedeep";
 import orderBy from "lodash.orderby";
+import { saveAs } from "file-saver";
+
+import { pathURL } from "../App";
+import { api } from '../config/api'
 
 function getTopTenErrors(errors) {
     const errorsList = [];
@@ -360,4 +364,128 @@ export function createStatisticsObject(data, moment) {
       data.pagesWithoutErrorsAAA
     ]
   }
+}
+
+
+export async function logoutUser(setLoading, setError, navigate, t) {
+  setLoading(true)
+  if (api.isUserLoggedIn()) {
+    const {response, err} = await api.logout()
+    if(err && err.code && err.code === "ERR_NETWORK") {
+      setError(t("MISC.unexpected_error") + " " + t("MISC.error_contact"));
+      removeLocalStorages(navigate)
+    } else if(response && response.data.success === 1) {
+      removeLocalStorages(navigate)
+    }
+  } else {
+    removeLocalStorages(navigate)
+  }
+  setLoading(false)
+}
+
+export function removeLocalStorages(navigate) {
+  localStorage.removeItem('MM-username');
+  localStorage.removeItem('MM-SSID');
+  localStorage.removeItem('expires-at');
+  localStorage.removeItem('websiteList')
+  localStorage.removeItem('websiteListForWebsitePage')
+  localStorage.removeItem('evaluation')
+  localStorage.removeItem('evaluationUrl')
+  localStorage.removeItem("elemData");
+  navigate(`${pathURL}`)
+}
+
+export function downloadCSV(dataProcess, originalData, t) {
+  const data = [];
+
+  let error, level, sc, desc, num;
+  const descs = [
+    "CSV.date",
+    "CSV.errorType",
+    "CSV.level",
+    "CSV.criteria",
+    "CSV.desc",
+    "CSV.count",
+    "CSV.value",
+    "RESULTS.summary.score",
+  ];
+
+  for (const row in dataProcess["results"]) {
+    if (dataProcess["results"][row]) {
+      const rowData = [];
+      error =
+        "CSV." +
+        (dataProcess["results"][row]["prio"] === 3
+          ? "scoreok"
+          : dataProcess["results"][row]["prio"] === 2
+            ? "scorewar"
+            : "scorerror");
+      level = dataProcess["results"][row]["lvl"];
+      num = dataProcess["results"][row]["value"];
+      desc =
+        "TESTS_RESULTS." +
+        dataProcess["results"][row]["msg"] +
+        (num === 1 ? ".s" : ".p");
+      sc = tests[dataProcess["results"][row]["msg"]]["scs"];
+      sc = sc.replace(/,/g, " ");
+
+      descs.push(desc, error);
+      rowData.push(
+        dataProcess?.metadata?.url,
+        originalData.date,
+        dataProcess["results"][row]["msg"],
+        error,
+        level,
+        sc,
+        desc,
+        num === undefined ? 0 : isNaN(parseInt(num)) ? 1 : num,
+        !isNaN(parseInt(num)) ? "" : num,
+        dataProcess?.metadata?.score.replace(".", ",")
+      );
+      data.push(rowData);
+    }
+  }
+
+  const labels = [];
+  for(const row in data){
+    if(data[row]){
+      data[row][6] = t(`${data[row][6]}`).replace("{{value}}", data[row][8] ? data[row][8] : data[row][7])
+      data[row][6] = data[row][6].replace(new RegExp("<mark>", "g"), "");
+      data[row][6] = data[row][6].replace(new RegExp("</mark>", "g"), "");
+      data[row][6] = data[row][6].replace(new RegExp("<code>", "g"), "");
+      data[row][6] = data[row][6].replace(new RegExp("</code>", "g"), "");
+      data[row][6] = data[row][6].replace(new RegExp("&lt;", "g"), "");
+      data[row][6] = data[row][6].replace(new RegExp("&gt;", "g"), "");
+      data[row][3] = t(`${data[row][3]}`);
+    }
+  }
+  labels.push("URI");
+  labels.push(t("CSV.date"));
+  labels.push("ID");
+  labels.push(t("CSV.errorType"));
+  labels.push(t("CSV.level"));
+  labels.push(t("CSV.criteria"));
+  labels.push(t("CSV.desc"));
+  labels.push(t("CSV.count"));
+  labels.push(t("CSV.value"));
+  labels.push(t("RESULTS.summary.score"));
+
+  let csvContent = labels.join(";") + "\r\n";
+  for (const row of data || []) {
+    csvContent += row.join(";") + "\r\n";
+  }
+
+  const blob = new Blob([csvContent], { type: "text/csv" });
+  saveAs(blob, "eval.csv");
+}
+
+export function checkUserHasPage(website, websitesList, pageName) {
+  const targetObject = websitesList.find(obj => obj.name === website);
+  if(targetObject) {
+    const pageObject = targetObject.pages.find(obj => obj.Uri === pageName);
+    if(pageObject) {
+      return true
+    }
+  }
+  return false
 }

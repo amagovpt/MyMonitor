@@ -1,0 +1,125 @@
+.dropdown-content {
+  display: none;
+  width: fit-content;
+  margin-top: 1em;
+  padding: 1em;
+  color: var(--ama-color-background-white);
+  border-radius: 25px;
+  background-color: var(--ama-color-brand-primary);
+  position: absolute;
+  z-index: 1;
+  text-decoration: none;
+}
+
+.dropdown-content a {
+  color: var(--ama-color-background-white);
+  padding: .5em;
+  text-decoration: none;
+  font-weight: 700;
+  cursor: pointer;
+  align-items: center;
+  text-decoration: none !important;
+  display: flex !important;
+  width: auto !important;
+  justify-content: space-between !important;
+}
+
+.dropdown-content li::marker {
+  content: "";
+}
+
+.dropdown-content button {
+  background-color: transparent;
+  color: var(--ama-color-background-white);
+  border: none;
+  text-align: left;
+  font-size: 16px;
+  padding: 8px !important;
+  font-weight: bold;
+  justify-content: space-between;
+  align-items: center;
+  text-decoration: none !important;  
+}
+
+.dropdown-content a span:hover,
+.dropdown-content button span:hover {
+  text-decoration: underline;
+}
+
+.show_dropdown {
+  display: block !important;
+}
+
+.group_mobile {
+  display: none;
+}
+
+.buttonGroupContainer {
+  display: flex;
+  flex-direction: row;
+}
+
+.buttonGroupContainer button {
+  width: 100%;
+  font-size: 13.5px;
+  flex: 1;
+}
+
+.buttonGroupContainer button:first-child {
+  margin-bottom: 10px;
+}
+
+
+@media (min-width: 320px) and (max-width: 480px) {
+  .deskGroupMobile {
+    display: none !important;
+  }
+
+  .group_mobile {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between !important;
+  }
+
+  .group_mobile button {
+    width: 100%;
+  }
+}
+
+
+/* Dark Mode */
+.pageCode_dark .dropdown-content {
+  width: fit-content;
+}
+
+.pageCode_dark .deskGroupMobile button,
+.pageCode_dark .group_mobile button {
+  background-color: var(--ama-color-text-blue) !important;
+  color: var(--ama-color-background-dark-lighter);
+}
+
+.pageCode_dark .deskGroupMobile button:not(:focus),
+.pageCode_dark .group_mobile button:not(:focus) {
+  border-color: var(--ama-color-text-blue);
+}
+
+.pageCode_dark .deskGroupMobile button:active,
+.pageCode_dark .group_mobile button:active {
+  background-color: var(--ama-color-text-blue) !important;
+  color: var(--ama-color-background-dark-lighter) !important;
+}
+
+.pageCode_dark .deskGroupMobile button:hover,
+.pageCode_dark .group_mobile button:hover {
+  background-color: transparent !important;
+  border-color: var(--ama-color-text-blue);
+  color: var(--ama-color-text-blue);
+}
+
+.pageCode_dark .dropdown-content,
+.pageCode_dark .dropdown-content li button,
+.pageCode_dark .dropdown-content a {
+  background-color: var(--ama-color-text-blue) !important;
+  border-color: var(--ama-color-text-blue) !important;
+  color: var(--ama-color-background-dark-lighter) !important;
+}

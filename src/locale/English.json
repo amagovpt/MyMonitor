@@ -400,7 +400,7 @@
         "A": "A*",
         "AA": "AA*",
         "AAA": "AAA*",
-        "levels": "",
+        "levels": "Errors by compliance level",
         "date": "Date",
         "see_tooltip": "See page",
         "note": "* Number of errors for each conform level",
@@ -446,6 +446,7 @@
         },
         "table": {
           "title": "Nº practices found",
+          "typeLabel": "Type of practice",
           "labels": {
             "p": "P",
             "ok": "Acceptable",
@@ -484,7 +485,7 @@
       }
     },
     "ELEMENT_RESULTS": {
-      "subtitle": "Test:",
+      "subtitle": "Test details",
       "elements_tab": "Elements",
       "page_tab": "Page",
       "total_elements": "elements found",
@@ -494,8 +495,11 @@
         "element": "Element:",
         "attributes": "Attributes:",
         "content": "Content/text:",
-        "code": "Code:"
-      }
+        "code": "Code:",
+        "location": "Location:"
+      },
+      "ocurrenceNumber": "Occurrence Nº",
+      "ocurrenceDetail": "Details of the occurrence"
     },
     "CODE": {
       "subtitle": "Pagecode",

@@ -454,6 +454,7 @@
         },
         "table": {
           "title": "Nº práticas encontradas",
+          "typeLabel": "Tipo de prática",
           "labels": {
             "p": "P",
             "ok": "Aceitáveis",
@@ -492,7 +493,7 @@
       }
     },
     "ELEMENT_RESULTS": {
-      "subtitle": "Teste:",
+      "subtitle": "Detalhes do teste",
       "elements_tab": "Elementos",
       "page_tab": "Página",
       "total_elements":  "elementos encontrados",
@@ -502,8 +503,11 @@
         "element": "Elemento:",
         "attributes": "Atributos:",
         "content": "Conteúdo/texto:",
-        "code": "Código:"
-      }
+        "code": "Código:",
+        "location": "Localização:"
+      },
+      "ocurrenceNumber": "Nº Ocorrência",
+      "ocurrenceDetail": "Detalhe da ocorrência"
     },
     "CODE": {
       "subtitle": "Código da página",

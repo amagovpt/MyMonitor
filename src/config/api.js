@@ -6,10 +6,13 @@ import websitesResponse from '../utils/httpResponses/websites.json'
 import websiteResponse from '../utils/httpResponses/website.json'
 import removedPages from '../utils/httpResponses/removedPages.json'
 import reEvaluatePages from '../utils/httpResponses/re-evaluatePage.json'
+import pageEvaluation from '../utils/httpResponses/pageEvaluation.json'
 
+const baseURLDEV = process.env.REACT_APP_AMP_DEV_SERVER;
+const baseURLPROD = process.env.REACT_APP_AMP_PROD_SERVER;
 
 export const apiE = axios.create({
-  baseURL: "http://10.55.37.16:/api",
+  baseURL: baseURLDEV,
 });
 
 const apiCalls = {
@@ -69,6 +72,22 @@ const apiCalls = {
       err = error;
     })
   
+    return {response, err}
+  },
+
+  async getPageEvaluation(website, page) {
+    let err
+    const token = localStorage.getItem('MM-SSID');
+    const response = await apiE.get(`/evaluation/myMonitor/${website}/${page}`, {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      }
+    })
+    .catch(function (error) {
+      err = error;
+    })
+    
     return {response, err}
   },
 
@@ -147,6 +166,13 @@ const local = {
     return {response, err}
   },
 
+  async getPageEvaluation(page) {
+    let err
+    const response = pageEvaluation
+    
+    return {response, err}
+  },
+
   async removePages(pages) {
     let err
     const response = removedPages
@@ -171,5 +197,5 @@ const local = {
 
 
 
-// export const api = apiCalls;
+//export const api = apiCalls;
 export const api = local;

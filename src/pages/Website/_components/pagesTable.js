@@ -34,7 +34,7 @@ export function PagesTable({ data, pagesList, setPagesList, name, parsedData }) 
   const [error, setError] = useState(false)
   const [loading, setLoading] = useState(false)
 
-  const { pagesHeaders, columnsOptions, paginationButtonsTexts, nItemsPerPageText, itemsPaginationText } = getPagesSortingTable(t, navigate, name)
+  const { pagesHeaders, columnsOptions, paginationButtonsTexts, nItemsPerPageText, itemsPaginationText } = getPagesSortingTable(t, name)
 
   const modalRemovePages = () => {
     setShowModal(!showModal)

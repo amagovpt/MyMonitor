@@ -1,0 +1,37 @@
+.code_container_subtitle {
+    word-break: break-all;
+}
+
+.html_code {
+    padding: 15px;
+    background-color: var(--ama-color-background-white);
+    margin-bottom: 100px;
+    word-break: normal;
+    white-space: pre;
+    margin: 40px 0;
+}
+
+.html_code pre {
+    display: block !important;
+    font-size: 87.5%;
+    color: var(--ama-color-text-gray);
+    word-wrap: break-word;
+}
+
+/* Dark Theme */
+.pageCode_dark .code_container_subtitle {
+    color: var(--ama-color-background-white);
+}
+
+.pageCode_dark .link_breadcrumb_container .logout {
+    color: var(--ama-color-text-blue);
+}
+
+.pageCode_dark .html_code {
+    background-color: var(--ama-color-background-dark-lighter) !important;
+    color: var(--ama-color-background-white) !important;
+}
+
+.pageCode_dark .html_code pre {
+    color: var(--ama-color-background-white) !important;
+}
