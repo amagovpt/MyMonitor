@@ -16,6 +16,7 @@
         "no_user": "Wrong username or password",
         "system_error": "There was a system error. Please try later"
       },
+      "header_aria": "My Monitor page header",
       "main_aria": "main body of the My Monitor page"
     },
     "SIDEBAR": {
@@ -242,8 +243,8 @@
       "domain_label": "Current starting url",
       "pages_label": "Urls",
       "hint": "Please write complete urls, with protocol and www if need",
-      "required": "This field is <strong>required</strong>",
-      "error": "One of the urls is <strong>invalid</strong>",
+      "required": "This field is required",
+      "error": "One of the urls is invalid",
       "url_match_error": "One of the urls doesn't match the domain",
       "url_missing_protocol": "One of the urls protocol is missing (http or https)",
       "button": "Add pages",
@@ -260,7 +261,7 @@
         "close": "Close"
       },
       "crawler": {
-        "status": "Status",
+        "status": "Status: ",
         "not_running": "not running",
         "inProgress": "in progress",
         "complete": "complete",
@@ -274,10 +275,14 @@
           "cancel": "Cancel",
           "submit": "Import",
           "total": "Total:",
-          "selected": "Selected:"
+          "selected": "Selected: ",
+          "table":{
+            "caption": "Pages collected by the crawler"
+          }
         }
       },
       "sitemap": {
+        "title": "Insert site map",
         "warning_text": "Check sitemap examples in",
         "and": "and",
         "warning": "Sitemaps files need to have the first page equal to website's domain",

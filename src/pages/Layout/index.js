@@ -35,6 +35,7 @@ export default function Layout({ children }) {
         language={language}
         homePage={location.pathname === `${pathURL}` ? true : false}
         linkTo={`${pathURL}`}
+        ariaLabel={t("LOGIN.header_aria")}
       />
       <main className={`main ${mainDark}`} id="content" aria-label={t("LOGIN.main_aria")}>
         {children}

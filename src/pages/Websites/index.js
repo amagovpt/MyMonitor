@@ -55,7 +55,7 @@ export default function Websites() {
         let websiteList = []
         let websiteListForWebsitePage = []
 
-        await Promise.all(userWebsites.map(async (website, index) => {
+        await Promise.all(userWebsites.map(async (website) => {
           const {response, err} = await api.getUserWebsite(website.Name);
           if(err && err.code && err.code === "ERR_NETWORK") {
             setError(t("MISC.unexpected_error") + " " + t("MISC.error_contact"));
@@ -66,7 +66,6 @@ export default function Websites() {
           }
           return;
         }));
-
         websiteList.sort((a, b) => b.score - a.score);
         websiteList.forEach((obj, index) => {
           obj.rank = index + 1;

@@ -22,6 +22,16 @@
     color: var(--ama-color-system-error)
 }
 
+@media (min-width: 320px) and (max-width: 480px) {
+    .icon_mobile {
+        display: none !important;
+    }
+
+    .login_container {
+        width: auto;
+    }
+}
+
 /* Dark Theme */
 .home_dark section {
     background-color: var(--ama-color-background-dark-lighter) !important;

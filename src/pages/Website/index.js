@@ -9,7 +9,7 @@ import { Breadcrumb, LoadingComponent, StatisticsHeader, Button, Icon, Tabs } fr
 import { RadarGraph } from "./_components/radarGraph";
 import { BarLineGraphTabs } from "./_components/barLineGraphTabs";
 import { GoodBadTab } from "./_components/goodBadTab";
-import { PagesTable } from "./_components/pagesTable"
+import { PagesTable } from "./_components/modal/pagesTable"
 
 import { getStatTitles, pagesListTable } from "./utils";
 import { getData, createStatisticsObject, logoutUser, removeLocalStorages } from "../../utils/utils";
@@ -259,7 +259,7 @@ export default function Website() {
                 </div>
 
                 <section className={`bg-white py-2 mt-5 d-flex flex-row justify-content-center align-items-center`}>
-                  <PagesTable data={data} pagesList={pagesList} setPagesList={setPagesList} name={name} parsedData={parsedData} />
+                  <PagesTable data={data} pagesList={pagesList} setPagesList={setPagesList} name={name} parsedData={parsedData} mainTheme={websiteDark} />
                 </section>
               </>
             : <>

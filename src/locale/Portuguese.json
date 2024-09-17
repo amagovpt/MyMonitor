@@ -16,6 +16,7 @@
         "no_user": "Utilizador ou palavra-chave incorretos",
         "system_error": "Erro no sistema. Por favor tente mais tarde"
       },
+      "header_aria": "Cabeçalho da página do My Monitor",
       "main_aria": "corpo principal da página do My Monitor"
     },
     "SIDEBAR": {
@@ -242,8 +243,8 @@
       "domain_label": "Url inicial atual",
       "pages_label": "Urls",
       "hint": "Por favor insira urls completos, com o protocolo e www se necessário",
-      "required": "Este campo é <strong>obrigatório</strong>",
-      "error": "Um dos urls é <strong>inválido</strong>",
+      "required": "Este campo é obrigatório",
+      "error": "Um dos urls é inválido",
       "url_match_error": "Um dos urls não coincide com o domínio",
       "url_missing_protocol": "O protocolo de um dos urls está em falta (http ou https)",
       "button": "Adicionar páginas",
@@ -260,7 +261,7 @@
         "close": "Fechar"
       },
       "crawler": {
-        "status": "Estado",
+        "status": "Estado: ",
         "not_running": "parado",
         "inProgress": "em progresso",
         "complete": "completo",
@@ -275,13 +276,14 @@
           "cancel": "Cancelar",
           "submit": "Importar",
           "total": "Total:",
-          "selected": "Selecionadas:",
+          "selected": "Selecionadas: ",
           "table":{
             "caption": "Páginas recolhidas pelo crawler"
           }
         }
       },
       "sitemap": {
+        "title": "Inserir mapa do sítio web",
         "warning_text": "Ver exemplos de mapa de sítio web",
         "and": "e",
         "warning": "Os ficheiros sitemap necessitam que a sua primeira página seja igual ao domínio do sítio web",

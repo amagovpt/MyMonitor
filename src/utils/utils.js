@@ -384,6 +384,7 @@ export async function logoutUser(setLoading, setError, navigate, t) {
 }
 
 export function removeLocalStorages(navigate) {
+  console.log('remove localstorages')
   localStorage.removeItem('MM-username');
   localStorage.removeItem('MM-SSID');
   localStorage.removeItem('expires-at');

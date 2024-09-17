@@ -1,4 +1,5 @@
 import { pathURL } from "../../App";
+import clone from "lodash.clone";
 
 export function getStatTitles (t) {
     // Texts for StatisticsHeader component
@@ -201,7 +202,7 @@ export function getBarLineTable (t) {
 }
 
 
-export function getGoodBadTabTables (t, goodOrBad) {
+export function getGoodBadTabTables (t) {
   const dataTableHeadersA = [
     {type: "Text", name: "Nº", justifyCenter: true},
     {type: "Text", name: t("DIALOGS.table.description"), justifyCenter: false},
@@ -435,4 +436,49 @@ export function removeCertainPages(parsedData, name, newPages) {
   }
 
   return parsedData;
+}
+
+export function urlValidator(t, urls, domain) {
+  let invalid = "";
+  const size = urls.length;
+
+  if(!size){
+    return "";
+  }
+
+  const cleanedUrls = []
+  for(let i=0; i<size; i++){
+    const url = urls[i].trim();
+    if(!url.includes(".") || url[url.length-1] === "."){
+      invalid = t("ADD_PAGES.error");
+      break;
+    } else if(!url.startsWith("http://") && !url.startsWith("https://")){
+      invalid = t("ADD_PAGES.url_missing_protocol");
+      break;
+    } else if(!url.startsWith(domain)) {
+      invalid = t("ADD_PAGES.url_match_error");
+      break;
+    }
+    cleanedUrls.push(url)
+  }
+
+  return {invalid, cleanedUrls}
+}
+
+export function getResultsTable(t) {
+  const resultsHeader = [
+    {type: "Checkbox", name: t("PAGES.table.filter"), property: ""},
+    {type: "Text", bigWidth: "97%", name: t("ADD_PAGES.crawler.dialog.table.caption"), property: "", justifyCenter: false},
+  ]
+  
+  // Alterar isto para dar match com os nomes corretos
+  let columnsOptions = {
+    id: { type: "Checkbox", center: true, bold: false, decimalPlace: false },
+    CrawlWebsiteId: { type: "Skip", center: false, bold: false, decimalPlace: false },
+    Uri: { type: "Link", center: false, bold: false, decimalPlace: false, href: (row) => {
+      return ""
+    }},
+  }
+
+  return { resultsHeader, columnsOptions }
 }

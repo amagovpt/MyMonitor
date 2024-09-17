@@ -1,0 +1,409 @@
+{
+    "data": {
+        "success": 1,
+        "message": "NO_ERROR",
+        "errors": null,
+        "result": [
+            {
+                "CrawlId": 119732,
+                "CrawlWebsiteId": 1239,
+                "Uri": "https://justica.gov.pt/"
+            },
+            {
+                "CrawlId": 119733,
+                "CrawlWebsiteId": 1239,
+                "Uri": "https://justica.gov.pt/Protecao-juridica"
+            },
+            {
+                "CrawlId": 119734,
+                "CrawlWebsiteId": 1239,
+                "Uri": "https://justica.gov.pt/Registos/Civil"
+            },
+            {
+                "CrawlId": 119735,
+                "CrawlWebsiteId": 1239,
+                "Uri": "https://justica.gov.pt/Registos/Civil/Nascimento"
+            },
+            {
+                "CrawlId": 119736,
+                "CrawlWebsiteId": 1239,
+                "Uri": "https://justica.gov.pt/Registos/Civil/Casamento"
+            },
+            {
+                "CrawlId": 119737,
+                "CrawlWebsiteId": 1239,
+                "Uri": "https://justica.gov.pt/Registos/Civil/Divorcio"
+            },
+            {
+                "CrawlId": 119738,
+                "CrawlWebsiteId": 1239,
+                "Uri": "https://justica.gov.pt/Registos/Civil/Separacao-de-pessoas-e-bens"
+            },
+            {
+                "CrawlId": 119739,
+                "CrawlWebsiteId": 1239,
+                "Uri": "https://justica.gov.pt/Registos/Civil/Obito"
+            },
+            {
+                "CrawlId": 119740,
+                "CrawlWebsiteId": 1239,
+                "Uri": "https://justica.gov.pt/Registos/Civil/Heranca"
+            },
+            {
+                "CrawlId": 119741,
+                "CrawlWebsiteId": 1239,
+                "Uri": "https://justica.gov.pt/Registos/Civil/Mudanca-de-sexo-e-de-nome-proprio"
+            },
+            {
+                "CrawlId": 119742,
+                "CrawlWebsiteId": 1239,
+                "Uri": "https://justica.gov.pt/Registos/Nacionalidade"
+            },
+            {
+                "CrawlId": 119743,
+                "CrawlWebsiteId": 1239,
+                "Uri": "https://justica.gov.pt/Registos/Nacionalidade/Nacionalidade-portuguesa"
+            },
+            {
+                "CrawlId": 119744,
+                "CrawlWebsiteId": 1239,
+                "Uri": "https://justica.gov.pt/Registos/Identificacao"
+            },
+            {
+                "CrawlId": 119745,
+                "CrawlWebsiteId": 1239,
+                "Uri": "https://justica.gov.pt/Registos/Identificacao/Cartao-de-Cidadao"
+            },
+            {
+                "CrawlId": 119746,
+                "CrawlWebsiteId": 1239,
+                "Uri": "https://justica.gov.pt/Registos/Identificacao/Bilhete-de-Identidade"
+            },
+            {
+                "CrawlId": 119747,
+                "CrawlWebsiteId": 1239,
+                "Uri": "https://justica.gov.pt/Registos/Identificacao/Renovar-residencia"
+            },
+            {
+                "CrawlId": 119748,
+                "CrawlWebsiteId": 1239,
+                "Uri": "https://justica.gov.pt/Registos/Predial"
+            },
+            {
+                "CrawlId": 119749,
+                "CrawlWebsiteId": 1239,
+                "Uri": "https://justica.gov.pt/Registos/Predial/Documentos-e-registos"
+            },
+            {
+                "CrawlId": 119750,
+                "CrawlWebsiteId": 1239,
+                "Uri": "https://justica.gov.pt/Registos/Predial/Balcao-Unico-do-Predio-BUPi"
+            },
+            {
+                "CrawlId": 119751,
+                "CrawlWebsiteId": 1239,
+                "Uri": "https://justica.gov.pt/Registos/Comercial"
+            },
+            {
+                "CrawlId": 119752,
+                "CrawlWebsiteId": 1239,
+                "Uri": "https://justica.gov.pt/Registos/Comercial/Constituicao-de-entidade"
+            },
+            {
+                "CrawlId": 119753,
+                "CrawlWebsiteId": 1239,
+                "Uri": "https://justica.gov.pt/Registos/Comercial/Documentos"
+            },
+            {
+                "CrawlId": 119754,
+                "CrawlWebsiteId": 1239,
+                "Uri": "https://justica.gov.pt/Registos/Veiculos/Documentos-do-veiculo"
+            },
+            {
+                "CrawlId": 119755,
+                "CrawlWebsiteId": 1239,
+                "Uri": "https://justica.gov.pt/Servicos/DUA"
+            },
+            {
+                "CrawlId": 119756,
+                "CrawlWebsiteId": 1239,
+                "Uri": "https://justica.gov.pt/Registos/Criminal/Registo-Criminal"
+            },
+            {
+                "CrawlId": 119757,
+                "CrawlWebsiteId": 1239,
+                "Uri": "https://justica.gov.pt/Registos/Propriedade-Industrial"
+            },
+            {
+                "CrawlId": 119758,
+                "CrawlWebsiteId": 1239,
+                "Uri": "https://justica.gov.pt/Registos/Propriedade-Industrial/Marca"
+            },
+            {
+                "CrawlId": 119759,
+                "CrawlWebsiteId": 1239,
+                "Uri": "https://justica.gov.pt/Registos/Propriedade-Industrial/Patente"
+            },
+            {
+                "CrawlId": 119760,
+                "CrawlWebsiteId": 1239,
+                "Uri": "https://justica.gov.pt/Registos/Propriedade-Industrial/Design"
+            },
+            {
+                "CrawlId": 119761,
+                "CrawlWebsiteId": 1239,
+                "Uri": "https://justica.gov.pt/Resolucao-de-litigios"
+            },
+            {
+                "CrawlId": 119762,
+                "CrawlWebsiteId": 1239,
+                "Uri": "https://justica.gov.pt/Justica-criminal"
+            },
+            {
+                "CrawlId": 119763,
+                "CrawlWebsiteId": 1239,
+                "Uri": "https://justica.gov.pt/Justica-juvenil"
+            },
+            {
+                "CrawlId": 119764,
+                "CrawlWebsiteId": 1239,
+                "Uri": "https://justica.gov.pt/Justica-e-Economia"
+            },
+            {
+                "CrawlId": 119765,
+                "CrawlWebsiteId": 1239,
+                "Uri": "https://justica.gov.pt/Organica/Organica-do-MJ"
+            },
+            {
+                "CrawlId": 119766,
+                "CrawlWebsiteId": 1239,
+                "Uri": "https://justica.gov.pt/Organica/CPVC"
+            },
+            {
+                "CrawlId": 119767,
+                "CrawlWebsiteId": 1239,
+                "Uri": "https://justica.gov.pt/Noticias"
+            },
+            {
+                "CrawlId": 119768,
+                "CrawlWebsiteId": 1239,
+                "Uri": "https://justica.gov.pt/Servicos/Agendar-atendimento-nos-Registos"
+            },
+            {
+                "CrawlId": 119769,
+                "CrawlWebsiteId": 1239,
+                "Uri": "https://justica.gov.pt/Servicos/Guia-pratico-da-Justica"
+            },
+            {
+                "CrawlId": 119770,
+                "CrawlWebsiteId": 1239,
+                "Uri": "https://justica.gov.pt/Servicos/Submeter-pedido-de-nacionalidade"
+            },
+            {
+                "CrawlId": 119771,
+                "CrawlWebsiteId": 1239,
+                "Uri": "https://justica.gov.pt/Servicos/Plataforma-de-Resolucao-de-Litigios"
+            },
+            {
+                "CrawlId": 119772,
+                "CrawlWebsiteId": 1239,
+                "Uri": "https://justica.gov.pt/Servicos/Renovar-Autorizacao-de-Residencia"
+            },
+            {
+                "CrawlId": 119773,
+                "CrawlWebsiteId": 1239,
+                "Uri": "https://justica.gov.pt/Servicos/Renovacao-automatica-do-Cartao-de-Cidadao-com-entrega-em-casa"
+            },
+            {
+                "CrawlId": 119774,
+                "CrawlWebsiteId": 1239,
+                "Uri": "https://justica.gov.pt/Servicos/Registar-nascimento"
+            },
+            {
+                "CrawlId": 119775,
+                "CrawlWebsiteId": 1239,
+                "Uri": "https://justica.gov.pt/Servicos/Pedir-apoio-judiciario"
+            },
+            {
+                "CrawlId": 119776,
+                "CrawlWebsiteId": 1239,
+                "Uri": "https://justica.gov.pt/Servicos/Renovar-online-o-Cartao-de-Cidadao"
+            },
+            {
+                "CrawlId": 119777,
+                "CrawlWebsiteId": 1239,
+                "Uri": "https://justica.gov.pt/Servicos/Pedir-e-consultar-registo-criminal-de-pessoas"
+            },
+            {
+                "CrawlId": 119778,
+                "CrawlWebsiteId": 1239,
+                "Uri": "https://justica.gov.pt/Servicos/Pedir-e-consultar-registo-criminal-de-empresas-e-outras-entidades"
+            },
+            {
+                "CrawlId": 119779,
+                "CrawlWebsiteId": 1239,
+                "Uri": "https://justica.gov.pt/Servicos"
+            },
+            {
+                "CrawlId": 119780,
+                "CrawlWebsiteId": 1239,
+                "Uri": "https://justica.gov.pt/Servicos/Retirar-senha-online-para-atendimento-nos-Registos"
+            },
+            {
+                "CrawlId": 119781,
+                "CrawlWebsiteId": 1239,
+                "Uri": "https://justica.gov.pt/Noticias/Ministerio-da-Justica-anuncia-contratacao-de-570-Oficiais-de-Justica"
+            },
+            {
+                "CrawlId": 119782,
+                "CrawlWebsiteId": 1239,
+                "Uri": "https://justica.gov.pt/Noticias?organismo=33"
+            },
+            {
+                "CrawlId": 119783,
+                "CrawlWebsiteId": 1239,
+                "Uri": "https://justica.gov.pt/Noticias?tematica=252"
+            },
+            {
+                "CrawlId": 119784,
+                "CrawlWebsiteId": 1239,
+                "Uri": "https://justica.gov.pt/Noticias?tematica=1021"
+            },
+            {
+                "CrawlId": 119785,
+                "CrawlWebsiteId": 1239,
+                "Uri": "https://justica.gov.pt/Noticias?tematica=268"
+            },
+            {
+                "CrawlId": 119786,
+                "CrawlWebsiteId": 1239,
+                "Uri": "https://justica.gov.pt/Noticias/Comissao-para-a-Revisao-do-Processo-e-Procedimento-Tributario-iniciou-trabalhos-em-julho"
+            },
+            {
+                "CrawlId": 119787,
+                "CrawlWebsiteId": 1239,
+                "Uri": "https://justica.gov.pt/Noticias/Ministerio-da-Justica-e-Camara-de-Vila-Franca-de-Xira-acordam-projeto-para-novo-Palacio-da-Justica-1"
+            },
+            {
+                "CrawlId": 119788,
+                "CrawlWebsiteId": 1239,
+                "Uri": "https://justica.gov.pt/Noticias/Reconducao-de-membros-do-Conselho-Diretivo-do-INMLCF"
+            },
+            {
+                "CrawlId": 119789,
+                "CrawlWebsiteId": 1239,
+                "Uri": "https://justica.gov.pt/Noticias?organismo=18"
+            },
+            {
+                "CrawlId": 119790,
+                "CrawlWebsiteId": 1239,
+                "Uri": "https://justica.gov.pt/Noticias/Aprovado-diploma-sobre-aumento-do-suplemento-aos-Funcionarios-Judiciais"
+            },
+            {
+                "CrawlId": 119791,
+                "CrawlWebsiteId": 1239,
+                "Uri": "https://justica.gov.pt/Noticias/Ministra-da-Justica-recebeu-homologa-de-Sao-Tome-e-Principe"
+            },
+            {
+                "CrawlId": 119792,
+                "CrawlWebsiteId": 1239,
+                "Uri": "https://justica.gov.pt/Noticias?tematica=1040"
+            },
+            {
+                "CrawlId": 119793,
+                "CrawlWebsiteId": 1239,
+                "Uri": "https://justica.gov.pt/Noticias/Ministra-da-Justica-destaca-importancia-da-formacao-para-magistrados-de-elevada-qualidade"
+            },
+            {
+                "CrawlId": 119794,
+                "CrawlWebsiteId": 1239,
+                "Uri": "https://justica.gov.pt/Noticias?organismo=19"
+            },
+            {
+                "CrawlId": 119795,
+                "CrawlWebsiteId": 1239,
+                "Uri": "https://justica.gov.pt/Noticias?tematica=1189"
+            },
+            {
+                "CrawlId": 119796,
+                "CrawlWebsiteId": 1239,
+                "Uri": "https://justica.gov.pt/Noticias/Governo-aprova-24-3-ME-para-novo-sistema-de-vigilancia-eletronica"
+            },
+            {
+                "CrawlId": 119797,
+                "CrawlWebsiteId": 1239,
+                "Uri": "https://justica.gov.pt/Noticias?organismo=16"
+            },
+            {
+                "CrawlId": 119798,
+                "CrawlWebsiteId": 1239,
+                "Uri": "https://justica.gov.pt/Noticias?tematica=264"
+            },
+            {
+                "CrawlId": 119799,
+                "CrawlWebsiteId": 1239,
+                "Uri": "https://justica.gov.pt/Noticias?tematica=270"
+            },
+            {
+                "CrawlId": 119800,
+                "CrawlWebsiteId": 1239,
+                "Uri": "https://justica.gov.pt/Noticias/Secretaria-de-Estado-Ajunta-e-da-Justica-visita-EP-de-Torres-Novas"
+            },
+            {
+                "CrawlId": 119801,
+                "CrawlWebsiteId": 1239,
+                "Uri": "https://justica.gov.pt/Noticias/Governo-fecha-acordo-com-Sindicatos-dos-Guardas-Prisionais"
+            },
+            {
+                "CrawlId": 119802,
+                "CrawlWebsiteId": 1239,
+                "Uri": "https://justica.gov.pt/Noticias/MENAC-lanca-campanha-de-sensibilizacao-e-prevencao-contra-a-corrupcao"
+            },
+            {
+                "CrawlId": 119803,
+                "CrawlWebsiteId": 1239,
+                "Uri": "https://justica.gov.pt/Programa-Cidadaos-Igualdade-Direitos-e-Valores-CERV"
+            },
+            {
+                "CrawlId": 119804,
+                "CrawlWebsiteId": 1239,
+                "Uri": "https://justica.gov.pt/Guias/Como-criar-uma-empresa-online"
+            },
+            {
+                "CrawlId": 119805,
+                "CrawlWebsiteId": 1239,
+                "Uri": "https://justica.gov.pt/Guias/Guia-Pratico-da-Justica"
+            },
+            {
+                "CrawlId": 119806,
+                "CrawlWebsiteId": 1239,
+                "Uri": "https://justica.gov.pt/Guias/Guia-como-pedir-online-o-registo-de-nascimento"
+            },
+            {
+                "CrawlId": 119807,
+                "CrawlWebsiteId": 1239,
+                "Uri": "https://justica.gov.pt/Guias/como-pedir-e-usar-a-chave-movel-digital"
+            },
+            {
+                "CrawlId": 119808,
+                "CrawlWebsiteId": 1239,
+                "Uri": "https://justica.gov.pt/Guias-da-Justica"
+            },
+            {
+                "CrawlId": 119809,
+                "CrawlWebsiteId": 1239,
+                "Uri": "https://justica.gov.pt/Mapa-do-site"
+            },
+            {
+                "CrawlId": 119810,
+                "CrawlWebsiteId": 1239,
+                "Uri": "https://justica.gov.pt/sdj"
+            },
+            {
+                "CrawlId": 119811,
+                "CrawlWebsiteId": 1239,
+                "Uri": "https://justica.gov.pt/Avisos-Legais"
+            }
+        ]
+    }
+}
