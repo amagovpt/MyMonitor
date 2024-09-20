@@ -399,7 +399,8 @@
         "label": "Score distribution"
       },
       "table": {
-        "filter": "Filter",
+        "filter": "Select all",
+        "filterCell": "Select ",
         "page": "Page",
         "score": "Score",
         "A": "A*",

@@ -403,7 +403,8 @@
       "table": {
         "title": "Páginas do sítio web",
         "subtitle": "Lista de páginas",
-        "filter": "Filtro",
+        "filter": "Selecionar todos",
+        "filterCell": "Selecionar ",
         "page": "Página",
         "score": "Pontuação",
         "A": "A*",

@@ -103,8 +103,11 @@ export function processData(tot, url) {
         result["ref"] = ref;
 
         result["ref_website"] = refWebsite(ref);
-        result["relation"] =
-          tests[test]["ref"].length > 3 ? "relationACT" : "relationT";
+        if (/^[A-Za-z]\d+$|^[A-Z]{4}\d+$/.test(tests[test]["ref"])) {
+          result["relation"] = "relationT"
+        } else {
+          result["relation"] = "relationACT"
+        }
         result["ref_related_sc"] = new Array();
         result["value"] = tnum;
         result["prio"] = color === "ok" ? 3 : color === "err" ? 1 : 2;
@@ -223,8 +226,10 @@ export function getElementsList(nodes, tot) {
   const elements = new Array();
   for (const node of nodes || []) {
     if (node.elements) {
+      console.log('entrou 1')
       for (const element of node.elements || []) {
         const ele = getTagName(element);
+        console.log('ele', ele)
         elements.push({
           ele,
           code:
@@ -236,7 +241,9 @@ export function getElementsList(nodes, tot) {
           showCode: ele === "style" ? undefined : fixCode(element.htmlCode, tot),
           pointer: element.pointer,
         });
+        console.log('elements', elements)
       }
+      console.log('entrou 12')
     } else {
       const ele = getTagName(node);
       elements.push({

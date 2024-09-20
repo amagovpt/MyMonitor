@@ -118,7 +118,7 @@ export default function Websites() {
                 {directoriesList && directoriesList.length > 0 ?
                   <section className={`bg-white px-5 py-2 mt-5 d-flex flex-row justify-content-between`}>
                     <div className="d-flex flex-column py-4 w-100 directories_table">
-                      <h3 className="bold m-0">{t("WEBSITE_TABLE.table.title")}</h3>
+                      <h2 className="bold m-0">{t("WEBSITE_TABLE.table.title")}</h2>
                       <p className="ama-typography-body pb-4">{t("WEBSITE_TABLE.table.subtitle")}</p>
                       {directoriesList && <SortingTable
                         hasSort={true}

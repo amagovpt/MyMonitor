@@ -152,6 +152,10 @@ input[type=file] {
     background-color: var(--ama-color-grey-100);
 }
 
+.pages_table .table tbody td {
+    padding: 0rem !important;
+}
+
 /* MOBILE */
 @media (min-width: 320px) and (max-width: 480px) {
     .radar_graphic {

@@ -258,7 +258,7 @@ export default function Website() {
                   <Tabs tabs={tabsGoodBad} defaultActiveKey="tab1" vertical={false} />
                 </div>
 
-                <section className={`bg-white py-2 mt-5 d-flex flex-row justify-content-center align-items-center`}>
+                <section className={`bg-white px-5 py-2 mt-5 d-flex flex-row justify-content-center align-items-center`}>
                   <PagesTable data={data} pagesList={pagesList} setPagesList={setPagesList} name={name} parsedData={parsedData} mainTheme={websiteDark} />
                 </section>
               </>

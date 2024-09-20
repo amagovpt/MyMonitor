@@ -11,14 +11,15 @@ export function UserPass({ username, setUsername, password, setPassword, error, 
 
   return (
     <>
-        <form className="login d-flex flex-column">
+        <form className="login d-flex flex-column" onSubmit={() => loginUser()}>
             <Input darkTheme={theme} id={t("LOGIN.username_label").replace(' ', '_')} label={t("LOGIN.username_label")} type={"text"} className={"mb-3"} value={username} onChange={(e) => setUsername(e.target.value)} />
-            <Input darkTheme={theme} id={t("LOGIN.password_label").replace(' ', '_')} label={t("LOGIN.password_label")} type={"password"} className={"mb-3"} value={password} onChange={(e) => setPassword(e.target.value)} />
+            <Input darkTheme={theme} id={t("LOGIN.password_label").replace(' ', '_')} label={t("LOGIN.password_label")} type={"password"} className={"mb-3"} value={password} onChange={(e) => setPassword(e.target.value)} showPassTextAria={t("LOGIN.show_password")} hidePassTextAria={t("LOGIN.hide_password")} />
             {error && <span className="mb-3 error">{error}</span>}
             {!loading ? <Button
             darkTheme={theme}
             className={"align-self-center submit"}
             variant={"primary"}
+            type="submit"
             text={t("LOGIN.submit")}
             disabled={!(username && password)}
             iconRight={<Icon darkTheme={theme} name="AMA-SetadoisoficialCima-Line" />} 
@@ -34,7 +35,6 @@ export function UserPass({ username, setUsername, password, setPassword, error, 
                 </g>
                 </svg>
             }
-            onClick={() => loginUser()}
             /> : <LoadingComponent darkTheme={theme} loadingText={t("MISC.loading")} />}
         </form>
     </>

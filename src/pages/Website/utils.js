@@ -355,23 +355,23 @@ export function getPagesSortingTable (t, name) {
   const pagesHeaders = [
     [
       {type: "Checkbox", name: t("PAGES.table.filter"), property: ""},
-      {type: "SortingText", bigWidth: "50%", name: t("PAGES.table.page"), property: "Uri"},
+      {type: "SortingText", bigWidth: "30%", name: t("PAGES.table.page"), property: "Uri"},
       {type: "SortingText", name: t("PAGES.table.score"), property: "Score", justifyCenter: true},
       {type: "Text", name: t("PAGES.table.levels"), property: "", justifyCenter: true, multiCol: true, nCol: 3},
-      {type: "SortingText", bigWidth: "10%", name: t("PAGES.table.date"), property: "Evaluation_Date", justifyCenter: true},
+      {type: "SortingText", bigWidth: "20%", name: t("PAGES.table.date"), property: "Evaluation_Date", justifyCenter: true},
     ],
     [
       {type: "Empty", name: t("MISC.empty"), nCol: 3, multiCol: true, empty: true},
-      {type: "SortingText", bigWidth: "10%", name: t("PAGES.table.A"), property: "A", justifyCenter: true},
-      {type: "SortingText", bigWidth: "10%", name: t("PAGES.table.AA"), property: "AA", justifyCenter: true},
-      {type: "SortingText", bigWidth: "10%", name: t("PAGES.table.AAA"), property: "AAA", justifyCenter: true},
+      {type: "SortingText", name: t("PAGES.table.A"), property: "A", justifyCenter: true},
+      {type: "SortingText", name: t("PAGES.table.AA"), property: "AA", justifyCenter: true},
+      {type: "SortingText", name: t("PAGES.table.AAA"), property: "AAA", justifyCenter: true},
       {type: "Empty", name: t("MISC.empty"), nCol: 1, multiCol: true, empty: true}
     ]
   ]
   
   // Alterar isto para dar match com os nomes corretos
   let columnsOptions = {
-    id: { type: "Checkbox", center: true, bold: false, decimalPlace: false, headers: t("PAGES.table.filter") },
+    id: { type: "Checkbox", center: true, bold: false, decimalPlace: false, headers: t("PAGES.table.filter").replaceAll(' ', ''), label: t("PAGES.table.filterCell")},
     Uri: { type: "Link", center: true, bold: false, decimalPlace: false, headers: t("PAGES.table.page"), href: (row) => {
       return `${pathURL}user/${name}/${encodeURIComponent(row['Uri'])}`
     }},
@@ -473,7 +473,7 @@ export function getResultsTable(t) {
   
   // Alterar isto para dar match com os nomes corretos
   let columnsOptions = {
-    id: { type: "Checkbox", center: true, bold: false, decimalPlace: false },
+    id: { type: "Checkbox", center: true, bold: false, decimalPlace: false, label: t("PAGES.table.filterCell") },
     CrawlWebsiteId: { type: "Skip", center: false, bold: false, decimalPlace: false },
     Uri: { type: "Link", center: false, bold: false, decimalPlace: false, href: (row) => {
       return ""

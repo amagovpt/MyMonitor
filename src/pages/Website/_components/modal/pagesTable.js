@@ -98,7 +98,7 @@ export function PagesTable({ data, pagesList, setPagesList, name, parsedData, ma
           {addPagesLayout && <AddPagesSection data={data} name={name} mainTheme={mainTheme} closeModal={closeModal} />}
           {reEvaluatePagesLayout && <ReEvaluateSection closeModal={closeModal} loading={loading} error={error} />}
         </Modal>
-        <div className="d-flex flex-column py-4 section_container pages_table">
+        <div className="d-flex flex-column py-4 pages_table w-100">
             <div className="d-flex flex-row justify-content-between pages_container">
                 <div>
                 <h3 className="bold m-0">{t("PAGES.table.title")}</h3>
