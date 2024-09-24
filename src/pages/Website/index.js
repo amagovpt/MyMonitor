@@ -143,7 +143,7 @@ export default function Website() {
         localStorage.setItem('websiteList', JSON.stringify(websiteList))
         localStorage.setItem('websiteListForWebsitePage', JSON.stringify(websiteListForWebsitePage))
         setParsedData(websiteListForWebsitePage)
-        const targetObject = parsedData.find(obj => obj.name === name);
+        const targetObject = websiteListForWebsitePage.find(obj => obj.name === name);
         if(targetObject) {
           setData(targetObject)
           const list = pagesListTable(targetObject.pages, moment)

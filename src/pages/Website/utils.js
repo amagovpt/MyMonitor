@@ -365,7 +365,7 @@ export function getPagesSortingTable (t, name) {
       {type: "SortingText", name: t("PAGES.table.A"), property: "A", justifyCenter: true},
       {type: "SortingText", name: t("PAGES.table.AA"), property: "AA", justifyCenter: true},
       {type: "SortingText", name: t("PAGES.table.AAA"), property: "AAA", justifyCenter: true},
-      {type: "Empty", name: t("MISC.empty"), nCol: 1, multiCol: true, empty: true}
+      {type: "Empty", name: t("MISC.empty")+2, nCol: 1, multiCol: true, empty: true}
     ]
   ]
   
