@@ -349,8 +349,8 @@ const local = {
   isUserLoggedIn() {
     const token = localStorage.getItem('MM-SSID');
     const expires = localStorage.getItem('expires-at');
-    // return token && new Date() < new Date(expires);
-    return true;
+    return token && new Date() < new Date(expires);
+    //return true;
   }
 }
 
