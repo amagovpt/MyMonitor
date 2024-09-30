@@ -66,10 +66,10 @@
 
 .website_modal {
     position: absolute;
-    top: 25vh;
+    top: 15vh;
     left: 43vh;
     right: 42vh;
-    bottom: 15vh;
+    bottom: 10vh;
     background-color: var(--ama-color-background-white);
     max-height: 500px;
 }
@@ -290,7 +290,7 @@ input[type=file] {
     top: 15vh;
     left: 43vh;
     right: 42vh;
-    bottom: 15vh;
+    bottom: 10vh;
     background-color: var(--ama-color-background-dark-lighter);
     color: var(--ama-color-background-white);
     max-height: 500px;

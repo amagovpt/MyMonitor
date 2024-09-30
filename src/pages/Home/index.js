@@ -85,7 +85,7 @@ export default function Home() {
             </p>
 
             {/* User + Pass */}
-            <UserPass username={username} setUsername={setUsername} password={password} setPassword={setPassword} error={error} loginUser={loginUser} loading={loading} />
+            <UserPass username={username} setUsername={setUsername} password={password} setPassword={setPassword} error={error} loginUser={() => loginUser()} loading={loading} />
             
             {/* Authentication with CC */}
             {/* <AuthCC loginUser={loginUserCC} loading={loading} /> */}

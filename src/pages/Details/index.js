@@ -10,6 +10,7 @@ import { TableDetails } from "./_components/TableDetails";
 
 import { pathURL } from "../../App";
 import { api } from '../../config/api'
+import LZString from 'lz-string';
 
 import { logoutUser, removeLocalStorages, checkUserHasPage } from "../../utils/utils";
 import { getTestResults } from "../../services";
@@ -77,9 +78,9 @@ export default function Details() {
       if(err && err.code && err.code) {
         setError(t("MISC.unexpected_error") + " " + t("MISC.error_contact"));
       } else if(response && response.data.success === 1) {
-        localStorage.setItem("evaluation", JSON.stringify(response.data));
+        localStorage.setItem("evaluation", LZString.compressToUTF16(JSON.stringify(response.data)));
         localStorage.setItem("evaluationUrl", pageName);
-        localStorage.setItem("elemData", JSON.stringify(response.data?.result?.data));
+        localStorage.setItem("elemData", LZString.compressToUTF16(JSON.stringify(response.data?.result?.data)));
         tot = response?.data?.result?.data.tot;
         getDetailsData(response.data?.result?.data, tot);
       }
@@ -93,14 +94,14 @@ export default function Details() {
 
   useEffect(() => {
     if(api.isUserLoggedIn()) {
-        const storedData = localStorage.getItem("evaluation");
+        const storedData = LZString.decompressFromUTF16(localStorage.getItem("evaluation"));
         const storedUrl = localStorage.getItem("evaluationUrl");
         const websiteListForWebsitePage = localStorage.getItem('websiteListForWebsitePage');
         if(checkUserHasPage(name, JSON.parse(websiteListForWebsitePage), pageName)) {
           if(storedData && storedUrl === pageName) {
             const parsedData = JSON.parse(storedData)
             tot = parsedData?.result?.data?.tot;
-            const allData = localStorage.getItem("elemData");
+            const allData = LZString.decompressFromUTF16(localStorage.getItem("elemData"));
             if(allData){
               const parsedElems = JSON.parse(allData)
               getDetailsData(parsedElems, tot);

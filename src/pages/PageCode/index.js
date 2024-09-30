@@ -10,6 +10,7 @@ import { ButtonsActions } from "./_components/buttons-revalidation";
 
 import { pathURL } from "../../App";
 import { api } from '../../config/api'
+import LZString from 'lz-string';
 
 import { logoutUser, removeLocalStorages, downloadCSV, checkUserHasPage } from "../../utils/utils";
 import { processData } from "../../services";
@@ -75,7 +76,7 @@ export default function PageCode() {
       if(err && err.code && err.code) {
         setError(t("MISC.unexpected_error") + " " + t("MISC.error_contact"));
       } else if(response && response.data.success === 1) {
-        localStorage.setItem("evaluation", JSON.stringify(response.data));
+        localStorage.setItem("evaluation", LZString.compressToUTF16(JSON.stringify(response.data)));
         localStorage.setItem("evaluationUrl", pageName);
         setParsedData(response.data)
         setDataProcess(processData(response.data?.result?.data?.tot, pageName))
@@ -92,7 +93,7 @@ export default function PageCode() {
 
   useEffect(() => {
     if(api.isUserLoggedIn()) {
-      const storedData = localStorage.getItem("evaluation");
+      const storedData = LZString.decompressFromUTF16(localStorage.getItem("evaluation"));
       const storedUrl = localStorage.getItem("evaluationUrl");
       const websiteListForWebsitePage = localStorage.getItem('websiteListForWebsitePage');
       if(checkUserHasPage(name, JSON.parse(websiteListForWebsitePage), pageName)) {

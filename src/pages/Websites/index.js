@@ -50,7 +50,6 @@ export default function Websites() {
       } else if (response && response.data.success === 1) {
 
         const userWebsites = response.data.result
-        localStorage.setItem('userWebsites', JSON.stringify(userWebsites))
 
         let websiteList = []
         let websiteListForWebsitePage = []
