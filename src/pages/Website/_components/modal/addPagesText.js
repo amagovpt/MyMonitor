@@ -51,6 +51,7 @@ export function AddPagesText({ data, name, setShowSecondModal }) {
           type={'text'}
           error={error}
           onChange={(e) => setUrls(e.target.value)}
+          id={"add_pages_text_area"}
         />
         {!error && <span className="ama-typography-body-large">
           <Icon name="AMA-Interrogacao-Solid" />
