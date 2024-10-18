@@ -354,36 +354,34 @@ export function getTopTenGraphTable (t, theme, labelsForHorizontal, dataForHoriz
 export function getPagesSortingTable (t, name) {
   const pagesHeaders = [
     [
-      {type: "Checkbox", name: t("PAGES.table.filter"), property: ""},
-      {type: "SortingText", bigWidth: "30%", name: t("PAGES.table.page"), property: "Uri"},
-      {type: "SortingText", name: t("PAGES.table.score"), property: "Score", justifyCenter: true},
-      {type: "Text", name: t("PAGES.table.levels"), property: "", justifyCenter: true, multiCol: true, nCol: 3},
-      {type: "SortingText", bigWidth: "20%", name: t("PAGES.table.date"), property: "Evaluation_Date", justifyCenter: true},
+      {type: "Checkbox", nRow: 2, name: t("PAGES.table.filter"), property: ""},
+      {type: "SortingText", nRow: 2, bigWidth: "30%", name: t("PAGES.table.page"), property: "Uri"},
+      {type: "SortingText", nRow: 2, name: t("PAGES.table.score"), property: "Score", justifyCenter: true},
+      {id: "conformidade", type: "Text", name: t("PAGES.table.levels"), property: "", justifyCenter: true, multiCol: true, nCol: 3},
+      {type: "SortingText", nRow: 2, bigWidth: "20%", name: t("PAGES.table.date"), property: "Evaluation_Date", justifyCenter: true},
     ],
     [
-      {type: "Empty", name: t("MISC.empty"), nCol: 3, multiCol: true, empty: true},
-      {type: "SortingText", name: t("PAGES.table.A"), property: "A", justifyCenter: true},
-      {type: "SortingText", name: t("PAGES.table.AA"), property: "AA", justifyCenter: true},
-      {type: "SortingText", name: t("PAGES.table.AAA"), property: "AAA", justifyCenter: true},
-      {type: "Empty", name: t("MISC.empty")+2, nCol: 1, multiCol: true, empty: true}
+      {id: "A", type: "SortingText", name: t("PAGES.table.A"), property: "A", justifyCenter: true},
+      {id: "AA", type: "SortingText", name: t("PAGES.table.AA"), property: "AA", justifyCenter: true},
+      {id: "AAA", type: "SortingText", name: t("PAGES.table.AAA"), property: "AAA", justifyCenter: true},
     ]
   ]
   
   // Alterar isto para dar match com os nomes corretos
   let columnsOptions = {
-    id: { type: "Checkbox", center: true, bold: false, decimalPlace: false, headers: t("PAGES.table.filter").replaceAll(' ', ''), label: t("PAGES.table.filterCell")},
-    Uri: { type: "Link", center: true, bold: false, decimalPlace: false, headers: t("PAGES.table.page"), href: (row) => {
+    id: { type: "Checkbox", center: true, bold: false, decimalPlace: false, label: t("PAGES.table.filterCell")},
+    Uri: { type: "Link", center: true, bold: false, decimalPlace: false, href: (row) => {
       return `${pathURL}user/${name}/${encodeURIComponent(row['Uri'])}`
     }},
-    Show_In: { type: "Skip", center: false, bold: false, decimalPlace: false, headers: '' },
-    Creation_Date: { type: "Skip", center: false, bold: false, decimalPlace: false, headers: '' },
-    Score: { type: "Number", center: true, bold: false, decimalPlace: false, headers: t("PAGES.table.score") },
-    A: { type: "Number", center: true, bold: false, decimalPlace: false, headers: (t("PAGES.table.levels").replaceAll(' ', '') + " " + t("PAGES.table.A")) },
-    AA: { type: "Number", center: true, bold: false, decimalPlace: false, headers: (t("PAGES.table.levels").replaceAll(' ', '') + " " + t("PAGES.table.AA")) },
-    AAA: { type: "Number", center: true, bold: false, decimalPlace: false, headers: (t("PAGES.table.levels").replaceAll(' ', '') + " " + t("PAGES.table.AAA")) },
-    Tot: { type: "Skip", center: false, bold: false, decimalPlace: false, headers: '' },
-    Errors: { type: "Skip", center: false, bold: false, decimalPlace: false, headers: '' },
-    Evaluation_Date: { type: "Text", center: true, bold: false, decimalPlace: false, headers: t("PAGES.table.date") },
+    Show_In: { type: "Skip", center: false, bold: false, decimalPlace: false },
+    Creation_Date: { type: "Skip", center: false, bold: false, decimalPlace: false },
+    Score: { type: "Number", center: true, bold: false, decimalPlace: false },
+    A: { type: "Number", center: true, bold: false, decimalPlace: false, headers: "conformidade A" },
+    AA: { type: "Number", center: true, bold: false, decimalPlace: false, headers: "conformidade AA" },
+    AAA: { type: "Number", center: true, bold: false, decimalPlace: false, headers: "conformidade AAA" },
+    Tot: { type: "Skip", center: false, bold: false, decimalPlace: false },
+    Errors: { type: "Skip", center: false, bold: false, decimalPlace: false },
+    Evaluation_Date: { type: "Text", center: true, bold: false, decimalPlace: false },
   }
 
   let paginationButtonsTexts = [

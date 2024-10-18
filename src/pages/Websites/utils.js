@@ -10,36 +10,35 @@ import { pathURL } from "../../App";
 export function getDirectoryTable (t) {
     const directoriesHeaders = [
       [
-        {type: "SortingText", bigWidth: "10%", name: t("WEBSITE_TABLE.table.rank"), property: "rank"},
-        {type: "SortingText", bigWidth: "50%", name: t("WEBSITE_TABLE.table.name"), property: "name"},
-        {type: "SortingIcon", name: "AMA-DeclaracaoDark-Line", description: t("WEBSITE_TABLE.table.declaration"), property: "declaration"},
-        {type: "SortingIcon", name: "AMA-SeloDark-Line", description: t("WEBSITE_TABLE.table.stamp"), property: "stamp"},
-        {type: "SortingText", bigWidth: "10%", name: t("WEBSITE_TABLE.table.score"), property: "score", justifyCenter: true},
-        {type: "SortingText", bigWidth: "10%", name: t("WEBSITE_TABLE.table.pages"), property: "nPages", justifyCenter: true},
-        {type: "Text", name: t("WEBSITE_TABLE.table.levels"), property: "", justifyCenter: true, multiCol: true, nCol: 3},
+        {type: "SortingText", nRow: 2, bigWidth: "10%", name: t("WEBSITE_TABLE.table.rank"), property: "rank"},
+        {type: "SortingText", nRow: 2, bigWidth: "50%", name: t("WEBSITE_TABLE.table.name"), property: "name"},
+        {type: "SortingIcon", nRow: 2, name: "AMA-DeclaracaoDark-Line", description: t("WEBSITE_TABLE.table.declaration"), property: "declaration"},
+        {type: "SortingIcon", nRow: 2, name: "AMA-SeloDark-Line", description: t("WEBSITE_TABLE.table.stamp"), property: "stamp"},
+        {type: "SortingText", nRow: 2, bigWidth: "10%", name: t("WEBSITE_TABLE.table.score"), property: "score", justifyCenter: true},
+        {type: "SortingText", nRow: 2, bigWidth: "10%", name: t("WEBSITE_TABLE.table.pages"), property: "nPages", justifyCenter: true},
+        {id: "conformidade", type: "Text", name: t("WEBSITE_TABLE.table.levels"), property: "", justifyCenter: true, multiCol: true, nCol: 3},
       ],
       [
-        {type: "Empty", nCol: 6, name: t("MISC.empty"), multiCol: true, empty: true},
-        {type: "SortingText", bigWidth: "10%", name: t("WEBSITE_TABLE.table.A"), property: "A", justifyCenter: true},
-        {type: "SortingText", bigWidth: "10%", name: t("WEBSITE_TABLE.table.AA"), property: "AA", justifyCenter: true},
-        {type: "SortingText", bigWidth: "10%", name: t("WEBSITE_TABLE.table.AAA"), property: "AAA", justifyCenter: true}
+        {id: "A", type: "SortingText", bigWidth: "10%", name: t("WEBSITE_TABLE.table.A"), property: "A", justifyCenter: true},
+        {id: "AA", type: "SortingText", bigWidth: "10%", name: t("WEBSITE_TABLE.table.AA"), property: "AA", justifyCenter: true},
+        {id: "AAA", type: "SortingText", bigWidth: "10%", name: t("WEBSITE_TABLE.table.AAA"), property: "AAA", justifyCenter: true}
       ]
     ]
     
     let columnsOptions = {
-      id: { type: "Skip", center: false, bold: false, decimalPlace: false, headers: '' },
-      rank: { type: "Number", center: true, bold: false, decimalPlace: false, headers: t("WEBSITE_TABLE.table.rank") },
-      name: { type: "Link", center: false, bold: false, decimalPlace: false, headers: t("WEBSITE_TABLE.table.name").replaceAll(' ', ''), href: (row) => {
+      id: { type: "Skip", center: false, bold: false, decimalPlace: false },
+      rank: { type: "Number", center: true, bold: false, decimalPlace: false },
+      name: { type: "Link", center: false, bold: false, decimalPlace: false, href: (row) => {
         return `${pathURL}user/${row['name']}`
       }},
-      entity: { type: "Skip", center: false, bold: false, decimalPlace: false, headers: '' },
-      declaration: { type: "Declaration", center: true, bold: false, decimalPlace: false, headers: "AMA-DeclaracaoDark-Line" },
-      stamp: { type: "Stamp", center: true, bold: false, decimalPlace: false, headers: "AMA-SeloDark-Line" },
-      score: { type: "Number", center: true, bold: false, decimalPlace: true, headers: t("WEBSITE_TABLE.table.score") },
-      nPages: { type: "Number", center: true, bold: false, decimalPlace: false, headers: t("WEBSITE_TABLE.table.pages").replaceAll(' ', '') },
-      A: { type: "Number", center: true, bold: false, decimalPlace: false, headers: (t("WEBSITE_TABLE.table.levels").replaceAll(' ', '') + " " + t("WEBSITE_TABLE.table.A")) },
-      AA: { type: "Number", center: true, bold: false, decimalPlace: false, headers: (t("WEBSITE_TABLE.table.levels").replaceAll(' ', '') + " " + t("WEBSITE_TABLE.table.AA")) },
-      AAA: { type: "Number", center: true, bold: false, decimalPlace: false, headers: (t("WEBSITE_TABLE.table.levels").replaceAll(' ', '') + " " + t("WEBSITE_TABLE.table.AAA")) },
+      entity: { type: "Skip", center: false, bold: false, decimalPlace: false },
+      declaration: { type: "Declaration", center: true, bold: false, decimalPlace: false },
+      stamp: { type: "Stamp", center: true, bold: false, decimalPlace: false },
+      score: { type: "Number", center: true, bold: false, decimalPlace: true },
+      nPages: { type: "Number", center: true, bold: false, decimalPlace: false },
+      A: { type: "Number", center: true, bold: false, decimalPlace: false, headers: "conformidade A" },
+      AA: { type: "Number", center: true, bold: false, decimalPlace: false, headers: "conformidade AA" },
+      AAA: { type: "Number", center: true, bold: false, decimalPlace: false, headers: "conformidade AAA" },
     }
 
     let nameOfIcons = [
