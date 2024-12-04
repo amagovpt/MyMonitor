@@ -15,7 +15,7 @@ import { api } from '../../../../config/api'
 
 import { urlValidator } from '../../utils'
 
-export function Crawl({ data, name, setShowSecondModal }) {
+export function Crawl({ data, name, setShowSecondModal, closeModal }) {
   const { t } = useTranslation();
   const { theme } = useContext(ThemeContext);
 
@@ -88,6 +88,7 @@ export function Crawl({ data, name, setShowSecondModal }) {
         setError(t("MISC.unexpected_error") + " " + t("MISC.error_contact"));
       } else if (response && response.data.success === 1) {
         setShowSecondModal(true)
+        closeModal()
         setShowResultsModal(false)
       }
     }

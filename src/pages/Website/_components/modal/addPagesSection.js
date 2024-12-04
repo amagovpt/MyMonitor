@@ -15,11 +15,10 @@ import { Crawl } from "./crawl";
 
 import { api } from '../../../../config/api'
 
-export function AddPagesSection({data, name, mainTheme, closeModal}) {
+export function AddPagesSection({data, name, mainTheme, closeModal, setShowSecondModal}) {
   const { t } = useTranslation();
   const { theme } = useContext(ThemeContext);
 
-  const [showSecondModal, setShowSecondModal] = useState(false);
   const [message, setMessage] = useState(false);
 
   const tabsAddPages = [
@@ -28,7 +27,7 @@ export function AddPagesSection({data, name, mainTheme, closeModal}) {
       title: t("ADD_PAGES.tab1"),
       component:
       <div className={`${mainTheme}`}>
-        <AddPagesText data={data} name={name} setShowSecondModal={setShowSecondModal} />
+        <AddPagesText data={data} name={name} setShowSecondModal={setShowSecondModal} closeModal={closeModal} />
       </div>,
     },
     {
@@ -36,7 +35,7 @@ export function AddPagesSection({data, name, mainTheme, closeModal}) {
       title: t("ADD_PAGES.tab2"),
       component:
       <div className={`${mainTheme}`}>
-        <ChooseFileAddPage data={data} name={name} setShowSecondModal={setShowSecondModal} />
+        <ChooseFileAddPage data={data} name={name} setShowSecondModal={setShowSecondModal} closeModal={closeModal} />
       </div>,
     },
     {
@@ -44,7 +43,7 @@ export function AddPagesSection({data, name, mainTheme, closeModal}) {
       title: t("ADD_PAGES.tab3"),
       component:
       <div className={`${mainTheme}`}>
-        <Crawl data={data} name={name} setShowSecondModal={setShowSecondModal} />
+        <Crawl data={data} name={name} setShowSecondModal={setShowSecondModal} closeModal={closeModal} />
       </div>,
     },
     {
@@ -82,30 +81,6 @@ export function AddPagesSection({data, name, mainTheme, closeModal}) {
 
   return (
     <>
-      <Modal
-        isOpen={showSecondModal}
-        onRequestClose={() => setShowSecondModal(false)}
-        contentLabel="Success modal"
-        className={theme === "light" ? "second_website_modal" : "second_website_modal_dark"}
-        overlayClassName={theme === "light" ?"website_overlay_modal" : "website_overlay_modal_dark"}
-      >
-        <div className="modal_container d-flex flex-column p-4">
-          <div className="d-flex flex-row justify-content-between mb-3 align-items-center">
-          <h2>{t("ADD_PAGES.title")}</h2>
-          <Button
-            darkTheme={theme}
-            variant={"secondary"}
-            className={"close_modal"}
-            aria-label={t(`ADD_PAGES.evaluations_dialog.close`)}
-            text={t(`ADD_PAGES.evaluations_dialog.close`)}
-            onClick={() => setShowSecondModal(false)}
-            size={"lg"}
-            iconRight={<Icon name="AMA-Erro2-Line" />}
-          />
-          </div>
-          <p className="ama-typography-body-large">{t("ADD_PAGES.evaluations_dialog.message")}</p>
-        </div>
-      </Modal>
       <div className="modal_container d-flex flex-column p-4">
         <div className="d-flex flex-row justify-content-between mb-3 align-items-center">
           <h2>{t("ADD_PAGES.title")}</h2>

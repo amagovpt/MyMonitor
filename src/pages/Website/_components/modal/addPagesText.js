@@ -11,7 +11,7 @@ import { urlValidator } from '../../utils'
 
 import { api } from '../../../../config/api'
 
-export function AddPagesText({ data, name, setShowSecondModal }) {
+export function AddPagesText({ data, name, setShowSecondModal, closeModal }) {
   const { t } = useTranslation();
   const { theme } = useContext(ThemeContext);
 
@@ -37,6 +37,7 @@ export function AddPagesText({ data, name, setShowSecondModal }) {
         setApiError(t("MISC.unexpected_error") + " " + t("MISC.error_contact"));
       } else if (response && response.data.success === 1) {
         setShowSecondModal(true)
+        closeModal()
       }
     }
     setLoading(false)
