@@ -195,7 +195,7 @@ export function getTagName(element) {
   return name;
 }
 
-export function fixCode(code, tot) {
+export function fixCode(code, tot, showCode) {
   code = code.replace(/_cssrules="true"/g, "");
   code = code.replace(/_documentselector="undefined"/g, "");
 
@@ -219,37 +219,31 @@ export function fixCode(code, tot) {
     index = code.indexOf('_selector="');
   }
 
-  return fixeSrcAttribute(code, tot);
+  return showCode ? removeImgStyles(code) : code;
 }
 
 export function getElementsList(nodes, tot) {
   const elements = new Array();
   for (const node of nodes || []) {
     if (node.elements) {
-      console.log('entrou 1')
-      for (const element of node.elements || []) {
-        const ele = getTagName(element);
-        console.log('ele', ele)
-        elements.push({
-          ele,
-          code:
-            ele === "style"
-              ? element.attributes
-              : ele === "title"
-                ? this.evaluation.processed.metadata.title
-                : fixCode(element.htmlCode, tot),
-          showCode: ele === "style" ? undefined : fixCode(element.htmlCode, tot),
-          pointer: element.pointer,
-        });
-        console.log('elements', elements)
-      }
-      console.log('entrou 12')
+      const ele = getTagName(node.elements[0]);
+      elements.push({
+        ele,
+        code:
+          ele === "style"
+            ? node.elements[0].attributes
+            : ele === "title"
+              ? this.evaluation.processed.metadata.title
+              : fixCode(node.elements[0].htmlCode, tot),
+        showCode: ele === "style" ? undefined : fixCode(node.elements[0].htmlCode, tot, true),
+        pointer: node.elements[0].pointer,
+      });
     } else {
       const ele = getTagName(node);
       elements.push({
         ele,
         code: ele === "style" ? node.attributes : fixCode(node.htmlCode, tot),
-        showCode: ele === "style" ? undefined : fixCode(node.htmlCode, tot),
+        showCode: ele === "style" ? undefined : fixCode(node.htmlCode, tot, true),
         pointer: node.pointer,
       });
     }
@@ -313,6 +307,21 @@ function fixeSrcAttribute(code, tot) {
   }
 
   return code;
+}
+
+function removeImgStyles(code) {
+
+  let htmlString = code.replace(/<img[^>]*>/g, function(imgTag) {
+    // Remove style, width, and height attributes from the <img> tag
+    imgTag = imgTag.replace(/style="[^"]*"/g, '');  // Remove the style attribute
+    imgTag = imgTag.replace(/width="[^"]*"/g, '');  // Remove the width attribute
+    imgTag = imgTag.replace(/height="[^"]*"/g, ''); // Remove the height attribute
+
+    // Clean up any extra spaces that may be left behind
+    imgTag = imgTag.replace(/\s+/g, ' ').trim();
+    return imgTag;
+  });
+  return htmlString;
 }
 
 function splice(code, idx, rem, str) {

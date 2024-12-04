@@ -51,7 +51,7 @@
 }
 
 .evaluation_dark .link_breadcrumb_container .logout {
-  color: var(--ama-color-text-blue);
+  color: var(--ama-color-text-blue) !important;
 }
 
 .evaluation_dark .sumary_container,

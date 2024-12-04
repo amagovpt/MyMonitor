@@ -28,7 +28,7 @@
   content: "";
 }
 
-.dropdown-content button {
+.dropdown-content .ama.btn {
   background-color: transparent;
   color: var(--ama-color-background-white);
   border: none;
@@ -42,7 +42,7 @@
 }
 
 .dropdown-content a span:hover,
-.dropdown-content button span:hover {
+.dropdown-content .ama.btn span:hover {
   text-decoration: underline;
 }
 
@@ -59,13 +59,13 @@
   flex-direction: row;
 }
 
-.buttonGroupContainer button {
+.buttonGroupContainer .ama.btn {
   width: 100%;
   font-size: 13.5px;
   flex: 1;
 }
 
-.buttonGroupContainer button:first-child {
+.buttonGroupContainer .ama.btn:first-child {
   margin-bottom: 10px;
 }
 
@@ -81,7 +81,7 @@
     justify-content: space-between !important;
   }
 
-  .group_mobile button {
+  .group_mobile .ama.btn {
     width: 100%;
   }
 }
@@ -92,32 +92,32 @@
   width: fit-content;
 }
 
-.pageCode_dark .deskGroupMobile button,
-.pageCode_dark .group_mobile button {
+.pageCode_dark .deskGroupMobile .ama.btn,
+.pageCode_dark .group_mobile .ama.btn {
   background-color: var(--ama-color-text-blue) !important;
   color: var(--ama-color-background-dark-lighter);
 }
 
-.pageCode_dark .deskGroupMobile button:not(:focus),
-.pageCode_dark .group_mobile button:not(:focus) {
+.pageCode_dark .deskGroupMobile .ama.btn:not(:focus),
+.pageCode_dark .group_mobile .ama.btn:not(:focus) {
   border-color: var(--ama-color-text-blue);
 }
 
-.pageCode_dark .deskGroupMobile button:active,
-.pageCode_dark .group_mobile button:active {
+.pageCode_dark .deskGroupMobile .ama.btn:active,
+.pageCode_dark .group_mobile .ama.btn:active {
   background-color: var(--ama-color-text-blue) !important;
   color: var(--ama-color-background-dark-lighter) !important;
 }
 
-.pageCode_dark .deskGroupMobile button:hover,
-.pageCode_dark .group_mobile button:hover {
+.pageCode_dark .deskGroupMobile .ama.btn:hover,
+.pageCode_dark .group_mobile .ama.btn:hover {
   background-color: transparent !important;
   border-color: var(--ama-color-text-blue);
   color: var(--ama-color-text-blue);
 }
 
 .pageCode_dark .dropdown-content,
-.pageCode_dark .dropdown-content li button,
+.pageCode_dark .dropdown-content li .ama.btn,
 .pageCode_dark .dropdown-content a {
   background-color: var(--ama-color-text-blue) !important;
   border-color: var(--ama-color-text-blue) !important;

@@ -28,7 +28,7 @@
   content: "";
 }
 
-.dropdown-content button {
+.dropdown-content .ama.btn {
   background-color: transparent;
   color: var(--ama-color-background-white);
   border: none;
@@ -42,7 +42,7 @@
 }
 
 .dropdown-content a span:hover,
-.dropdown-content button span:hover {
+.dropdown-content .ama.btn span:hover {
   text-decoration: underline;
 }
 
@@ -59,13 +59,13 @@
   flex-direction: row;
 }
 
-.buttonGroupContainer button {
+.buttonGroupContainer .ama.btn {
   width: 100%;
   font-size: 13.5px;
   flex: 1;
 }
 
-.buttonGroupContainer button:first-child {
+.buttonGroupContainer .ama.btn:first-child {
   margin-bottom: 10px;
 }
 
@@ -92,34 +92,45 @@
   width: fit-content;
 }
 
-.evaluation_dark .deskGroupMobile button,
-.evaluation_dark .group_mobile button {
+.evaluation_dark .deskGroupMobile .ama.btn,
+.evaluation_dark .group_mobile .ama.btn {
   background-color: var(--ama-color-text-blue) !important;
   color: var(--ama-color-background-dark-lighter);
 }
 
-.evaluation_dark .deskGroupMobile button:not(:focus),
-.evaluation_dark .group_mobile button:not(:focus) {
+.evaluation_dark .group_mobile .ama.btn:not(:focus) {
   border-color: var(--ama-color-text-blue);
 }
 
-.evaluation_dark .deskGroupMobile button:active,
-.evaluation_dark .group_mobile button:active {
+.evaluation_dark .deskGroupMobile .ama.btn:active,
+.evaluation_dark .group_mobile .ama.btn:active {
   background-color: var(--ama-color-text-blue) !important;
   color: var(--ama-color-background-dark-lighter) !important;
 }
 
-.evaluation_dark .deskGroupMobile button:hover,
-.evaluation_dark .group_mobile button:hover {
+.evaluation_dark .deskGroupMobile .ama.btn:hover,
+.evaluation_dark .group_mobile .ama.btn:hover {
   background-color: transparent !important;
   border-color: var(--ama-color-text-blue);
   color: var(--ama-color-text-blue);
 }
 
+.evaluation_dark .deskGroupMobile .other .ama.btn:hover,
+.evaluation_dark .group_mobile .other .ama.btn:hover {
+  background-color: var(--ama-color-text-blue) !important;
+  border-color: var(--ama-color-text-blue);
+  color: var(--ama-color-text-gray);
+}
+
 .evaluation_dark .dropdown-content,
-.evaluation_dark .dropdown-content li button,
+.evaluation_dark .dropdown-content li .ama.btn,
 .evaluation_dark .dropdown-content a {
   background-color: var(--ama-color-text-blue) !important;
   border-color: var(--ama-color-text-blue) !important;
   color: var(--ama-color-background-dark-lighter) !important;
+}
+
+.evaluation_dark .other .ama.btn {
+  background-color: var(--ama-color-background-dark-lighter) !important;
+  color: var(--ama-color-text-blue);
 }

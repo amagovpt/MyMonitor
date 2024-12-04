@@ -83,7 +83,7 @@ export default function Evaluation() {
   };
 
   const seeCode = () => {
-    navigate(`${pathURL}user/${encodeURIComponent(name)}/${encodeURIComponent(pageName)}/code`);
+    return `${pathURL}user/${encodeURIComponent(name)}/${encodeURIComponent(pageName)}/code`;
   };
 
   function setAllDataResult(elem, allData) {
@@ -143,7 +143,7 @@ export default function Evaluation() {
           ) : (
             !error && <ButtonsActions
               reRequest={request}
-              seeCode={seeCode}
+              seeCode={`${pathURL}user/${encodeURIComponent(name)}/${encodeURIComponent(pageName)}/code`}
               downloadCSV={() => downloadCSV(dataProcess, parsedData, t)}
               href={pageName}
               themeClass={homeDark}
@@ -157,7 +157,7 @@ export default function Evaluation() {
                 <h2>{t("RESULTS.summary.title")}</h2>
                 <div className="d-flex flex-row mt-5 mb-5 justify-content-between align-items-center container_uri_chart gap-3">
                   <div className="mobile_width w-25 text-center">
-                    {scoreDataFormatted > 0 && <Gauge percentage={scoreDataFormatted} darkTheme={theme} title={t("RESULTS.summary.score")}  />}
+                    {scoreDataFormatted > 0 && <Gauge percentage={scoreDataFormatted} darkTheme={theme} title={[t("RESULTS.summary.score")]} screenReaderTitle={t("STATISTICS.gauge.description", {value: scoreDataFormatted})}  />}
                   </div>
                   <div className="mobile_width d-flex flex-column gap-4 w-75 container_uri">
                     <div className="d-flex flex-column">

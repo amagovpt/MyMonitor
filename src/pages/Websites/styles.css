@@ -13,7 +13,7 @@
 }
 
 .websites_dark .link_breadcrumb_container .logout {
-    color: var(--ama-color-text-blue);
+    color: var(--ama-color-text-blue) !important;
 }
 
 .websites_dark .directories_table .sorting_table tbody tr:hover {

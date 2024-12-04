@@ -39,10 +39,10 @@ export function ButtonsActions({reRequest, seeCode, downloadCSV, href, themeClas
                     {seePage && (
                         <u className="dropdown-content show_dropdown" aria-labelledby="dropdownMenuButton" >
                             <li>
-                                <button onClick={() => seeCode()}>
-                                    <span>{t("RESULTS.actions.pagecode")}</span>
+                                <a href={seeCode}>
+                                    <span className='me-2'>{t("RESULTS.actions.pagecode")}</span>
                                     <Icon name="AMA-Code-Line" />
-                                </button>
+                                </a>
                             </li>
                             <li>
                                 <a href={href} rel="noreferrer">

@@ -5,7 +5,6 @@
 
 .tabContent_container-details {
     background: var(--ama-color-background-white);
-    overflow: auto;
 }
 
 .result_left_container {
@@ -15,6 +14,27 @@
     border-left: 1px solid var(--ama-color-background-white);
 }
 
+mark {
+    background-color: initial;
+    font-weight: 900 !important;
+    text-decoration: underline;
+}
+
+.error-cell, .success-cell, .warning-cell {
+    font-size: 36px;
+}
+
+.error-cell {
+    background: #f99 !important;
+}
+
+.warning-cell {
+    background: #ff9 !important;
+}
+
+.success-cell {
+    background: #bce1bc !important;
+}
 
 @media (max-width: 768px) {
     .show_details-container {
@@ -30,7 +50,7 @@
 
 /* Dark Theme */
 .details_dark .link_breadcrumb_container .logout {
-    color: var(--ama-color-text-blue);
+    color: var(--ama-color-text-blue) !important;
 }
 
 .details_dark .report_container_title {
@@ -51,4 +71,8 @@
 
 .details_dark .loading_container {
     background-color: var(--ama-color-background-dark-lighter) !important;
+}
+
+.details_dark mark {
+    color: var(--ama-color-background-white);
 }

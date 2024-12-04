@@ -37,7 +37,7 @@ export function ChooseFileAddPage({data, name, setShowSecondModal}) {
     const file = event.target.files[0];
 
     let urisFromFile = [];
-    if (file === null) {
+    if (file === null && file.type) {
       return;
     }
 

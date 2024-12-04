@@ -3,6 +3,7 @@ import { useContext, useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useLocation } from "react-router-dom";
 import { ThemeContext } from "../../context/ThemeContext";
+import tests from "../../utils/tests"
 
 
 import { Breadcrumb, LoadingComponent, Button, Icon } from "ama-design-system";
@@ -35,8 +36,16 @@ export default function Details() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
-  const textHeading = t(`ELEMS.${detail}`);
   const [dataTable, setDataTable] = useState();
+  let resultKey = null;
+  for (const key in tests) {
+    if (tests[key].test === detail) {
+      resultKey = key;
+      break;
+    }
+  }
+  const testResultType = dataTable?.size === 1 ? "s" : "p";
+  const testResult = t(`TESTS_RESULTS.${resultKey}.${testResultType}`);
 
   // Navigation options
   const breadcrumbs = [
@@ -61,7 +70,9 @@ export default function Details() {
       onClick: () => navigate(`${pathURL}user/${encodeURIComponent(name)}/${encodeURIComponent(pageName)}`)
     },
     {
-        title: textHeading,
+      title: <span
+        dangerouslySetInnerHTML={{ __html: testResult.replace("{{value}}", dataTable?.size) }}
+      />,
     }
   ];
 
@@ -173,7 +184,7 @@ export default function Details() {
 
                     <span
                       className="textHeader ama-typography-body-large bold"
-                      dangerouslySetInnerHTML={{ __html: textHeading }}
+                      dangerouslySetInnerHTML={{ __html: testResult.replace("{{value}}", dataTable?.size) }}
                     />
                   </div>
 

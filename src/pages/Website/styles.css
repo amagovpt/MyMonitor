@@ -2,6 +2,12 @@
     height: 500px !important;
 }
 
+.BarLine_section .ama.tabs-container .nav-tabs,
+.topTen_section .ama.tabs-container .nav-tabs li,
+.modal_container .ama.tabs-container .nav-tabs li {
+    line-height: normal;
+}
+
 .barLineContainer {
     width: 100%;
     height: 500px;
@@ -66,12 +72,14 @@
 
 .website_modal {
     position: absolute;
-    top: 15vh;
-    left: 43vh;
-    right: 42vh;
-    bottom: 10vh;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     background-color: var(--ama-color-background-white);
-    max-height: 500px;
+    max-width: 90vw;
+    max-height: 90vh;
+    width: 800px;
+    min-height: 450px;
 }
 
 .website_overlay_modal {
@@ -85,11 +93,14 @@
 
 .second_website_modal {
     position: absolute;
-    top: 35vh;
-    left: 46vh;
-    right: 45vh;
-    max-height: fit-content;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     background-color: var(--ama-color-background-white);
+    max-width: 90vw;
+    max-height: 90vh;
+    width: 700px;
+    min-height: 350px;
 }
 
 .results_website_modal {
@@ -115,7 +126,7 @@
     margin-right: 10px;
     position: absolute;
     z-index: 10;
-    min-width: 130px;
+    min-width: 160px;
 }
 
 .input-group .btn:hover {
@@ -188,22 +199,6 @@ input[type=file] {
         width: 700px !important;
     }
 
-    .website_modal {
-        top: 2vh;
-        left: 2vh;
-        right: 2vh;
-        bottom: 2vh;
-        max-height: none;
-    }
-
-    .website_modal_dark {
-        top: 2vh;
-        left: 2vh;
-        right: 2vh;
-        bottom: 2vh;
-        max-height: none;
-    }
-
     .second_website_modal {
         top: 25vh;
         left: 5vh;
@@ -243,24 +238,27 @@ input[type=file] {
 
 /* DARK MODE */
 .main_dark .good_bad .nav-tabs,
-.main_dark .tabs_section .nav-tabs {
+.main_dark .tabs_section .nav-tabs,
+.website_modal_dark .modal_container .ama.tabs-container .nav-tabs {
     border-color: var(--ama-color-background-dark-darker) !important;
     background-color: var(--ama-color-background-dark-darker) !important;
 }
 
 .main_dark .good_bad .nav-tabs .nav-link,
-.main_dark .tabs_section .nav-tabs .nav-link {
+.main_dark .tabs_section .nav-tabs .nav-link,
+.website_modal_dark .modal_container .ama.tabs-container .nav-tabs .nav-link {
     color: var(--ama-color-text-blue) !important;
     background-color: var(--ama-color-background-dark-darker) !important;
 }
 
 .main_dark .good_bad .nav-tabs .nav-link.active,
-.main_dark .tabs_section .nav-tabs .nav-link.active {
+.main_dark .tabs_section .nav-tabs .nav-link.active,
+.website_modal_dark .modal_container .ama.tabs-container .nav-tabs .nav-link.active {
     border-bottom: 5px solid var(--ama-color-text-blue);
 }
 
 .website_dark .link_breadcrumb_container .logout {
-    color: var(--ama-color-text-blue);
+    color: var(--ama-color-text-blue) !important;
 }
 
 .website_dark section {
@@ -283,27 +281,34 @@ input[type=file] {
 
 .website_dark .sorting_table tbody tr td mark {
     color: var(--ama-color-background-white) !important;
+    background-color: var(--ama-color-background-dark-lighter) !important;
+    font-weight: bold;
 }
 
 .website_modal_dark {
     position: absolute;
-    top: 15vh;
-    left: 43vh;
-    right: 42vh;
-    bottom: 10vh;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     background-color: var(--ama-color-background-dark-lighter);
     color: var(--ama-color-background-white);
-    max-height: 500px;
+    max-width: 90vw;
+    max-height: 90vh;
+    width: 800px;
+    min-height: 450px;
 }
 
 .second_website_modal_dark {
     position: absolute;
-    top: 35vh;
-    left: 46vh;
-    right: 45vh;
-    max-height: fit-content;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     background-color: var(--ama-color-background-dark-lighter);
     color: var(--ama-color-background-white);
+    max-width: 80vw;
+    max-height: 80vh;
+    width: 700px;
+    min-height: 350px;
 }
 
 .results_website_modal_dark {
@@ -330,7 +335,6 @@ input[type=file] {
     background-color: var(--ama-color-background-dark-lighter);
     color: var(--ama-color-text-blue);
     border-color: var(--ama-color-text-blue) !important;
-    padding-top: 12px;
 }
 
 .website_dark .input-group .btn {
@@ -347,4 +351,8 @@ input[type=file] {
 
 .website_dark .text_link {
     color: var(--ama-color-text-blue);
+}
+
+.website_dark .ama.gauge text {
+    fill: var(--ama-color-background-white);
 }

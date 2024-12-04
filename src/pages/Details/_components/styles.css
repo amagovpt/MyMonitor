@@ -29,6 +29,10 @@
   border-color: transparent;
 }
 
+.img img {
+  width: 100%;
+}
+
 @media only screen and (max-width: 768px) {
   .table thead th.th_size {
     width: auto;
