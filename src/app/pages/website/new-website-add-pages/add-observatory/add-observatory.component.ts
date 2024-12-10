@@ -3,6 +3,7 @@ import {
   OnInit,
   Input,
 } from "@angular/core";
+import { Router } from "@angular/router";
 import { MessageService } from "src/app/services/message.service";
 import { MonitorService } from "src/app/services/monitor.service";
 
@@ -18,6 +19,7 @@ export class AddObservatoryComponent implements OnInit {
   constructor(
     private monitor: MonitorService,
     private message: MessageService,
+    private router: Router,
   ) {
   }
 
@@ -29,6 +31,7 @@ export class AddObservatoryComponent implements OnInit {
     this.monitor.transferObservatoryPages(this.website).subscribe((result) => {
       if (result) {
         this.message.show("ADD_PAGES.transfer.success");
+        this.router.navigateByUrl("/user");
       } else {
         this.message.show("ADD_PAGES.transfer.error");
       }

@@ -58,7 +58,6 @@ export class ListOfPagesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.pages)
     this.pages.map((page) => {
       this.selection[page.uri] = false;
     });
@@ -279,7 +278,6 @@ export class ListOfPagesComponent implements OnInit {
   }
 
   openAddPages(){
-    console.log("open dialog")
     this.dialog.open(AddPageDialogComponent, {
       data: {website:this.website},
       width: "60vw",

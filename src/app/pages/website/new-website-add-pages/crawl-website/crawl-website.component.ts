@@ -30,7 +30,7 @@ export class CrawlWebsiteComponent implements OnInit {
   crawlResultsDisabled: boolean;
   startingUrl: string;
   loading:boolean;
-
+  checkingInterval: any;
 
   constructor(
     private monitor: MonitorService,
@@ -53,8 +53,6 @@ export class CrawlWebsiteComponent implements OnInit {
           this.startingUrl = startingUrl;
 
           this.monitor.checkCrawler(this.startingUrl).subscribe((result) => {
-            console.log(this.startingUrl);
-            console.log(result);
             if (result !== null) {
               if (result) {
                 this.crawlStatus = "complete";
@@ -79,6 +77,19 @@ export class CrawlWebsiteComponent implements OnInit {
       if (result) {
         this.crawlStatus = "inProgress";
         this.crawlButtonDisable = true;
+        this.checkingInterval = setInterval(() => {
+          this.monitor.checkCrawler(this.startingUrl).subscribe((result) => {
+            if (result !== null) {
+              if (result) {
+                clearInterval(this.checkingInterval);
+                this.crawlStatus = "complete";
+                this.crawlButtonDisable = true;
+                this.crawlResultsDisabled = false;
+                this.cd.detectChanges();
+              }
+            }
+          });      
+        }, 5000);
       } else {
         alert("Error");
       }
@@ -97,7 +108,6 @@ export class CrawlWebsiteComponent implements OnInit {
     });
 
     dialog.afterClosed().subscribe((data) => {
-      console.log(data);
       if (data) {
         this.addWebsitePages.next({
           startingUrl: this.startingUrl,
