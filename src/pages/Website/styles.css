@@ -70,16 +70,19 @@
     font-size: 32px !important;
 }
 
+.ama.tabs-container textarea {
+    height: 300px;
+}
+
 .website_modal {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: var(--ama-color-background-white);
+    top: 5%;
+    left: 5%;
     max-width: 90vw;
     max-height: 90vh;
-    width: 800px;
-    min-height: 450px;
+    width: 90vw;
+    height: 90vh;
+    background-color: var(--ama-color-background-white);
 }
 
 .website_overlay_modal {
@@ -105,10 +108,12 @@
 
 .results_website_modal {
     position: absolute;
-    top: 10vh;
-    left: 10vh;
-    right: 10vh;
-    bottom: 10vh;
+    top: 5%;
+    left: 5%;
+    max-width: 90vw;
+    max-height: 90vh;
+    width: 90vw;
+    height: 90vh;
     background-color: var(--ama-color-background-white);
 }
 
@@ -213,26 +218,16 @@ input[type=file] {
         bottom: 25vh;
     }
 
-    .results_website_modal {
-        top: 2vh;
-        left: 2vh;
-        right: 2vh;
-        bottom: 2vh;
-    }
-
-    .results_website_modal_dark {
-        top: 2vh;
-        left: 2vh;
-        right: 2vh;
-        bottom: 2vh;
-    }
-
     .modal_container .close_modal span {
         display: none;
     }
 
     .crawl_actions {
         flex-direction: column !important;
+    }
+
+    .ama.tabs-container textarea {
+        height: 200px;
     }
 }
 
@@ -287,15 +282,14 @@ input[type=file] {
 
 .website_modal_dark {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: var(--ama-color-background-dark-lighter);
-    color: var(--ama-color-background-white);
+    top: 5%;
+    left: 5%;
     max-width: 90vw;
     max-height: 90vh;
-    width: 800px;
-    min-height: 450px;
+    width: 90vw;
+    height: 90vh;
+    background-color: var(--ama-color-background-dark-lighter);
+    color: var(--ama-color-background-white);
 }
 
 .second_website_modal_dark {
@@ -313,10 +307,12 @@ input[type=file] {
 
 .results_website_modal_dark {
     position: absolute;
-    top: 10vh;
-    left: 10vh;
-    right: 10vh;
-    bottom: 10vh;
+    top: 5%;
+    left: 5%;
+    max-width: 90vw;
+    max-height: 90vh;
+    width: 90vw;
+    height: 90vh;
     background-color: var(--ama-color-background-dark-lighter);
     color: var(--ama-color-background-white);
 }

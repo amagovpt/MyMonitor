@@ -100,7 +100,7 @@ export function Crawl({ data, name, setShowSecondModal, closeModal }) {
         isOpen={showResultsModal}
         onRequestClose={() => setShowResultsModal(false)}
         contentLabel="Results modal"
-        className={theme === "light" ? "results_website_modal" : "results_website_modal_dark"}
+        className={theme === "light" ? "website_modal" : "website_modal_dark"}
         overlayClassName={theme === "light" ?"website_overlay_modal" : "website_overlay_modal_dark"}
       >
         <div className="modal_container d-flex flex-column p-4">

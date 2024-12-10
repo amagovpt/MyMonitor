@@ -40,7 +40,7 @@ export function PagesTable({ data, pagesList, setPagesList, name, parsedData, ma
 
 
   const modalRemovePages = () => {
-    setShowModal(!showModal)
+    setShowSecondModal(!showModal)
     setRemovePagesLayout(!showModal)
   }
 
@@ -50,7 +50,7 @@ export function PagesTable({ data, pagesList, setPagesList, name, parsedData, ma
   }
 
   const modalReEvaluatePages = () => {
-    setShowModal(!showModal)
+    setShowSecondModal(!showModal)
     setReEvaluatePagesLayout(!showModal)
     const processData = async () => {
       setLoading(true)
@@ -86,6 +86,13 @@ export function PagesTable({ data, pagesList, setPagesList, name, parsedData, ma
     setReEvaluatePagesLayout(false)
   }
 
+  const closeSecondModal = () => {
+    setShowSecondModal(false)
+    setError(false)
+    setRemovePagesLayout(false)
+    setReEvaluatePagesLayout(false)
+  }
+
   return (
     <>
         <Modal
@@ -95,33 +102,39 @@ export function PagesTable({ data, pagesList, setPagesList, name, parsedData, ma
           className={theme === "light" ? "website_modal" : "website_modal_dark"}
           overlayClassName={theme === "light" ? "website_overlay_modal" : "website_overlay_modal_dark"}
         >
-          {removePagesLayout && <RemovePagesSection closeModal={closeModal} error={error} name={name} pagesSelected={pagesSelected} setError={setError} setPagesList={setPagesList} parsedData={parsedData} />}
-          {addPagesLayout && <AddPagesSection data={data} name={name} mainTheme={mainTheme} closeModal={closeModal} setShowSecondModal={setShowSecondModal} />}
-          {reEvaluatePagesLayout && <ReEvaluateSection closeModal={closeModal} loading={loading} error={error} />}
+          {addPagesLayout && <AddPagesSection data={data} name={name} mainTheme={mainTheme} closeModal={closeModal} setShowSecondModal={setShowSecondModal} />} 
         </Modal>
         <Modal
           isOpen={showSecondModal}
-          onRequestClose={() => setShowSecondModal(false)}
+          onRequestClose={() => closeSecondModal()}
           contentLabel="Success modal"
           className={theme === "light" ? "second_website_modal" : "second_website_modal_dark"}
           overlayClassName={theme === "light" ?"website_overlay_modal" : "website_overlay_modal_dark"}
         >
-          <div className="modal_container d-flex flex-column p-4">
-            <div className="d-flex flex-row justify-content-between mb-3 align-items-center">
-            <h2>{t("ADD_PAGES.title")}</h2>
-            <Button
-              darkTheme={theme}
-              variant={"secondary"}
-              className={"close_modal"}
-              aria-label={t(`ADD_PAGES.evaluations_dialog.close`)}
-              text={t(`ADD_PAGES.evaluations_dialog.close`)}
-              onClick={() => setShowSecondModal(false)}
-              size={"lg"}
-              iconRight={<Icon name="AMA-Erro2-Line" />}
-            />
-            </div>
-            <p className="ama-typography-body-large">{t("ADD_PAGES.evaluations_dialog.message")}</p>
-          </div>
+          {reEvaluatePagesLayout ?
+            <ReEvaluateSection closeModal={closeSecondModal} loading={loading} error={error} /> 
+          : 
+            (removePagesLayout ? 
+              <RemovePagesSection closeModal={closeSecondModal} error={error} name={name} pagesSelected={pagesSelected} setError={setError} setPagesList={setPagesList} parsedData={parsedData} /> 
+            : 
+              <div className="modal_container d-flex flex-column p-4">
+                <div className="d-flex flex-row justify-content-between mb-3 align-items-center">
+                <h2>{t("ADD_PAGES.title")}</h2>
+                <Button
+                  darkTheme={theme}
+                  variant={"secondary"}
+                  className={"close_modal"}
+                  aria-label={t(`ADD_PAGES.evaluations_dialog.close`)}
+                  text={t(`ADD_PAGES.evaluations_dialog.close`)}
+                  onClick={() => closeSecondModal()}
+                  size={"lg"}
+                  iconRight={<Icon name="AMA-Erro2-Line" />}
+                />
+                </div>
+                <p className="ama-typography-body-large">{t("ADD_PAGES.evaluations_dialog.message")}</p>
+              </div>
+            )
+          }
         </Modal>
         <div className="d-flex flex-column py-4 pages_table w-100">
             <div className="d-flex flex-row justify-content-between pages_container">
