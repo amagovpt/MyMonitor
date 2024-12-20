@@ -29,8 +29,12 @@
   border-color: transparent;
 }
 
-.img img {
+.big-width img {
   width: 100%;
+}
+
+.big-width title {
+  display: flex;
 }
 
 @media only screen and (max-width: 768px) {
