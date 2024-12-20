@@ -159,7 +159,7 @@ export function getElements(allNodes, ele, tot) {
     ele = "formSubmitNo";
   }
 
-  const elements = getElementsList(allNodes && allNodes[ele], tot);
+  const elements = getElementsList(allNodes && allNodes[ele], tot, dataTransform);
 
   let result = "G";
   const results = dataTransform?.results.map((r) => r.msg);
@@ -222,7 +222,7 @@ export function fixCode(code, tot, showCode) {
   return showCode ? removeImgStyles(code) : code;
 }
 
-export function getElementsList(nodes, tot) {
+export function getElementsList(nodes, tot, dataTransform) {
   const elements = new Array();
   for (const node of nodes || []) {
     if (node.elements) {
@@ -232,9 +232,7 @@ export function getElementsList(nodes, tot) {
         code:
           ele === "style"
             ? node.elements[0].attributes
-            : ele === "title"
-              ? this.evaluation.processed.metadata.title
-              : fixCode(node.elements[0].htmlCode, tot),
+            : fixCode(node.elements[0].htmlCode, tot),
         showCode: ele === "style" ? undefined : fixCode(node.elements[0].htmlCode, tot, true),
         pointer: node.elements[0].pointer,
       });
