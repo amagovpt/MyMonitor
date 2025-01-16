@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useLayoutEffect } from "react";
 import { ThemeContext } from "../../context/ThemeContext";
 import "./styles.css";
 import { useTranslation } from "react-i18next";
@@ -22,6 +22,10 @@ export default function Layout({ children }) {
       document.querySelector("html")?.setAttribute("lang", "en");
     }
   };
+
+  useLayoutEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
 
   return (
     <>

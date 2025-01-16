@@ -1,5 +1,5 @@
 import { pathURL } from "../../App";
-import clone from "lodash.clone";
+import { Link } from "react-router-dom";
 
 export function getStatTitles (t) {
     // Texts for StatisticsHeader component
@@ -56,6 +56,20 @@ export function getRadarGraph (t, theme, labelsForRadar, data) {
     };
 
     return { options, manchaData }
+}
+
+export function getRadarTable (t) {
+	const dataHeaders = [
+		{type: "Text", name: t("PAGES.accessibility_plot.headerTable"), justifyCenter: true},
+		{type: "Text", name: t("STATISTICS.score"), justifyCenter: true},
+	]
+
+	let columnsOptions = {
+		id: { type: "Number", center: true, bold: false, decimalPlace: false },
+		score: { type: "Number", center: true, bold: false, decimalPlace: true }
+	}
+
+	return { dataHeaders, columnsOptions }
 }
 
 export function getBarLineGraph (t, dataForLine, dataForBar, websiteStats, theme) {
@@ -309,23 +323,9 @@ export function getTopTenGraphTable (t, theme, labelsForHorizontal, dataForHoriz
           ticks: {
               color: theme === "light" ? 'rgba(0,0,0, 1)' : 'white', // Color of Text on Y axis
               callback: function (value, index) {
-                  // Fetch the label using the index
-                  const label = labelsForHorizontal[index];
-                  // Word-wrap the label into multiple lines
-                  const words = label.split(' ');
-                  const maxLength = 20; // Set the max length for each line
-                  let result = '';
-                  let line = '';
-                  words.forEach((word) => {
-                      if (line.length + word.length < maxLength) {
-                      line += word + ' ';
-                      } else {
-                      result += line.trim() + '\n';
-                      line = word + ' ';
-                      }
-                  });
-                  result += line.trim();
-                  return result;
+                // Fetch the label using the index
+                const label = labelsForHorizontal[index];
+                return splitLabelForChart(label);
               }
             },
           grid: {
@@ -361,17 +361,17 @@ export function getPagesSortingTable (t, name) {
       {type: "SortingText", nRow: 2, bigWidth: "20%", name: t("PAGES.table.date"), property: "Evaluation_Date", justifyCenter: true},
     ],
     [
-      {id: "A", type: "SortingText", name: t("PAGES.table.A"), property: "A", justifyCenter: true},
-      {id: "AA", type: "SortingText", name: t("PAGES.table.AA"), property: "AA", justifyCenter: true},
-      {id: "AAA", type: "SortingText", name: t("PAGES.table.AAA"), property: "AAA", justifyCenter: true},
+      {id: "A", type: "SortingText", name: t("PAGES.table.A"), property: "A", justifyCenter: true, ariaLabel: true},
+      {id: "AA", type: "SortingText", name: t("PAGES.table.AA"), property: "AA", justifyCenter: true, ariaLabel: true},
+      {id: "AAA", type: "SortingText", name: t("PAGES.table.AAA"), property: "AAA", justifyCenter: true, ariaLabel: true},
     ]
   ]
   
   // Alterar isto para dar match com os nomes corretos
   let columnsOptions = {
     id: { type: "Checkbox", center: true, bold: false, decimalPlace: false, label: t("PAGES.table.filterCell")},
-    Uri: { type: "Link", center: true, bold: false, decimalPlace: false, href: (row) => {
-      return `${pathURL}user/${name}/${encodeURIComponent(row['Uri'])}`
+    Uri: { type: "Link", center: true, bold: false, decimalPlace: false, children: (row, data) => {
+      return <Link to={`${pathURL}user/${name}/${encodeURIComponent(row['Uri'])}`} className="ama-typography-action-large bold">{data}</Link>
     }},
     Show_In: { type: "Skip", center: false, bold: false, decimalPlace: false },
     Creation_Date: { type: "Skip", center: false, bold: false, decimalPlace: false },
@@ -392,8 +392,10 @@ export function getPagesSortingTable (t, name) {
   ]
 
   let nItemsPerPageText=[
-    t("PAGES.table.paginator.see"),
-    t("PAGES.table.paginator.per_page")
+    t("DIRECTORY.table.paginator.see"),
+    t("DIRECTORY.table.paginator.per_page"),
+    t("DIRECTORY.table.paginator.selectorAria"),
+    t("DIRECTORY.table.paginator.selectorNav")
   ]
 
   let itemsPaginationText = [
@@ -401,7 +403,13 @@ export function getPagesSortingTable (t, name) {
     t("PAGES.table.paginator.items")
   ]
 
-  return { pagesHeaders, columnsOptions, paginationButtonsTexts, nItemsPerPageText, itemsPaginationText }
+  let ariaLabels = {
+    A: t("WEBSITES_PAGE.ariaLabels.A"),
+    AA: t("WEBSITES_PAGE.ariaLabels.AA"),
+    AAA: t("WEBSITES_PAGE.ariaLabels.AAA")
+  }
+
+  return { pagesHeaders, columnsOptions, paginationButtonsTexts, nItemsPerPageText, itemsPaginationText, ariaLabels }
 }
 
 export function pagesListTable(pages, moment) {
@@ -479,4 +487,36 @@ export function getResultsTable(t) {
   }
 
   return { resultsHeader, columnsOptions }
+}
+
+function splitLabelForChart(label) {
+  const words = label.split(' ');
+  const lineLimit = 85;
+  const lines = [];
+
+  let line = '';
+  let currentWordIdx = 0;
+
+  while (currentWordIdx < words.length) {
+    if (line.length + words[currentWordIdx].length < lineLimit) {
+      line += `${words[currentWordIdx]} `;
+      currentWordIdx++;
+
+      if (currentWordIdx === words.length) {
+        lines.push(line);
+      }
+    } else {
+      if (line.length) {
+        lines.push(line);
+        line = '';
+      }
+
+      if (words[currentWordIdx].length >= lineLimit) {
+        lines.push([words.currentWord]);
+        currentWordIdx++;
+      }
+    }
+  }
+
+  return lines;
 }

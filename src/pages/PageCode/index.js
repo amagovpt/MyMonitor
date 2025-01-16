@@ -1,7 +1,7 @@
 import "./styles.css";
 import { useContext, useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 import { ThemeContext } from "../../context/ThemeContext";
 
 
@@ -40,28 +40,12 @@ export default function PageCode() {
 
   // Navigation options
   const breadcrumbs = [
+    { children: <Link to={`${pathURL}`}>{t("HEADER.NAV.ecosystem")}</Link> },
+    { children: <Link to={`${pathURL}user`}>{t("HEADER.NAV.home")}</Link> },
+    { children: <Link to={`${pathURL}user/${encodeURIComponent(name)}`}>{name}</Link> },
+    { children: <Link to={`${pathURL}user/${encodeURIComponent(name)}/${encodeURIComponent(pageName)}`}>{pageName}</Link> },
     {
-      title: t("HEADER.NAV.ecosystem"),
-      href: "",
-      onClick: () => navigate(`${pathURL}`)
-    },
-    {
-      title: t("HEADER.NAV.home"),
-      href: "",
-      onClick: () => navigate(`${pathURL}user`)
-    },
-    {
-      title: name,
-      href: "",
-      onClick: () => navigate(`${pathURL}user/${encodeURIComponent(name)}`)
-    },
-    {
-      title: pageName,
-      href: "",
-      onClick: () => handleGoBack()
-    },
-    {
-        title: t("HEADER.NAV.code"),
+      title: t("HEADER.NAV.code"),
     }
   ];
 

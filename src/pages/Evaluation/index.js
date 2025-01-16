@@ -1,7 +1,7 @@
 import "./styles.css";
 import { useContext, useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 import { ThemeContext } from "../../context/ThemeContext";
 
 
@@ -40,21 +40,9 @@ export default function Evaluation() {
 
   // Navigation options
   const breadcrumbs = [
-    {
-      title: t("HEADER.NAV.ecosystem"),
-      href: "",
-      onClick: () => navigate(`${pathURL}`)
-    },
-    {
-      title: t("HEADER.NAV.home"),
-      href: "",
-      onClick: () => navigate(`${pathURL}user`)
-    },
-    {
-      title: name,
-      href: "",
-      onClick: () => navigate(`${pathURL}user/${encodeURIComponent(name)}`)
-    },
+    { children: <Link to={`${pathURL}`}>{t("HEADER.NAV.ecosystem")}</Link> },
+    { children: <Link to={`${pathURL}user`}>{t("HEADER.NAV.home")}</Link> },
+    { children: <Link to={`${pathURL}user/${encodeURIComponent(name)}`}>{name}</Link> },
     {
       title: pageName
     }
@@ -157,7 +145,7 @@ export default function Evaluation() {
                 <h2>{t("RESULTS.summary.title")}</h2>
                 <div className="d-flex flex-row mt-5 mb-5 justify-content-between align-items-center container_uri_chart gap-3">
                   <div className="mobile_width w-25 text-center">
-                    {scoreDataFormatted > 0 && <Gauge percentage={scoreDataFormatted} darkTheme={theme} title={[t("RESULTS.summary.score")]} screenReaderTitle={t("STATISTICS.gauge.description", {value: scoreDataFormatted})}  />}
+                    {scoreDataFormatted > 0 && <Gauge percentage={scoreDataFormatted} darkTheme={theme} title={[t("RESULTS.summary.score")]} screenReaderTitle={t("STATISTICS.gauge.description_s", {value: scoreDataFormatted})}  />}
                   </div>
                   <div className="mobile_width d-flex flex-column gap-4 w-75 container_uri">
                     <div className="d-flex flex-column">

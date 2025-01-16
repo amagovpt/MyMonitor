@@ -1,7 +1,7 @@
 import "./styles.css";
 import { useContext, useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { Breadcrumb, LoadingComponent, SortingTable, Button, Icon } from "ama-design-system";
 import { ThemeContext } from "../../context/ThemeContext";
 
@@ -26,15 +26,11 @@ export default function Websites() {
   const [directoriesList, setDirectoriesList] = useState();
 
   // Data and Options for the Tables on this page
-  const { directoriesHeaders, columnsOptions, nameOfIcons, paginationButtonsTexts, nItemsPerPageText, itemsPaginationText } = getDirectoryTable(t)
+  const { directoriesHeaders, columnsOptions, nameOfIcons, paginationButtonsTexts, nItemsPerPageText, itemsPaginationText, ariaLabels } = getDirectoryTable(t)
 
   // Navigation options
   const breadcrumbs = [
-    {
-      title: t("HEADER.NAV.ecosystem"),
-      href: "",
-      onClick: () => navigate(`${pathURL}`)
-    },
+    { children: <Link to={`${pathURL}`}>{t("HEADER.NAV.ecosystem")}</Link> },
     {
       title: t("HEADER.NAV.home")
     }
@@ -117,8 +113,10 @@ export default function Websites() {
                 {directoriesList && directoriesList.length > 0 ?
                   <section className={`bg-white px-5 py-2 mt-5 d-flex flex-row justify-content-between`}>
                     <div className="d-flex flex-column py-4 w-100 directories_table">
-                      <h2 className="bold m-0">{t("WEBSITE_TABLE.table.title")}</h2>
-                      <p className="ama-typography-body pb-4">{t("WEBSITE_TABLE.table.subtitle")}</p>
+                      <div role="text">
+                        <h2 className="bold m-0">{t("WEBSITE_TABLE.table.title")}</h2>
+                        <p className="ama-typography-body pb-4">{t("WEBSITE_TABLE.table.subtitle")}</p>
+                      </div>
                       {directoriesList && <SortingTable
                         hasSort={true}
                         headers={directoriesHeaders}
@@ -134,6 +132,7 @@ export default function Websites() {
                         nItemsPerPageTexts={nItemsPerPageText}
                         paginationButtonsTexts={paginationButtonsTexts}
                         project={`${pathURL}`}
+                        ariaLabels={ariaLabels}
                       />}
                       <div className="ama-typography-body mt-4">{t("WEBSITE_TABLE.table.note")}</div>
                     </div>
