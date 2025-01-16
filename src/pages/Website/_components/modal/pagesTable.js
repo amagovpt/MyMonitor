@@ -36,7 +36,7 @@ export function PagesTable({ data, pagesList, setPagesList, name, parsedData, ma
   const [error, setError] = useState(false)
   const [loading, setLoading] = useState(false)
 
-  const { pagesHeaders, columnsOptions, paginationButtonsTexts, nItemsPerPageText, itemsPaginationText } = getPagesSortingTable(t, name)
+  const { pagesHeaders, columnsOptions, paginationButtonsTexts, nItemsPerPageText, itemsPaginationText, ariaLabels } = getPagesSortingTable(t, name)
 
 
   const modalRemovePages = () => {
@@ -182,8 +182,8 @@ export function PagesTable({ data, pagesList, setPagesList, name, parsedData, ma
                 paginationButtonsTexts={paginationButtonsTexts}
                 project={`${pathURL}`}
                 setCheckboxesSelected={setPagesSelected}
+                ariaLabels={ariaLabels}
             />}
-            <div className="ama-typography-body mt-4 bold">{t("PAGES.table.note")}</div>
         </div>
     </>
   );

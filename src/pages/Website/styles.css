@@ -1,5 +1,10 @@
-.radar_graphic {
+.radar_graph,
+.radar_graph_table {
     height: 500px !important;
+}
+
+.radar_graph_table {
+    overflow-y: auto;
 }
 
 .BarLine_section .ama.tabs-container .nav-tabs,
@@ -174,9 +179,6 @@ input[type=file] {
 
 /* MOBILE */
 @media (min-width: 320px) and (max-width: 480px) {
-    .radar_graphic {
-        height: fit-content !important;
-    }
 
     .barLineContainer {
         height: 500px;

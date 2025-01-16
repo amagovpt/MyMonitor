@@ -22,7 +22,8 @@ import addPageTransfer from '../utils/httpResponses/addPageTransfer.json'
 import pageEvaluation from '../utils/httpResponses/pageEvaluation.json'
 
 const baseURLDEV = process.env.REACT_APP_AMP_DEV_SERVER;
-const baseURLPROD = process.env.REACT_APP_AMP_PROD_SERVER;
+const baseURLPPR = process.env.REACT_APP_AMP_PPR_SERVER;
+const baseURLPRD = process.env.REACT_APP_AMP_PRD_SERVER;
 
 export const apiE = axios.create({
   baseURL: baseURLDEV,
@@ -356,5 +357,5 @@ const local = {
 
 
 
-export const api = apiCalls;
-//export const api = local;
+//export const api = apiCalls;
+export const api = local;

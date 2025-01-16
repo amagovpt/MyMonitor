@@ -159,7 +159,7 @@ export function getElements(allNodes, ele, tot) {
     ele = "formSubmitNo";
   }
 
-  const elements = getElementsList(allNodes && allNodes[ele], tot, dataTransform);
+  const elements = getElementsList(allNodes && allNodes[ele], tot);
 
   let result = "G";
   const results = dataTransform?.results.map((r) => r.msg);
@@ -222,7 +222,7 @@ export function fixCode(code, tot, showCode) {
   return showCode ? removeImgStyles(code) : code;
 }
 
-export function getElementsList(nodes, tot, dataTransform) {
+export function getElementsList(nodes, tot) {
   const elements = new Array();
   for (const node of nodes || []) {
     if (node.elements) {

@@ -51,31 +51,39 @@ export function GoodBadTab({ main_content_website, tempData, top10Data, color, g
         praticsPerPage.push(text)
       })
       
-      tempDetailsTable.push({name: t(`TESTS_RESULTS.${value.key}.s`), practices: praticsPerPage, pages: value.n_pages, occurences: value.n_occurrences, lvl: value.lvl})
+      let singleOrPlural = 'p'
+      if(value.n_occurrences === 1) singleOrPlural = 's'
+      tempDetailsTable.push({name: t(`TESTS_RESULTS.${value.key}.${singleOrPlural}`), practices: praticsPerPage, pages: value.n_pages, occurences: value.n_occurrences, lvl: value.lvl})
       switch(value.lvl) {
         case "A":
           if(tempDataTableA.length < 3) {
+            let singleOrPlural = 'p'
+            if(value.n_occurrences === 1) singleOrPlural = 's'
             tempDataTableA.push({
               number: tempDataTableA.length+1+".",
-              name: t(`TESTS_RESULTS.${value.key}.s`),
+              name: t(`TESTS_RESULTS.${value.key}.${singleOrPlural}`, {value: value.n_occurrences}),
               nPages: [t(`WEBSITES_PAGE.${goodOrBad}.practice`) + " ", value.n_pages + " " + t(`WEBSITES_PAGE.${goodOrBad}.pages`)]
             })
           }
           break;
         case "AA":
           if(tempDataTableAA.length < 3) {
+            let singleOrPlural = 'p'
+            if(value.n_occurrences === 1) singleOrPlural = 's'
             tempDataTableAA.push({
               number: tempDataTableAA.length+1+".",
-              name: t(`TESTS_RESULTS.${value.key}.s`),
+              name: t(`TESTS_RESULTS.${value.key}.${singleOrPlural}`, {value: value.n_occurrences}),
               nPages: [t(`WEBSITES_PAGE.${goodOrBad}.practice`) + " ", value.n_pages + " " + t(`WEBSITES_PAGE.${goodOrBad}.pages`)]
             })
           }
           break;
         case "AAA":
           if(tempDataTableAAA.length < 3) {
+            let singleOrPlural = 'p'
+            if(value.n_occurrences === 1) singleOrPlural = 's'
             tempDataTableAAA.push({
               number: tempDataTableAAA.length+1+".",
-              name: t(`TESTS_RESULTS.${value.key}.s`),
+              name: t(`TESTS_RESULTS.${value.key}.${singleOrPlural}`, {value: value.n_occurrences}),
               nPages: [t(`WEBSITES_PAGE.${goodOrBad}.practice`) + " ", value.n_pages + " " + t(`WEBSITES_PAGE.${goodOrBad}.pages`)]
             })
           }

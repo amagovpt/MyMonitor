@@ -97,8 +97,10 @@
         "paginator": {
           "of": " of ",
           "items": " items",
-          "see": "Show",
-          "per_page": "items per page",
+          "see": "Show ",
+          "per_page": " items per page",
+          "selectorAria": "Number of rows per page",
+          "selectorNav": "Page selector",
           "first_page": "First page",
           "previous_page": "Previous page",
           "next_page": "Next page",
@@ -109,7 +111,8 @@
     "STATISTICS": {
       "gauge": {
         "label": "Average score",
-        "description": "AccessMonitor score. Page rating: {{value}} out of 10"
+        "description_s": "AccessMonitor score. Page rating: {{value}} out of 10",
+        "description_p": "AccessMonitor average score. Pages rating: {{value}} out of 10"
       },
       "directories": "Directories",
       "entities": "Entities",
@@ -397,16 +400,17 @@
       },
       "accessibility_plot": {
         "title": "Accessibility plot",
-        "label": "Score distribution"
+        "label": "Score distribution",
+        "headerTable": "Page"
       },
       "table": {
         "filter": "Select all",
         "filterCell": "Select ",
         "page": "Page",
         "score": "Score",
-        "A": "A*",
-        "AA": "AA*",
-        "AAA": "AAA*",
+        "A": "A",
+        "AA": "AA",
+        "AAA": "AAA",
         "levels": "Errors by compliance level",
         "date": "Date",
         "see_tooltip": "See page",
@@ -635,6 +639,8 @@
       "metaRedir": "<code>meta</code> element to redirect users",
       "hxHasAName": "Headings with accessible name",
       "hxWithoutAName": "Headings without accessible name",
+      "onlyOneh1": "Only one <code>h1</code> element",
+      "notOneh1": "Zero or more than one <code>h1</code> element",
       "ariaCntxRole": "Elements inside required context role",
       "ariaReqElem": "Elements own required elements",
       "ariaStValid": "Values of ARIA states and properties are of valid type",
@@ -1155,6 +1161,14 @@
       "heading_02": {
         "s": "I have identified <mark>{{value}}</mark> heading without an accessible name.",
         "p": "I have identified <mark>{{value}}</mark> headings without an accessible name."
+      },
+      "heading_03": {
+        "s": "I have identified exactly one level 1 heading.",
+        "p": "I have identified exactly one level 1 heading."
+      },
+      "heading_04": {
+        "s": "I have identified <mark>{{value}}</mark> level 1 headings. There should be one.",
+        "p": "I have identified <mark>{{value}}</mark> level 1 headings. There should be one."
       },
       "aria_01": {
         "s": "I noticed that <mark>all elements</mark> with an explicit semantic role exist inside their required contexts.",

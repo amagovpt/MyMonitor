@@ -1,7 +1,7 @@
 import "./styles.css";
 import { useContext, useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 import { ThemeContext } from "../../context/ThemeContext";
 import moment from 'moment'
 
@@ -64,16 +64,8 @@ export default function Website() {
 
   // Navigation options
   const breadcrumbs = [
-    {
-      title: t("HEADER.NAV.ecosystem"),
-      href: "",
-      onClick: () => navigate(`${pathURL}`)
-    },
-    {
-      title: t("HEADER.NAV.home"),
-      href: "",
-      onClick: () => navigate(`${pathURL}user`)
-    },
+    { children: <Link to={`${pathURL}`}>{t("HEADER.NAV.ecosystem")}</Link> },
+    { children: <Link to={`${pathURL}user`}>{t("HEADER.NAV.home")}</Link> },
     {
       title: name
     }
@@ -230,7 +222,7 @@ export default function Website() {
                     oldestPage={t("STATISTICS.oldest_page_updated")}
                     newestPage={t("STATISTICS.newest_page_updated")}
                     gaugeTitle={[t("STATISTICS.gauge.label")]}
-                    gaugeDescription={t("STATISTICS.gauge.description", {value: websiteStats.score})}
+                    gaugeDescription={t("STATISTICS.gauge.description_p", {value: websiteStats.score})}
                     buttons={false}
                   />
                 </section>
@@ -239,9 +231,7 @@ export default function Website() {
                 <section className={`bg-white py-2 mt-5 d-flex flex-row justify-content-center`}>
                   <div className="d-flex flex-column section_container py-4">
                     <h3 className="bold">{t("PAGES.accessibility_plot.title")}</h3>
-                    <div className="d-flex radar_graphic justify-content-center">
-                      <RadarGraph tempData={data} />
-                    </div>
+                    <RadarGraph tempData={data} />
                   </div>
                 </section>
 

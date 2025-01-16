@@ -1,4 +1,5 @@
 import { pathURL } from "../../App";
+import { Link } from "react-router-dom";
 
 // Function to get additional Arrays
 // t -> the translation function
@@ -19,17 +20,17 @@ export function getDirectoryTable (t) {
         {id: "conformidade", type: "Text", name: t("WEBSITE_TABLE.table.levels"), property: "", justifyCenter: true, multiCol: true, nCol: 3},
       ],
       [
-        {id: "A", type: "SortingText", bigWidth: "10%", name: t("WEBSITE_TABLE.table.A"), property: "A", justifyCenter: true},
-        {id: "AA", type: "SortingText", bigWidth: "10%", name: t("WEBSITE_TABLE.table.AA"), property: "AA", justifyCenter: true},
-        {id: "AAA", type: "SortingText", bigWidth: "10%", name: t("WEBSITE_TABLE.table.AAA"), property: "AAA", justifyCenter: true}
+        {id: "A", type: "SortingText", bigWidth: "10%", name: t("WEBSITE_TABLE.table.A"), property: "A", justifyCenter: true, ariaLabel: true},
+        {id: "AA", type: "SortingText", bigWidth: "10%", name: t("WEBSITE_TABLE.table.AA"), property: "AA", justifyCenter: true, ariaLabel: true},
+        {id: "AAA", type: "SortingText", bigWidth: "10%", name: t("WEBSITE_TABLE.table.AAA"), property: "AAA", justifyCenter: true, ariaLabel: true}
       ]
     ]
     
     let columnsOptions = {
       id: { type: "Skip", center: false, bold: false, decimalPlace: false },
       rank: { type: "Number", center: true, bold: false, decimalPlace: false },
-      name: { type: "Link", center: false, bold: false, decimalPlace: false, href: (row) => {
-        return `${pathURL}user/${row['name']}`
+      name: { type: "Link", center: false, bold: false, decimalPlace: false, children: (row, data) => {
+        return <Link to={`${pathURL}user/${row['name']}`} className="ama-typography-action-large bold">{data}</Link>
       }},
       entity: { type: "Skip", center: false, bold: false, decimalPlace: false },
       declaration: { type: "Declaration", center: true, bold: false, decimalPlace: false },
@@ -58,8 +59,10 @@ export function getDirectoryTable (t) {
     ]
 
     let nItemsPerPageText=[
-      t("WEBSITE_TABLE.table.paginator.see"),
-      t("WEBSITE_TABLE.table.paginator.per_page")
+      t("DIRECTORY.table.paginator.see"),
+      t("DIRECTORY.table.paginator.per_page"),
+      t("DIRECTORY.table.paginator.selectorAria"),
+      t("DIRECTORY.table.paginator.selectorNav")
     ]
 
     let itemsPaginationText = [
@@ -67,5 +70,11 @@ export function getDirectoryTable (t) {
       t("WEBSITE_TABLE.table.paginator.items")
     ]
 
-    return { directoriesHeaders, columnsOptions, nameOfIcons, paginationButtonsTexts, nItemsPerPageText, itemsPaginationText }
+    let ariaLabels = {
+      A: t("WEBSITE.ariaLabels.A"),
+      AA: t("WEBSITE.ariaLabels.AA"),
+      AAA: t("WEBSITE.ariaLabels.AAA")
+    }
+
+    return { directoriesHeaders, columnsOptions, nameOfIcons, paginationButtonsTexts, nItemsPerPageText, itemsPaginationText, ariaLabels }
 }
