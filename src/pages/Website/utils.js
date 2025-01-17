@@ -392,10 +392,10 @@ export function getPagesSortingTable (t, name) {
   ]
 
   let nItemsPerPageText=[
-    t("DIRECTORY.table.paginator.see"),
-    t("DIRECTORY.table.paginator.per_page"),
-    t("DIRECTORY.table.paginator.selectorAria"),
-    t("DIRECTORY.table.paginator.selectorNav")
+    t("PAGES.table.paginator.see"),
+    t("PAGES.table.paginator.per_page"),
+    t("PAGES.table.paginator.selectorAria"),
+    t("PAGES.table.paginator.selectorNav")
   ]
 
   let itemsPaginationText = [

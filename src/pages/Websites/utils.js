@@ -59,10 +59,10 @@ export function getDirectoryTable (t) {
     ]
 
     let nItemsPerPageText=[
-      t("DIRECTORY.table.paginator.see"),
-      t("DIRECTORY.table.paginator.per_page"),
-      t("DIRECTORY.table.paginator.selectorAria"),
-      t("DIRECTORY.table.paginator.selectorNav")
+      t("WEBSITE_TABLE.table.paginator.see"),
+      t("WEBSITE_TABLE.table.paginator.per_page"),
+      t("WEBSITE_TABLE.table.paginator.selectorAria"),
+      t("WEBSITE_TABLE.table.paginator.selectorNav")
     ]
 
     let itemsPaginationText = [
@@ -71,9 +71,9 @@ export function getDirectoryTable (t) {
     ]
 
     let ariaLabels = {
-      A: t("WEBSITE.ariaLabels.A"),
-      AA: t("WEBSITE.ariaLabels.AA"),
-      AAA: t("WEBSITE.ariaLabels.AAA")
+      A: t("WEBSITES_PAGE.ariaLabels.A"),
+      AA: t("WEBSITES_PAGE.ariaLabels.AA"),
+      AAA: t("WEBSITES_PAGE.ariaLabels.AAA")
     }
 
     return { directoriesHeaders, columnsOptions, nameOfIcons, paginationButtonsTexts, nItemsPerPageText, itemsPaginationText, ariaLabels }

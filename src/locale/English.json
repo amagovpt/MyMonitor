@@ -415,11 +415,13 @@
         "date": "Date",
         "see_tooltip": "See page",
         "note": "* Number of errors for each conform level",
-          "paginator": {
+        "paginator": {
           "of": " of ",
           "items": " items",
-          "see": "Show",
-          "per_page": "items per page",
+          "see": "Show ",
+          "per_page": " items per page",
+          "selectorAria": "Number of rows per page",
+          "selectorNav": "Page selector",
           "first_page": "First page",
           "previous_page": "Previous page",
           "next_page": "Next page",

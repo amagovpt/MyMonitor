@@ -422,8 +422,10 @@
         "paginator": {
           "of": " de ",
           "items": " itens",
-          "see": "Ver",
-          "per_page": "itens por página",
+          "see": "Ver ",
+          "per_page": " itens por página",
+          "selectorAria": "Número de linhas por página",
+          "selectorNav": "Seletor de páginas",
           "first_page": "Primeira página",
           "previous_page": "Página anterior",
           "next_page": "Página seguinte",

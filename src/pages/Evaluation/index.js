@@ -201,9 +201,9 @@ export default function Evaluation() {
                   darkTheme={theme}
                   ariaLabels={{
                     button: t("RESULTS.results.details"),
-                    A: t("RESULTS.results.ariaLabels.A"),
-                    AA: t("RESULTS.results.ariaLabels.AA"),
-                    AAA: t("RESULTS.results.ariaLabels.AAA")
+                    A: t("WEBSITES_PAGE.results.ariaLabels.A"),
+                    AA: t("WEBSITES_PAGE.results.ariaLabels.AA"),
+                    AAA: t("WEBSITES_PAGE.results.ariaLabels.AAA")
                   }}
                 />}
               </section>
