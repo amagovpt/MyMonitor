@@ -1036,6 +1036,14 @@
       "s": "Identifiquei <mark>{{value}}</mark> cabeçalho sem nome acessível.",
       "p": "Identifiquei <mark>{{value}}</mark> cabeçalhos sem nome acessível."
     },
+    "heading_03": {
+      "s": "Identifiquei exatamente um cabeçalho de nível 1.",
+      "p": "Identifiquei exatamente um cabeçalho de nível 1."
+    },
+    "heading_04": {
+      "s": "Identifiquei <mark>{{value}}</mark> cabeçalhos de nível 1. Devia haver um.",
+      "p": "Identifiquei <mark>{{value}}</mark> cabeçalhos de nível 1. Devia haver um."
+    },
     "aria_01": {
       "s": "Verifiquei que <mark>todos os elementos</mark> com papel semântico definido explicitamente estão dentro dos contextos obrigatórios.",
       "p": "Verifiquei que <mark>todos os elementos</mark> com papel semântico definido explicitamente estão dentro dos contextos obrigatórios."

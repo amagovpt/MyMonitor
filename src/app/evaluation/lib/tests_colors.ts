@@ -97,6 +97,8 @@ const tests_colors = {
   win_01: "Y",
   heading_01: "G",
   heading_02: "R",
+  heading_03: "G",
+  heading_04: "R"
 };
 
 export default tests_colors;
