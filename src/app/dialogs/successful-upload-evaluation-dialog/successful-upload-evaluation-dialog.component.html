@@ -1,0 +1,15 @@
+<div fxLayout="row">
+  <h1 class="mat-display-1" mat-dialog-title>{{ "UPLOAD_EVALUATIONS_PAGE.DIALOG.title" | translate }}</h1>
+  <span fxFlex></span>
+  <button mat-icon-button aria-label="Close dialog" mat-dialog-close>
+    <mat-icon aria-hidden="false">close</mat-icon>
+  </button>
+</div>
+<mat-dialog-content fxLayout="row" fxLayoutAlign="center center">
+  <p>{{ "UPLOAD_EVALUATIONS_PAGE.DIALOG.message" | translate }}</p>
+</mat-dialog-content>
+<mat-dialog-actions fxLayout="row" fxLayoutAlign="center center">
+  <button mat-flat-button color="warn" type="button" mat-dialog-close>
+    {{ "UPLOAD_EVALUATIONS_PAGE.DIALOG.close" | translate }}
+  </button>
+</mat-dialog-actions>

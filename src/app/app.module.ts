@@ -58,6 +58,8 @@ import { LoginGovComponent } from './pages/login/login-gov/login-gov.component';
 import { LoginGovRedirectComponent } from './pages/login/login-gov-redirect/login-gov-redirect.component';
 import { ExitDialogComponent } from './dialogs/exit-dialog/exit-dialog.component';
 import { CriticalAspectsComponent } from './pages/critical-aspects/critical-aspects.component';
+import { SuccessfulUploadEvaluationDialogComponent } from './dialogs/successful-upload-evaluation-dialog/successful-upload-evaluation-dialog.component';
+import { UploadEvaluationCSVDialogComponent } from './dialogs/upload-evaluation-csvdialog/upload-evaluation-csvdialog.component';
 
 const appRoutes: Routes = [
   { path: 'critical-aspects', component: CriticalAspectsComponent, canActivate: [NoAuthGuard] },
@@ -121,7 +123,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     LoginGovComponent,
     LoginGovRedirectComponent,
     ExitDialogComponent,
-    CriticalAspectsComponent
+    CriticalAspectsComponent,
+    SuccessfulUploadEvaluationDialogComponent,
+    UploadEvaluationCSVDialogComponent
   ],
   imports: [
     RouterModule.forRoot(
@@ -155,7 +159,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     UserAuthErrorDialogComponent,
     AddPagesErrorsDialogComponent,
     BackgroundEvaluationsInformationDialogComponent,
-    CrawlerResultsDialogComponent
+    CrawlerResultsDialogComponent,
+    SuccessfulUploadEvaluationDialogComponent,
+    UploadEvaluationCSVDialogComponent
   ],
   providers: [
     {

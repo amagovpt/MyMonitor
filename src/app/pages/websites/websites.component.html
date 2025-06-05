@@ -19,10 +19,31 @@
     fxLayoutAlign="center center"
   >
     <div class="table-wrapper">
-      <h3>{{ "WEBSITE_TABLE.table.title" | translate }}</h3>
-      <h4>
-        {{ "WEBSITE_TABLE.table.subtitle" | translate }}
-      </h4>
+      <div class="table-header">
+        <h3>{{ "WEBSITE_TABLE.table.title" | translate }}</h3>
+        <h4>
+          {{ "WEBSITE_TABLE.table.subtitle" | translate }}
+        </h4>
+        <button (click)="openUploadEvaluation()" class="btn-add">
+          {{ "WEBSITES_PAGE.add_button" | translate }}
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20.17"
+            height="21.05"
+            viewBox="0 0 20.17 21.05"
+          >
+            <title>gerador_icons_tools_add</title>
+            <path
+              d="M14.5,9.62H11V6.12a.91.91,0,1,0-1.82,0h0v3.5H5.68a.91.91,0,1,0,0,1.82h3.5v3.5a.91.91,0,0,0,1.82,0h0v-3.5h3.5a.91.91,0,0,0,0-1.82Z"
+              fill="currentColor"
+            />
+            <path
+              d="M10.09,2.7a7.83,7.83,0,1,1-7.83,7.83A7.84,7.84,0,0,1,10.09,2.7m0-2a9.83,9.83,0,1,0,9.83,9.83A9.83,9.83,0,0,0,10.09.7Z"
+              fill="currentColor"
+            />
+          </svg>
+        </button>
+      </div>
       <table
         matSort
         (matSortChange)="sortData($event)"

@@ -609,7 +609,7 @@ export class EvaluationService {
     data["metadata"]["score"] = tot["info"]["score"];
     data["metadata"]["size"] = this.convertBytes(tot["info"]["size"]);
     data["metadata"]["last_update"] = tot["info"]["date"];
-    data["metadata"]["count_results"] = tot["results"].length;
+    data["metadata"]["count_results"] = tot["info"]["tests"];
     data["metadata"]["validator"] = tot.elems["w3cValidator"] === "true";
 
     data["results"] = [];
