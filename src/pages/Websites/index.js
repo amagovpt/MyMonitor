@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { useNavigate, Link } from "react-router-dom";
 import { Breadcrumb, LoadingComponent, SortingTable, Button, Icon } from "ama-design-system";
 import { ThemeContext } from "../../context/ThemeContext";
+import { Helmet } from "react-helmet";
 
 import { pathURL } from "../../App";
 import { api } from '../../config/api'
@@ -24,7 +25,13 @@ export default function Websites() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [directoriesList, setDirectoriesList] = useState();
+  const [announceTitle, setAnnounceTitle] = useState('');
+  const pageTitle = t("TITLES_PAGE.list_page")
+  useEffect(() => {
+    document.title = pageTitle;
 
+    setAnnounceTitle(pageTitle);
+  }, []);
   // Data and Options for the Tables on this page
   const { directoriesHeaders, columnsOptions, nameOfIcons, paginationButtonsTexts, nItemsPerPageText, itemsPaginationText, ariaLabels } = getDirectoryTable(t)
 
@@ -38,18 +45,16 @@ export default function Websites() {
 
   useEffect(() => {
     const processData = async () => {
-      setLoading(true)
-
       const {response, err} = await api.getUserData()
+      console.log(response)
       if(err && err.code && err.code === "ERR_NETWORK") {
         setError(t("MISC.unexpected_error") + " " + t("MISC.error_contact"));
       } else if (response && response.data.success === 1) {
-
         const userWebsites = response.data.result
-
+        
         let websiteList = []
         let websiteListForWebsitePage = []
-
+        
         await Promise.all(userWebsites.map(async (website) => {
           const {response, err} = await api.getUserWebsite(website.Name);
           if(err && err.code && err.code === "ERR_NETWORK") {
@@ -65,16 +70,16 @@ export default function Websites() {
         websiteList.forEach((obj, index) => {
           obj.rank = index + 1;
         });
-
         localStorage.setItem('websiteList', JSON.stringify(websiteList))
         localStorage.setItem('websiteListForWebsitePage', JSON.stringify(websiteListForWebsitePage))
         setDirectoriesList(websiteList)
       }
       setLoading(false)
     }
-
+    
     if(api.isUserLoggedIn()) {
       const websiteList = localStorage.getItem('websiteList')
+      //Colocar ! antes do websiteList
       if(!websiteList){
         processData()
       } else {
@@ -87,6 +92,15 @@ export default function Websites() {
 
   return (
     <>
+    <Helmet>
+        <title>{t("TITLES_PAGE.list_page")}</title>
+      </Helmet>
+      <div
+        aria-live="assertive"
+        className="assertive-div"
+      >
+        {announceTitle}
+      </div>
       <div className={`container ${homeDark}`}>
         <div className="link_breadcrumb_container d-flex flex-row justify-content-between align-items-center">
           <Breadcrumb data={breadcrumbs} darkTheme={theme} />
@@ -113,9 +127,8 @@ export default function Websites() {
                 {directoriesList && directoriesList.length > 0 ?
                   <section className={`bg-white px-5 py-2 mt-5 d-flex flex-row justify-content-between`}>
                     <div className="d-flex flex-column py-4 w-100 directories_table">
-                      <div role="text">
-                        <h2 className="bold m-0">{t("WEBSITE_TABLE.table.title")}</h2>
-                        <p className="ama-typography-body pb-4">{t("WEBSITE_TABLE.table.subtitle")}</p>
+                      <div>
+                        <h2 className="bold m-0 mb-4">{t("WEBSITE_TABLE.table.subtitle")}</h2>
                       </div>
                       {directoriesList && <SortingTable
                         hasSort={true}

@@ -17,10 +17,7 @@ div#root {
     text-align: center;
 }
 
-.container {
-    width: 87% !important;
-    max-width: none !important;
-}
+
 
 .main {
     height: auto;
@@ -74,11 +71,4 @@ div#root {
 
 .link_breadcrumb_container .logout:hover {
     color: var(--ama-color-brand-primary);
-}
-
-
-@media (min-width: 320px) and (max-width: 480px) {
-    .container {
-        width: 95% !important;
-    }
 }

@@ -33,9 +33,9 @@ export function GoodBadTab({ main_content_website, tempData, top10Data, color, g
     let tempDataTableAA = []
     let tempDataTableAAA = []
     let tempDetailsTable = []
-
     // Get the number for each practice in text format
     tempData.practicesData.map((value) => {
+     
       let praticsPerPage = []
       value.quartiles.map((part) => {
         let text = ""
@@ -52,16 +52,16 @@ export function GoodBadTab({ main_content_website, tempData, top10Data, color, g
       })
       
       let singleOrPlural = 'p'
-      if(value.n_occurrences === 1) singleOrPlural = 's'
-      tempDetailsTable.push({name: t(`TESTS_RESULTS.${value.key}.${singleOrPlural}`), practices: praticsPerPage, pages: value.n_pages, occurences: value.n_occurrences, lvl: value.lvl})
+      if(value.nOccurrences === 1) singleOrPlural = 's'
+      tempDetailsTable.push({name: t(`TESTS_RESULTS.${value.key}.${singleOrPlural}`), practices: praticsPerPage, pages: value.n_pages, occurences: value.nOccurrences, lvl:<><span className="visually-hidden">{t(`WEBSITES_PAGE.ariaLabels.${value.lvl}`)}</span> <span aria-hidden="true">{value.lvl}</span></>})
       switch(value.lvl) {
         case "A":
           if(tempDataTableA.length < 3) {
             let singleOrPlural = 'p'
-            if(value.n_occurrences === 1) singleOrPlural = 's'
+            if(value.nOccurrences === 1) singleOrPlural = 's'
             tempDataTableA.push({
               number: tempDataTableA.length+1+".",
-              name: t(`TESTS_RESULTS.${value.key}.${singleOrPlural}`, {value: value.n_occurrences}),
+              name: t(`TESTS_RESULTS.${value.key}.${singleOrPlural}`, {value: value.nOccurrences}),
               nPages: [t(`WEBSITES_PAGE.${goodOrBad}.practice`) + " ", value.n_pages + " " + t(`WEBSITES_PAGE.${goodOrBad}.pages`)]
             })
           }
@@ -69,10 +69,10 @@ export function GoodBadTab({ main_content_website, tempData, top10Data, color, g
         case "AA":
           if(tempDataTableAA.length < 3) {
             let singleOrPlural = 'p'
-            if(value.n_occurrences === 1) singleOrPlural = 's'
+            if(value.nOccurrences === 1) singleOrPlural = 's'
             tempDataTableAA.push({
               number: tempDataTableAA.length+1+".",
-              name: t(`TESTS_RESULTS.${value.key}.${singleOrPlural}`, {value: value.n_occurrences}),
+              name: t(`TESTS_RESULTS.${value.key}.${singleOrPlural}`, {value: value.nOccurrences}),
               nPages: [t(`WEBSITES_PAGE.${goodOrBad}.practice`) + " ", value.n_pages + " " + t(`WEBSITES_PAGE.${goodOrBad}.pages`)]
             })
           }
@@ -80,10 +80,10 @@ export function GoodBadTab({ main_content_website, tempData, top10Data, color, g
         case "AAA":
           if(tempDataTableAAA.length < 3) {
             let singleOrPlural = 'p'
-            if(value.n_occurrences === 1) singleOrPlural = 's'
+            if(value.nOccurrences === 1) singleOrPlural = 's'
             tempDataTableAAA.push({
               number: tempDataTableAAA.length+1+".",
-              name: t(`TESTS_RESULTS.${value.key}.${singleOrPlural}`, {value: value.n_occurrences}),
+              name: t(`TESTS_RESULTS.${value.key}.${singleOrPlural}`, {value: value.nOccurrences}),
               nPages: [t(`WEBSITES_PAGE.${goodOrBad}.practice`) + " ", value.n_pages + " " + t(`WEBSITES_PAGE.${goodOrBad}.pages`)]
             })
           }
@@ -97,20 +97,26 @@ export function GoodBadTab({ main_content_website, tempData, top10Data, color, g
   }, [tempData, theme, language])
 
   return (
-    <section className={`bg-white ${main_content_website} d-flex flex-row justify-content-center align-items-center goodBadSection`}>
+    <section
+      className={`bg-white ${main_content_website} d-flex flex-row justify-content-center align-items-center goodBadSection`}
+      tabIndex="0"
+      aria-label={t("WEBSITES_PAGE.good_bad_section")}
+    >
       <div className="d-flex flex-column section_container best_practises py-3 px-2">
-        <h2 className="bold py-3 m-0">{title}</h2>
+        <h2 className="bold py-3 m-0" tabIndex="0">
+          {title}
+        </h2>
         
         {/* Top Ten Practices Graph/Table */}
-        <div className="tabs_section">
+        <div className="tabs_section" tabIndex="0" aria-label={t("WEBSITES_PAGE.top_ten_practices")}>
           <TopTenTabs top10Data={top10Data} color={color} aditionalData={tempData} title={title} ariaLabels={ariaLabels} />
         </div>
 
         {/* Tables for Practices, 3 per type and one general */}
-        <h2 className="bold mt-5">{t(`WEBSITES_PAGE.${goodOrBad}.title`)}</h2>
-        <p className="ama-typography-body-large mb-3">{t(`WEBSITES_PAGE.${goodOrBad}.subtitle`)}</p>
-        <div className="light_tables">
-          <h3 className="mt-3 mb-2">{t(`WEBSITES_PAGE.table_best_practices.lvl_label`) + ": " + "A"}</h3>
+        <h2 className="bold mt-5" tabIndex="0">{t(`WEBSITES_PAGE.${goodOrBad}.title`)}</h2>
+        <p className="ama-typography-body-large mb-3" tabIndex="0">{t(`WEBSITES_PAGE.${goodOrBad}.subtitle`)}</p>
+        <div className="light_tables" tabIndex="0" aria-label={t("WEBSITES_PAGE.practice_tables")}>
+          <h3 className="mt-3 mb-2">{t(`WEBSITES_PAGE.table_best_practices.lvl_label`) + ": " + "A"} </h3>
           {dataTableA && <SortingTable
             hasSort={false}
             headers={dataTableHeadersA}
@@ -121,7 +127,10 @@ export function GoodBadTab({ main_content_website, tempData, top10Data, color, g
             links={false}
             caption={t(`WEBSITES_PAGE.${goodOrBad}.message`, {value: "A"})}
           />}
-          <h3 className="mt-3 mb-2">{t(`WEBSITES_PAGE.table_best_practices.lvl_label`) + ": " + "AA"}</h3>
+          <h3 className="mt-3 mb-2">
+            <span aria-hidden="true">{t(`WEBSITES_PAGE.table_best_practices.lvl_label`) + ": " + "AA"}</span>
+            <span className="visually-hidden">{t(`WEBSITES_PAGE.table_best_practices.lvl_label`) + ": " +t("WEBSITES_PAGE.table_best_practices.double_a")}</span>
+          </h3>
           {dataTableAA && <SortingTable
             hasSort={false}
             headers={dataTableHeadersAA}
@@ -132,7 +141,10 @@ export function GoodBadTab({ main_content_website, tempData, top10Data, color, g
             links={false}
             caption={t(`WEBSITES_PAGE.${goodOrBad}.message`, {value: "AA"})}
           />}
-          <h3 className="mt-3 mb-2">{t(`WEBSITES_PAGE.table_best_practices.lvl_label`) + ": " + "AAA"}</h3>
+          <h3 className="mt-3 mb-2">
+            <span aria-hidden="true">{t(`WEBSITES_PAGE.table_best_practices.lvl_label`) + ": " + "AAA"}</span>
+            <span className="visually-hidden">{t(`WEBSITES_PAGE.table_best_practices.lvl_label`) + ": " +t("WEBSITES_PAGE.table_best_practices.triple_a")}</span>
+          </h3>
           {dataTableAAA && <SortingTable
             hasSort={false}
             headers={dataTableHeadersAAA}
@@ -145,17 +157,17 @@ export function GoodBadTab({ main_content_website, tempData, top10Data, color, g
           />}
         </div>
         <h2 className="bold mt-5 mb-3">{t(`WEBSITES_PAGE.table_best_practices.${goodOrBad}`)}</h2>
-        {detailsTable && <SortingTable
-          hasSort={false}
-          headers={detailsTableHeaders}
-          dataList={detailsTable}
-          columnsOptions={columnsOptionsDetails}
-          darkTheme={theme}
-          pagination={false}
-          links={false}
-          caption={t(`WEBSITES_PAGE.table_best_practices.${goodOrBad}`)}
-          ariaLabels={ariaLabels}
-        />}
+          {detailsTable && <SortingTable
+            hasSort={false}
+            headers={detailsTableHeaders}
+            dataList={detailsTable}
+            columnsOptions={columnsOptionsDetails}
+            darkTheme={theme}
+            pagination={false}
+            links={false}
+            caption={t(`WEBSITES_PAGE.table_best_practices.${goodOrBad}`)}
+            ariaLabels={ariaLabels}
+          />}
       </div>
     </section>
   );

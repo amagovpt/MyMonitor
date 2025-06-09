@@ -76,7 +76,7 @@ export function BarLineGraphTabs({ tempData, websiteStats }) {
     let tempDataForLine = []
     let dataTableFrequency = []
     tempData && tempData.scoreDistributionFrequency.length > 0 && tempData.scoreDistributionFrequency.map((value, index) => {
-      const percentage = (value*100/tempData.nPages).toFixed(1)
+      const percentage = (value*100/tempData.nPages)?.toFixed(1)
       tempDataForBar.push(percentage)
 
       let cumulative = 0
@@ -87,7 +87,7 @@ export function BarLineGraphTabs({ tempData, websiteStats }) {
       } else {
         const sum = value+dataTableFrequency[index-1].cumulative
         cumulative = sum
-        cumulativePercent = (sum*100/tempData.nPages).toFixed(1)
+        cumulativePercent = (sum*100/tempData.nPages)?.toFixed(1)
       }
       tempDataForLine.push(cumulativePercent)
 

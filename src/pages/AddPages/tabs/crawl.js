@@ -5,20 +5,20 @@ import { useTranslation } from "react-i18next";
 import Modal from 'react-modal';
 
 // Dark / Light Theme Context
-import { ThemeContext } from "../../../../context/ThemeContext";
+import { ThemeContext } from "../../../context/ThemeContext";
 
 import { Button, Icon, SortingTable } from "ama-design-system";
 
-import { getResultsTable } from '../../utils'
+import { getResultsTable } from '../../Website/utils'
 
-import { api } from '../../../../config/api'
+import { api } from '../../../config/api'
 
-import { urlValidator } from '../../utils'
+import { urlValidator } from '../../Website/utils'
 
 export function Crawl({ data, name, setShowSecondModal, closeModal }) {
   const { t } = useTranslation();
   const { theme } = useContext(ThemeContext);
-
+  const textColorTheme = theme === "light" ? "" : "text-white"
   const [status, setStatus] = useState("not_running")
   const [error, setError] = useState(false);
   const [showResultsModal, setShowResultsModal] = useState(false)
@@ -88,7 +88,6 @@ export function Crawl({ data, name, setShowSecondModal, closeModal }) {
         setError(t("MISC.unexpected_error") + " " + t("MISC.error_contact"));
       } else if (response && response.data.success === 1) {
         setShowSecondModal(true)
-        closeModal()
         setShowResultsModal(false)
       }
     }
@@ -99,13 +98,13 @@ export function Crawl({ data, name, setShowSecondModal, closeModal }) {
       <Modal
         isOpen={showResultsModal}
         onRequestClose={() => setShowResultsModal(false)}
-        contentLabel="Results modal"
+        contentLabel={"Modal" +" "+ t("ADD_PAGES.crawler.dialog.title")}
         className={theme === "light" ? "website_modal" : "website_modal_dark"}
         overlayClassName={theme === "light" ?"website_overlay_modal" : "website_overlay_modal_dark"}
       >
         <div className="modal_container d-flex flex-column p-4">
           <div className="d-flex flex-row justify-content-between mb-3 align-items-center">
-            <h2>{t("ADD_PAGES.crawler.dialog.title")}</h2>
+            <h1>{t("ADD_PAGES.crawler.dialog.title")}</h1>
             <Button
               darkTheme={theme}
               variant={"secondary"}
@@ -145,18 +144,18 @@ export function Crawl({ data, name, setShowSecondModal, closeModal }) {
           </div>
         </div>
       </Modal>
-      <div className="d-flex flex-row justify-content-start align-items-center gap-4 crawl_actions">
-        <div>
-          {t("ADD_PAGES.crawler.status")}
-          <span>{t(`ADD_PAGES.crawler.${status}`)}</span>
-        </div>
+          <span className={`${textColorTheme}`}>{t("ADD_PAGES.crawler.description")}</span>
+      <div className="d-flex flex-column justify-content-start align-items-center gap-4 crawl_actions">
+       
+        <div className="d-flex flex-row gap-4 crawl_actions mt-4">
+
         <Button
           darkTheme={theme}
           variant={"primary"}
           text={t(`ADD_PAGES.crawler.crawl_button`)}
           size={"lg"}
           onClick={startCrawler}
-        />
+          />
         <Button
           darkTheme={theme}
           variant={"success"}
@@ -164,7 +163,7 @@ export function Crawl({ data, name, setShowSecondModal, closeModal }) {
           size={"lg"}
           disabled={status === 'complete' ? false : true}
           onClick={viewResults}
-        />
+          />
         <Button
           darkTheme={theme}
           variant={"danger"}
@@ -172,7 +171,12 @@ export function Crawl({ data, name, setShowSecondModal, closeModal }) {
           size={"lg"}
           disabled={status === 'complete' ? false : true}
           onClick={deleteData}
-        />
+          />
+          </div>
+          <div>
+          <span className={`${textColorTheme}`}>{t("ADD_PAGES.crawler.status")}</span>
+          <span className={`${textColorTheme}`} aria-live="assertive">{t(`ADD_PAGES.crawler.${status}`)}</span>
+        </div>
       </div>
       {error && <p>{error}</p>}
     </>

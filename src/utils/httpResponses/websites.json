@@ -9,9 +9,9 @@
                 "UserId": 53,
                 "Name": "Portal da Justiça",
                 "StartingUrl": "https://justica.gov.pt",
-                "Declaration": null,
+                "Declaration": "1",
                 "Declaration_Update_Date": null,
-                "Stamp": null,
+                "Stamp": "1",
                 "Stamp_Update_Date": null,
                 "Creation_Date": "2020-11-24T22:00:46.000Z",
                 "Pages": "70"

@@ -26,7 +26,7 @@ export function ButtonsActions({reRequest, seeCode, downloadCSV, href, themeClas
             <div className="d-flex flex-row gap-3 other">
                 <div>
                     <Button
-                        id="dropdownMenuButton"
+                        id="dropdownMenuButtonFirst"
                         size="md"
                         variant="secondary"
                         text={t("RESULTS.actions.see_page")}
@@ -37,7 +37,7 @@ export function ButtonsActions({reRequest, seeCode, downloadCSV, href, themeClas
                         aria-expanded={seePage}
                     />
                     {seePage && (
-                        <u className="dropdown-content show_dropdown" aria-labelledby="dropdownMenuButton" >
+                        <u className="dropdown-content show_dropdown" aria-labelledby="dropdownMenuButtonFirst" >
                             <li>
                                 <a href={seeCode}>
                                     <span className='me-2'>{t("RESULTS.actions.pagecode")}</span>
@@ -77,7 +77,7 @@ export function ButtonsActions({reRequest, seeCode, downloadCSV, href, themeClas
             />
             <div>
                 <Button
-                    id="dropdownMenuButton"
+                    id={"dropdownMenuButton"}
                     size="md"
                     variant="secondary"
                     text={t("RESULTS.actions.see_page")}

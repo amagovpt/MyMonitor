@@ -19,3 +19,11 @@
 .websites_dark .directories_table .sorting_table tbody tr:hover {
     background-color: var(--ama-color-background-dark-darker) !important;
 }
+
+.assertive-div{
+    width: 1px;
+    height: 1px;
+    left: -9999px;
+    overflow: hidden;
+    position: absolute;
+}

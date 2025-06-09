@@ -1,5 +1,11 @@
 {
   "translation": {
+    "TITLES_PAGE": {
+      "login": "Login Page",
+      "list_page": "Website Listing Page",
+      "details_site": "Website Report Page",
+      "details_page": "Website Page Details"
+    },
     "LOGIN": {
       "title": "Welcome to My Monitor",
       "subtitle": "To start session use Autenticação.Gov :",
@@ -9,8 +15,10 @@
       "email_error": "The e-mail is not valid. <strong>E.g. name@service.com</strong>",
       "show_password": "Click here to show the password text",
       "hide_password": "Click here to hide the password text",
-      "submit": "Autenticação.Gov",
+      "submit": "Login",
       "logout": "Logout",
+      "here":"here",
+      "manual_link":"Access the MyMonitor manual",
       "messages": {
         "password_match": "Wrong username or password",
         "no_user": "Wrong username or password",
@@ -25,15 +33,16 @@
     },
     "HEADER": {
       "tool": "A tool of the ecosystem from",
+      "ariaLabelBreadcrumb":"You are here",
       "title": {
-        "part1": "My Monitor",
+        "part1": "MyMonitor",
         "part2": ""
       },
       "text": "The Public Observatory of accessibility and usability practices on websites and mobile applications.",
       "NAV": {
         "location": "You are at",
         "ecosystem": "Ecosystem",
-        "home": "My Monitor",
+        "home": "MyMonitor",
         "code": "Code"
       },
       "dark_mode": "Dark mode",
@@ -73,6 +82,7 @@
       "statistics_subtitle": "Metadata",
       "table": {
         "filter": "Filter",
+        "seleted":"Selected",
         "title": "Websites",
         "subtitle": "List of websites",
         "rank": "Rank",
@@ -254,7 +264,9 @@
       "button": "Add pages",
       "error_message": "There was an error while trying to add pages",
       "success_message": "Pages added successfully",
+      "success_message_removed": "Pages removed successfully",
       "file_name_label": "Choose file",
+      "tutorial_text":"Add pages to your website using one of the following options:",
       "error_dialog": {
         "title": "Errors",
         "message": "Some errors ocurred while trying to add the following pages:"
@@ -266,11 +278,12 @@
       },
       "crawler": {
         "status": "Status: ",
-        "not_running": "not running",
-        "inProgress": "in progress",
-        "complete": "complete",
+        "not_running": "Crawl not running",
+        "inProgress": "Crawling in progress",
+        "complete": "Crawl complete",
         "crawl_button": "Crawl website",
         "results_button": "Check results",
+        "description":"The crawling process will analyze your website and identify the pages that are indexed on it. The analysis may take some time, depending on the total number of pages on your website. This crawl has no page limit; however, pages that require login or authentication will not be evaluated.",
         "delete_button": "Delete results",
         "dialog": {
           "title": "Choose pages to import",
@@ -293,10 +306,12 @@
         "uris_invalid": "One of the given uris is invalid",
         "type_invalid": "Given file's extension is not .xml or .txt",
         "txt_example": "txt format",
-        "xml_example": "xml format"
+        "xml_example": "xml format",
+        "new_window": "Download an example file"
+
       },
       "transfer": {
-        "message": "Transfer the Observatory pages that you don't have",
+        "message": "Transfer and import the pages previously analyzed by the Portuguese Web Accessibility Observatory.",
         "button": "Transfer",
         "success": "Pages transferred successfully",
         "error": "There was an error while trying to transfer the pages"
@@ -338,6 +353,8 @@
         "n_pages_label": "N.º of affected pages",
         "details_practice_label": "Practices per page",
         "details_error_label": "Errors per page",
+        "double_a": "Double A",
+        "triple_a":"Triple A",
         "details": {
           "single_practice": "occurrence in",
           "multi_practices": "occurrences in",
@@ -380,7 +397,7 @@
       "add_button": "Add",
       "remove_success_message": "Pages removed successfully",
       "remove_error_message": "There was an error while trying to remove the selected pages",
-      "re_evaluate": "Re-evaluate pages",
+      "re_evaluate": "Re-evaluate",
       "top_5_errors": {
         "title": "Top 5 common errors for each of the 3 WCAG 2.1 levels (nº of pages)",
         "errorA_title": "Top 5 errors from level \"A\"",
@@ -400,7 +417,7 @@
       },
       "accessibility_plot": {
         "title": "Accessibility plot",
-        "label": "Score distribution",
+        "label": "Chart of Score distribution",
         "headerTable": "Page"
       },
       "table": {

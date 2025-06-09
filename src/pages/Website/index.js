@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import { ThemeContext } from "../../context/ThemeContext";
 import moment from 'moment'
-
+import { Helmet } from "react-helmet";
 import { Breadcrumb, LoadingComponent, StatisticsHeader, Button, Icon, Tabs } from "ama-design-system";
 import { RadarGraph } from "./_components/radarGraph";
 import { BarLineGraphTabs } from "./_components/barLineGraphTabs";
@@ -61,7 +61,14 @@ export default function Website() {
   });
 
   const { statsTitles } = getStatTitles(t)
+  const [announceTitle, setAnnounceTitle] = useState('');
+  const pageTitle = `${t("TITLES_PAGE.details_site")} do ${name}`
 
+  useEffect(() => {
+    document.title = pageTitle;
+
+    setAnnounceTitle(pageTitle);
+  }, []);
   // Navigation options
   const breadcrumbs = [
     { children: <Link to={`${pathURL}`}>{t("HEADER.NAV.ecosystem")}</Link> },
@@ -70,7 +77,6 @@ export default function Website() {
       title: name
     }
   ];
-
   const tabsGoodBad = [
     {
       eventKey: "tab1",
@@ -121,6 +127,7 @@ export default function Website() {
             return err;
           } else if (response && response.data.success === 1) {
             const pages = response.data.result
+           
             getData(website, pages, websiteList, websiteListForWebsitePage, moment)
           }
           return;
@@ -140,6 +147,7 @@ export default function Website() {
           const list = pagesListTable(targetObject.pages, moment)
           setPagesList(list)
           setWebsiteStats(createStatisticsObject(targetObject, moment))
+          console.log("OLA MUNDO")
         } else {
           navigate(`${pathURL}user`)
         }
@@ -148,9 +156,9 @@ export default function Website() {
     }
 
     if(api.isUserLoggedIn()) {
+      processData()
       const websiteListForWebsitePage = localStorage.getItem('websiteListForWebsitePage')
-      if(!websiteListForWebsitePage){
-        processData()
+      if(websiteListForWebsitePage){
       } else {
         const parsedData = JSON.parse(websiteListForWebsitePage)
         setParsedData(parsedData)
@@ -160,6 +168,8 @@ export default function Website() {
           const list = pagesListTable(targetObject.pages, moment)
           setPagesList(list)
           setWebsiteStats(createStatisticsObject(targetObject, moment))
+                    console.log("OLA MUNDO API")
+
         } else {
           navigate(`${pathURL}user`)
         }
@@ -193,6 +203,15 @@ export default function Website() {
 
   return (
     <>
+    <Helmet>
+        <title>{pageTitle}</title>
+      </Helmet>
+      <div
+        aria-live="assertive"
+        className="assertive-div"
+      >
+        {announceTitle}
+      </div>
       <div className={`container website ${websiteDark}`}>
         <div className="link_breadcrumb_container d-flex flex-row justify-content-between align-items-center">
           <Breadcrumb data={breadcrumbs} darkTheme={theme} />
@@ -230,7 +249,7 @@ export default function Website() {
                 {/* Radar Graph */}
                 <section className={`bg-white py-2 mt-5 d-flex flex-row justify-content-center`}>
                   <div className="d-flex flex-column section_container py-4">
-                    <h3 className="bold">{t("PAGES.accessibility_plot.title")}</h3>
+                    <h2 className="bold">{t("PAGES.accessibility_plot.title")}</h2>
                     <RadarGraph tempData={data} />
                   </div>
                 </section>
@@ -238,7 +257,7 @@ export default function Website() {
                 {/* Bar+Line Graph */}
                 <section className={`bg-white mt-5 d-flex flex-row justify-content-center`}>
                   <div className="d-flex flex-column section_container py-4">
-                    <h3 className="bold mb-3">{t("DIALOGS.scores.title")}</h3>
+                    <h2 className="bold mb-3">{t("DIALOGS.scores.title")}</h2>
                     <BarLineGraphTabs tempData={data} websiteStats={websiteStats} />
                   </div>
                 </section>

@@ -1,26 +1,25 @@
 
 // Hooks
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import moment from 'moment'
-import Modal from 'react-modal';
 
 // Dark / Light Theme Context
-import { ThemeContext } from "../../../../context/ThemeContext";
+import { ThemeContext } from "../../../context/ThemeContext";
 
-import { pagesListTable, removeCertainPages } from "../../utils";
+import {  getData, createStatisticsObject, logoutUser, removeCertainPages, pagesListTable } from "../../../utils/utils";
 
 import { Button, Icon } from "ama-design-system";
 
-import { pathURL } from "../../../../App";
-import { api } from '../../../../config/api'
+import { pathURL } from "../../../App";
+import { api } from '../../../config/api'
 
-export function RemovePagesSection({closeModal, error, name, pagesSelected, setError, setPagesList, parsedData,setShowMessageModal}) {
+export function RemovePagesSection({closeModal, error, name, pagesSelected, setError, setPagesList, parsedData}) {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { theme } = useContext(ThemeContext);
-
+  
 
   const removePages = async () => {
     const newPagesSelected = {};
@@ -37,7 +36,6 @@ export function RemovePagesSection({closeModal, error, name, pagesSelected, setE
         const list = pagesListTable(targetObject.pages, moment)
         setPagesList(list)
         closeModal()
-        setShowMessageModal(true)
       }
     } else {
       localStorage.removeItem('MM-username');
@@ -50,11 +48,9 @@ export function RemovePagesSection({closeModal, error, name, pagesSelected, setE
   }
 
   return (
-    <>
-     
     <div className="modal_container d-flex flex-column p-4">
         <div className="d-flex flex-row justify-content-between mb-3 align-items-center">
-          <h1>{t("PAGES.dialog.title")}</h1>
+          <h2>{t("PAGES.dialog.title")}</h2>
           <Button
             darkTheme={theme}
             variant={"secondary"}
@@ -72,28 +68,28 @@ export function RemovePagesSection({closeModal, error, name, pagesSelected, setE
               <p className="ama-typography-body-large mb-3">{t("PAGES.dialog.first_sentence")}</p>
               <p className="ama-typography-body-large">{t("PAGES.dialog.second_sentence")}</p>
             </div>
-            <div className="d-flex flex-row justify-content-start align-items-center">
+            <div className="d-flex flex-row justify-content-between align-items-center">
               <Button
                 darkTheme={theme}
                 variant={"success"}
-                className={"me-4"}
+                className={""}
                 text={t(`PAGES.dialog.yes`)}
                 onClick={() => removePages()}
                 size={"lg"}
-                />
+              />
               <Button
                 darkTheme={theme}
                 variant={"danger"}
+                className={""}
                 text={t(`PAGES.dialog.no`)}
                 onClick={() => closeModal()}
                 size={"lg"}
-                />
+              />
             </div>
           </>
         :
-        <p className="ama-typography-body-large h-100 mt-6">{error}</p>
-      }
+          <p className="ama-typography-body-large h-100 mt-6">{error}</p>
+        }
     </div>
-      </>
   );
 }

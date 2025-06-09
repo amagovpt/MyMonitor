@@ -1,5 +1,11 @@
 {
   "translation": {
+    "TITLES_PAGE": {
+      "login":"Página de Login",
+      "list_page":"Página de Listagem de Sítios Web",
+      "details_site":"Página de Avaliação",
+      "details_page":"Detalhes da Página do Sítio Web"
+    },
     "LOGIN": {
       "title": "Bem-vindo ao My Monitor",
       "subtitle": "Inicie a sua sessão autenticando-se com o Cartão de Cidadão ou Chave Móvel Digital",
@@ -9,8 +15,10 @@
       "email_error": "Introduza um email válido. <strong>Ex.: nome@serviço.com</strong>",
       "show_password": "Carregue aqui para mostrar a palavra-chave",
       "hide_password": "Carregue aqui para esconder a palavra-chave",
-      "submit": "AUTENTICAÇÃO.GOV",
-      "logout": "Sair",
+      "submit": "Autencacao.GOV",
+      "here":"aqui",
+      "manual_link":"Acesse o manual do MyMonitor",
+      "logout": "Terminar Sessão",
       "messages": {
         "password_match": "Utilizador ou palavra-chave incorretos",
         "no_user": "Utilizador ou palavra-chave incorretos",
@@ -25,15 +33,16 @@
     },
     "HEADER": {
       "tool": "Uma ferramenta do ecossistema do",
+      "ariaLabelBreadcrumb":"Você está aqui",
       "title": {
-        "part1": "My Monitor",
+        "part1": "MyMonitor",
         "part2": ""
       },
       "text": "Ferramenta que permite monitorar um sítio Web completo.",
       "NAV": {
         "location": "Você está em",
         "ecosystem": "Ecossistema",
-        "home": "My Monitor",
+        "home": "MyMonitor",
         "code": "Código"
       },
       "dark_mode": "Modo escuro",
@@ -73,6 +82,7 @@
       "statistics_subtitle": "Metadados",
       "table": {
         "filter": "Filtro",
+        "selected":"Selecionadas",
         "title": "Sítios Web",
         "subtitle": "Lista de sítios Web",
         "rank": "Classificação",
@@ -129,10 +139,14 @@
       "pages_without_errors": "Páginas conformes",
       "pages_without_errors_a": "Conformes A",
       "pages_without_errors_a_aa": "Conformes AA",
+      "pages_without_errors_a_aa_ac": "Conformes Duplo A",
       "pages_without_errors_a_aa_aaa": "Conformes AAA",
+      "pages_without_errors_a_aa_aaa_ac": "Conformes Triplo A",
       "pages_without_errors_a_info": "sem erros de nível A",
       "pages_without_errors_a_aa_info": "sem erros de nível A+AA",
-      "pages_without_errors_a_aa_aaa_info": "sem erros de nível A+AA+AAA"
+      "pages_without_errors_a_aa_info_ac": "sem erros de nível A+Duplo A",
+      "pages_without_errors_a_aa_aaa_info": "sem erros de nível A+AA+AAA",
+      "pages_without_errors_a_aa_aaa_info_ac": "sem erros de nível A+Duplo A+Triplo A"
     },
     "DIALOGS": {
       "chart_title": "Gráfico",
@@ -167,7 +181,7 @@
         "level": "Nível",
         "description": "Descrição",
         "websites": "Sítios web",
-        "pages": "Paǵinas",
+        "pages": "Páginas",
         "situations": "Ocorrências",
         "tests_label": "Testes",
         "situations_label": "Nº de páginas"
@@ -241,7 +255,7 @@
       "title": "Adicionar páginas",
       "subtitle": "Adicione páginas a este sítio web",
       "tab1": "Inserir manualmente",
-      "tab2": "Inserir sitemap",
+      "tab2": "Inserir mapa do sítio web",
       "tab3": "Crawl sítio web",
       "tab4": "Transferir do Observatório",
       "domain_label": "Url inicial atual",
@@ -250,11 +264,13 @@
       "required": "Este campo é obrigatório",
       "error": "Um dos urls é inválido",
       "url_match_error": "Um dos urls não coincide com o domínio",
-      "url_missing_protocol": "O protocolo de um dos urls está em falta (http ou https)",
+      "url_missing_protocol": "O protocolo de um dos urls está em falta (http:// ou https://)",
       "button": "Adicionar páginas",
       "error_message": "Ocorreu um erro ao tentar adicionar as páginas",
       "success_message": "Páginas adicionadas com sucesso",
+      "success_message_remove": "Páginas removidas com sucesso",
       "file_name_label": "Escolher ficheiro",
+      "tutorial_text":"Adicione páginas do seu sítio web através de uma das seguintes opções:",
       "error_dialog": {
         "title": "Erros",
         "message": "Ocorreram alguns erros ao tentar adicionar as seguintes páginas:"
@@ -266,14 +282,15 @@
       },
       "crawler": {
         "status": "Estado: ",
-        "not_running": "parado",
-        "inProgress": "em progresso",
-        "complete": "completo",
+        "not_running": "Crawl parado",
+        "inProgress": "Crawling em progresso",
+        "complete": "Crawl completo",
         "crawl_button": "Crawl sítio web",
         "results_button": "Ver resultados",
+        "description":"O processo de crawl irá analisar o seu sítio web e identificar as páginas indexadas ao mesmo. O processo de análise poderá demorar algum tempo, dependendo do número total de páginas do seu sítio web. Este crawl não tem limite de páginas, contudo as páginas sob login, isto é, que necessitam de autenticação, não serão avaliadas.",
         "delete_button": "Apagar resultados",
         "dialog": {
-          "title":"Adicionar páginas do crawler",
+          "title":"Adicionar páginas recolhidas pelo crawler",
           "subtitle": "Selecione as páginas que pretende adicionar",
           "uri_label": "Páginas",
           "import": "Importar",
@@ -294,10 +311,11 @@
         "uris_invalid": "Um dos uris no ficheiro inserido é inválido",
         "type_invalid": "O ficheiro inserido não é do tipo .xml ou .txt",
         "txt_example": "em formato txt",
-        "xml_example": "em formato xml"
+        "xml_example": "em formato xml",
+        "new_window": "Baixa um arquivo de exemplo"
       },
       "transfer": {
-        "message": "Transfira do Observatório as páginas que ainda não tem",
+        "message": "Transfira e importe as páginas previamente analisadas pelo Observatório Português da Acessibilidade Web.",
         "button": "Transferir",
         "success": "Páginas transferidas com sucesso",
         "error": "Ocorreu um erro ao tentar transferir as páginas"
@@ -305,7 +323,7 @@
     },
     "WEBSITES_PAGE": {
       "title": "My Monitor",
-      "subtitle": "Websites",
+      "subtitle": "Sítios Web",
       "statistics_title": "Estatísticas",
       "statistics_subtitle": "Metadados",
       "tabs": {
@@ -339,6 +357,8 @@
         "n_pages_label": "Páginas",
         "details_practice_label": "Práticas por página",
         "details_error_label": "Erros por página",
+        "double_a": "Duplo A",
+        "triple_a":"Triplo A",
         "details": {
           "single_practice": "ocorrência em",
           "multi_practices": "ocorrências em",
@@ -382,7 +402,7 @@
       "add_button": "Adicionar",
       "remove_success_message": "Páginas removidas com successo",
       "remove_error_message": "Ocorreu um erro ao tentar remover as páginas selecionadas",
-      "re_evaluate": "Re-avaliar páginas",
+      "re_evaluate": "Re-avaliar",
       "top_5_errors": {
         "title": "Top 5 de erros mais comuns por cada uma das 3 prioridades das WCAG 2.1 (Nº de páginas)",
         "errorA_title": "O top dos 5 erros de prioridade \"A\" que afetam mais páginas",
@@ -402,7 +422,7 @@
       },
       "accessibility_plot": {
         "title": "Mancha de acessibilidade",
-        "label": "Distribuição de pontuações",
+        "label": "Gráfico de Distribuição de pontuações",
         "headerTable": "Página"
       },
       "table": {
@@ -436,8 +456,8 @@
         "title": "Remover páginas",
         "first_sentence": "Tem a certeza que pretende remover as páginas selecionadas?",
         "second_sentence": "Esta operação não pode ser revertida.",
-        "yes": "Sim",
-        "no": "Não"
+        "yes": "Remover",
+        "no": "Cancelar"
       },
       "no_pages": "Este sítio web atualmente não contém páginas"
     },

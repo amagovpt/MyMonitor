@@ -59,3 +59,10 @@
   background-color: var(--ama-color-background-dark-lighter) !important;
   color: var(--ama-color-background-white)
 }
+.assertive-div{
+  width: 1px;
+  height: 1px;
+  left: -9999px;
+  overflow: hidden;
+  position: absolute;
+}

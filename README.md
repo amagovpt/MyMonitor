@@ -1,70 +1,65 @@
-# Getting Started with Create React App
+# 📢 Boas-vindas ao MyMonitor
+    "ama-design-system": "^1.1.87",
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Bem-vindo ao **MyMonitor**, a plataforma desenvolvida pela **Agência para a Modernização Administrativa (AMA)** para monitorizar e melhorar a acessibilidade dos websites das entidades públicas em Portugal. Com o MyMonitor, é possível analisar múltiplas páginas de um site e identificar pontos críticos de acessibilidade, garantindo um ambiente digital mais inclusivo para todos.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## 🔍 Conhecer o MyMonitor
 
-### `npm start`
+O **MyMonitor** é uma ferramenta inovadora baseada no motor de avaliação do **AccessMonitor**. Através dele, é possível:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- Avaliar a acessibilidade de websites de forma contínua.
+- Identificar problemas que comprometem a usabilidade e a inclusão.
+- Gerar relatórios detalhados para orientar melhorias.
+- Visualizar uma **"mancha de acessibilidade"**, um mapa que destaca as áreas mais críticas do site.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+O objetivo do MyMonitor é apoiar as entidades na **conformidade com as Diretrizes de Acessibilidade para Conteúdo Web (WCAG)**, promovendo uma experiência digital mais acessível.
 
-### `npm test`
+---
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 🚀 Começar a utilizar
 
-### `npm run build`
+O acesso ao **MyMonitor** está disponível para responsáveis por websites de entidades públicas e profissionais autorizados. Para obter acesso:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. Solicite a credencial enviando um e-mail para **acessibilidade@ama.gov.pt** com:
+   - Nome da entidade.
+   - Endereço do site a monitorizar.
+   - Contacto para validação.
+2. Aguarde a confirmação da AMA.
+3. Acesse a plataforma com **Cartão de Cidadão** ou **Chave Móvel Digital**.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+---
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 🛠 Como utilizar
 
-### `npm run eject`
+1. **Login na plataforma:** Utilize as credenciais fornecidas para aceder.
+2. **Adicionar uma pagina web:** Insira o URL do website que deseja monitorizar.
+3. **Executar uma análise:** O sistema irá avaliar automaticamente todas as páginas indicadas.
+4. **Consultar o relatório:** Visualize os resultados da auditoria, incluindo detalhes sobre os problemas de acessibilidade identificados.
+5. **Tomar medidas corretivas:** Utilize as sugestões do MyMonitor para melhorar a acessibilidade do site.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+---
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## ❓ Perguntas frequentes
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+**📌 Quem pode utilizar o MyMonitor?**  
+Apenas responsáveis por websites de entidades públicas e profissionais autorizados.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+**📌 O MyMonitor corrige automaticamente os erros encontrados?**  
+Não. A ferramenta apenas identifica os problemas e sugere melhorias para que os gestores do site possam corrigi-los.
 
-## Learn More
+**📌 Preciso instalar algum software?**  
+Não. O MyMonitor é uma plataforma online acessível via navegador.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+**📌 A análise do MyMonitor substitui uma auditoria humana?**  
+Não. A ferramenta automatiza grande parte do processo, mas recomenda-se uma revisão manual para garantir a máxima acessibilidade.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+---
 
-### Code Splitting
+## 💡 Sugerir melhorias
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Tem alguma sugestão para melhorar o **MyMonitor**? A AMA valoriza o seu feedback! Envie as suas sugestões para **acessibilidade@ama.gov.pt** ou utilize a área de feedback na própria plataforma.
 
-### Analyzing the Bundle Size
+Juntos, podemos tornar a web mais acessível para todos! ✨
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)

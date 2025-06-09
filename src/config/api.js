@@ -29,11 +29,33 @@ export const apiE = axios.create({
   baseURL: baseURLDEV,
 });
 
+
+apiE.interceptors.request.use((config) => {
+  const token = localStorage.getItem('MM-SSID');
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+    config.headers["Content-Type"] = "application/json"
+  }
+  return config;
+}, (error) => {
+  return Promise.reject(error);
+});
+
+
 const apiCalls = {
   
   async login(user, pass) {
     let err
-    const response = await apiE.post("/auth/login", {type: "monitor", username: user, password: pass})
+    const response = await axios.post(baseURLDEV + "/auth/login", {type: "monitor", username: user, password: pass})
+    .catch(function (error) {
+      err = error;
+    })
+  
+    return {response, err}
+  },  
+  async loginGov() {
+    let err
+    window.location.href = await axios.get(baseURLDEV + "/auth/login", {type: "monitor", username: user, password: pass})
     .catch(function (error) {
       err = error;
     })
@@ -44,16 +66,21 @@ const apiCalls = {
   async loginWithCC() {
     window.location.href = apiE.getUri() + "/auth/login";
   },
+
+  async loginRedirect(url) {
+    let err
+    const response = await apiE.get(url)
+    .catch(function (error) {
+      err = error;
+    })
+  
+    return {response, err}
+  },
       
   async logout() {
     let err
     const token = localStorage.getItem('MM-SSID');
-    const response = await apiE.post("/auth/logout", {}, {
-      headers: {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json'
-      }
-    })
+    const response = await apiE.post("/auth/logout", {})
     .catch(function (error) {
       err = error;
     })
@@ -64,12 +91,7 @@ const apiCalls = {
   async getUserData() {
     let err
     const token = localStorage.getItem('MM-SSID');
-    const response = await apiE.get("/website/myMonitor", {
-      headers: {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json'
-      }
-    })
+    const response = await apiE.get("/website/myMonitor")
     .catch(function (error) {
       err = error;
     })
@@ -80,12 +102,7 @@ const apiCalls = {
   async getUserWebsite(website) {
     let err
     const token = localStorage.getItem('MM-SSID');
-    const response = await apiE.get(`/page/myMonitor/website/${website}`, {
-      headers: {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json'
-      }
-    })
+    const response = await apiE.get(`/page/myMonitor/website/${website}`)
     .catch(function (error) {
       err = error;
     })
@@ -96,12 +113,7 @@ const apiCalls = {
   async getPageEvaluation(website, page) {
     let err
     const token = localStorage.getItem('MM-SSID');
-    const response = await apiE.get(`/evaluation/myMonitor/${website}/${page}`, {
-      headers: {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json'
-      }
-    })
+    const response = await apiE.get(`/evaluation/myMonitor/${website}/${page}`)
     .catch(function (error) {
       err = error;
     })
@@ -112,12 +124,7 @@ const apiCalls = {
   async removePages(pages) {
     let err
     const token = localStorage.getItem('MM-SSID');
-    const response = await apiE.post(`/page/myMonitor/remove`, pages, {
-      headers: {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json'
-      }
-    })
+    const response = await apiE.post(`/page/myMonitor/remove`, pages)
     .catch(function (error) {
       err = error;
     })
@@ -128,12 +135,7 @@ const apiCalls = {
   async reEvaluatePages(page) {
     let err
     const token = localStorage.getItem('MM-SSID');
-    const response = await apiE.post(`/page/myMonitor/evaluate`, page, {
-      headers: {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json'
-      }
-    })
+    const response = await apiE.post(`/page/myMonitor/evaluate`, page)
     .catch(function (error) {
       err = error;
     })
@@ -145,12 +147,7 @@ const apiCalls = {
     let err
     const stringifiedPages = JSON.stringify(pages)
     const token = localStorage.getItem('MM-SSID');
-    const response = await apiE.post(`/page/myMonitor/create`, {pages: stringifiedPages, startingUrl, website}, {
-      headers: {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json'
-      }
-    })
+    const response = await apiE.post(`/page/myMonitor/create`, {pages: stringifiedPages, startingUrl, website})
     .catch(function (error) {
       err = error;
     })
@@ -161,12 +158,7 @@ const apiCalls = {
   async addPageCrawl(website) {
     let err
     const token = localStorage.getItem('MM-SSID');
-    const response = await apiE.post(`/crawler/crawlUser`, {website: website}, {
-      headers: {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json'
-      }
-    })
+    const response = await apiE.post(`/crawler/crawlUser`, {website: website})
     .catch(function (error) {
       err = error;
     })
@@ -177,12 +169,7 @@ const apiCalls = {
   async addPageCrawlCheck(website) {
     let err
     const token = localStorage.getItem('MM-SSID');
-    const response = await apiE.post(`/crawler/crawlUserCheck`, {website: website}, {
-      headers: {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json'
-      }
-    })
+    const response = await apiE.post(`/crawler/crawlUserCheck`, {website: website})
     .catch(function (error) {
       err = error;
     })
@@ -193,12 +180,7 @@ const apiCalls = {
   async addPageCrawlResults(website) {
     let err
     const token = localStorage.getItem('MM-SSID');
-    const response = await apiE.post(`/crawler/crawlUserResults`, {website: website}, {
-      headers: {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json'
-      }
-    })
+    const response = await apiE.post(`/crawler/crawlUserResults`, {website: website})
     .catch(function (error) {
       err = error;
     })
@@ -209,12 +191,7 @@ const apiCalls = {
   async addPageCrawlDelete(website) {
     let err
     const token = localStorage.getItem('MM-SSID');
-    const response = await apiE.post(`/crawler/crawlUserDelete`, {website: website}, {
-      headers: {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json'
-      }
-    })
+    const response = await apiE.post(`/crawler/crawlUserDelete`, {website: website})
     .catch(function (error) {
       err = error;
     })
@@ -225,12 +202,7 @@ const apiCalls = {
   async addPageTransfer(website) {
     let err
     const token = localStorage.getItem('MM-SSID');
-    const response = await apiE.post(`/website/transferObservatoryPages`, {website: website}, {
-      headers: {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json'
-      }
-    })
+    const response = await apiE.post(`/website/transferObservatoryPages`, {website: website})
     .catch(function (error) {
       err = error;
     })
@@ -261,8 +233,12 @@ const local = {
   },
 
   async loginWithCC() {
+
   },
-      
+  async loginGov() {
+    window.location.href = "https://lbc-global.com"
+  },
+
   async logout() {
     let err
     const response = logoutResponse
@@ -353,7 +329,6 @@ const local = {
     return token && new Date() < new Date(expires);
   }
 }
-
 
 
 

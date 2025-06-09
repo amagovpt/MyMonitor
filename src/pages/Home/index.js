@@ -8,6 +8,7 @@ import { pathURL } from "../../App";
 import { api } from '../../config/api'
 import { UserPass } from "./_components/userPass";
 import { AuthCC } from "./_components/authCC";
+import { Helmet } from "react-helmet";
 
 export default function Home() {
   const { t } = useTranslation();
@@ -21,17 +22,18 @@ export default function Home() {
 
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
+  const [announceTitle, setAnnounceTitle] = useState('');
 
+  const pageTitle = t("TITLES_PAGE.login")
   // Navigation options
   const breadcrumbs = [
     {
-      title: t("HEADER.NAV.ecosystem"),
+      title: t("HEADER.NAV.home"),
       href: "",
       onClick: () => navigate(`${pathURL}`)
+
     },
-    {
-      title: t("HEADER.NAV.home")
-    }
+
   ];
 
   const loginUser = async () => {
@@ -54,6 +56,9 @@ export default function Home() {
     }
     setLoading(false)
   }
+  const loginGov = async () => {
+    api.loginGov()
+  }
 
   const loginUserCC = async () => {
     setError();
@@ -63,19 +68,34 @@ export default function Home() {
   }
 
   useEffect(() => {
+    document.title = pageTitle;
+
+    setAnnounceTitle(pageTitle);
     if (api.isUserLoggedIn()) {
       navigate(`${pathURL}user`)
     }
+
   }, [])
+
+  
 
   return (
     <>
+     <Helmet>
+        <title>{t("TITLES_PAGE.login")}</title>
+      </Helmet>
+      <div
+        aria-live="assertive"
+        className="assertive-div"
+      >
+        {announceTitle}
+      </div>
       <div className={`container ${homeDark}`}>
-        <div className="link_breadcrumb_container">
-          <Breadcrumb data={breadcrumbs} darkTheme={theme} />
+        <div className="link_breadcrumb_container" >
+          <Breadcrumb data={breadcrumbs} darkTheme={theme} tagHere={t("HEADER.ariaLabelBreadcrumb")}/>
         </div>
 
-        <section className={`bg-white p-4 d-flex flex-row justify-content-between`}>
+        <section className={`bg-white p-6 d-flex flex-row justify-content-between`}>
           <div className="d-flex flex-column justify-content-evenly login_container">
             <h2 className="bold">
               {t("LOGIN.title")}
@@ -86,15 +106,15 @@ export default function Home() {
 
             {/* User + Pass */}
             <UserPass username={username} setUsername={setUsername} password={password} setPassword={setPassword} error={error} loginUser={() => loginUser()} loading={loading} />
-            
-            {/* Authentication with CC */}
-            {/* <AuthCC loginUser={loginUserCC} loading={loading} /> */}
+            {/* Authentication with CC 
+            <AuthCC loginUser={loginGov} loading={loading} /> */}
           </div>
 
           <div className="d-flex flex-row align-items-center right_container icon_mobile">
             <Icon darkTheme={theme} name="AMA-SiteAcessibilidade-Line" />
           </div>
         </section>
+            <span className="mt-3">{t("LOGIN.manual_link")} <a href="https://amagovpt.github.io/a11yManuals/mymonitor/" target="_blank">{t("LOGIN.here")}</a></span>
       </div>
     </>
   );

@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import { ThemeContext } from "../../context/ThemeContext";
 
+import { Helmet } from "react-helmet";
 
 import { Breadcrumb, LoadingComponent, Gauge, Button, Icon, StatsTable, TableComponent } from "ama-design-system";
 import { ButtonsActions } from "./_components/buttons-revalidation";
@@ -37,8 +38,14 @@ export default function Evaluation() {
 
   const [parsedData, setParsedData] = useState();
   const [dataProcess, setDataProcess] = useState();
+  const [announceTitle, setAnnounceTitle] = useState('');
+  const pageTitle = t("TITLES_PAGE.details_page")
+  useEffect(() => {
+    document.title = pageTitle;
 
-  // Navigation options
+    setAnnounceTitle(pageTitle);
+  }, []);
+
   const breadcrumbs = [
     { children: <Link to={`${pathURL}`}>{t("HEADER.NAV.ecosystem")}</Link> },
     { children: <Link to={`${pathURL}user`}>{t("HEADER.NAV.home")}</Link> },
@@ -110,6 +117,15 @@ export default function Evaluation() {
 
   return (
     <>
+    <Helmet>
+        <title>{t("TITLES_PAGE.details_page")}</title>
+      </Helmet>
+      <div
+        aria-live="assertive"
+        className="assertive-div"
+      >
+        {announceTitle}
+      </div>
       <div className={`container ${homeDark}`}>
         <div className="link_breadcrumb_container d-flex flex-row justify-content-between align-items-center">
           <Breadcrumb data={breadcrumbs} darkTheme={theme} />

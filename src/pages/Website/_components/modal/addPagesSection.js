@@ -9,9 +9,9 @@ import { ThemeContext } from "../../../../context/ThemeContext";
 
 import { Tabs, Button, Icon } from "ama-design-system";
 
-import { ChooseFileAddPage } from "./chooseFileAddPage";
-import { AddPagesText } from "./addPagesText";
-import { Crawl } from "./crawl";
+import { ChooseFileAddPage } from "../../../AddPages/tabs/chooseFileAddPage";
+import { AddPagesText } from "../../../AddPages/tabs/addPagesText";
+import { Crawl } from "../../../AddPages/tabs/crawl";
 
 import { api } from '../../../../config/api'
 
@@ -20,7 +20,7 @@ export function AddPagesSection({data, name, mainTheme, closeModal, setShowSecon
   const { theme } = useContext(ThemeContext);
 
   const [message, setMessage] = useState(false);
-
+  const textColorTheme = theme === "light" ? "" : "text-white"
   const tabsAddPages = [
     {
       eventKey: "tab1",
@@ -63,7 +63,7 @@ export function AddPagesSection({data, name, mainTheme, closeModal, setShowSecon
             onClick={() => transferPages()}
           />
         </div>
-        {message && <p className="text-center bold ama-typography-body-large mt-3">{message}</p>}
+         <p aria-live="assertive" className={`${textColorTheme} text-center bold ama-typography-body-large mt-3`}> {message || ""}</p>
       </>,
     },
   ];
@@ -83,7 +83,7 @@ export function AddPagesSection({data, name, mainTheme, closeModal, setShowSecon
     <>
       <div className="modal_container d-flex flex-column p-4">
         <div className="d-flex flex-row justify-content-between mb-3 align-items-center">
-          <h2>{t("ADD_PAGES.title")}</h2>
+          <h1>{t("ADD_PAGES.title")}</h1>
           <Button
             darkTheme={theme}
             variant={"secondary"}

@@ -69,7 +69,7 @@ export function TopTenTabs({ top10Data, color, aditionalData, title, ariaLabels 
           lvl: level.lvl,
           name: t(`TESTS_RESULTS.${value.key}.s`),
           nPages: value.n_pages,
-          nOccurrences: value.n_occurrences,
+          nOccurrences: value.nOccurrences,
         })
     })
     setLabelsForHorizontal(tempHorizontalLabels)

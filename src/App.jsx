@@ -14,10 +14,11 @@ import Evaluation from './pages/Evaluation'
 import Details from './pages/Details'
 import PageCode from './pages/PageCode'
 import Error from "./pages/Error"
-
+import AddPages from "./pages/AddPages";
+import LoginRedirect from "./pages/LoginRedirect";
 //export const pathURL = process.env.REACT_APP_DEV_SERVER_URL;
 //export const pathURL = process.env.REACT_APP_PPR_SERVER_URL;
-export const pathURL = process.env.REACT_APP_PRD_SERVER_URL;
+export const pathURL = process.env.REACT_APP_PROD_SERVER_URL;
 
 export default function App() {
 
@@ -26,12 +27,14 @@ export default function App() {
       <Router>
         <Layout>
           <Routes basename={`${pathURL}`}>
+            <Route path={`${pathURL}loginRedirect`} element={<LoginRedirect />} />
             <Route path={`${pathURL}`} element={<Home />} />
             <Route path={`${pathURL}user`} element={<Websites />} />
             <Route path={`${pathURL}user/:name`} element={<Website />} />
             <Route path={`${pathURL}user/:name/:page`} element={<Evaluation />} />
             <Route path={`${pathURL}user/:name/:page/code`} element={<PageCode />} />
             <Route path={`${pathURL}user/:name/:page/:detail`} element={<Details />} />
+            <Route path={`${pathURL}user/:name/add-pages`} element={<AddPages />} />
 
             {/* Error page needs to be last */}
             <Route path={`${pathURL}*`} element={<Error />} />

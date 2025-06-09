@@ -4,7 +4,7 @@ import { useContext } from "react";
 import { useTranslation } from "react-i18next";
 
 // Dark / Light Theme Context
-import { ThemeContext } from "../../../../context/ThemeContext";
+import { ThemeContext } from "../../../context/ThemeContext";
 
 import { Button, Icon, LoadingComponent } from "ama-design-system";
 
@@ -15,7 +15,7 @@ export function ReEvaluateSection({closeModal, loading, error}) {
   return (
     <div className="modal_container d-flex flex-column p-4">
         <div className="d-flex flex-row justify-content-between mb-3 align-items-center">
-          <h1>{t("PAGES.re_evaluate")}</h1>
+          <h2>{t("PAGES.re_evaluate")}</h2>
           <Button
             darkTheme={theme}
             variant={"secondary"}

@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 export function getDirectoryTable (t) {
     const directoriesHeaders = [
       [
-        {type: "SortingText", nRow: 2, bigWidth: "10%", name: t("WEBSITE_TABLE.table.rank"), property: "rank"},
+        {type: "SortingText", nRow: 2, bigWidth: "17%", name: t("WEBSITE_TABLE.table.rank"), property: "rank"},
         {type: "SortingText", nRow: 2, bigWidth: "50%", name: t("WEBSITE_TABLE.table.name"), property: "name"},
         {type: "SortingIcon", nRow: 2, name: "AMA-DeclaracaoDark-Line", description: t("WEBSITE_TABLE.table.declaration"), property: "declaration"},
         {type: "SortingIcon", nRow: 2, name: "AMA-SeloDark-Line", description: t("WEBSITE_TABLE.table.stamp"), property: "stamp"},

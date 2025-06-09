@@ -1,260 +1,283 @@
 import { pathURL } from "../../App";
 import { Link } from "react-router-dom";
 
-export function getStatTitles (t) {
-    // Texts for StatisticsHeader component
-    let statsTitles = [
-        {subtitle: t("STATISTICS.pages"), subtitle2: ""},
-        {subtitle: t("STATISTICS.pages_without_errors"), subtitle2: ""},
-        {subtitle: t("STATISTICS.pages_with_errors"), subtitle2: ""},
-        {subtitle: t("STATISTICS.pages_without_errors_a_info"), subtitle2: t("STATISTICS.pages_without_errors_a")},
-        {subtitle: t("STATISTICS.pages_without_errors_a_aa_info"), subtitle2: t("STATISTICS.pages_without_errors_a_aa")},
-        {subtitle: t("STATISTICS.pages_without_errors_a_aa_aaa_info"), subtitle2: t("STATISTICS.pages_without_errors_a_aa_aaa")}
-    ]
+export function getStatTitles(t) {
+  // Texts for StatisticsHeader component
+  const secondSubtitle2 = (<>
+    <span className="visually-hidden">{t("STATISTICS.pages_without_errors_a_aa_ac")}</span>
+    <span aria-hidden="true">{t("STATISTICS.pages_without_errors_a_aa")}</span></>
+  )
+  const thirdSubtitle2 = (<>
+    <span className="visually-hidden">{t("STATISTICS.pages_without_errors_a_aa_aaa_ac")}</span>
+    <span aria-hidden="true">{t("STATISTICS.pages_without_errors_a_aa_aaa")}</span></>
+  )
 
-    return { statsTitles }
+  const secondSubtitle = (<><span className="visually-hidden">{t("STATISTICS.pages_without_errors_a_aa_info_ac")}</span>
+    <span aria-hidden="true">{t("STATISTICS.pages_without_errors_a_aa_info")}</span></>
+  )
+
+  const thirdSubtitle = (<><span className="visually-hidden">{t("STATISTICS.pages_without_errors_a_aa_aaa_info_ac")}</span>
+    <span aria-hidden="true">{t("STATISTICS.pages_without_errors_a_aa_aaa_info")}</span></>
+  )
+
+  let statsTitles = [
+    { subtitle: t("STATISTICS.pages"), subtitle2: "" },
+    { subtitle: t("STATISTICS.pages_without_errors"), subtitle2: "" },
+    { subtitle: t("STATISTICS.pages_with_errors"), subtitle2: "" },
+    { subtitle: t("STATISTICS.pages_without_errors_a_info"), subtitle2: t("STATISTICS.pages_without_errors_a") },
+    { subtitle: secondSubtitle, subtitle2: secondSubtitle2 },
+    { subtitle: thirdSubtitle, subtitle2: thirdSubtitle2 }
+  ]
+
+  return { statsTitles }
 }
 
-export function getRadarGraph (t, theme, labelsForRadar, data) {
-    const options = {
-      scales: {
-        r: {
-            min: 0,
-            max: 10,
-            grid: {
-              color: theme === "light" ? "lightgrey" : 'lightgrey', // Color of the grid lines
-            },
-            angleLines: {
-              color: theme === "light" ? "lightgrey" : 'lightgrey', // Color of the angle lines
-            },
-            ticks: {
-              backdropColor: theme === "light" ? "transparent" : '#2c3241', // Background color for the tick labels
-              color: theme === "light" ? "black" : 'white', // Color of the tick labels
-            },
+export function getRadarGraph(t, theme, labelsForRadar, data) {
+  const options = {
+    scales: {
+      r: {
+        min: 0,
+        max: 10,
+        grid: {
+          color: theme === "light" ? "lightgrey" : 'lightgrey', // Color of the grid lines
+        },
+        angleLines: {
+          color: theme === "light" ? "lightgrey" : 'lightgrey', // Color of the angle lines
+        },
+        ticks: {
+          backdropColor: theme === "light" ? "transparent" : '#2c3241', // Background color for the tick labels
+          color: theme === "light" ? "black" : 'white', // Color of the tick labels
         },
       },
-      plugins: {
-        legend: {
-          labels: {
-            color: theme === "light" ? "black" : '#b6dcf6', // Color of the legend text
+    },
+    plugins: {
+      legend: {
+        labels: {
+          color: theme === "light" ? "black" : '#b6dcf6', // Color of the legend text
+          font: {
+            size: 14,
+            family: 'Lato'
           }
         }
-      }
+
+      },
+
     }
+  }
 
-    const manchaData = {
-      labels: labelsForRadar,
-      datasets: [
-        {
-          label: t("PAGES.accessibility_plot.label"),
-          data: data,
-          backgroundColor: theme === "light" ? 'rgba(255, 99, 132, 0.2)' : 'rgba(182, 220, 246, 0.2)',
-          borderColor: theme === "light" ? 'rgba(255, 99, 132, 1)' : '#b6dcf6' ,
-          borderWidth: 1,
-        },
-      ],
-    };
+  const manchaData = {
+    labels: labelsForRadar,
+    datasets: [
+      {
+        label: t("PAGES.accessibility_plot.label"),
+        data: data,
+        backgroundColor: theme === "light" ? 'rgba(255, 99, 132, 0.2)' : 'rgba(182, 220, 246, 0.2)',
+        borderColor: theme === "light" ? 'rgba(255, 99, 132, 1)' : '#b6dcf6',
+        borderWidth: 1,
+      },
+    ],
+  };
 
-    return { options, manchaData }
+  return { options, manchaData }
 }
 
-export function getRadarTable (t) {
-	const dataHeaders = [
-		{type: "Text", name: t("PAGES.accessibility_plot.headerTable"), justifyCenter: true},
-		{type: "Text", name: t("STATISTICS.score"), justifyCenter: true},
-	]
+export function getRadarTable(t) {
+  const dataHeaders = [
+    { type: "Text", name: t("PAGES.accessibility_plot.headerTable"), justifyCenter: true },
+    { type: "Text", name: t("STATISTICS.score"), justifyCenter: true },
+  ]
 
-	let columnsOptions = {
-		id: { type: "Number", center: true, bold: false, decimalPlace: false },
-		score: { type: "Number", center: true, bold: false, decimalPlace: true }
-	}
+  let columnsOptions = {
+    id: { type: "Number", center: true, bold: false, decimalPlace: false },
+    score: { type: "Number", center: true, bold: false, decimalPlace: true }
+  }
 
-	return { dataHeaders, columnsOptions }
+  return { dataHeaders, columnsOptions }
 }
 
-export function getBarLineGraph (t, dataForLine, dataForBar, websiteStats, theme) {
+export function getBarLineGraph(t, dataForLine, dataForBar, websiteStats, theme) {
   const headersBarLine = ['[1 - 2[', '[2 - 3[', '[3 - 4[', '[4 - 5[', '[5 - 6[', '[6 - 7[', '[7 - 8[', '[8 - 9[', '[9 - 10[']
 
   const dataBarLine = {
-      labels: headersBarLine,
-      datasets: [
-        {
-          type: 'line',
-          label: t("DIALOGS.scores.cumulative"),
-          data: dataForLine,
-          backgroundColor: 'rgba(51, 51, 153, 1)',
-          borderColor: 'rgba(51, 51, 153, 1)',
-          borderWidth: 2,
-          fill: false,
-          tension: 0,
-          pointBackgroundColor: 'red', // Set the color of the dots
-          pointBorderColor: 'red',     // Set the border color of the dots
-        },
-        {
-          type: 'bar',
-          label: t("DIALOGS.scores.frequency"),
-          data: dataForBar,
-          backgroundColor: [
-            '#e90018',
-            '#e90018',
-            '#f38e10',
-            '#f38e10',
-            '#f3d609',
-            '#f3d609',
-            '#f3d609',
-            '#15ac51',
-            '#15ac51' 
-          ],
-          borderWidth: 0,
-        }
-      ]
+    labels: headersBarLine,
+    datasets: [
+      {
+        type: 'line',
+        label: t("DIALOGS.scores.cumulative"),
+        data: dataForLine,
+        backgroundColor: 'rgba(51, 51, 153, 1)',
+        borderColor: 'rgba(51, 51, 153, 1)',
+        borderWidth: 2,
+        fill: false,
+        tension: 0,
+        pointBackgroundColor: 'red', // Set the color of the dots
+        pointBorderColor: 'red',     // Set the border color of the dots
+      },
+      {
+        type: 'bar',
+        label: t("DIALOGS.scores.frequency"),
+        data: dataForBar,
+        backgroundColor: [
+          '#e90018',
+          '#e90018',
+          '#f38e10',
+          '#f38e10',
+          '#f3d609',
+          '#f3d609',
+          '#f3d609',
+          '#15ac51',
+          '#15ac51'
+        ],
+        borderWidth: 0,
+      }
+    ]
   };
 
   const optionsBarLine = {
-      maintainAspectRatio: false,
-      plugins: {
-        legend: {
-          position: 'top',
-          labels: {
-            color: theme === "light" ? 'rgba(0,0,0, 1)' : 'white', // Color of the legend text
-          }
-        },
-        tooltip: {
-          callbacks: {
-            label: function (context) {
-              let label = context.dataset.label || '';
-              if (label) {
-                label += ': ';
-              }
-              if (context.dataset.type === 'bar') {
-                // Format the tooltip for bar dataset
-                const nPages = (context.raw*websiteStats.statsTable[0]/100).toFixed(0)
-                return [
-                  `${label}${context.raw}%`,      // Main value
-                  `${t("DIALOGS.scores.frequency")}: ${nPages}` // Additional value
-                ];
-              } else if (context.dataset.type === 'line') {
-                // Format the tooltip for line dataset
-                const nPages = (context.raw*websiteStats.statsTable[0]/100).toFixed(0)
-                return [
-                  `${label}${context.raw}%`,      // Main value
-                  `${t("DIALOGS.scores.percentage")}: ${nPages}` // Additional value
-                ];
-              }
-              return label;
-            }
-          }
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        position: 'top',
+        labels: {
+          color: theme === "light" ? 'rgba(0,0,0, 1)' : 'white', // Color of the legend text
         }
       },
-      scales: {
-        x: {
-          title: {
-            display: true,
-            text: t("DIALOGS.scores.range"),
-            color: theme === "light" ? 'rgba(0,0,0, 1)' : 'white', // Color of Title on X axis
-            font: {
-              size: 14
+      tooltip: {
+        callbacks: {
+          label: function (context) {
+            let label = context.dataset.label || '';
+            if (label) {
+              label += ': ';
             }
-          },
-          ticks: {
-            font: {
-              size: 14
-            },
-            color: theme === "light" ? 'rgba(0,0,0, 1)' : 'white' // Color of Text on X axis
-          },
-          grid: {
-            color: theme === "light" ? 'rgba(0,0,0, 0.1)' : 'rgba(255, 255, 255, 0.2)' // Color of Dividers vertically
-          }
-        },
-        y: {
-          min: 0,
-          max: 100,
-          title: {
-            display: true,
-            text: t("DIALOGS.scores.percentage_label"),
-            color: theme === "light" ? 'rgba(0,0,0, 1)' : 'white', // Color of Title on Y axis
-            font: {
-              size: 14
+            if (context.dataset.type === 'bar') {
+              // Format the tooltip for bar dataset
+              const nPages = (context.raw * websiteStats.statsTable[0] / 100).toFixed(0) ?? 0
+              return [
+                `${label}${context.raw}%`,      // Main value
+                `${t("DIALOGS.scores.frequency")}: ${nPages}` // Additional value
+              ];
+            } else if (context.dataset.type === 'line') {
+              // Format the tooltip for line dataset
+              const nPages = (context.raw * websiteStats.statsTable[0] / 100).toFixed(0) ?? 0
+              return [
+                `${label}${context.raw}%`,      // Main value
+                `${t("DIALOGS.scores.percentage")}: ${nPages}` // Additional value
+              ];
             }
-          },
-          ticks: {
-            font: {
-              size: 14,
-            },
-            color: theme === "light" ? 'rgba(0,0,0, 1)' : 'white' // Color of Text on Y axis
-          },
-          grid: {
-            color: theme === "light" ? 'rgba(0,0,0, 0.1)' : 'rgba(255, 255, 255, 0.2)' // Color of Dividers horizontaly
+            return label;
           }
         }
       }
+    },
+    scales: {
+      x: {
+        title: {
+          display: true,
+          text: t("DIALOGS.scores.range"),
+          color: theme === "light" ? 'rgba(0,0,0, 1)' : 'white', // Color of Title on X axis
+          font: {
+            size: 14
+          }
+        },
+        ticks: {
+          font: {
+            size: 14
+          },
+          color: theme === "light" ? 'rgba(0,0,0, 1)' : 'white' // Color of Text on X axis
+        },
+        grid: {
+          color: theme === "light" ? 'rgba(0,0,0, 0.1)' : 'rgba(255, 255, 255, 0.2)' // Color of Dividers vertically
+        }
+      },
+      y: {
+        min: 0,
+        max: 100,
+        title: {
+          display: true,
+          text: t("DIALOGS.scores.percentage_label"),
+          color: theme === "light" ? 'rgba(0,0,0, 1)' : 'white', // Color of Title on Y axis
+          font: {
+            size: 14
+          }
+        },
+        ticks: {
+          font: {
+            size: 14,
+          },
+          color: theme === "light" ? 'rgba(0,0,0, 1)' : 'white' // Color of Text on Y axis
+        },
+        grid: {
+          color: theme === "light" ? 'rgba(0,0,0, 0.1)' : 'rgba(255, 255, 255, 0.2)' // Color of Dividers horizontaly
+        }
+      }
+    }
   };
 
   return { headersBarLine, dataBarLine, optionsBarLine }
 }
 
-export function getBarLineTable (t) {
+export function getBarLineTable(t) {
   const dataHeaders = [
-      [
-        {type: "Text", name: t("DIALOGS.scores.range")},
-        {type: "Text", name: t("DIALOGS.scores.frequency"), justifyCenter: true},
-        {type: "Text", name: t("DIALOGS.scores.frequency")+ " (%)", justifyCenter: true},
-        {type: "Text", name: t("DIALOGS.scores.cumulative"), justifyCenter: true},
-        {type: "Text", name: t("DIALOGS.scores.cumulative")+ " (%)", justifyCenter: true},
-      ]
+    [
+      { type: "Text", name: t("DIALOGS.scores.range") },
+      { type: "Text", name: t("DIALOGS.scores.frequency"), justifyCenter: true },
+      { type: "Text", name: t("DIALOGS.scores.frequency") + " (%)", justifyCenter: true },
+      { type: "Text", name: t("DIALOGS.scores.cumulative"), justifyCenter: true },
+      { type: "Text", name: t("DIALOGS.scores.cumulative") + " (%)", justifyCenter: true },
+    ]
   ]
 
   const columnsOptions = {
-      range: { type: "Text", center: false, bold: false, decimalPlace: false },
-      frequency: { type: "Number", center: true, bold: false, decimalPlace: false },
-      frequency_percent: { type: "Text", center: true, bold: false, decimalPlace: false },
-      cumulative: { type: "Number", center: true, bold: false, decimalPlace: false },
-      cumulative_percent: { type: "Text", center: true, bold: false, decimalPlace: false },
+    range: { type: "Text", center: false, bold: false, decimalPlace: false },
+    frequency: { type: "Number", center: true, bold: false, decimalPlace: false },
+    frequency_percent: { type: "Text", center: true, bold: false, decimalPlace: false },
+    cumulative: { type: "Number", center: true, bold: false, decimalPlace: false },
+    cumulative_percent: { type: "Text", center: true, bold: false, decimalPlace: false },
   }
 
-  return { dataHeaders,  columnsOptions }
+  return { dataHeaders, columnsOptions }
 }
 
 
-export function getGoodBadTabTables (t) {
+export function getGoodBadTabTables(t) {
   const dataTableHeadersA = [
-    {type: "Text", name: "Nº", justifyCenter: true},
-    {type: "Text", name: t("DIALOGS.table.description"), justifyCenter: false},
-    {type: "Text", name: t("WEBSITES_PAGE.table_best_practices.n_errors_label"), justifyCenter: true},
+    { type: "Text", name: "Nº", justifyCenter: true },
+    { type: "Text", name: t("DIALOGS.table.description"), justifyCenter: false },
+    { type: "Text", name: t("WEBSITES_PAGE.table_best_practices.n_errors_label"), justifyCenter: true },
   ]
-  
+
   const dataTableHeadersAA = [
-    {type: "Text", name: "Nº", justifyCenter: true},
-    {type: "Text", name: t("DIALOGS.table.description"), justifyCenter: false},
-    {type: "Text", name: t("WEBSITES_PAGE.table_best_practices.n_errors_label"), justifyCenter: true},
+    { type: "Text", name: "Nº", justifyCenter: true },
+    { type: "Text", name: t("DIALOGS.table.description"), justifyCenter: false },
+    { type: "Text", name: t("WEBSITES_PAGE.table_best_practices.n_errors_label"), justifyCenter: true },
   ]
-  
+
   const dataTableHeadersAAA = [
-    {type: "Text", name: "Nº", justifyCenter: true},
-    {type: "Text", name: t("DIALOGS.table.description"), justifyCenter: false},
-    {type: "Text", name: t("WEBSITES_PAGE.table_best_practices.n_errors_label"), justifyCenter: true},
+    { type: "Text", name: "Nº", justifyCenter: true },
+    { type: "Text", name: t("DIALOGS.table.description"), justifyCenter: false },
+    { type: "Text", name: t("WEBSITES_PAGE.table_best_practices.n_errors_label"), justifyCenter: true },
   ]
 
   let columnsOptionsAAs = {
-      number: { type: "Text", center: true, bold: true, decimalPlace: false },
-      name: { type: "DangerousHTML", center: false, bold: false, decimalPlace: false },
-      nPages: { type: "DoubleText", center: true, bold: false, decimalPlace: false },
+    number: { type: "Text", center: true, bold: true, decimalPlace: false },
+    name: { type: "DangerousHTML", center: false, bold: false, decimalPlace: false },
+    nPages: { type: "DoubleText", center: true, bold: false, decimalPlace: false },
   }
 
   const detailsTableHeaders = [
-      {type: "Text", bigWidth: "50%", name: t("WEBSITES_PAGE.table_best_practices.practice_label")},
-      {type: "Text", bigWidth: "30%", name: t("WEBSITES_PAGE.table_best_practices.details_practice_label"), justifyCenter: true},
-      {type: "Text", name: t("WEBSITES_PAGE.table_best_practices.n_pages_label"), justifyCenter: true},
-      {type: "Text", name: t("WEBSITES_PAGE.table_best_practices.n_errors_label"), justifyCenter: true},
-      {type: "Text", name: t("WEBSITES_PAGE.table_best_practices.lvl_label"), justifyCenter: true},
+    { type: "Text", bigWidth: "50%", name: t("WEBSITES_PAGE.table_best_practices.practice_label") },
+    { type: "Text", bigWidth: "30%", name: t("WEBSITES_PAGE.table_best_practices.details_practice_label"), justifyCenter: true },
+    { type: "Text", name: t("WEBSITES_PAGE.table_best_practices.n_pages_label"), justifyCenter: true },
+    { type: "Text", name: t("WEBSITES_PAGE.table_best_practices.n_errors_label"), justifyCenter: true },
+    { type: "Text", name: t("WEBSITES_PAGE.table_best_practices.lvl_label"), justifyCenter: true },
   ]
-  
+
   let columnsOptionsDetails = {
-      name: { type: "DangerousHTML", center: false, bold: false, decimalPlace: false },
-      practices: { type: "MultiText", center: true, bold: false, decimalPlace: false },
-      pages: { type: "Number", center: true, bold: false, decimalPlace: false },
-      occurences: { type: "Number", center: true, bold: false, decimalPlace: false },
-      lvl: { type: "Text", center: true, bold: false, decimalPlace: false, ariaLabel: true },
+    name: { type: "DangerousHTML", center: false, bold: false, decimalPlace: false },
+    practices: { type: "MultiText", center: true, bold: false, decimalPlace: false },
+    pages: { type: "Number", center: true, bold: false, decimalPlace: false },
+    occurences: { type: "Number", center: true, bold: false, decimalPlace: false },
+    lvl: { type: "Text", center: true, bold: false, decimalPlace: false, ariaLabel: true },
   }
 
   let ariaLabels = {
@@ -267,121 +290,123 @@ export function getGoodBadTabTables (t) {
 }
 
 
-export function getTopTenGraphTable (t, theme, labelsForHorizontal, dataForHorizontal, color) {
+export function getTopTenGraphTable(t, theme, labelsForHorizontal, dataForHorizontal, color) {
   const dataHeaders = [
-      {type: "Text", name: t("DIALOGS.errors.level"), justifyCenter: true},
-      {type: "Text", bigWidth: "50%", name: t("DIALOGS.errors.description")},
-      {type: "Text", name: t("DIALOGS.errors.pages"), justifyCenter: true},
-      {type: "Text", name: t("DIALOGS.errors.situations"), justifyCenter: true}
+    { type: "Text", name: t("DIALOGS.errors.level"), justifyCenter: true },
+    { type: "Text", bigWidth: "50%", name: t("DIALOGS.errors.description") },
+    { type: "Text", name: t("DIALOGS.errors.pages"), justifyCenter: true },
+    { type: "Text", name: t("DIALOGS.errors.situations"), justifyCenter: true }
   ]
-  
+
   let columnsOptions = {
-      lvl: { type: "Text", center: true, bold: false, decimalPlace: false, ariaLabel: true },
-      name: { type: "DangerousHTML", center: false, bold: false, decimalPlace: false },
-      nPages: { type: "Number", center: true, bold: false, decimalPlace: false },
-      nOccurrences: { type: "Number", center: true, bold: false, decimalPlace: false },
+    lvl: { type: "Text", center: true, bold: false, decimalPlace: false, ariaLabel: true },
+    name: { type: "DangerousHTML", center: false, bold: false, decimalPlace: false },
+    nPages: { type: "Number", center: true, bold: false, decimalPlace: false },
+    nOccurrences: { type: "Number", center: true, bold: false, decimalPlace: false },
   }
-  
+
   const optionsHorizontalBar = {
-      indexAxis: 'y', // This makes the bar chart horizontal
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        legend: {
-          position: 'top',
-          labels: {
-            color: theme === "light" ? 'rgba(0,0,0, 1)' : 'white', // Color of the legend text
-          }
-        },
+    indexAxis: 'y', // This makes the bar chart horizontal
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        position: 'top',
+        labels: {
+          color: theme === "light" ? 'rgba(0,0,0, 1)' : 'white', // Color of the legend text
+        }
       },
-      scales: {
-        x: {
-          title: {
-            display: true,
-            text: t("DIALOGS.corrections.situations_label"),
-            color: theme === "light" ? 'rgba(0,0,0, 1)' : 'white', // Color of Title on X axis
-            font: {
-              size: 14
-            }
-          },
-          ticks: {
-              color: theme === "light" ? 'rgba(0,0,0, 1)' : 'white' // Color of Text on X axis
-          },
-          grid: {
-              color: theme === "light" ? 'rgba(0,0,0, 0.1)' : 'rgba(255, 255, 255, 0.2)' // Color of Dividers vertically
+    },
+    scales: {
+      x: {
+        title: {
+          display: true,
+          text: t("DIALOGS.corrections.situations_label"),
+          color: theme === "light" ? 'rgba(0,0,0, 1)' : 'white', // Color of Title on X axis
+          font: {
+            size: 14
           }
         },
-        y: {
-          title: {
-            display: true,
-            text: t("DIALOGS.corrections.tests_label"),
-            color: theme === "light" ? 'rgba(0,0,0, 1)' : 'white', // Color of Title on Y axis
-            font: {
-              size: 14
-            }
-          },
-          ticks: {
-              color: theme === "light" ? 'rgba(0,0,0, 1)' : 'white', // Color of Text on Y axis
-              callback: function (value, index) {
-                // Fetch the label using the index
-                const label = labelsForHorizontal[index];
-                return splitLabelForChart(label);
-              }
-            },
-          grid: {
-              color: theme === "light" ? 'rgba(0,0,0, 0.1)' : 'rgba(255, 255, 255, 0.2)' // Color of Dividers horizontaly
+        ticks: {
+          color: theme === "light" ? 'rgba(0,0,0, 1)' : 'white' // Color of Text on X axis
+        },
+        grid: {
+          color: theme === "light" ? 'rgba(0,0,0, 0.1)' : 'rgba(255, 255, 255, 0.2)' // Color of Dividers vertically
+        }
+      },
+      y: {
+        title: {
+          display: true,
+          color: theme === "light" ? 'rgba(0,0,0, 1)' : 'white', // Color of Title on Y axis
+          font: {
+            size: 14
           }
+        },
+        ticks: {
+          color: theme === "light" ? 'rgba(0,0,0, 1)' : 'white', // Color of Text on Y axis
+          callback: function (value, index) {
+            // Fetch the label using the index
+            const label = labelsForHorizontal[index];
+            return splitLabelForChart(label);
+          }
+        },
+        grid: {
+          color: theme === "light" ? 'rgba(0,0,0, 0.1)' : 'rgba(255, 255, 255, 0.2)' // Color of Dividers horizontaly
         }
       }
+    }
   };
-  
+
   const horizontalData = {
-      labels: labelsForHorizontal,
-      datasets: [
-        {
-          type: 'bar',
-          label: t("DIALOGS.corrections.situations_label"),
-          data: dataForHorizontal,
-          backgroundColor: color,
-          borderWidth: 0,
-        }
-      ]
+    labels: labelsForHorizontal,
+    datasets: [
+      {
+        type: 'bar',
+        label: t("DIALOGS.corrections.situations_label"),
+        data: dataForHorizontal,
+        backgroundColor: color,
+        borderWidth: 0,
+      }
+    ]
   };
 
   return { dataHeaders, columnsOptions, optionsHorizontalBar, horizontalData }
 }
 
-export function getPagesSortingTable (t, name) {
+export function getPagesSortingTable(t, name) {
   const pagesHeaders = [
     [
-      {type: "Checkbox", nRow: 2, name: t("PAGES.table.filter"), property: ""},
-      {type: "SortingText", nRow: 2, bigWidth: "30%", name: t("PAGES.table.page"), property: "Uri"},
-      {type: "SortingText", nRow: 2, name: t("PAGES.table.score"), property: "Score", justifyCenter: true},
-      {id: "conformidade", type: "Text", name: t("PAGES.table.levels"), property: "", justifyCenter: true, multiCol: true, nCol: 3},
-      {type: "SortingText", nRow: 2, bigWidth: "20%", name: t("PAGES.table.date"), property: "Evaluation_Date", justifyCenter: true},
+      { type: "Checkbox", nRow: 2, name: t("PAGES.table.filterCell"), label: t("PAGES.table.filterCell") },
+      { type: "SortingText", nRow: 2, bigWidth: "30%", name: t("PAGES.table.page"), property: "Uri" },
+      { type: "SortingText", nRow: 2, name: t("PAGES.table.score"), property: "Score", justifyCenter: true },
+      { type: "SortingText", nRow: 2, bigWidth: "20%", name: t("PAGES.table.date"), property: "Evaluation_Date", justifyCenter: true },
+      { id: "conformidade", type: "Text", name: t("PAGES.table.levels"), property: "", justifyCenter: true, multiCol: true, nCol: 3 },
     ],
     [
-      {id: "A", type: "SortingText", name: t("PAGES.table.A"), property: "A", justifyCenter: true, ariaLabel: true},
-      {id: "AA", type: "SortingText", name: t("PAGES.table.AA"), property: "AA", justifyCenter: true, ariaLabel: true},
-      {id: "AAA", type: "SortingText", name: t("PAGES.table.AAA"), property: "AAA", justifyCenter: true, ariaLabel: true},
-    ]
+      { id: "A", type: "SortingText", name: t("PAGES.table.A"), property: "A", justifyCenter: true, ariaLabel: true },
+      { id: "AA", type: "SortingText", name: t("PAGES.table.AA"), property: "AA", justifyCenter: true, ariaLabel: true },
+      { id: "AAA", type: "SortingText", name: t("PAGES.table.AAA"), property: "AAA", justifyCenter: true, ariaLabel: true },
+    ],
+
   ]
-  
+
   // Alterar isto para dar match com os nomes corretos
   let columnsOptions = {
-    id: { type: "Checkbox", center: true, bold: false, decimalPlace: false, label: t("PAGES.table.filterCell")},
-    Uri: { type: "Link", center: true, bold: false, decimalPlace: false, children: (row, data) => {
-      return <Link to={`${pathURL}user/${name}/${encodeURIComponent(row['Uri'])}`} className="ama-typography-action-large bold">{data}</Link>
-    }},
+    id: { type: "Checkbox", center: true, bold: false, decimalPlace: false },
+    Uri: {
+      type: "Link", center: true, bold: false, decimalPlace: false, children: (row, data) => {
+        return <Link to={`${pathURL}user/${name}/${encodeURIComponent(row['Uri'])}`} className="ama-typography-action-large bold">{data}</Link>
+      }
+    },
     Show_In: { type: "Skip", center: false, bold: false, decimalPlace: false },
-    Creation_Date: { type: "Skip", center: false, bold: false, decimalPlace: false },
     Score: { type: "Number", center: true, bold: false, decimalPlace: false },
+    Evaluation_Date: { type: "Text", center: true, bold: false, decimalPlace: false },
     A: { type: "Number", center: true, bold: false, decimalPlace: false, headers: "conformidade A" },
     AA: { type: "Number", center: true, bold: false, decimalPlace: false, headers: "conformidade AA" },
     AAA: { type: "Number", center: true, bold: false, decimalPlace: false, headers: "conformidade AAA" },
     Tot: { type: "Skip", center: false, bold: false, decimalPlace: false },
+    Creation_Date: { type: "Skip", center: false, bold: false, decimalPlace: false },
     Errors: { type: "Skip", center: false, bold: false, decimalPlace: false },
-    Evaluation_Date: { type: "Text", center: true, bold: false, decimalPlace: false },
   }
 
   let paginationButtonsTexts = [
@@ -391,7 +416,7 @@ export function getPagesSortingTable (t, name) {
     t("PAGES.table.paginator.last_page")
   ]
 
-  let nItemsPerPageText=[
+  let nItemsPerPageText = [
     t("PAGES.table.paginator.see"),
     t("PAGES.table.paginator.per_page"),
     t("PAGES.table.paginator.selectorAria"),
@@ -415,6 +440,7 @@ export function getPagesSortingTable (t, name) {
 export function pagesListTable(pages, moment) {
   let pagesTable = []
   pages.map((page) => {
+    console.log(page)
     const pageObject = {
       ...page,
       Evaluation_Date: moment(page.Evaluation_Date).format("LL"),
@@ -448,42 +474,44 @@ export function urlValidator(t, urls, domain) {
   let invalid = "";
   const size = urls.length;
 
-  if(!size){
+  if (!size) {
     return "";
   }
 
   const cleanedUrls = []
-  for(let i=0; i<size; i++){
+  for (let i = 0; i < size; i++) {
     const url = urls[i].trim();
-    if(!url.includes(".") || url[url.length-1] === "."){
-      invalid = t("ADD_PAGES.error");
+    if (!url.includes(".") || url[url.length - 1] === ".") {
+      invalid = t("ADD_PAGES.error") + ` - ${url}`;
       break;
-    } else if(!url.startsWith("http://") && !url.startsWith("https://")){
-      invalid = t("ADD_PAGES.url_missing_protocol");
+    } else if (!url.startsWith("http://") && !url.startsWith("https://")) {
+      invalid = t("ADD_PAGES.url_missing_protocol") + ` - ${url}`;
       break;
-    } else if(!url.startsWith(domain)) {
-      invalid = t("ADD_PAGES.url_match_error");
+    } else if (!url.startsWith(domain)) {
+      invalid = t("ADD_PAGES.url_match_error") + ` - ${url}`;
       break;
     }
     cleanedUrls.push(url)
   }
 
-  return {invalid, cleanedUrls}
+  return { invalid, cleanedUrls }
 }
 
 export function getResultsTable(t) {
   const resultsHeader = [
-    {type: "Checkbox", name: t("PAGES.table.filter"), property: ""},
-    {type: "Text", bigWidth: "97%", name: t("ADD_PAGES.crawler.dialog.table.caption"), property: "", justifyCenter: false},
+    { type: "Checkbox", name: t("PAGES.table.filter"), property: "" },
+    { type: "Text", bigWidth: "97%", name: t("ADD_PAGES.crawler.dialog.table.caption"), property: "", justifyCenter: false },
   ]
-  
+
   // Alterar isto para dar match com os nomes corretos
   let columnsOptions = {
     id: { type: "Checkbox", center: true, bold: false, decimalPlace: false, label: t("PAGES.table.filterCell") },
     CrawlWebsiteId: { type: "Skip", center: false, bold: false, decimalPlace: false },
-    Uri: { type: "Link", center: false, bold: false, decimalPlace: false, href: (row) => {
-      return ""
-    }},
+    Uri: {
+      type: "Link", center: false, bold: false, decimalPlace: false, href: (row) => {
+        return ""
+      }
+    },
   }
 
   return { resultsHeader, columnsOptions }

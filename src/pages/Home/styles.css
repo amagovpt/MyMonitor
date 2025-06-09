@@ -58,3 +58,15 @@
 .home_dark button:focus {
     border: 3px solid var(--ama-color-yellow-400) !important;
 }
+
+.assertive-div{
+    width: 1px;
+    height: 1px;
+    left: -9999px;
+    overflow: hidden;
+    position: absolute;
+}
+
+.ama.field label{
+    margin-top: 10px;
+}

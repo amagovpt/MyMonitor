@@ -24,7 +24,7 @@ export function UserPass({ username, setUsername, password, setPassword, error, 
             variant={"primary"}
             type="submit"
             text={t("LOGIN.submit")}
-            disabled={!(username && password)}
+            aria-disabled={!(username && password)}
             iconRight={<Icon darkTheme={theme} name="AMA-SetadoisoficialCima-Line" />} 
             iconLeft={
                 <svg className="gov_logo" role="presentation" viewBox="0 0 117 130" version="1.1" style={{ clipRule: 'evenodd', strokeLinejoin: 'round', strokeMiterlimit: 2, marginRight: '0.5em', width: '1.5em', height: '2.5em' }}>
