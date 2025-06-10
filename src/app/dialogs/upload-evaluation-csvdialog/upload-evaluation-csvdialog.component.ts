@@ -161,13 +161,12 @@ export class UploadEvaluationCSVDialogComponent implements OnInit {
       this.pageForm.value.uri,
     ]).PageId;
 
-    const len = this.dataFromFile.length;
-    const data = this.dataFromFile.slice(1, len);
+    const data = this.dataFromFile[1];
 
     this.openUploadEvaluationInformationDialog(pageId, data);
   }
 
-  private openUploadEvaluationInformationDialog(pageId: number, data: string[]): void {
+  private openUploadEvaluationInformationDialog(pageId: number, data: string): void {
     this.monitor
       .addUserPageEvaluation({ pageId, data })
       .subscribe((result) => {
@@ -265,7 +264,7 @@ export class UploadEvaluationCSVDialogComponent implements OnInit {
       return;
     } 
     
-    if (data === null || data.length < 4) {
+    if (data === null || data.length !== 2) {
       this.fileErrorMessage = "invalidFile";
       return;
     }
@@ -274,20 +273,10 @@ export class UploadEvaluationCSVDialogComponent implements OnInit {
       this.fileErrorMessage = "invalidFile";
       return;
     }
-
-    if (!this.validateEvaluationFileUris(uri, _.map(data.slice(1, data.length - 2), (l) => _.trim(l.split(";")[0])))) {
-      this.fileErrorMessage = "invalidUri";
-      return;
-    }
-
-    if (!this.validateEvaluationFileFooters(data[data.length - 2].split(";"))) {
-      this.fileErrorMessage = "invalidFile";
-      return;
-    }
   }
 
   private validateEvaluationFileHeaders(headers: string[]): boolean {
-    if (headers === null || headers.length !== 10) {
+    if (headers === null || headers.length !== 9) {
       return false;
     }
 
@@ -295,113 +284,47 @@ export class UploadEvaluationCSVDialogComponent implements OnInit {
       const header = val.trim();
       switch (idx) {
         case 0:
-          if (header !== "URI") {
+          if (header !== "Pagecode") {
             return false;
           }
           break;
         case 1:
-          if (header !== "Data") {
+          if (header !== "Conformant") {
             return false;
           }
           break;
         case 2:
-          if (header !== "ID") {
+          if (header !== "Tot") {
             return false;
           }
           break;
         case 3:
-          if (header !== "Tipo de erro") {
+          if (header !== "Nodes") {
             return false;
           }
           break;
         case 4:
-          if (header !== "Nivel de Conformidade") {
+          if (header !== "Errors") {
             return false;
           }
           break;
         case 5:
-          if (header !== "Critério") {
+          if (header !== "Tags") {
             return false;
           }
           break;
         case 6:
-          if (header !== "Descrição") {
+          if (header !== "Roles") {
             return false;
           }
           break;
         case 7:
-          if (header !== "Número de ocorrências") {
+          if (header !== "Score") {
             return false;
           }
           break;
         case 8:
-          if (header !== "Valor") {
-            return false;
-          }
-          break;
-        case 9:
-          if (header !== "Pontuação") {
-            return false;
-          }
-          break;
-        default:
-          return false;
-        }
-    });
-
-    return true;
-  }
-
-  private validateEvaluationFileUris(uri: string, uris: string[]): boolean {
-    uris.map(val => {
-      if (val !== uri) {
-        return false;
-      }
-    });
-
-    return true;
-  }
-
-  private validateEvaluationFileFooters(footers: string[]): boolean {
-    if (footers === null || footers.length !== 7) {
-      return false;
-    }
-
-    footers.map((val, idx) => {
-      const footer = val.trim();
-      switch (idx) {
-        case 0:
-          if (footer !== "Total page evaluations") {
-            return false;
-          }
-          break;
-        case 1:
-          if (footer !== "Pagecode") {
-            return false;
-          }
-          break;
-        case 2:
-          if (footer !== "Tot") {
-            return false;
-          }
-          break;
-        case 3:
-          if (footer !== "Nodes") {
-            return false;
-          }
-          break;
-        case 4:
-          if (footer !== "Errors") {
-            return false;
-          }
-          break;
-        case 5:
-          if (footer !== "Tags") {
-            return false;
-          }
-          break;
-        case 6:
-          if (footer !== "Roles") {
+          if (header !== "Date") {
             return false;
           }
           break;
