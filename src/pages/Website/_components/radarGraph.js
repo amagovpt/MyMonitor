@@ -1,3 +1,4 @@
+
 // Hooks
 import { useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -51,13 +52,6 @@ export function RadarGraph({ tempData }) {
 
   }, [tempData, language, theme, t])
 
-  useEffect(() => {
-    const tabs = document.querySelectorAll("[role='tab'][tabindex='-1']");
-    tabs.forEach((tab) => {
-      tab.removeAttribute("tabindex");
-    });
-  }, []);
-
   const tabs = [
     {
       eventKey: "tab1",
@@ -86,7 +80,7 @@ export function RadarGraph({ tempData }) {
   ];
 
   return (
-    <div className="BarLine_section">
+    <div className="BarLine_section tabs_section">
       <Tabs tabs={tabs} defaultActiveKey="tab1" vertical={false} />
     </div>
   );

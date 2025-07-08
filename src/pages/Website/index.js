@@ -144,6 +144,7 @@ export default function Website() {
         const targetObject = websiteListForWebsitePage.find(obj => obj.name === name);
         if(targetObject) {
           setData(targetObject)
+          console.log(targetObject.successDetailsTable)
           const list = pagesListTable(targetObject.pages, moment)
           setPagesList(list)
           setWebsiteStats(createStatisticsObject(targetObject, moment))
@@ -168,7 +169,6 @@ export default function Website() {
           const list = pagesListTable(targetObject.pages, moment)
           setPagesList(list)
           setWebsiteStats(createStatisticsObject(targetObject, moment))
-                    console.log("OLA MUNDO API")
 
         } else {
           navigate(`${pathURL}user`)

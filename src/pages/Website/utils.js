@@ -387,7 +387,6 @@ export function getPagesSortingTable(t, name) {
       { id: "AA", type: "SortingText", name: t("PAGES.table.AA"), property: "AA", justifyCenter: true, ariaLabel: true },
       { id: "AAA", type: "SortingText", name: t("PAGES.table.AAA"), property: "AAA", justifyCenter: true, ariaLabel: true },
     ],
-
   ]
 
   // Alterar isto para dar match com os nomes corretos
@@ -440,7 +439,7 @@ export function getPagesSortingTable(t, name) {
 export function pagesListTable(pages, moment) {
   let pagesTable = []
   pages.map((page) => {
-    console.log(page)
+   
     const pageObject = {
       ...page,
       Evaluation_Date: moment(page.Evaluation_Date).format("LL"),
