@@ -731,6 +731,7 @@
     "frame_02": "Webpage based on frame structure but with incorrect DTD declaration",
     "heading_01": "Headings with accessible name",
     "heading_02": "Headings without accessible name",
+    "heading_03": "Heading Level 1",
     "hx_01a": "No headings",
     "hx_01b": "Headings on the page",
     "hx_01c": "No main heading (h1) found",
@@ -1127,6 +1128,14 @@
     "heading_02": {
       "s": "I have identified <mark>{{value}}</mark> heading without an accessible name.",
       "p": "I have identified <mark>{{value}}</mark> headings without an accessible name."
+    },
+    "heading_03": {
+      "s": "I have identified exactly one level 1 heading.",
+      "p": "I have identified exactly one level 1 heading."
+    },
+    "heading_04": {
+      "s": "I have identified <mark>{{value}}</mark> level 1 headings. There should be one.",
+      "p": "I have identified <mark>{{value}}</mark> level 1 headings. There should be one."
     },
     "aria_01": {
       "s": "I noticed that <mark>all elements</mark> with an explicit semantic role exist inside their required contexts.",
