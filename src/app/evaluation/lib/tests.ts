@@ -1166,6 +1166,30 @@ const tests = {
     dis: "43353",
     result: "fail",
   },
+  heading_03: {
+    type: "true",
+    elem: "h1",
+    test: "onlyOneh1",
+    score: 10,
+    level: "A",
+    trust: "1",
+    ref: "H42",
+    scs: "1.3.1",
+    dis: "43353",
+    result: "passed",
+  },
+  heading_04: {
+    type: "fals",
+    elem: "h1",
+    test: "notOneh1",
+    score: 1,
+    level: "A",
+    trust: "1",
+    ref: "H42",
+    scs: "1.3.1",
+    dis: "43353",
+    result: "failed",
+  },  
 };
 
 export default tests;
