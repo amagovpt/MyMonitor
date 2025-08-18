@@ -49,7 +49,6 @@ export default function Details() {
 
   // Navigation options
   const breadcrumbs = [
-    { children: <Link to={`${pathURL}`}>{t("HEADER.NAV.ecosystem")}</Link> },
     { children: <Link to={`${pathURL}user`}>{t("HEADER.NAV.home")}</Link> },
     { children: <Link to={`${pathURL}user/${encodeURIComponent(name)}`}>{name}</Link> },
     { children: <Link to={`${pathURL}user/${encodeURIComponent(name)}/${encodeURIComponent(pageName)}`}>{pageName}</Link> },
@@ -136,7 +135,7 @@ export default function Details() {
     <>
       <div className={`container ${homeDark}`}>
         <div className="link_breadcrumb_container d-flex flex-row justify-content-between align-items-center">
-          <Breadcrumb data={breadcrumbs} darkTheme={theme} />
+          <Breadcrumb data={breadcrumbs} darkTheme={theme} tagHere={t("HEADER.ariaLabelBreadcrumb")} />
           <Button
             darkTheme={theme}
             className={"align-self-center logout"}

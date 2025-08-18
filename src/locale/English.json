@@ -7,7 +7,7 @@
       "details_page": "Website Page Details"
     },
     "LOGIN": {
-      "title": "Welcome to My Monitor",
+      "title": "Welcome to MyMonitor",
       "subtitle": "To start session use Autenticação.Gov :",
       "no_user": "The user is not registered",
       "username_label": "Username",
@@ -24,8 +24,8 @@
         "no_user": "Wrong username or password",
         "system_error": "There was a system error. Please try later"
       },
-      "header_aria": "My Monitor page header",
-      "main_aria": "main body of the My Monitor page"
+              "header_aria": "MyMonitor page header",
+        "main_aria": "main body of the MyMonitor page"
     },
     "SIDEBAR": {
       "menu": "Menu",
@@ -318,7 +318,7 @@
       }
     },
     "WEBSITES_PAGE": {
-      "title": "My Monitor",
+      "title": "MyMonitor",
       "subtitle": "Websites",
         "statistics_title": "Statistics",
       "statistics_subtitle": "Metadata",

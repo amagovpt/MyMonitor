@@ -1,5 +1,7 @@
 import { pathURL } from "../../App";
 import { Link } from "react-router-dom";
+import DeclarationIcon from "./_components/DeclarationIcon";
+import StampIcon from "./_components/StampIcon";
 
 // Function to get additional Arrays
 // t -> the translation function
@@ -33,8 +35,12 @@ export function getDirectoryTable (t) {
         return <Link to={`${pathURL}user/${row['name']}`} className="ama-typography-action-large bold">{data}</Link>
       }},
       entity: { type: "Skip", center: false, bold: false, decimalPlace: false },
-      declaration: { type: "Declaration", center: true, bold: false, decimalPlace: false },
-      stamp: { type: "Stamp", center: true, bold: false, decimalPlace: false },
+      declaration: { type: "Link", center: true, bold: false, decimalPlace: false, children: (row, data) => {
+        return <DeclarationIcon value={data} darkTheme={false} />
+      }},
+      stamp: { type: "Link", center: true, bold: false, decimalPlace: false, children: (row, data) => {
+        return <StampIcon value={data} darkTheme={false} />
+      }},
       score: { type: "Number", center: true, bold: false, decimalPlace: true },
       nPages: { type: "Number", center: true, bold: false, decimalPlace: false },
       A: { type: "Number", center: true, bold: false, decimalPlace: false, headers: "conformidade A" },

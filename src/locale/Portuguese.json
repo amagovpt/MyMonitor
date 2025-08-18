@@ -7,7 +7,7 @@
       "details_page":"Detalhes da Página do Sítio Web"
     },
     "LOGIN": {
-      "title": "Bem-vindo ao My Monitor",
+      "title": "Bem-vindo ao MyMonitor",
       "subtitle": "Inicie a sua sessão autenticando-se com o Cartão de Cidadão ou Chave Móvel Digital",
       "no_user":"O utilizador não se encontra registado.",
       "username_label": "Utilizador",
@@ -24,8 +24,8 @@
         "no_user": "Utilizador ou palavra-chave incorretos",
         "system_error": "Erro no sistema. Por favor tente mais tarde"
       },
-      "header_aria": "Cabeçalho da página do My Monitor",
-      "main_aria": "corpo principal da página do My Monitor"
+              "header_aria": "Cabeçalho da página do MyMonitor",
+        "main_aria": "corpo principal da página do MyMonitor"
     },
     "SIDEBAR": {
       "menu": "Menu",
@@ -322,7 +322,7 @@
       }
     },
     "WEBSITES_PAGE": {
-      "title": "My Monitor",
+      "title": "MyMonitor",
       "subtitle": "Sítios Web",
       "statistics_title": "Estatísticas",
       "statistics_subtitle": "Metadados",

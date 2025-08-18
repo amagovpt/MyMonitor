@@ -37,7 +37,6 @@ export default function Websites() {
 
   // Navigation options
   const breadcrumbs = [
-    { children: <Link to={`${pathURL}`}>{t("HEADER.NAV.ecosystem")}</Link> },
     {
       title: t("HEADER.NAV.home")
     }
@@ -103,7 +102,7 @@ export default function Websites() {
       </div>
       <div className={`container ${homeDark}`}>
         <div className="link_breadcrumb_container d-flex flex-row justify-content-between align-items-center">
-          <Breadcrumb data={breadcrumbs} darkTheme={theme} />
+          <Breadcrumb data={breadcrumbs} darkTheme={theme} tagHere={t("HEADER.ariaLabelBreadcrumb")} />
           <Button
             darkTheme={theme}
             className={"align-self-center logout"}
@@ -146,6 +145,7 @@ export default function Websites() {
                         paginationButtonsTexts={paginationButtonsTexts}
                         project={`${pathURL}`}
                         ariaLabels={ariaLabels}
+                        theme={theme}
                       />}
                       <div className="ama-typography-body mt-4">{t("WEBSITE_TABLE.table.note")}</div>
                     </div>

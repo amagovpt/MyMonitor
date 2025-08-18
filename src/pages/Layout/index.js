@@ -31,7 +31,7 @@ export default function Layout({ children }) {
     <>
       <Header
         darkTheme={theme}
-        title={"My Monitor"}
+        title={"MyMonitor"}
         title2={" "}
         description={t("HEADER.text")}
         changeTheme={toggleTheme}

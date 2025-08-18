@@ -16,6 +16,7 @@ import { getData, createStatisticsObject, logoutUser, removeLocalStorages } from
 
 import { pathURL } from "../../App";
 import { api } from '../../config/api'
+import Indicators from "./_components/Indicators";
 
 export default function Website() {
   const { t, i18n: {language} } = useTranslation();
@@ -71,12 +72,15 @@ export default function Website() {
   }, []);
   // Navigation options
   const breadcrumbs = [
-    { children: <Link to={`${pathURL}`}>{t("HEADER.NAV.ecosystem")}</Link> },
     { children: <Link to={`${pathURL}user`}>{t("HEADER.NAV.home")}</Link> },
     {
       title: name
     }
   ];
+
+  const [indicators, setIndicators] = useState([{title: t("STATISTICS.average_score"), value: websiteStats.score}])
+
+
   const tabsGoodBad = [
     {
       eventKey: "tab1",
@@ -109,7 +113,7 @@ export default function Website() {
   useEffect(() => {
     const processData = async () => {
       setLoading(true)
-
+      
       const {response, err} = await api.getUserData()
       if(err && err.code && err.code === "ERR_NETWORK") {
         setError(t("MISC.unexpected_error") + " " + t("MISC.error_contact"));
@@ -144,11 +148,50 @@ export default function Website() {
         const targetObject = websiteListForWebsitePage.find(obj => obj.name === name);
         if(targetObject) {
           setData(targetObject)
-          console.log(targetObject.successDetailsTable)
           const list = pagesListTable(targetObject.pages, moment)
           setPagesList(list)
           setWebsiteStats(createStatisticsObject(targetObject, moment))
-          console.log("OLA MUNDO")
+          const websiteStatsVar = createStatisticsObject(targetObject, moment)
+          console.log("websiteStatsVar", targetObject)
+          setIndicators([
+            {
+              title: t("STATISTICS.gauge.label"),
+              value: websiteStatsVar.score
+            },
+            {
+              title: t("STATISTICS.oldest_page_updated"),
+              value: moment(targetObject.oldestPage).format("LL")
+            },
+            {
+              title: t("STATISTICS.newest_page_updated"),
+              value: moment(targetObject.recentPage).format("LL")
+            },
+            {
+              title: t("STATISTICS.pages"),
+              value: targetObject.nPages
+            },
+            {
+              title: t("STATISTICS.pages_without_errors"),
+              value: targetObject.pagesWithoutErrors
+            },
+            {
+              title: t("STATISTICS.pages_with_errors"),
+              value: targetObject.pagesWithErrors
+            },
+            {
+              title: t("STATISTICS.pages_without_errors_a"),
+              value: targetObject.pagesWithoutErrorsA
+            },
+            {
+              title: `${t("STATISTICS.pages_without_errors_a_aa")} ${t("STATISTICS.pages_without_errors_a_aa_info")}`,
+              value: targetObject.pagesWithoutErrorsAA
+            },
+            {
+              title: `${t("STATISTICS.pages_without_errors_a_aa_aaa")} ${t("STATISTICS.pages_without_errors_a_aa_aaa_info")}`,
+              value: targetObject.pagesWithoutErrorsAAA
+            }
+
+          ])
         } else {
           navigate(`${pathURL}user`)
         }
@@ -197,6 +240,37 @@ export default function Website() {
       ]
     })
 
+    setIndicators([
+      {
+        title: t("STATISTICS.average_score"),
+        value: websiteStats.score
+      },
+      {
+        title:t("STATISTICS.oldest_page_updated"),
+        value: moment(targetObject.oldestPage).format("LL")
+      },
+      {
+        title: t("STATISTICS.newest_page_updated"),
+        value: moment(targetObject.recentPage).format("LL")
+      },
+      {
+        title: t("STATISTICS.n_entities"),
+        value: targetObject.nEntities
+      },
+      {
+        title: t("STATISTICS.n_websites"),
+        value: targetObject.nWebsites
+      },
+      {
+        title: t("STATISTICS.n_pages"),
+        value: targetObject.nPages
+      },
+      {
+        title: t("STATISTICS.n_pages_per_website"),
+        value: targetObject.nPages / targetObject.nWebsites
+      }
+    ])
+
     const list = pagesListTable(targetObject.pages, moment)
     setPagesList(list)
   }, [language])
@@ -214,7 +288,7 @@ export default function Website() {
       </div>
       <div className={`container website ${websiteDark}`}>
         <div className="link_breadcrumb_container d-flex flex-row justify-content-between align-items-center">
-          <Breadcrumb data={breadcrumbs} darkTheme={theme} />
+          <Breadcrumb data={breadcrumbs} darkTheme={theme} tagHere={t("HEADER.ariaLabelBreadcrumb")} />
           <Button
             darkTheme={theme}
             className={"align-self-center logout"}
@@ -231,7 +305,8 @@ export default function Website() {
             {!error ?
               <>
                 <section className={`bg-white py-2 mt-5 d-flex flex-row justify-content-center`}>
-                  <StatisticsHeader
+                  <Indicators listItems={indicators} />
+                  {/*<StatisticsHeader
                     darkTheme={theme}
                     stats={websiteStats}
                     statsTitles={statsTitles}
@@ -243,7 +318,8 @@ export default function Website() {
                     gaugeTitle={[t("STATISTICS.gauge.label")]}
                     gaugeDescription={t("STATISTICS.gauge.description_p", {value: websiteStats.score})}
                     buttons={false}
-                  />
+                  />*/
+                  }
                 </section>
 
                 {/* Radar Graph */}

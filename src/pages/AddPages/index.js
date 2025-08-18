@@ -52,7 +52,6 @@ export default function AddPages() {
     setAnnounceTitle(pageTitle);
   }, []);
   const breadcrumbs = [
-    { children: <Link to={`${pathURL}`}>{t("HEADER.NAV.ecosystem")}</Link> },
     { children: <Link to={`${pathURL}user`}>{t("HEADER.NAV.home")}</Link> },
     {
       children: <Link to={`${pathURL}user/${name}`}>{name}</Link>
@@ -217,7 +216,7 @@ export default function AddPages() {
       </div>
       <div className={`container ${homeDark}`}>
         <div className="link_breadcrumb_container d-flex flex-row justify-content-between align-items-center ">
-          <Breadcrumb data={breadcrumbs} darkTheme={theme} />
+          <Breadcrumb data={breadcrumbs} darkTheme={theme} tagHere={t("HEADER.ariaLabelBreadcrumb")} />
           <Button
             darkTheme={theme}
             className={"align-self-center logout"}
