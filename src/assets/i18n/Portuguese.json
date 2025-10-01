@@ -357,6 +357,54 @@
     "no_websites": {
       "message1": "Atualmente não contém nenhum sítio web",
       "message2": "Por favor contate o administrador para lhe atribuir sítios web"
+    },
+    "add_button": "Importar avaliação"
+  },
+    "UPLOAD_EVALUATIONS_PAGE": {
+    "ADD": {
+      "title": "Importar nova avaliação de página",
+      "website_label": "Sítio web",
+      "website_invalid": "Sítio web inválido",
+      "uri_label": "Uri",
+      "uri_invalid": "Uri inválido",
+      "reset": "Limpar",
+      "submit": "Criar",
+      "messages": {
+        "success": "Avaliação importada com sucesso",
+        "error": "Erro ao importar a avaliação"
+      },
+      "error_dialog": {
+        "title": "Erros",
+        "message": "Ocorreram alguns erros ao tentar importar a seguinte avaliação:"
+      },
+      "upload_evaluation": "Importar avaliação (ficheiro .csv)",
+      "evaluation_warning": "O ficheiro de avaliação necessita de ter sido gerado automaticamente pela extensão do chrome do AccessMonitor.",
+      "evaluation_uris_invalid": "Pelo menos um dos uris no ficheiro dado é inválido",
+      "evaluation_type_invalid": "O ficheiro dado não é do tipo .csv",
+      "evaluation_file_invalid": "O ficheiro dado é inválido",
+      "file_input": "Escolha o ficheiro",
+      "progress": {
+        "title": "Adicionar páginas - progresso",
+        "total_uris": "Total uris:",
+        "elapsed_uris": "Uris decorridos:",
+        "remaining_uris": "Uris em falta:",
+        "success_uris": "Uris com sucesso:",
+        "error_uris": "Uris com erro:",
+        "current_uri": "Uri atual:",
+        "uris_with_errors": "Ver uris com erros",
+        "close": "Fechar",
+        "close_dialog": {
+          "title": "Terminar processo",
+          "description": "Fechar a janela irá terminar o processo em execução. Pretende terminar o processo?",
+          "no": "Não",
+          "yes": "Sim"
+        }
+      }
+    },
+    "DIALOG": {
+      "title": "Informação",
+      "message": "A avaliação foi importada com sucesso.",
+      "close": "Fechar"
     }
   },
   "PAGES": {

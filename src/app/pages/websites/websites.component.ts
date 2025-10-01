@@ -6,6 +6,8 @@ import { Website } from "../../models/website";
 import orderBy from "lodash.orderby";
 import { MonitorService } from "src/app/services/monitor.service";
 import { WebsiteListService } from "src/app/services/website-list.service";
+import { UploadEvaluationCSVDialogComponent } from "src/app/dialogs/upload-evaluation-csvdialog/upload-evaluation-csvdialog.component";
+import { MatDialog } from "@angular/material/dialog";
 
 @Component({
   selector: "app-websites",
@@ -30,7 +32,8 @@ export class WebsitesComponent implements OnInit {
 
   constructor(
     private websiteList: WebsiteListService,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
+    private readonly dialog: MatDialog
   ) {
     this.loading = true;
     this.error = false;
@@ -199,4 +202,10 @@ export class WebsitesComponent implements OnInit {
       );
     }
   }
+
+    openUploadEvaluation(){
+      this.dialog.open(UploadEvaluationCSVDialogComponent, {
+        width: "60vw",
+      });
+    }
 }
