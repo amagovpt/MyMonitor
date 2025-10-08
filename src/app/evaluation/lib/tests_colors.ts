@@ -98,7 +98,7 @@ const tests_colors = {
   heading_01: "G",
   heading_02: "R",
   heading_03: "G",
-  heading_04: "R"
+  heading_04: "R",
 };
 
 export default tests_colors;
