@@ -3,11 +3,11 @@
   "version": "1.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build:dev": "ng build --configuration production --build-optimizer --base-href=\"/mm/\"",
-    "build:prod": "ng build --configuration production --build-optimizer",
-    "build:stats": "ng build --configuration production --build-optimizer --stats-json",
-    "test": "ng test",
+    "start": "NODE_OPTIONS=--openssl-legacy-provider ng serve --port 4201",
+    "build:dev": "NODE_OPTIONS=--openssl-legacy-provider ng build --configuration production --build-optimizer --base-href=\"/mm/\"",
+    "build:prod": "NODE_OPTIONS=--openssl-legacy-provider ng build --configuration production --build-optimizer",
+    "build:stats": "NODE_OPTIONS=--openssl-legacy-provider ng build --configuration production --build-optimizer --stats-json",
+    "test": "NODE_OPTIONS=--openssl-legacy-provider ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
