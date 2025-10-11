@@ -115,7 +115,9 @@
           "previous_page": "Página anterior",
           "next_page": "Página seguinte",
           "last_page": "Última página"
-        }
+        },
+        "upload_manual_evaluation": "Importar avaliação manual",
+        "upload_extension_evaluation": "Importar avaliação da extensão"
       }
     },
     "STATISTICS": {
@@ -251,6 +253,85 @@
     "LAST_PAGE_LABEL": "Última páginas",
     "RANGE_PAGE_LABEL_1": "0 de {{length}}",
     "RANGE_PAGE_LABEL_2": "{{startIndex}} - {{endIndex}} de {{length}}",
+    "UPLOAD_MANUAL_EVALUATION": {
+      "title": "Importar avaliação manual",
+      "tutorial_text": "Importe uma avaliação manual do seu sítio web através de uma das seguintes opções:",
+      "content_aspects_checklist": "Checklist dos aspetos de conteúdo",
+      "functional_aspects_checklist": "Checklist dos aspetos funcionais",
+      "transactional_aspects_checklist": "Checklist dos aspetos transacionais",
+      "sitemap": {
+        "evaluation_title": "Escolher tipo de avaliação do sítio web:",
+        "file_title": "Inserir avaliação do sítio web:",
+        "warning_text": "Obter avaliação manual de sítio web",
+        "type_invalid": "O ficheiro inserido não é do tipo .json",
+        "eval_text": "Avaliar sítio web",
+        "content_aspects_checklist_url": "com a checklist dos aspetos de conteúdo",
+        "functional_aspects_checklist_url": "com a checklist dos aspetos funcionais",
+        "transactional_aspects_checklist_url": "com a checklist dos aspetos transacionais",
+        "comma": ",",
+        "and": "e"
+      },
+      "evaluation_type_label": "Escolher checklist",
+      "file_name_label": "Escolher ficheiro",
+      "button": "Importar avaliação",
+      "DIALOG": {
+        "title": "Informação",
+        "message": "A avaliação foi importada com sucesso.",
+        "close": "Fechar"
+      },
+      "FILE_ERROR": {
+        "content_aspects_checklist": "O ficheiro dado não corresponde à template original da checklist dos aspetos de conteúdo!",
+        "functional_aspects_checklist": "O ficheiro dado não corresponde à template original da checklist dos aspetos funcionais!",
+        "transactional_aspects_checklist": "O ficheiro dado não corresponde à template original da checklist dos aspetos transacionais!",
+        "invalid_url": "O ficheiro dado não contém um URL correspondente ao do sítio web!"
+      }
+    },
+    "UPLOAD_EXTENSION_EVALUATION": {
+      "ADD": {
+        "title": "Importar avaliação da extensão",
+        "tutorial_text": "Importe uma avaliação da extensão do AccessMonitor de uma página do seu sítio web",
+        "uri_label": "Escolher página web:",
+        "uri_invalid": "Uri inválido",
+        "reset": "Limpar",
+        "submit": "Importar avaliação",
+        "messages": {
+          "success": "Avaliação importada com sucesso",
+          "error": "Erro ao importar a avaliação"
+        },
+        "error_dialog": {
+          "title": "Erros",
+          "message": "Ocorreram alguns erros ao tentar importar a seguinte avaliação:"
+        },
+        "file_title": "Inserir avaliação da página web:",
+        "upload_evaluation": "Escolher ficheiro",
+        "evaluation_warning": "O ficheiro de avaliação necessita de ter sido gerado automaticamente pela extensão do chrome do AccessMonitor.",
+        "evaluation_uri_invalid": "O uri do ficheiro dado não pertence a esta página",
+        "evaluation_type_invalid": "O ficheiro dado não é do tipo .csv",
+        "evaluation_file_invalid": "O ficheiro dado é inválido",
+        "progress": {
+          "title": "Adicionar páginas - progresso",
+          "total_uris": "Total uris:",
+          "elapsed_uris": "Uris decorridos:",
+          "remaining_uris": "Uris em falta:",
+          "success_uris": "Uris com sucesso:",
+          "error_uris": "Uris com erro:",
+          "current_uri": "Uri atual:",
+          "uris_with_errors": "Ver uris com erros",
+          "close": "Fechar",
+          "close_dialog": {
+            "title": "Terminar processo",
+            "description": "Fechar a janela irá terminar o processo em execução. Pretende terminar o processo?",
+            "no": "Não",
+            "yes": "Sim"
+          }
+        }
+      },
+      "DIALOG": {
+        "title": "Informação",
+        "message": "A avaliação foi importada com sucesso.",
+        "close": "Fechar"
+      }
+    },
     "ADD_PAGES": {
       "title": "Adicionar páginas",
       "subtitle": "Adicione páginas a este sítio web",
