@@ -277,7 +277,7 @@ export default function Website() {
 
   return (
     <>
-    <Helmet>
+      <Helmet>
         <title>{pageTitle}</title>
       </Helmet>
       <div
@@ -298,8 +298,25 @@ export default function Website() {
             onClick={() => logoutUser(setLoading, setError, navigate, t)}
           />
         </div>
-
-        <h1 className="bold my-2">{name}</h1>
+        <div className="title-container">
+          <h1 className="bold my-2">{name}</h1>
+          <div className="d-flex flex-row gap-1">
+            <Button 
+              darkTheme={theme} 
+              variant={"success"}
+              text={t("WEBSITE_TABLE.table.upload_manual_evaluation")} 
+              onClick={() => navigate("upload-manual-evaluation")}
+              iconRight={<Icon name="AMA-Mais-Line" />} 
+            />
+            <Button 
+              darkTheme={theme} 
+              variant={"success"}
+              text={t("WEBSITE_TABLE.table.upload_extension_evaluation")} 
+              onClick={() => navigate("upload-extension-evaluation")} 
+              iconRight={<Icon name="AMA-Mais-Line" />}
+            />
+          </div>
+        </div>
         {!loading ?
           <>
             {!error ?
