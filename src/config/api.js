@@ -143,6 +143,53 @@ const apiCalls = {
     return {response, err}
   },
 
+  async uploadExtensionEvaluation(data) {
+    const pageId = data.pageId;
+
+    data = data.data;
+
+    let err
+    const token = localStorage.getItem('MM-SSID');
+    const response = await apiE.post(`/evaluation/myMonitor/amp/extension/${pageId}`, { data })
+    .catch(function (error) {
+      err = error;
+    })
+
+    return {response, err}
+  },
+
+  async uploadManualEvaluation(data) {
+    const t = data.t;
+    const checklist = data.checklist;
+
+    data = data.data;
+
+    let err, response;
+    const token = localStorage.getItem('MM-SSID');
+    switch (checklist) {
+      case t("UPLOAD_MANUAL_EVALUATION.content_aspects_checklist"):
+        response = await apiE.post(`/content-aspects/create`, { jsonData: data })
+          .catch(function (error) {
+            err = error;
+          });
+        break;
+      case t("UPLOAD_MANUAL_EVALUATION.functional_aspects_checklist"):
+        response = await apiE.post(`/functional-aspects/create`, { jsonData: data })
+          .catch(function (error) {
+            err = error;
+          });
+        break;
+      case t("UPLOAD_MANUAL_EVALUATION.transactional_aspects_checklist"):
+        response = await apiE.post(`/transaction-aspects/create`, { jsonData: data })
+          .catch(function (error) {
+            err = error;
+          });
+        break;
+    }
+
+    return {response, err}
+  },
+
   async addPageCreate(pages, startingUrl, website) {
     let err
     const stringifiedPages = JSON.stringify(pages)
@@ -332,5 +379,5 @@ const local = {
 
 
 
-//export const api = apiCalls;
-export const api = local;
+export const api = apiCalls;
+// export const api = local;

@@ -188,7 +188,7 @@ input[type=file] {
     .overflow {
         overflow-x: auto;
     }
-
+    
     .main_dark .good_bad .nav-tabs .nav-link.active,
     .main_dark .tabs_section .nav-tabs .nav-link.active {
         background-color: var(--ama-color-text-blue) !important;
@@ -202,13 +202,10 @@ input[type=file] {
         margin-bottom: 10px;
     }
 
-
-    .modal_alert {
-        bottom: 25vh;
-        width: 300px;
-        left: 200px;
-        bottom: 25vh;
+    .best_practises .table {
+        width: 700px !important;
     }
+
 
     .modal_container .close_modal span {
         display: none;
@@ -357,13 +354,13 @@ input[type=file] {
     margin-left: 30px;
 
 }
- text[text-anchor="middle"][font-family="Lato"][font-size="10"] {
-fill: black;
-  }
 
-.title-container {
-    display: inline-flex;
+.modal_dialog {
+    display: flex;
+    justify-content: center;
     align-items: center;
-    width: 100%;
-    justify-content: space-between;
+}
+
+.modal_button {
+    width: fit-content;
 }

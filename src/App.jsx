@@ -16,9 +16,11 @@ import PageCode from './pages/PageCode'
 import Error from "./pages/Error"
 import AddPages from "./pages/AddPages";
 import LoginRedirect from "./pages/LoginRedirect";
-//export const pathURL = process.env.REACT_APP_DEV_SERVER_URL;
+import UploadManualEvaluation from "./pages/UploadManualEvaluation";
+import UploadExtensionEvaluation from "./pages/UploadExtensionEvaluation";
+export const pathURL = process.env.REACT_APP_DEV_SERVER_URL;
 //export const pathURL = process.env.REACT_APP_PPR_SERVER_URL;
-export const pathURL = process.env.REACT_APP_PROD_SERVER_URL;
+// export const pathURL = process.env.REACT_APP_PROD_SERVER_URL;
 
 export default function App() {
 
@@ -35,6 +37,8 @@ export default function App() {
             <Route path={`${pathURL}user/:name/:page/code`} element={<PageCode />} />
             <Route path={`${pathURL}user/:name/:page/:detail`} element={<Details />} />
             <Route path={`${pathURL}user/:name/add-pages`} element={<AddPages />} />
+            <Route path={`${pathURL}user/:name/upload-manual-evaluation`} element={<UploadManualEvaluation />} />
+            <Route path={`${pathURL}user/:name/upload-extension-evaluation`} element={<UploadExtensionEvaluation />} />
 
             {/* Error page needs to be last */}
             <Route path={`${pathURL}*`} element={<Error />} />
