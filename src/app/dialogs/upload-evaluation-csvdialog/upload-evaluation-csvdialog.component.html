@@ -1,0 +1,88 @@
+<div fxLayout="row">
+  <h1 class="mat-display-1" mat-dialog-title>{{ "UPLOAD_EVALUATIONS_PAGE.ADD.title" | translate }}</h1>
+  <span fxFlex></span>
+  <button mat-icon-button aria-label="Close dialog" mat-dialog-close>
+    <mat-icon aria-hidden="false">close</mat-icon>
+  </button>
+</div>
+<form (submit)="uploadEvaluation($event)" [formGroup]="pageForm" novalidate>
+  <mat-dialog-content fxLayout="column" fxLayoutAlign="start stretch">
+    <div class="add-website-block" fxLayout="column" *ngIf="!loadingWebsites">
+      <mat-form-field>
+        <label for="pages_website_input">
+          {{ "UPLOAD_EVALUATIONS_PAGE.ADD.website_label" | translate }}
+        </label>
+        <input id="pages_website_input" type="text" aria-label="Website Name" matInput formControlName="website" [matAutocomplete]="auto" [errorStateMatcher]="matcher" autofocus required>
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option *ngFor="let website of filteredWebsites | async" [value]="website.StartingUrl" (click)="loadPages()">
+            {{ website.StartingUrl }}
+          </mat-option>
+        </mat-autocomplete>
+        <button type="button" *ngIf="pageForm.value.website" matSuffix mat-icon-button aria-label="Clear" (click)="pageForm.controls.website.reset()">
+          <mat-icon aria-hidden="false">clear</mat-icon>
+        </button>
+        <mat-error *ngIf="pageForm.controls.website.hasError('required')" [innerHTML]="'MISC.required_field' | translate"></mat-error>
+        <mat-error *ngIf="pageForm.controls.website.hasError('validWebsite')">
+          {{ "UPLOAD_EVALUATIONS_PAGE.ADD.website_invalid" | translate }}
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="add-page-block" fxLayout="column" *ngIf="!loadingWebsites">
+      <mat-form-field>
+        <label for="pages_uris_input">
+          {{ "UPLOAD_EVALUATIONS_PAGE.ADD.uri_label" | translate }}
+        </label>
+        <input id="pages_uris_input" type="text" aria-label="Page URL" matInput formControlName="uri" [matAutocomplete]="auto" [errorStateMatcher]="matcher" autofocus required>
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option *ngFor="let page of filteredPages | async" [value]="page.Uri" (click)="selectPage()">
+            {{ page.Uri }}
+          </mat-option>
+        </mat-autocomplete>
+        <button type="button" *ngIf="pageForm.value.uri" matSuffix mat-icon-button aria-label="Clear" (click)="pageForm.controls.uri.reset()">
+          <mat-icon aria-hidden="false">clear</mat-icon>
+        </button>
+        <mat-error *ngIf="pageForm.controls.uri.hasError('required')" [innerHTML]="'MISC.required_field' | translate"></mat-error>
+        <mat-error *ngIf="pageForm.controls.uri.hasError('validPage')">
+          {{ "UPLOAD_EVALUATIONS_PAGE.ADD.uri_invalid" | translate }}
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="add-evaluation-block" fxLayout="column" *ngIf="!loadingWebsites">
+      <div class="form-group">
+        <label for="file" matTooltip="{{ 'UPLOAD_EVALUATIONS_PAGE.ADD.evaluation_warning' | translate}}"
+               matTooltipPosition="above">
+          {{ "UPLOAD_EVALUATIONS_PAGE.ADD.upload_evaluation" | translate}}
+        </label>
+        <br>
+        <input type="file" id="file" formControlName="files" accept="text/csv"
+               (change)="handleFileInput($event.target.files)">
+        <button type="button" *ngIf="pageForm.value.files" matSuffix mat-icon-button aria-label="Clear" (click)="resetFile()">
+          <mat-icon aria-hidden="false">clear</mat-icon>
+        </button>
+        <mat-error *ngIf="pageForm.hasError('required')" [innerHTML]="'MISC.required_field' | translate"></mat-error>
+        <mat-error *ngIf="fileErrorMessage == 'invalidUri'">
+          {{ "UPLOAD_EVALUATIONS_PAGE.ADD.evaluation_uris_invalid" | translate }}
+        </mat-error>
+        <mat-error *ngIf="fileErrorMessage == 'invalidType'">
+          {{ "UPLOAD_EVALUATIONS_PAGE.ADD.evaluation_type_invalid" | translate }}
+        </mat-error>
+        <mat-error *ngIf="fileErrorMessage == 'invalidFile'">
+          {{ "UPLOAD_EVALUATIONS_PAGE.ADD.evaluation_file_invalid" | translate }}
+        </mat-error>
+        <br>
+      </div>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions fxLayout="row">
+    <span fxFlex></span>
+    <button mat-raised-button color="warn" type="button" (click)="resetForm()">
+      {{ "UPLOAD_EVALUATIONS_PAGE.ADD.reset" | translate }}
+    </button>
+    <button mat-raised-button color="primary" type="submit" [disabled]="pageForm.controls.website.invalid ||
+    pageForm.hasError('required') || pageForm.controls.uri.invalid || fileErrorMessage != '' || fileLoading"
+            *ngIf="!loadingUpload">
+      {{ "UPLOAD_EVALUATIONS_PAGE.ADD.submit" | translate }}
+    </button>
+    <span *ngIf="loadingUpload"><strong>{{ "MISC.loading" | translate }}</strong></span>
+  </mat-dialog-actions>
+</form>
