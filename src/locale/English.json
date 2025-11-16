@@ -514,7 +514,7 @@
         "levels": "Errors by compliance level",
         "date": "Date",
         "see_tooltip": "See page",
-        "note": "*evaluation from AccessMonitor extension",
+        "note": "*evaluation sourced from AccessMonitor extension",
         "paginator": {
           "of": " of ",
           "items": " items",
@@ -573,7 +573,7 @@
         "title": "Evaluation",
         "subtitle": "practices detected, which can be classified by:",
         "grade": "Grade",
-        "note": "(from AccessMonitor extension)",
+        "note": "(sourced from AccessMonitor extension)",
         "tabs": {
           "A": "Excelent",
           "B": "Great",

@@ -162,7 +162,7 @@ export default function Evaluation() {
           <>
             <section className="sumary_container bg-white my-5 py-4 px-5">
               <h2>{t("RESULTS.summary.title")}</h2>
-              <div className="d-flex flex-row mt-5 mb-5 justify-content-between align-items-center container_uri_chart gap-3">
+              <div className="d-flex flex-row mt-5 justify-content-between align-items-center container_uri_chart gap-3">
                 <div className="mobile_width w-25 text-center">
                   {scoreDataFormatted > 0 && <Gauge percentage={scoreDataFormatted} darkTheme={theme} title={[t("RESULTS.summary.score")]} screenReaderTitle={t("STATISTICS.gauge.description_s", {value: scoreDataFormatted})}  />}
                 </div>
@@ -178,6 +178,9 @@ export default function Evaluation() {
                   </div>
                 </div>
               </div>
+              {fromExtension && <div className="d-flex flex-row mb-5">
+                <span>{t("RESULTS.results.note")}</span>
+              </div>}
               <div className="d-flex flex-row justify-content-between align-items-center container_uri_chart gap-3">
                 <div className="mobile_width d-flex flex-column gap-4 w-25">
                   <div className="d-flex flex-column text-center">
@@ -206,11 +209,7 @@ export default function Evaluation() {
             </section>
 
             <section className="bg-white avaliation_container my-5 py-4 px-5">
-              <div className="d-flex flex-row justify-content-between">
-                <h2 className="mb-3">{t("RESULTS.results.title")}</h2>
-                {fromExtension && t("RESULTS.results.note")}
-              </div>
-
+              <h2 className="mb-3">{t("RESULTS.results.title")}</h2>
               {dataProcess && <TableComponent
                 data={optionForAccordion(t, dataProcess)}
                 onClick={(elem) => setAllDataResult(elem, parsedData?.result?.data)}
