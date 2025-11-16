@@ -8,9 +8,8 @@ import Modal from 'react-modal';
 // Dark / Light Theme Context
 import { ThemeContext } from "../../../../context/ThemeContext";
 
-import { SortingTable, Button, Icon } from "ama-design-system";
-
-import { AddPagesSection } from './addPagesSection';
+import { Button, Icon } from "ama-design-system";
+import { SortingTable } from "../SortingTable";
 
 import { getPagesSortingTable } from "../../utils";
 import { pathURL } from "../../../../App";
@@ -194,6 +193,7 @@ export function PagesTable({ data, pagesList, setPagesList, name, parsedData, ma
           project={`${pathURL}`}
           setCheckboxesSelected={setPagesSelected}
           ariaLabels={ariaLabels}
+          note={t("PAGES.table.note")}
         />}
       </div>
     </>

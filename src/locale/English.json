@@ -502,6 +502,8 @@
         "headerTable": "Page"
       },
       "table": {
+        "title": "Website pages",
+        "subtitle": "List of pages",
         "filter": "Select all",
         "filterCell": "Select ",
         "page": "Page",
@@ -512,7 +514,7 @@
         "levels": "Errors by compliance level",
         "date": "Date",
         "see_tooltip": "See page",
-        "note": "* Number of errors for each conform level",
+        "note": "*evaluation from AccessMonitor extension",
         "paginator": {
           "of": " of ",
           "items": " items",
@@ -542,6 +544,7 @@
         "re_evaluate": "Re-evaluate page",
         "download": "Download evaluation results",
         "pagecode": "See page code",
+        "see_page": "See page",
         "open_webpage": "Open webpage"
       },
       "summary": {
@@ -570,6 +573,7 @@
         "title": "Evaluation",
         "subtitle": "practices detected, which can be classified by:",
         "grade": "Grade",
+        "note": "(from AccessMonitor extension)",
         "tabs": {
           "A": "Excelent",
           "B": "Great",

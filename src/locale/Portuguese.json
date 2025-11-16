@@ -519,7 +519,7 @@
         "date": "Data",
         "levels": "Erros por nível de conformidade",
         "see_tooltip": "Ver páginas",
-        "note": "* Número de erros por nível de conformidade",
+        "note": "*avaliação proveniente da extensão do AccessMonitor",
         "paginator": {
           "of": " de ",
           "items": " itens",
@@ -578,6 +578,7 @@
         "title": "Avaliação",
         "subtitle": "práticas detectadas, que se podem classificar por:",
         "grade": "Nota",
+        "note": "(proveniente da extensão do AccessMonitor)",
         "tabs": {
           "A": "Excelente",
           "B": "Muito boa",

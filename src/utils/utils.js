@@ -326,8 +326,7 @@ export function getData(website, pages, websiteList, websiteListForWebsitePage, 
       } else if (new Date(page.Evaluation_Date) < oldestPage) {
         oldestPage = new Date(page.Evaluation_Date);
       }
-    
-
+      
       const pageObject = {
         id: page.PageId,
         Uri: page.Uri,
@@ -340,6 +339,7 @@ export function getData(website, pages, websiteList, websiteListForWebsitePage, 
         AAA: page.AAA,
         Tot: page.Tot,
         Errors: page.Errors,
+        FromExtension: page.FromExtension,
       }
       delete pageObject.PageId;
       pagesTable.push(pageObject)
