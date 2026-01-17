@@ -4,14 +4,14 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class ConfigService {
-
+ 
   private server: string;
 
   constructor() {
     const host = location.hostname;
 
     if (host === 'localhost') {
-      this.server = 'http://localhost:3000';
+      this.server = 'http://localhost/api';
     } else {
       this.server = '/api';
     }

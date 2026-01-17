@@ -63,9 +63,9 @@ import { UploadEvaluationCSVDialogComponent } from './dialogs/upload-evaluation-
 
 const appRoutes: Routes = [
   { path: 'critical-aspects', component: CriticalAspectsComponent, canActivate: [NoAuthGuard] },
-  // { path: '', component: LoginComponent, canActivate: [NoAuthGuard] },
-  { path: '', component: LoginGovComponent, canActivate: [NoAuthGuard] },
-  { path: 'loginRedirect', component: LoginGovRedirectComponent, canActivate: [NoAuthGuard] },
+   { path: '', component: LoginComponent, canActivate: [NoAuthGuard] },
+  //{ path: '', component: LoginGovComponent, canActivate: [NoAuthGuard] },
+  //{ path: 'loginRedirect', component: LoginGovRedirectComponent, canActivate: [NoAuthGuard] },
   { path: 'user', component: UserComponent, canActivate: [UserAuthGuard], children: [
     { path: '', component: WebsitesComponent, canActivate: [UserAuthGuard] },
     { path: ':website', component: WebsiteComponent, canActivate: [UserAuthGuard]},
