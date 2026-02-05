@@ -11,9 +11,9 @@ export class ConfigService {
     const host = location.hostname;
 
     if (host === 'localhost') {
-      this.server = 'http://localhost/api';
+      this.server = 'http://localhost:3000';
     } else {
-      this.server = '/api';
+      this.server = '/';
     }
   }
 
