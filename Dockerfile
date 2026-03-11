@@ -7,6 +7,9 @@ COPY package*.json ./
 RUN npm ci
 
 FROM base AS development 
+WORKDIR /app
+COPY --from=base /app/node_modules ./node_modules
+
 COPY . .
 
 EXPOSE 4201
