@@ -61,6 +61,8 @@ import { CriticalAspectsComponent } from './pages/critical-aspects/critical-aspe
 import { SuccessfulUploadEvaluationDialogComponent } from './dialogs/successful-upload-evaluation-dialog/successful-upload-evaluation-dialog.component';
 import { UploadEvaluationCSVDialogComponent } from './dialogs/upload-evaluation-csvdialog/upload-evaluation-csvdialog.component';
 import { environment } from '../environments/environment';
+import { LazyMergeTranslateLoader } from './translation.merge';
+
 
 const authRoutes = () => {
   if(environment.authMethod === 'local') {
@@ -90,7 +92,7 @@ const appRoutes: Routes = [
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
+  return new LazyMergeTranslateLoader(http);
 }
 
 @NgModule({
