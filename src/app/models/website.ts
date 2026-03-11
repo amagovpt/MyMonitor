@@ -1,5 +1,5 @@
 import { Page } from "./page";
-import tests from "../tests";
+import { ruleset } from "@a12e/accessmonitor-rulesets";
 import clone from "lodash.clonedeep";
 import orderBy from "lodash.orderby";
 
@@ -85,13 +85,13 @@ export class Website {
     const pageErrors = page.evaluation.errors;
 
     for (const key in page.evaluation.tot.results || {}) {
-      const test = tests[key]["test"];
-      const elem = tests[key]["elem"];
+      const test = ruleset[key]["test"];
+      const elem = ruleset[key]["elem"];
       const occurrences =
         pageErrors[test] === undefined || pageErrors[test] < 1
           ? 1
           : pageErrors[test];
-      const result = tests[key]["result"];
+      const result = ruleset[key]["result"];
 
       if (result === "failed") {
         if (Object.keys(this.errors).includes(key)) {
@@ -150,7 +150,7 @@ export class Website {
           key,
           n_elems: this.errors[key].n_elems,
           n_pages: this.errors[key].n_pages,
-          test: tests[key].test
+          test: ruleset[key].test
         });
       }
     }
@@ -165,7 +165,7 @@ export class Website {
         key,
         n_occurrences: this.success[key].n_occurrences,
         n_pages: this.success[key].n_pages,
-        test: tests[key].test
+        test: ruleset[key].test
       });
     }
 
@@ -180,8 +180,8 @@ export class Website {
     const occurrences = new Array<number>();
 
     for (const p of this.pages) {
-      const error = p.evaluation.tot["elems"][tests[test]["test"]];
-      if (error && tests[test]["result"] === "failed") {
+      const error = p.evaluation.tot["elems"][ruleset[test]["test"]];
+      if (error && ruleset[test]["result"] === "failed") {
         if (error === "langNo" || error === "titleNo") {
           occurrences.push(1);
         } else {
@@ -195,10 +195,10 @@ export class Website {
   getPassedOccurrencesByPage(test: string): Array<number> {
     const occurrences = new Array<number>();
     for (const page of this.pages || []) {
-      const practice = page.evaluation.tot.elems[tests[test]["test"]];
+      const practice = page.evaluation.tot.elems[ruleset[test]["test"]];
       if (
         page.evaluation.tot.results[test] &&
-        tests[test]["result"] === "passed"
+        ruleset[test]["result"] === "passed"
       ) {
         if (!practice) {
           occurrences.push(1);
@@ -214,11 +214,11 @@ export class Website {
     const occurrences = new Array<number>();
 
     for (const p of this.pages) {
-      const error = p.evaluation.tot["elems"][tests[test]["test"]];
+      const error = p.evaluation.tot["elems"][ruleset[test]["test"]];
       if (
         error &&
-        (tests[test]["result"] === "passed" ||
-          tests[test]["result"] === "warning")
+        (ruleset[test]["result"] === "passed" ||
+          ruleset[test]["result"] === "warning")
       ) {
         occurrences.push(error);
       }
@@ -232,10 +232,10 @@ export class Website {
       if (this.success[key]) {
         practices.push({
           key,
-          test: tests[key].test,
+          test: ruleset[key].test,
           n_occurrences: this.success[key].n_occurrences,
           n_pages: this.success[key].n_pages,
-          lvl: tests[key].level.toUpperCase(),
+          lvl: ruleset[key].level.toUpperCase(),
           quartiles: this.calculateQuartiles(
             this.getPassedOccurrencesByPage(key)
           ),
@@ -259,10 +259,10 @@ export class Website {
       if (this.errors[key]) {
         practices.push({
           key,
-          test: tests[key].test,
+          test: ruleset[key].test,
           n_occurrences: this.errors[key].n_occurrences,
           n_pages: this.errors[key].n_pages,
-          lvl: tests[key].level.toUpperCase(),
+          lvl: ruleset[key].level.toUpperCase(),
           quartiles: this.calculateQuartiles(
             this.getErrorOccurrencesByPage(key)
           ),

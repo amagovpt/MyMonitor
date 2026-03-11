@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from "@angular/core";
 import orderBy from "lodash.orderby";
-import tests from "src/app/tests";
+import { ruleset } from "@a12e/accessmonitor-rulesets";
 
 @Component({
   selector: "app-top-three-practices",
@@ -29,8 +29,8 @@ export class TopThreePracticesComponent implements OnInit {
           key,
           n_occurrences: this.data[key].n_occurrences,
           n_pages: this.data[key].n_pages,
-          lvl: tests[key].level.toUpperCase(),
-          test:tests[key].test
+          lvl: ruleset[key].level.toUpperCase(),
+          test:ruleset[key].test
         });
       }
     }

@@ -10,7 +10,8 @@ import * as includes from "lodash.includes";
 import * as size from "lodash.size";
 import * as slice from "lodash.slice";
 import * as without from "lodash.without";
-import tests from "../../tests";
+import { ruleset } from "@a12e/accessmonitor-rulesets";
+
 import users from "../../users";
 import { CorrectionData } from "../correction-distribution-dialog/correction-distribution-dialog.component";
 
@@ -68,7 +69,7 @@ export class ErrorDistributionDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private translate: TranslateService
   ) {
-    this.testsFile = tests;
+    this.testsFile = ruleset;
     this.errors = this.data.errors;
 
     this.existingElemGroups = [];
@@ -273,13 +274,11 @@ export class ErrorDistributionDialogComponent implements OnInit {
   ): ErrorData {
     let descr, elemName;
     this.translate.get(translations).subscribe((res: any) => {
-      descr = res["ELEMS." + tests[key]["test"]];
+      descr = res["ELEMS." + ruleset[key]["test"]];
       elemName = res["TEST_ELEMENTS." + tot["elem"]];
     });
 
-    const scs = tests[key]["scs"].split(",").map((scs) => scs.trim()) || [
-      tests[key]["scs"].trim(),
-    ];
+    const scs = ruleset[key]["scs"].map((scs) => scs.trim()) || [];
     const fps = new Array<string>();
 
     for (const sc of scs || []) {
@@ -297,11 +296,11 @@ export class ErrorDistributionDialogComponent implements OnInit {
 
     return {
       key: key,
-      level: tests[key]["level"].toUpperCase(),
+      level: ruleset[key]["level"].toUpperCase(),
       elem: tot["elem"],
       element: elemName,
       description: descr,
-      scs: tests[key]["scs"],
+      scs: ruleset[key]["scs"].join(",") || "",
       fps: fps.join(", "),
       websites: tot["n_websites"],
       pages: tot["n_pages"],
