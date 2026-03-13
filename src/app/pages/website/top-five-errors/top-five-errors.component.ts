@@ -1,7 +1,6 @@
 import { Component, OnInit, Input } from "@angular/core";
 import orderBy from "lodash.orderby";
-import _tests from "../../../tests";
-
+import { ruleset } from "@a12e/accessmonitor-rulesets";
 @Component({
   selector: "app-top-five-errors",
   templateUrl: "./top-five-errors.component.html",
@@ -17,7 +16,7 @@ export class TopFiveErrorsComponent implements OnInit {
   errorsAAA: any;
 
   constructor() {
-    this.tests = _tests;
+    this.tests = ruleset;
   }
 
   ngOnInit() {
