@@ -1,0 +1,226 @@
+.ama.sorting_table_responsive .sorting_table {
+    width: 100% !important;
+}
+
+.ama.sorting_table_responsive .sorting_table tr {
+    height: 50px;
+}
+
+.ama.sorting_table_responsive .sorting_table thead tr th,
+.ama.sorting_table_responsive .sorting_table thead tr td {
+    color: var(--ama-color-background-white);
+    font-family: var(--fonte-lato);
+    font-size: 16px;
+    vertical-align: middle;
+    background-color: transparent;
+}
+
+.ama.sorting_table_responsive .sorting_table thead tr {
+    background-color: var(--ama-color-text-gray) !important;
+    border-bottom: 1px solid var(--ama-color-text-gray);
+}
+
+.ama.sorting_table_responsive .sorting_table thead tr:not(:only-child) th {
+    border: 1px solid var(--ama-color-background-light-darker);
+}
+
+.ama.sorting_table_responsive .sorting_table thead tr:last-child th {
+    background-color: transparent !important;
+}
+
+.ama.sorting_table_responsive .sorting_table tr th.first-show i:first-child {
+    opacity: 100%;
+    font-size: 25px;
+}
+
+.ama.sorting_table_responsive .sorting_table tr th i {
+    opacity: 0%;
+}
+
+.ama.sorting_table_responsive .sorting_table tr th:hover {
+    cursor: pointer !important;
+}
+
+.ama.sorting_table_responsive .sorting_table tr th.show_icon i {
+    opacity: 100%;
+}
+
+.ama.sorting_table_responsive .sorting_table tr th:hover i {
+    opacity: 70%;
+}
+
+.ama.sorting_table_responsive .sorting_table thead tr td {
+    vertical-align: middle;
+}
+
+.ama.sorting_table_responsive .sorting_table tbody tr {
+    border-bottom: 1px solid var(--ama-color-text-gray);
+    background-color: var(--ama-color-background-white) !important;
+}
+
+.ama.sorting_table_responsive .sorting_table tbody tr td {
+    vertical-align: middle;
+    background-color: transparent !important;
+}
+
+.ama.sorting_table_responsive .sorting_table tbody tr td:first-child {
+    width: 70px;
+    height: 72px;
+}
+
+.ama.sorting_table_responsive .sorting_table tbody tr td:last-child {
+    width: 8em;
+}
+
+.ama.sorting_table_responsive .sorting_table .left {
+    text-align: left !important;
+    padding-left: 16px !important;
+}
+
+.ama.sorting_table_responsive .sorting_table .right {
+    text-align: right !important;
+    padding-right: 16px !important; 
+}
+
+.ama.sorting_table_responsive .sorting_table .show_icon tr th i {
+    opacity: 100%;
+}
+
+.ama.sorting_table_responsive .sorting_table tr td i {
+    color: var(--ama-color-background-white);
+    font-size: 25px;
+}
+
+.ama.sorting_table_responsive .sorting_table .multi-text {
+    border-bottom-width: 0px !important;
+    text-align: left;
+}
+
+.ama.sorting_table_responsive .pagination_section {
+    padding: 2em;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.ama.sorting_table_responsive .pagination_section .selection {
+    padding: .5em;
+    margin-left: 10px;
+    margin-right: 10px;
+    border: 2px solid var(--ama-color-brand-primary);
+}
+
+.ama.sorting_table_responsive .pagination_section button {
+    margin: .5em;
+    border-radius: 50%;
+    font-size: 18px;
+    font-weight: 700;
+    padding: .5em;
+    width: 68px;
+    height: 68px;
+    border: none;
+    color: var(--ama-color-grey-900);
+    background-color: var(--ama-color-background-light-darker);
+    cursor: pointer;
+}
+
+.ama.sorting_table_responsive .pagination_section button i {
+    color: var(--table-pagination-select-text);
+}
+
+.ama.sorting_table_responsive .pagination_section button.button_dir {
+    transform: rotate(180deg);
+}
+
+.ama.sorting_table_responsive .pagination_section button.disabled {
+    opacity: .3;
+    cursor: auto;
+}s
+
+.ama.sorting_table_responsive .sorting_table tr th.no_pointer,
+.ama.sorting_table_responsive .sorting_table tr th:hover.no_pointer {
+    cursor: text !important;
+}
+
+.ama.sorting_table_responsive .sorting_table tbody tr td a {
+    color: var(--ama-color-brand-primary) !important;
+    text-decoration: none !important;
+    width: 100%;
+    cursor: pointer;
+}
+
+.ama.sorting_table_responsive .sorting_table tbody tr:hover td a {
+    text-decoration: underline !important;
+}
+
+.ama.sorting_table_responsive .sorting_table tbody tr td .span_code code {
+    color: #DC3545 !important;
+    text-decoration: none;
+}
+
+.ama.sorting_table_responsive .sorting_table .checkbox input[type=checkbox] {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--ama-color-brand-primary);
+    flex-shrink: 0;
+}
+
+.ama.sorting_table_responsive {
+    overflow: auto;
+}
+
+
+/* MOBILE */
+@media (min-width: 320px) and (max-width: 480px) {
+    .ama.sorting_table_responsive .sorting_table {
+        background-color: var(--ama-color-background-white);
+    }
+
+    .ama.sorting_table_responsive.dark {
+        background-color: var(--ama-color-background-dark-darker);
+    }
+
+    .ama.sorting_table_responsive .pagination {
+        flex-direction: column !important;
+    }
+
+    .ama.sorting_table_responsive .pagination_section button {
+        width: 55px;
+        height: 55px;
+        margin: .2em;
+    }
+}
+
+/* DARK TABLE */
+.ama.sorting_table_responsive.dark,
+.ama.sorting_table_responsive.dark .sorting_table tbody tr td,
+.ama.sorting_table_responsive.dark .sorting_table tbody tr td .sortingTableButton,
+.ama.sorting_table_responsive.dark .sorting_table tbody tr td a {
+    color: var(--ama-color-background-white) !important;
+}
+
+.ama.sorting_table_responsive.dark,
+.ama.sorting_table_responsive.dark .sorting_table tbody tr {
+    background-color: var(--ama-color-background-dark-lighter) !important;
+}
+
+.ama.sorting_table_responsive.dark .sorting_table tbody tr,
+.ama.sorting_table_responsive.dark .sorting_table tbody tr:last-child {
+    border-bottom: 1px solid var(--ama-color-grey-400) !important;
+}
+
+.ama.sorting_table_responsive.dark .sorting_table tbody tr td a {
+    color: var(--ama-color-background-white) !important;
+}
+
+.ama.sorting_table_responsive.dark .sorting_table tbody tr td .span_code code {
+    color: var(--ama-color-red-300) !important;
+    text-decoration: none;
+}
+
+.ama.sorting_table_responsive .pagination.dark .pagination_section .selection {
+    background-color: var(--ama-color-background-dark-lighter);
+    color: var(--table-pagination-select-text);
+    border: 2px solid var(--ama-color-text-blue);
+}

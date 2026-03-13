@@ -399,13 +399,18 @@ export function getPagesSortingTable(t, name) {
     },
     Show_In: { type: "Skip", center: false, bold: false, decimalPlace: false },
     Score: { type: "Number", center: true, bold: false, decimalPlace: false },
-    Evaluation_Date: { type: "Text", center: true, bold: false, decimalPlace: false },
+    Evaluation_Date: { 
+      type: "Text", center: true, bold: false, decimalPlace: false, children: (row, data) => {
+        return row['FromExtension'] === 1 ? `${data} *` : data;
+      } 
+    },
     A: { type: "Number", center: true, bold: false, decimalPlace: false, headers: "conformidade A" },
     AA: { type: "Number", center: true, bold: false, decimalPlace: false, headers: "conformidade AA" },
     AAA: { type: "Number", center: true, bold: false, decimalPlace: false, headers: "conformidade AAA" },
     Tot: { type: "Skip", center: false, bold: false, decimalPlace: false },
     Creation_Date: { type: "Skip", center: false, bold: false, decimalPlace: false },
     Errors: { type: "Skip", center: false, bold: false, decimalPlace: false },
+    FromExtension: { type: "Extension", center: false, bold: false, decimalPlace: false },
   }
 
   let paginationButtonsTexts = [
