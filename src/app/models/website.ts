@@ -85,6 +85,8 @@ export class Website {
     const pageErrors = page.evaluation.errors;
 
     for (const key in page.evaluation.tot.results || {}) {
+      if(!ruleset[key]) continue;
+      
       const test = ruleset[key]["test"];
       const elem = ruleset[key]["elem"];
       const occurrences =
