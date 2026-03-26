@@ -13,7 +13,7 @@
   },
   "private": true,
   "dependencies": {
-    "@a12e/accessmonitor-rulesets": "^1.0.2",
+    "@a12e/accessmonitor-rulesets": "^1.0.3",
     "@angular/animations": "^12.2.11",
     "@angular/cdk": "^12.2.11",
     "@angular/common": "^12.2.11",
