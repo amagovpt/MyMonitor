@@ -1,4 +1,6 @@
 export const environment = {
   production: true,
-  authMethod: 'gov'
+  authMethod: 'gov',
+  apiUrl: ''
+
 };

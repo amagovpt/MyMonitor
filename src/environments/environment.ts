@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  authMethod: 'local'
+  authMethod: 'local',
+  apiUrl: ''
 };
 
 /*

@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class ConfigService {
     if (host === 'localhost') {
       this.server = 'http://localhost:3000';
     } else {
-      this.server = '/';
+      this.server =  `${environment.apiUrl}`;
     }
   }
 
