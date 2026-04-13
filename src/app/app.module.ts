@@ -58,17 +58,32 @@ import { LoginGovComponent } from './pages/login/login-gov/login-gov.component';
 import { LoginGovRedirectComponent } from './pages/login/login-gov-redirect/login-gov-redirect.component';
 import { ExitDialogComponent } from './dialogs/exit-dialog/exit-dialog.component';
 import { CriticalAspectsComponent } from './pages/critical-aspects/critical-aspects.component';
+import { SuccessfulUploadEvaluationDialogComponent } from './dialogs/successful-upload-evaluation-dialog/successful-upload-evaluation-dialog.component';
+import { UploadEvaluationCSVDialogComponent } from './dialogs/upload-evaluation-csvdialog/upload-evaluation-csvdialog.component';
+import { environment } from '../environments/environment';
+import { LazyMergeTranslateLoader } from './translation.merge';
+
+
+const authRoutes = () => {
+  if(environment.authMethod === 'local') {
+    return [{ path: '', component: LoginComponent, canActivate: [NoAuthGuard] }];
+  }else {
+    return [ { path: '', component: LoginGovComponent, canActivate: [NoAuthGuard] },
+  { path: 'loginRedirect', component: LoginGovRedirectComponent, canActivate: [NoAuthGuard] }];
+  }
+}
+
 
 const appRoutes: Routes = [
   { path: 'critical-aspects', component: CriticalAspectsComponent, canActivate: [NoAuthGuard] },
-  // { path: '', component: LoginComponent, canActivate: [NoAuthGuard] },
-  { path: '', component: LoginGovComponent, canActivate: [NoAuthGuard] },
-  { path: 'loginRedirect', component: LoginGovRedirectComponent, canActivate: [NoAuthGuard] },
+  ...authRoutes(),
   { path: 'user', component: UserComponent, canActivate: [UserAuthGuard], children: [
     { path: '', component: WebsitesComponent, canActivate: [UserAuthGuard] },
     { path: ':website', component: WebsiteComponent, canActivate: [UserAuthGuard]},
     { path: ':website', loadChildren: () => import('./evaluation/evaluation.module').then(m => m.EvaluationModule) }
     ] },
+
+    // TODO : Remove if not needed
 /*  { path: ':website/:page', component: EvaluationResultsComponent, canActivate: [UserAuthGuard] },
     { path: ':website/:page/code', component: WebpageCodeComponent, canActivate: [UserAuthGuard] },
     { path: ':website/:page/:ele', component: ElementResultComponent, canActivate: [UserAuthGuard] }*/
@@ -77,7 +92,7 @@ const appRoutes: Routes = [
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
+  return new LazyMergeTranslateLoader(http);
 }
 
 @NgModule({
@@ -121,7 +136,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     LoginGovComponent,
     LoginGovRedirectComponent,
     ExitDialogComponent,
-    CriticalAspectsComponent
+    CriticalAspectsComponent,
+    SuccessfulUploadEvaluationDialogComponent,
+    UploadEvaluationCSVDialogComponent
   ],
   imports: [
     RouterModule.forRoot(
@@ -155,7 +172,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     UserAuthErrorDialogComponent,
     AddPagesErrorsDialogComponent,
     BackgroundEvaluationsInformationDialogComponent,
-    CrawlerResultsDialogComponent
+    CrawlerResultsDialogComponent,
+    SuccessfulUploadEvaluationDialogComponent,
+    UploadEvaluationCSVDialogComponent
   ],
   providers: [
     {

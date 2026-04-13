@@ -16,10 +16,8 @@ import { MmError } from "../models/error";
 
 import { ConfigService } from "./config.service";
 
-import tests from "./tests";
-import scs from "./scs";
+import { ruleset,successCriteria, testColors } from "@a12e/accessmonitor-rulesets";
 import xpath from "./xpath";
-import tests_colors from "./tests_colors";
 
 @Injectable({
   providedIn: "root",
@@ -341,10 +339,10 @@ export class EvaluationService {
 
     let result = "G";
     const results = this.evaluation.processed.results.map((r) => r.msg);
-    for (const test in tests || {}) {
-      const _test = tests[test];
+    for (const test in ruleset || {}) {
+      const _test = ruleset[test];
       if (_test.test === ele && results.includes(test)) {
-        result = tests_colors[test];
+        result = testColors[test];
         break;
       }
     }
@@ -635,11 +633,11 @@ export class EvaluationService {
           typeof evaluation.data.nodes["img"] === "string"
             ? evaluation.data.nodes["img"].split(",")
             : evaluation.data.nodes["img"][0].split(",");
-      } else if (evaluation.data.nodes[tests[test].test] !== undefined) {
+      } else if (evaluation.data.nodes[ruleset[test].test] !== undefined) {
         pointers =
-          typeof evaluation.data.nodes[tests[test].test] === "string"
-            ? evaluation.data.nodes[tests[test].test].split(",")
-            : evaluation.data.nodes[tests[test].test][0].split(",");
+          typeof evaluation.data.nodes[ruleset[test].test] === "string"
+            ? evaluation.data.nodes[ruleset[test].test].split(",")
+            : evaluation.data.nodes[ruleset[test].test][0].split(",");
       }
 
       for (const pointer of pointers || []) {
@@ -648,8 +646,8 @@ export class EvaluationService {
             pointer: pointer.trim(),
             outcome:
               "earl:" +
-              (tests_colors[test] !== "Y"
-                ? tests_colors[test] === "G"
+              (testColors[test] !== "Y"
+                ? testColors[test] === "G"
                   ? "passed"
                   : "failed"
                 : "cantTell"),
@@ -663,8 +661,8 @@ export class EvaluationService {
         "@type": "TestResult",
         outcome:
           "earl:" +
-          (tests_colors[test] !== "Y"
-            ? tests_colors[test] === "G"
+          (testColors[test] !== "Y"
+            ? testColors[test] === "G"
               ? "passed"
               : "failed"
             : "cantTell"),
@@ -685,9 +683,9 @@ export class EvaluationService {
         test: {
           "@id": test,
           "@type": "TestCase",
-          title: this.translate.instant("TECHS." + tests[test].ref),
+          title: this.translate.instant("TECHS." + ruleset[test].ref),
           description: this.translate
-            .instant("TXT_TECHNIQUES." + tests[test].ref)
+            .instant("TXT_TECHNIQUES." + ruleset[test].ref)
             .replace("<p>", "")
             .replace("</p>", "")
             .replace("<code>", "")
@@ -1253,21 +1251,21 @@ export class EvaluationService {
       },
     };
 
-    for (const test in tests) {
+    for (const test in ruleset) {
       if (test) {
         if (tot.results[test]) {
-          const tes = tests[test]["test"];
-          const lev = tests[test]["level"];
-          const ref = tests[test]["ref"];
-          const ele = tests[test]["elem"];
+          const tes = ruleset[test]["test"];
+          const lev = ruleset[test]["level"];
+          const ref = ruleset[test]["ref"];
+          const ele = ruleset[test]["elem"];
 
           let color;
 
-          if (tests_colors[test] === "R") {
+          if (testColors[test] === "R") {
             color = "err";
-          } else if (tests_colors[test] === "Y") {
+          } else if (testColors[test] === "Y") {
             color = "war";
-          } else if (tests_colors[test] === "G") {
+          } else if (testColors[test] === "G") {
             color = "ok";
           }
 
@@ -1316,22 +1314,22 @@ export class EvaluationService {
           result["ref_website"] =
             "https://www.w3.org/WAI/WCAG21/Techniques/" + path + ref + ".html";
           result["relation"] =
-            tests[test]["ref"] === "F" ? "relationF" : "relationT";
+            ruleset[test]["ref"] === "F" ? "relationF" : "relationT";
           result["ref_related_sc"] = new Array();
           result["value"] = tnum;
           result["prio"] = color === "ok" ? 3 : color === "err" ? 1 : 2;
 
-          const scstmp = tests[test]["scs"].split(",");
+          const scstmp = ruleset[test]["scs"];
           const li = {};
           for (let s in scstmp) {
             if (s) {
               s = scstmp[s].trim();
               if (s !== "") {
                 li["sc"] = s;
-                li["lvl"] = scs[s]["1"];
+                li["lvl"] = successCriteria[s].level;
                 li["link"] =
                   "https://www.w3.org/TR/UNDERSTANDING-WCAG20/" +
-                  scs[s]["0"] +
+                  successCriteria[s].name +
                   ".html";
 
                 result["ref_related_sc"].push(clone(li));

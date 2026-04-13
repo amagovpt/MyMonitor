@@ -1,0 +1,11 @@
+Dockerfile
+node_modules/
+.git
+dist/
+
+
+# Environment secrets 
+.env
+.env.local
+.env.*.local
+.env.production

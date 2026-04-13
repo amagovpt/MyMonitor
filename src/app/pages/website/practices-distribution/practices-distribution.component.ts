@@ -7,7 +7,7 @@ import {
 } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
 import { Chart } from "chart.js";
-import tests from "src/app/tests";
+import { ruleset } from "@a12e/accessmonitor-rulesets";
 
 @Component({
   selector: "app-practices-distribution",
@@ -37,7 +37,7 @@ export class PracticesDistributionComponent implements OnInit, AfterViewInit {
   direction: any;
 
   constructor(private translate: TranslateService) {
-    this.tests = tests;
+    this.tests = ruleset;
   }
 
   ngOnInit() {
@@ -47,7 +47,7 @@ export class PracticesDistributionComponent implements OnInit, AfterViewInit {
     const translations = {};
 
     this.errors.map((k: any) => {
-      const test = tests[k["key"]].test;
+      const test = ruleset[k["key"]].test;
       translations["ELEMS." + test] = this.translate.instant(
         "ELEMS." + test,
         { value: k["n_occurrences"] }
