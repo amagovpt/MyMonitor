@@ -4,8 +4,9 @@
   "scripts": {
     "ng": "ng",
     "start": " NODE_OPTIONS=--openssl-legacy-provider ng serve --port 4201 --host 0.0.0.0 --public-host http://localhost/mymonitor/  --disable-host-check --base-href=\"/mymonitor/\"",
-    "build:dev": "NODE_OPTIONS=--openssl-legacy-provider ng build --configuration production --build-optimizer --base-href=\"/mm/\"",
-    "build:prod": "NODE_OPTIONS=--openssl-legacy-provider ng build --configuration production --build-optimizer --base-href=\"/\"",
+    "build:dev": "NODE_OPTIONS=--openssl-legacy-provider ng build --configuration development --build-optimizer --base-href=\"/mm/\"",
+    "build:preprod": "NODE_OPTIONS=--openssl-legacy-provider ng build --configuration preproduction --build-optimizer --base-href=\"/mymonitor/\"",
+    "build:prod": "NODE_OPTIONS=--openssl-legacy-provider ng build --configuration production --build-optimizer --base-href=\"/mymonitor/\"",
     "build:stats": "NODE_OPTIONS=--openssl-legacy-provider ng build --configuration production --build-optimizer --stats-json",
     "test": "NODE_OPTIONS=--openssl-legacy-provider ng test",
     "lint": "ng lint",

@@ -1,6 +1,5 @@
 export const environment = {
   production: true,
   authMethod: 'gov',
-  apiUrl: ''
-
+  apiUrl: 'https://accessmonitor.acessibilidade.gov.pt/api'
 };
