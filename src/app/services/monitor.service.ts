@@ -112,6 +112,49 @@ export class MonitorService {
       );
   }
 
+  addUserPageEvaluation(data: any): Observable<boolean> {
+    const pageId = data.pageId;
+
+    data = data.data;
+    
+    return this.http
+      .post<any>(this.config.getServer(`/evaluation/myMonitor/amp/extension/${pageId}`), { data }, {
+        observe: "response",
+      })
+      .pipe(
+        map((res) => {
+          if (!res.body || res.status === 404) {
+            throw new MmError(404, "Service not found", "SERIOUS");
+          }
+
+          const response = <Response>res.body;
+
+          if (response.success !== 1) {
+            throw new MmError(
+              response.success,
+              response.message,
+              "NORMAL",
+              response.errors,
+              response.result
+            );
+          }
+
+          return <boolean>response.result;
+        }),
+        catchError((err) => {
+          console.log(err);
+          if (err.code === 0) {
+            // this.dialog.open(UploadEvaluationErrorsDialogComponent, {
+            //   data: err.errors,
+            // });
+          } else {
+            this.message.show("MISC.unexpected_error");
+          }
+          return of(null);
+        })
+      );
+  }
+
   addWebsitePages(
     website: string,
     startingUrl: string,

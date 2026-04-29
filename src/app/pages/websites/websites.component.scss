@@ -57,10 +57,16 @@ a:hover {
   align-items: center;
 }
 
+.table-header{
+  columns: 2;
+}
+
 .btn-add{
   @extend %btn;
   font-size: 16px;
+  float: right;
   padding: 0.5em 1em;
+  margin-bottom: 1em;
   svg{
         margin-left: 0.5em;
   }}
